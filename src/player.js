@@ -3,20 +3,29 @@ import Character from "./character";
 import SETTINGS from "./settings";
 import GameState from "./gamestate";
 import MessageQueue from "./message-handler";
+import MonsterSpawner from "./monster-spawner";
 
 import calc from "./lib/directional-probability";
 
 export default class Player extends Character {
   
-  constructor(g, x, y, z) {
-    super(g, x, y, z);
-    this.currentTurn = 0;
+  constructor(x, y, z, opts) {
+    super(x, y, z, opts);
+    this.spawnSteps = 100; // spawn creatures every 100 steps
+  }
+  
+  getSpawnSteps() {
+    return this.getStat('spawnSteps');
   }
   
   act() {
-    this.currentTurn++;
+    super.act();
     var engine = this.game.engine;
     engine.lock();
+    
+    if(this.currentTurn % this.getSpawnSteps() === 0) {
+      this.spawnMonster();
+    }
     
     this.inspectSurroundings();
     
@@ -25,6 +34,9 @@ export default class Player extends Character {
   }
   
   inspectSurroundings() {
+    
+    if(this.tryAttack()) return;
+    
     var tiles = GameState.world.getAllTilesInRange(this.x, this.y, this.z, 1);
     
     for(let i = 0; i < tiles.length; i++) {
@@ -38,6 +50,10 @@ export default class Player extends Character {
     }
     
     this.tryMove(tiles);
+  }
+  
+  spawnMonster() {
+    MonsterSpawner.spawn(this);
   }
   
   tryMove(tiles) {

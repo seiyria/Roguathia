@@ -73,7 +73,7 @@ export default class Game {
     );
       
     let startTile = _.sample(playerLocations);
-    let player = new Player(this, {key: '@'}, 0, 0, 0);
+    let player = new Player({key: '@'}, 0, 0, 0);
     
     GameState.currentFloor = 0;
     GameState.world.moveEntity(player, startTile.x, startTile.y, 0);

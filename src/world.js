@@ -45,9 +45,6 @@ export default class World {
     return this.tiles[z][x][y];
   }
   
-  getEntitiesWithinRadius(x, y, z, radius) {}
-  addEntityToFloor(entity, z) {}
-  
   setupExplored() {
     for(var z=0; z<this.depth; z++) {
       this.explored[z] = [];
@@ -88,6 +85,10 @@ export default class World {
     return !this.getTile(x, y, z).isDense() && !this.getEntity(x, y, z) && !this.isVoid(x, y, z);
   }
   
+  isTilePassable(x, y, z) {
+    return this.getTile(x, y, z)._isAIPassable || this.isTileEmpty(x, y, z);
+  }
+  
   ensureLocation(x, y, z) {
     if(!this.entities[z]) this.entities[z] = [];
     if(!this.entities[z][x]) this.entities[z][x] = [];
@@ -106,6 +107,10 @@ export default class World {
     entity.y = y;
     entity.z = z;
     this.entities[z][x][y] = entity;
+  }
+  
+  removeEntity(entity) {
+    this.entities[entity.z][entity.x][entity.y] = null;
   }
   
   getEntity(x, y, z) {
@@ -165,14 +170,41 @@ export default class World {
   getValidTilesInRange(x, y, z, radius, filter = (tile) => true) {
     let tiles = [];
     
-    for(let newX = x - radius; newX <= x + radius; newX++) {
-      for(let newY = y - radius; newY <= y + radius; newY++) {
+    let lowerX = Math.max(x - radius, 0);
+    let upperX = Math.min(x + radius, this.width);
+    let lowerY = Math.max(y - radius, 0);
+    let upperY = Math.min(y + radius, this.height);
+    
+    for(let newX = lowerX; newX <= upperX; newX++) {
+      for(let newY = lowerY; newY <= upperY; newY++) {
+        if(!this.tiles[z][newX]) continue;
         let tile = this.tiles[z][newX][newY];
-        if(!this.isTileEmpty(x, y, z)) continue;
+        if(!tile) continue;
+        if(!this.isTileEmpty(newX, newY, z)) continue;
         tiles.push(tile);
       }
     }
 
     return _.filter(tiles, filter);
+  }
+  
+  getValidEntitiesInRange(x, y, z, radius, filter = (entity) => true) {
+    let entities = [];
+    
+    let lowerX = Math.max(x - radius, 0);
+    let upperX = Math.min(x + radius, this.width);
+    let lowerY = Math.max(y - radius, 0);
+    let upperY = Math.min(y + radius, this.height);
+    
+    for(let newX = lowerX; newX <= upperX; newX++) {
+      for(let newY = lowerY; newY <= upperY; newY++) {
+        this.ensureLocation(newX, newY, z);
+        let entity = this.entities[z][newX][newY];
+        if(!entity) continue;
+        entities.push(entity);
+      }
+    }
+
+    return _.filter(entities, filter);
   }
 }

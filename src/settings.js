@@ -5,6 +5,6 @@ export default {
     height: 24
   },
   game: {
-    turnDelay: 500
+    turnDelay: 50
   }
 };

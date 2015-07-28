@@ -53,9 +53,8 @@ export class GameScreen extends Screen {
     }
   }
   
-  // todo: draw messages ??? (pop from queue every time new message shows up, only show ~3)
   static drawHUD(display, player) {
-    var tag = `${player.name} the ${player.align} ${player.level}/${player.professionInst.level} ${player.professionInst.title}`;
+    var tag = `${player.name} the ${player.getAlign()} ${player.level}/${player.professionInst.level} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
     var stats = `STR:${player.getStr()} DEX:${player.getDex()} CON:${player.getCon()} INT:${player.getInt()} WIS:${player.getWis()} CHA:${player.getCha()}`;
     var miscInfo = `Floor:${1+GameState.currentFloor} $:${player.gold} HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max} AC:${player.getAC()} Turn:${player.currentTurn}`;
     
@@ -92,6 +91,7 @@ export class GameScreen extends Screen {
         if(!GameState.world.isExplored(x, y, centerPoint.z)) continue;
         
         var tile = world.getTile(x, y, zLevel);
+        if(!tile) continue; // no out of bounds drawing
         
         var glyph = tile.glyph;
         var foreground = glyph.fg;

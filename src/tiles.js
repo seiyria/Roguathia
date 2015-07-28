@@ -20,7 +20,7 @@ export class Corridor extends Tile { constructor() { super('#'); } }
 
 class Stairs extends Tile {
   canInteract(entity) {
-    return this.x === entity.x && this.y === entity.y && this.z === entity.z;
+    return this.distBetween(entity) === 0;
   }
 }
 export class StairsDown extends Stairs { 
@@ -54,6 +54,7 @@ export class Door extends Tile {
     let isClosed = !!Math.round(ROT.RNG.getUniform());
     let openChar = isClosed ? '-' : '+';
     super(openChar, 'gold');
+    this._isAIPassable = true;
     
     this.opacity = !~~isClosed;
     this.density = !~~isClosed;
