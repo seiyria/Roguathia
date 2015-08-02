@@ -82,11 +82,13 @@ export default class World {
   }
   
   isTileEmpty(x, y, z) {
-    return !this.getTile(x, y, z).isDense() && !this.getEntity(x, y, z) && !this.isVoid(x, y, z);
+    let tile = this.getTile(x, y, z);
+    return tile && !tile.isDense() && !this.getEntity(x, y, z) && !this.isVoid(x, y, z);
   }
   
   isTilePassable(x, y, z) {
-    return this.getTile(x, y, z)._isAIPassable || this.isTileEmpty(x, y, z);
+    let tile = this.getTile(x, y, z);
+    return tile && tile._isAIPassable || this.isTileEmpty(x, y, z);
   }
   
   ensureLocation(x, y, z) {

@@ -1,22 +1,13 @@
 
 import GameState from "./gamestate";
+import MessageQueue from "./message-handler";
 
 const PRIORITIES = {
+  STUN: 0,
   DEFENSE: 1,
   INTERACT: 3,
   MOVE: 5
 };
-
-export var Attacks = () => ({
-  priority: PRIORITIES.DEFENSE,
-  act: (me) => {
-    
-  }
-});
-
-/* behaviors are functionality that cascade, ie, a monster could have 10 behaviors that override die() */
-export var LeavesCorpse = (percent = 100) => ({ die: (me) => console.log('drop corpse here now plz') });
-export var Explodes = (roll, percent = 100) => ({ die: (me) => console.log('explodan') });
 
 let retarget = (me) => {
     if(!me.target || (me.target && me.target.hp.atMin())) {
@@ -28,27 +19,51 @@ let retarget = (me) => {
     return true; // successful retarget
 };
 
+export var Stunned = (numTurns = 1) => ({
+  stunTurns: numTurns,
+  priority: PRIORITIES.STUN,
+  act: (me) => {
+    if(this.stunTurns === 0) {
+      me.removeBehavior(this);
+      MessageQueue.add({message: `${me.name} is no longer stunned.`});
+      return;
+    }
+    
+    MessageQueue.add({message: `${me.name} is stunned!`});
+    this.stunTurns--;
+  }
+});
+
+export var Attacks = () => ({
+  priority: PRIORITIES.DEFENSE,
+  act: (me) => {
+    return !me.tryAttack(); //successful attack cancels subsequent action
+  }
+});
+
+/* behaviors are functionality that cascade, ie, a monster could have 10 behaviors that override die() */
+export var LeavesCorpse = (percent = 100) => ({ die: (me) => console.log('drop corpse here now plz') });
+export var Explodes = (roll, percent = 100) => ({ 
+  die: (me) => {
+    if(ROT.RNG.getPercentage() > percent) {
+      MessageQueue.add({message: `${me.name} explodes a little bit.`});
+      return;
+    }
+    MessageQueue.add({message: `${me.name} violently explodes!`});
+    _.each(GameState.world.getValidEntitiesInRange(me.x, me.y, me.z, 1), (entity) => {
+      if(me === entity) return; //infinite loop prevention
+      entity.takeDamage(+dice.roll(roll), me);
+    });
+  }
+});
+
 export var SeeksPlayer = () => ({
   priority: PRIORITIES.MOVE,
   act: (me) => {
     
     if(!retarget(me)) return;
     
-    let path = [];
-    let canPass = (x, y) => {
-      let isMe = me.x === x && me.y === y;
-      let isTarget = me.target.x === x && me.y === me.target.y;
-      return GameState.world.isTilePassable(x, y, me.z) || isMe || isTarget;
-    };
-    let astar = new ROT.Path.AStar(me.target.x, me.target.y, canPass, {topology: 8});
-    let addPath = (x, y) => path.push({x, y});
-    astar.compute(me.x, me.y, addPath);
-    
-    path.shift();
-    let step = path.shift();
-    if(!step) return;
-    
-    me.moveTo(step.x, step.y);
+    me.stepTowards(me.target);
     
     return false;
   }

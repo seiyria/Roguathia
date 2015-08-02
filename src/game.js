@@ -2,7 +2,7 @@ import SETTINGS from "./settings";
 import World from "./world";
 import GameState from "./gamestate";
 
-import {GameScreen} from "./screens";
+import {GameScreen, DeadScreen} from "./screens";
 
 import Player from "./player";
 
@@ -32,6 +32,10 @@ export default class Game {
   refresh() {
     this.display.clear();
     this.currentScreen.render(this.display);
+  }
+  
+  gameOver() {
+    this.switchScreen(DeadScreen);
   }
   
   switchScreen(screen) {

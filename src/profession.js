@@ -24,20 +24,23 @@ let defaultCfg = {
 
 class Profession {
   constructor(config) {
+    this.config = config;
     _.extend(this, defaultCfg, config, loadValue);
     this.level = 1;
     this.title = this.titles[0];
   }
   levelup() {
     this.level++;
-    if(this.titles[this.level]) {
-      this.title = this.titles[this.level];
+    if(this.titles[this.level-1]) {
+      this.title = this.titles[this.level-1];
     }
   }
 }
 
+export class Monster extends Profession {}
+
 let touristCfg = {
-  hp  : '1d10 + 3',
+  hp  : '1d10 + 5',
   mp  : '1d2 + 1',
   str : '1d3',
   con : '1d3',
@@ -45,9 +48,9 @@ let touristCfg = {
   dex : '1d2',
   wis : '1d2 - 3',
   cha : '1d3 + 1',
-  luk : '1d5',
+  luk : '1d3 - 1',
   gold: '1d1000',
-  titles : ['Rambler',, 'Sightseer',,, 'Excursionist',,, 'Perigrinator',,, 'Traveler',,, 'Journeyer',,, 'Voyager',,, 'Explorer',,, 'Adventurer']
+  titles: ['Rambler',, 'Sightseer',,, 'Excursionist',,, 'Perigrinator',,, 'Traveler',,, 'Journeyer',,, 'Voyager',,, 'Explorer',,, 'Adventurer']
 };
 
 export class Tourist extends Profession {
@@ -55,5 +58,3 @@ export class Tourist extends Profession {
     super(touristCfg);
   }
 }
-
-export class Monster extends Profession {}

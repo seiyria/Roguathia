@@ -1,12 +1,17 @@
 
 import SETTINGS from "./settings";
 import GameState from "./gamestate";
+import MessageQueue from "./message-handler";
 
 class Screen {
   static enter() {}
   static exit()  {}
   static render() {}
   static handleInput() {}
+  static drawCenterText(display, y, text) {
+    let x = Math.floor(SETTINGS.screen.width/2) - Math.floor(text.length/2);
+    display.drawText(x, y, text);
+  }
 }
 
 export class LoadScreen extends Screen {
@@ -19,7 +24,7 @@ export class LoadScreen extends Screen {
       display.clear();
       this.render(display);
       
-      display.drawText(33, 12, `Generating ${dotStatus[this.flicker]}`);
+      this.drawCenterText(display, 12, `Generating ${dotStatus[this.flicker]}`);
       
       this.flicker = ++this.flicker % dotStatus.length;
     }, 500);
@@ -30,7 +35,7 @@ export class LoadScreen extends Screen {
   }
   
   static render(display) {
-    display.drawText(29, 11, '-Welcome to Roguathia-');
+    this.drawCenterText(display,  11, '-Welcome to Roguathia-');
   }
 }
 
@@ -51,6 +56,8 @@ export class GameScreen extends Screen {
       if(!messageObj || messageObj.turn < player.currentTurn - 4) continue;
       display.drawText(0, y, messageObj.message);
     }
+    
+    MessageQueue.viewAllMessages();
   }
   
   static drawHUD(display, player) {
@@ -142,9 +149,16 @@ export class GameScreen extends Screen {
 }
 
 export class DeadScreen extends Screen {
-  
+  static render(display) {
+    this.drawCenterText(display, 11, '-Alas, you are slain!-');
+    
+    let latestDeath = _.max(GameState.players, 'currentTurn');
+    this.drawCenterText(display, 12, `${latestDeath.name} was killed by ${latestDeath.killerName}.`);
+  }
 }
 
 export class WinScreen extends Screen {
-  
+  static render(display) {
+    this.drawCenterText(display, 11, '-You have won!-');
+  }
 }

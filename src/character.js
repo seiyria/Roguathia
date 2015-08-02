@@ -4,6 +4,7 @@ import NumberRange from "./lib/number-range";
 import * as Professions from "./profession";
 import GameState from "./gamestate";
 import * as Attacks from "./attacks";
+import MessageQueue from "./message-handler";
 
 import loadValue from './lib/value-assign';
 
@@ -21,9 +22,9 @@ let defaultAttributes = {
   align: 0, 
   speed: 100, 
   sight: 7,
-  killXp: 0,
-  spawnHp: 15,
-  spawnMp: 0,
+  killXp: '0d0',
+  spawnHp: '15d1',
+  spawnMp: '0d0',
   regenHp: 20,
   regenMp: 10
 };
@@ -40,7 +41,9 @@ export default class Character extends Entity {
   
   constructor(glyph, x, y, z, opts = {stats: {}, attributes: {}}) {
     super(glyph, x, y, z);
+    
     this.currentTurn = 0;
+
     _.extend(this, defaultAttributes, opts.attributes, loadValue);
     _.extend(this, defaultStats, opts.stats);
     
@@ -65,20 +68,55 @@ export default class Character extends Entity {
     _.each(this.behaviors, (behavior) => {if(behavior[action]) return behavior[action].apply(this, args)}); // returning false from any behavior will cancel subsequent ones
   }
   
-  takeDamage(damage) {
+  takeDamage(damage, attacker) {
     this.hp.sub(damage);
     if(this.hp.atMin()) {
-      this.die();
+      this.die(attacker);
     }
   }
   
-  die() {
+  addBehavior(behavior) {
+    this.stats.behaviors.push(behavior);
+  }
+  
+  removeBehavior(behavior) {
+    this.stats.behaviors = _.without(this.status.behaviors, behavior);
+  }
+  
+  die(killer) {
     this.doBehavior('die');
+    MessageQueue.add({message: `${this.name} was killed by ${killer.name}!`});
+    killer.kill(this);
+    
+    this.killerName = killer.name;
+    
     this.game.scheduler.remove(this);
     GameState.world.removeEntity(this);
   }
   
-  tryMove() {}
+  kill(dead) {
+    this.gainXp(dead.killXp);
+    this.doBehavior('kill');
+  }
+  
+  stepTowards(target) {
+    let path = [];
+    let canPass = (x, y) => {
+      let isMe = this.x === x && this.y === y;
+      let isTarget = target.x === x && this.y === target.y;
+      return GameState.world.isTilePassable(x, y, this.z) || isMe || isTarget;
+    };
+    let astar = new ROT.Path.AStar(target.x, target.y, canPass, {topology: 8});
+    let addPath = (x, y) => path.push({x, y});
+    astar.compute(this.x, this.y, addPath);
+    
+    path.shift();
+    let step = path.shift();
+    if(!step) return false;
+    
+    this.moveTo(step.x, step.y);
+    return true;
+  }
   
   canAttack(entity) {
     return entity.constructor.name === 'Monster';
@@ -87,12 +125,13 @@ export default class Character extends Entity {
   tryAttack() {
     let attacks = this.getAttacks();
     attacks = _.filter(attacks, (atk) => atk.canUse(this));
-    if(attacks.length === 0) return;
+    if(attacks.length === 0) return false;
     
     _.each(attacks, (attack) => {
       let target = attack.possibleTargets(this)[0];
       attack.tryHit(this, target);
     });
+    return true;
   }
   
   act() {
@@ -102,9 +141,7 @@ export default class Character extends Entity {
     this.doBehavior('act');
   }
   
-  attack(entity, attacks) {
-    
-  }
+  attack(entity, attacks) {}
   
   moveTo(x, y) {
     GameState.world.moveEntity(this, x, y, this.z);
@@ -115,7 +152,15 @@ export default class Character extends Entity {
   }
   
   calcLevelXp(level) {
-    return 10 * Math.pow(level, 2);
+    return 10 * Math.pow(2, level);
+  }
+  
+  calcLevelHpBonus() {
+    return +dice.roll(this.professionInst.config.hp) + this.calcStatBonus('con');
+  }
+  
+  calcLevelMpBonus() {
+    return +dice.roll(this.professionInst.config.mp) + this.calcStatBonus('int');
   }
   
   gainXp(number) {
@@ -133,11 +178,17 @@ export default class Character extends Entity {
   
   levelup() {
     this.professionInst.levelup();
-    this.level++;
-    this.hp.max += +roll(this.professionInst.hp);
-    this.mp.max += +roll(this.professionInst.mp);
-    this.xp.max *= 2;
+    this.level += 1;
+    this.hp.max += this.calcLevelHpBonus();
+    this.mp.max += this.calcLevelMpBonus();
+    this.xp.max = this.calcLevelXp(this.level);
+    
+    //resets
     this.xp.cur = 0;
+    this.hp.cur = this.hp.max;
+    this.mp.cur = this.mp.max;
+    
+    MessageQueue.add({message: `${this.name} has reached experience level ${this.level}!`});
   }
   
   getAttacks() {

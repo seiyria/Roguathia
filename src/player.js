@@ -20,6 +20,7 @@ export default class Player extends Character {
   
   act() {
     super.act();
+    
     var engine = this.game.engine;
     engine.lock();
     
@@ -28,9 +29,9 @@ export default class Player extends Character {
     }
     
     this.inspectSurroundings();
+    this.game.refresh();
     
     setTimeout( () => engine.unlock(), SETTINGS.game.turnDelay/GameState.players.length);
-    this.game.refresh();
   }
   
   inspectSurroundings() {
@@ -44,12 +45,18 @@ export default class Player extends Character {
       
       if(tile.canInteract && tile.interact && tile.canInteract(this)) {
         let msg = tile.interact(this);
-        MessageQueue.add(this, msg);
+        MessageQueue.add({message: msg});
         return;
       }
     }
     
     this.tryMove(tiles);
+  }
+  
+  die(killer) {
+    super.die(killer);
+    GameState.game.gameOver();
+    GameState.game.engine.lock();
   }
   
   spawnMonster() {

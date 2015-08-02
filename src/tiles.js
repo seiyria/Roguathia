@@ -32,7 +32,7 @@ export class StairsDown extends Stairs {
   
   interact(entity) {
     entity.descend();
-    return `You descended the stairs.`; 
+    return `${entity.name} descended the stairs.`; 
   }
 }
 export class StairsUp extends Stairs { 
@@ -45,7 +45,7 @@ export class StairsUp extends Stairs {
   
   interact(entity) {
     entity.ascend();
-    return `You ascended the stairs.`; 
+    return `${entity.name} ascended the stairs.`; 
   }
 }
 
@@ -64,7 +64,7 @@ export class Door extends Tile {
     return this.density;
   }
   
-  interact() {
+  interact(entity) {
     let isOpen = this.glyph.key === '-';
     let toggleChar = isOpen ? '+' : '-';
     this.glyph.key = toggleChar;
@@ -72,6 +72,6 @@ export class Door extends Tile {
     this.opacity = !this.opacity;
     this.density = !this.density;
     
-    return `You ${isOpen ? 'closed': 'opened'} the door.`;
+    return `${entity.name} ${isOpen ? 'closed': 'opened'} the door.`;
   }
 }
