@@ -99,17 +99,28 @@ export default class Character extends Entity {
     this.doBehavior('kill');
   }
   
+  stepRandomly() {
+    var tiles = GameState.world.getAllTilesInRange(this.x, this.y, this.z, 1);
+    var validTiles = _.map(tiles, (tile, i) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z) ? i+1 : null); // 1-9 instead of 0-8
+    var direction = _(validTiles).compact().sample() - 1; // adjustment for array
+    var newTile = tiles[direction]; // default to a random tile
+    
+    if(this.lastDirection) {
+      let probs = calc(this.lastDirection + 1); //adjust for array
+      let choices = _(validTiles).map(tileIndex => tileIndex ? [tileIndex, probs[tileIndex]] : null).compact().zipObject().value();
+      direction = parseInt(ROT.RNG.getWeightedValue(choices)) - 1;
+      newTile = tiles[direction];
+    }
+    
+    this.move(newTile);
+    this.lastDirection = direction;
+  }
+  
   stepTowards(target) {
     let path = [];
-    let canPass = (x, y) => {
-      let isMe = this.x === x && this.y === y;
-      let isTarget = target.x === x && this.y === target.y;
-      return GameState.world.isTilePassable(x, y, this.z) || isMe || isTarget;
-    };
-    let astar = new ROT.Path.AStar(target.x, target.y, canPass, {topology: 8});
     let addPath = (x, y) => path.push({x, y});
-    astar.compute(this.x, this.y, addPath);
-    
+    target._path.compute(this.x, this.y, addPath);
+
     path.shift();
     let step = path.shift();
     if(!step) return false;
@@ -246,7 +257,7 @@ export default class Character extends Entity {
   
   
   toJSON() {
-    let me = _.omit(this, 'game');
+    let me = _.omit(this, ['game', '_path']);
     return JSON.stringify(me);
   }
 }

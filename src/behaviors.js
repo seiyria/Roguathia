@@ -2,6 +2,11 @@
 import GameState from "./gamestate";
 import MessageQueue from "./message-handler";
 
+import calc from "./lib/directional-probability";
+
+// behaviors are functionality that cascade, ie, a monster could have 10 behaviors that override die()
+
+// priorities determine the ordering of behavior execution
 const PRIORITIES = {
   STUN: 0,
   DEFENSE: 1,
@@ -9,7 +14,8 @@ const PRIORITIES = {
   MOVE: 5
 };
 
-let retarget = (me) => {
+// retarget and find a new player to attack
+let targetNewPlayer = (me) => {
     if(!me.target || (me.target && me.target.hp.atMin())) {
       me.target = _(GameState.players).reject(player => player.hp.atMin()).sample();
     }
@@ -19,6 +25,7 @@ let retarget = (me) => {
     return true; // successful retarget
 };
 
+/* being stunned sucks */
 export var Stunned = (numTurns = 1) => ({
   stunTurns: numTurns,
   priority: PRIORITIES.STUN,
@@ -34,6 +41,7 @@ export var Stunned = (numTurns = 1) => ({
   }
 });
 
+/* monsters can attack with this */
 export var Attacks = () => ({
   priority: PRIORITIES.DEFENSE,
   act: (me) => {
@@ -41,8 +49,10 @@ export var Attacks = () => ({
   }
 });
 
-/* behaviors are functionality that cascade, ie, a monster could have 10 behaviors that override die() */
+/* monsters leave a corpse */
 export var LeavesCorpse = (percent = 100) => ({ die: (me) => console.log('drop corpse here now plz') });
+
+/* explodes upon death. can be pretty dangerous */
 export var Explodes = (roll, percent = 100) => ({ 
   die: (me) => {
     if(ROT.RNG.getPercentage() > percent) {
@@ -57,11 +67,12 @@ export var Explodes = (roll, percent = 100) => ({
   }
 });
 
-export var SeeksPlayer = () => ({
+/* always seeks a target */
+export var Bloodthirsty = () => ({
   priority: PRIORITIES.MOVE,
   act: (me) => {
     
-    if(!retarget(me)) return;
+    if(!targetNewPlayer(me)) return;
     
     me.stepTowards(me.target);
     
@@ -69,22 +80,47 @@ export var SeeksPlayer = () => ({
   }
 });
 
-export var SeeksPlayerInSight = () => ({
+/* seeks a target if they're within vision range */
+export var SeeksTargetInSight = () => ({
   priority: PRIORITIES.MOVE,
   act: (me) => {
+    let possibleTargets = [];
+    
+    GameState.world.fov[me.z].compute(
+      me.x, me.y, me.getSight(), 
+      (x, y, radius, visibility) => {
+        let entity = GameState.world.getEntity(x, y, me.z);
+        if(!entity || !me.canAttack(entity)) return;
+        possibleTargets.push(entity);
+      }
+    );
+    
+    if(me.target && _.contains(possibleTargets, me.target)) {
+      me.stepTowards(me.target);
+      
+    } else if(possibleTargets.length > 0) {
+      me.target = _.sample(possibleTargets);
+      me.stepTowards(me.target);
+      
+    } else {
+      me.stepRandomly();
+    }
     
     return false;
   }
 });
 
+/* wanders around aimlessly */
 export var Wanders = () => ({
   priority: PRIORITIES.MOVE,
   act: (me) => {
+    me.stepRandomly();
     
     return false;
   }
 });
 
+/* breaks down doors that it finds */
 export var BreaksDoors = () => ({
   priority: PRIORITIES.INTERACT,
   act: (me) => {
@@ -93,10 +129,17 @@ export var BreaksDoors = () => ({
   }
 });
 
+/* opens doors that it finds */
 export var OpensDoors = () => ({
   priority: PRIORITIES.INTERACT,
   act: (me) => {
+    let doors = GameState.world.getValidTilesInRange(me.x, me.y, me.z, 1, (tile) => tile.constructor.name === 'Door' && tile.density);
+    if(doors.length > 0) {
+      let door = doors[0];
+      door.interact(me);
+      return false;
+    }
     
-    return false;
+    return true;
   }
 });

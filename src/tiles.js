@@ -60,18 +60,26 @@ export class Door extends Tile {
     this.density = !~~isClosed;
   }
   
+  getOpenChar(basedOn) {
+    let leftTileGlyph = basedOn.glyph.key;
+    return leftTileGlyph === '-' ? '|' : '-';
+  }
+  
   canInteract(entity) {
     return this.density;
   }
   
-  interact(entity) {
-    let isOpen = this.glyph.key === '-';
-    let toggleChar = isOpen ? '+' : '-';
+  setProperCharacter(basedOn = GameState.world.getTile(this.x - 1, this.y, this.z)) {
+    let isOpen = this.density;
+    let toggleChar = isOpen ? '+' : this.getOpenChar(basedOn);
     this.glyph.key = toggleChar;
-    
+  }
+  
+  interact(entity) {
     this.opacity = !this.opacity;
     this.density = !this.density;
+    this.setProperCharacter();
     
-    return `${entity.name} ${isOpen ? 'closed': 'opened'} the door.`;
+    return `${entity.name} ${this.density ? 'closed': 'opened'} the door.`;
   }
 }

@@ -15,6 +15,7 @@ export class Dungeon extends Generator {
       map[x][y].x = x;
       map[x][y].y = y;
       map[x][y].z = z;
+      return map[x][y];
     };
     
     // -3 to adjust for the UI components at the bottom
@@ -84,7 +85,8 @@ export class Dungeon extends Generator {
         if(ROT.RNG.getPercentage() < 70) {
           placeTile(Tiles.DungeonFloor, x, y);
         } else {
-          placeTile(Tiles.Door, x, y);
+          let door = placeTile(Tiles.Door, x, y);
+          door.setProperCharacter(map[x-1][y]);
         }  
       });
     });

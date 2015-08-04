@@ -22,7 +22,8 @@ export default class Monster extends Character {
   }
   
   toJSON() {
-    let me = _.omit(this, 'game', 'target');
+    let base = JSON.parse(super.toJSON());
+    let me = _.omit(base, 'target');
     return JSON.stringify(me);
   }
 }

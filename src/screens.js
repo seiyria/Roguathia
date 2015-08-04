@@ -95,7 +95,7 @@ export class GameScreen extends Screen {
     
     for(let x = offset.x; x < offset.x + SETTINGS.screen.width; x++) {
       for(let y = offset.y; y < offset.y + SETTINGS.screen.height; y++) {
-        if(!GameState.world.isExplored(x, y, centerPoint.z)) continue;
+        if(!GameState.world.isExplored(x, y, centerPoint.z) && !GameState.renderAll) continue;
         
         var tile = world.getTile(x, y, zLevel);
         if(!tile) continue; // no out of bounds drawing

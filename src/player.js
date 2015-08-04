@@ -24,6 +24,15 @@ export default class Player extends Character {
     var engine = this.game.engine;
     engine.lock();
     
+    let canPass = (x, y) => {
+      let entity = GameState.world.getEntity(x, y, this.z);
+      let isAttackable = entity && this.canAttack(entity);
+      let isMe = this.x === x && this.y === y;
+      return GameState.world.isTilePassable(x, y, this.z) || isMe || isAttackable;
+    };
+    
+    this._path = new ROT.Path.Dijkstra(this.x, this.y, canPass, {topology: 8});
+    
     if(this.currentTurn % this.getSpawnSteps() === 0) {
       this.spawnMonster();
     }
@@ -50,7 +59,7 @@ export default class Player extends Character {
       }
     }
     
-    this.tryMove(tiles);
+    this.stepRandomly();
   }
   
   die(killer) {
@@ -61,24 +70,6 @@ export default class Player extends Character {
   
   spawnMonster() {
     MonsterSpawner.spawn(this);
-  }
-  
-  tryMove(tiles) {
-    
-    var validTiles = _.map(tiles, (tile, i) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z) ? i+1 : null); // 1-9 instead of 0-8
-    
-    var direction = _(validTiles).compact().sample() - 1; // adjustment for array
-    var newTile = tiles[direction]; // default to a random tile
-    
-    if(this.lastDirection) {
-      let probs = calc(this.lastDirection + 1); //adjust for array
-      let choices = _(validTiles).map(tileIndex => tileIndex ? [tileIndex, probs[tileIndex]] : null).compact().zipObject().value();
-      direction = parseInt(ROT.RNG.getWeightedValue(choices)) - 1;
-      newTile = tiles[direction];
-    }
-    
-    this.move(newTile);
-    this.lastDirection = direction;
   }
   
   descend() {

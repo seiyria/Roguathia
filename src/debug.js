@@ -11,4 +11,10 @@ document.body.addEventListener('keydown', (e) => {
   } else {
     GameState.game.engine.unlock();
   }
-})
+});
+
+document.body.addEventListener('keydown', (e) => {
+  if(e.keyCode !== ROT.VK_R) return;
+  
+  GameState.renderAll = !GameState.renderAll;
+});

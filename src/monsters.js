@@ -5,13 +5,13 @@ import * as Attacks from "./attacks";
 export var gridBug =          { difficulty: 1, glyph: {key: 'x', fg: 'purple'}, spawnPattern: '1d2',
                                   attributes: {ac: -1, speed: 150, level: 1, killXp: '4d1', spawnHp: '1d4 + 1'}, 
                                   stats: {name: 'grid bug',
-                                    behaviors: [Behaviors.SeeksPlayer(), Behaviors.Attacks()], 
+                                    behaviors: [Behaviors.Bloodthirsty(), Behaviors.Attacks()], 
                                     attacks: [Attacks.ElectricTouch('1d2')] 
                                   }};
 export var newt =             { difficulty: 1, glyph: {key: ':', fg: 'yellow'}, spawnPattern: '1d1',
                                   attributes: {ac: -2, speed: 50, level: 1, killXp: '1d1', spawnHp: '1d4'}, 
                                   stats: {name: 'newt',  
-                                    behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksPlayer(), Behaviors.Attacks()], 
+                                    behaviors: [Behaviors.LeavesCorpse(), Behaviors.Bloodthirsty(), Behaviors.Attacks()], 
                                     attacks: [Attacks.Bite('1d2')]
                                   }};
 export var gasSpore =         { difficulty: 2, glyph: {key: 'e', fg: 'gray'}, spawnPattern: '1d1',
@@ -22,6 +22,6 @@ export var gasSpore =         { difficulty: 2, glyph: {key: 'e', fg: 'gray'}, sp
 export var jackal =           { difficulty: 2, glyph: {key: 'd', fg: 'brown'}, spawnPattern: '1d3 + 1',
                                   attributes: {ac: -3, speed: 125, level: 1, killXp: '1d3 + 3', spawnHp: '1d10 + 5', gold: '1d10', str: '1d3', dex: '1d3'}, 
                                   stats: {name: 'jackal', 
-                                    behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksPlayer(), Behaviors.Attacks()], 
+                                    behaviors: [Behaviors.LeavesCorpse(), Behaviors.Bloodthirsty(), Behaviors.Attacks()], 
                                     attacks: [Attacks.Bite('1d2')] 
                                   }};
