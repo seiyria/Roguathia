@@ -3,19 +3,21 @@ import Entity from "./entity";
 import NumberRange from "./lib/number-range";
 import * as Professions from "./profession";
 import GameState from "./gamestate";
-import * as Attacks from "./attacks";
+import Attacks from "./attacks";
 import MessageQueue from "./message-handler";
 
 import loadValue from './lib/value-assign';
+import calc from "./lib/directional-probability";
+
 
 let defaultAttributes = {
   ac:  0,
-  str: 7,
-  con: 7,
-  dex: 7,
-  int: 7,
-  wis: 7,
-  cha: 7,
+  str: 8,
+  con: 8,
+  dex: 8,
+  int: 8,
+  wis: 8,
+  cha: 8,
   luk: 0,
   gold: 0,
   level: 1,
@@ -47,7 +49,7 @@ export default class Character extends Entity {
     _.extend(this, defaultAttributes, opts.attributes, loadValue);
     _.extend(this, defaultStats, opts.stats);
     
-    this.behaviors = _.sortBy(this.behaviors, 'priority');
+    this.sortBehaviors();
     
     this.professionInst = new Professions[this.profession]();
     let [profHp, profMp] = [this.professionInst.hp, this.professionInst.mp];
@@ -58,14 +60,32 @@ export default class Character extends Entity {
     this.equipment = [];
     
     GameState.world.moveEntity(this, this.x, this.y, this.z);
-    
+     
     this.game = GameState.game;
     this.game.scheduler.add(this, true);
   }
   
   doBehavior(action, args = []) {
     args.unshift(this);
-    _.each(this.behaviors, (behavior) => {if(behavior[action]) return behavior[action].apply(this, args)}); // returning false from any behavior will cancel subsequent ones
+    _.each(this.behaviors, (behavior) => { if(behavior[action]) return behavior[action].apply(behavior, args); }); // returning false from any behavior will cancel subsequent ones
+  }
+  
+  sortBehaviors() {
+    this.behaviors = _.sortBy(this.behaviors, 'priority');
+  }
+  
+  addBehavior(behavior) {
+    this.behaviors.push(behavior);
+    this.sortBehaviors();
+  }
+  
+  addUniqueBehavior(behavior) {
+    if(_.contains(_.pluck(this.behaviors, 'constructor.name'), behavior.constructor.name)) return;
+    this.addBehavior(behavior);
+  }
+  
+  removeBehavior(behavior) {
+    this.behaviors = _.without(this.behaviors, behavior);
   }
   
   takeDamage(damage, attacker) {
@@ -73,14 +93,6 @@ export default class Character extends Entity {
     if(this.hp.atMin()) {
       this.die(attacker);
     }
-  }
-  
-  addBehavior(behavior) {
-    this.stats.behaviors.push(behavior);
-  }
-  
-  removeBehavior(behavior) {
-    this.stats.behaviors = _.without(this.status.behaviors, behavior);
   }
   
   die(killer) {
@@ -112,6 +124,7 @@ export default class Character extends Entity {
       newTile = tiles[direction];
     }
     
+    if(!newTile) return;
     this.move(newTile);
     this.lastDirection = direction;
   }
@@ -151,8 +164,6 @@ export default class Character extends Entity {
     if(this.currentTurn % this.regenMp === 0) this.mp.add(1);
     this.doBehavior('act');
   }
-  
-  attack(entity, attacks) {}
   
   moveTo(x, y) {
     GameState.world.moveEntity(this, x, y, this.z);
@@ -203,7 +214,7 @@ export default class Character extends Entity {
   }
   
   getAttacks() {
-    return [Attacks.Fist('1d4')];
+    return this.attacks && this.attacks.length ? this.attacks : [Attacks.Fist('1d4')];
   }
   
   getStat(stat) {
@@ -219,7 +230,7 @@ export default class Character extends Entity {
   }
   
   getAC() {
-    return 10 + this.getStat('ac');
+    return 10 + this.getStat('ac') - this.calcStatBonus('dex');
   }
   
   getStr() {

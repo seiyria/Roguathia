@@ -1,9 +1,6 @@
 
 import GameState from "./gamestate";
 import MessageQueue from "./message-handler";
-
-import calc from "./lib/directional-probability";
-
 // behaviors are functionality that cascade, ie, a monster could have 10 behaviors that override die()
 
 // priorities determine the ordering of behavior execution
@@ -11,7 +8,8 @@ const PRIORITIES = {
   STUN: 0,
   DEFENSE: 1,
   INTERACT: 3,
-  MOVE: 5
+  MOVE: 5,
+  DEFER: 10
 };
 
 // retarget and find a new player to attack
@@ -25,65 +23,94 @@ let targetNewPlayer = (me) => {
     return true; // successful retarget
 };
 
+class Behavior {
+  constructor(priority) {
+    this.priority = priority;
+  }
+}
+
 /* being stunned sucks */
-export var Stunned = (numTurns = 1) => ({
-  stunTurns: numTurns,
-  priority: PRIORITIES.STUN,
-  act: (me) => {
-    if(this.stunTurns === 0) {
+class StunnedBehavior extends Behavior {
+  constructor(numTurns = 1) {
+    super(PRIORITIES.STUN);
+    this.stunTurns = numTurns;
+  }
+  act(me) {
+    if(this.stunTurns <= 0) {
       me.removeBehavior(this);
       MessageQueue.add({message: `${me.name} is no longer stunned.`});
-      return;
+      return true;
     }
     
     MessageQueue.add({message: `${me.name} is stunned!`});
     this.stunTurns--;
+    return false;
   }
-});
+}
+
+export var Stunned = (numTurns) => new StunnedBehavior(numTurns);
 
 /* monsters can attack with this */
-export var Attacks = () => ({
-  priority: PRIORITIES.DEFENSE,
-  act: (me) => {
-    return !me.tryAttack(); //successful attack cancels subsequent action
+class AttacksBehavior extends Behavior {
+  constructor() { super(PRIORITIES.DEFENSE); }
+  act(me) {
+    return !me.tryAttack();
   }
-});
+}
+
+export var Attacks = () => new AttacksBehavior();
 
 /* monsters leave a corpse */
-export var LeavesCorpse = (percent = 100) => ({ die: (me) => console.log('drop corpse here now plz') });
+class LeavesCorpseBehavior extends Behavior {
+  constructor(dropPercent = 100) { 
+    super(PRIORITIES.DEFER);
+    this.dropPercent = dropPercent;
+  }
+  die(me) {
+    console.log('drop corpse');
+  }
+}
+
+export var LeavesCorpse = (percent) => new LeavesCorpseBehavior(percent);
 
 /* explodes upon death. can be pretty dangerous */
-export var Explodes = (roll, percent = 100) => ({ 
-  die: (me) => {
-    if(ROT.RNG.getPercentage() > percent) {
+class ExplodesBehavior extends Behavior {
+  constructor(roll = '1d4', percent = 100) {
+    super(PRIORITIES.DEFER);
+    this.roll = roll;
+    this.percent = percent;
+  }
+  
+  die(me) {
+    if(ROT.RNG.getPercentage() > this.percent) {
       MessageQueue.add({message: `${me.name} explodes a little bit.`});
       return;
     }
     MessageQueue.add({message: `${me.name} violently explodes!`});
     _.each(GameState.world.getValidEntitiesInRange(me.x, me.y, me.z, 1), (entity) => {
       if(me === entity) return; //infinite loop prevention
-      entity.takeDamage(+dice.roll(roll), me);
+      entity.takeDamage(+dice.roll(this.roll), me);
     });
   }
-});
+}
+
+export var Explodes = (roll, percent) => new ExplodesBehavior(roll, percent);
 
 /* always seeks a target */
-export var Bloodthirsty = () => ({
-  priority: PRIORITIES.MOVE,
-  act: (me) => {
-    
+class BloodthirstyBehavior extends Behavior {
+  constructor() { super(PRIORITIES.MOVE); }
+  act(me) {
     if(!targetNewPlayer(me)) return;
-    
     me.stepTowards(me.target);
-    
     return false;
   }
-});
+}
+export var Bloodthirsty = () => new BloodthirstyBehavior();
 
 /* seeks a target if they're within vision range */
-export var SeeksTargetInSight = () => ({
-  priority: PRIORITIES.MOVE,
-  act: (me) => {
+class SeeksTargetInSightBehavior extends Behavior {
+  constructor() { super(PRIORITIES.MOVE); }
+  act(me) {
     let possibleTargets = [];
     
     GameState.world.fov[me.z].compute(
@@ -108,31 +135,54 @@ export var SeeksTargetInSight = () => ({
     
     return false;
   }
-});
+}
+export var SeeksTargetInSight = () => new SeeksTargetInSightBehavior();
 
 /* wanders around aimlessly */
-export var Wanders = () => ({
-  priority: PRIORITIES.MOVE,
-  act: (me) => {
+class WandersBehavior extends Behavior {
+  constructor() { super(PRIORITIES.MOVE); }
+  act(me) {
     me.stepRandomly();
     
     return false;
   }
-});
+}
+export var Wanders = () => new WandersBehavior();
+
+/* interacts with everything */
+class InteractsBehavior extends Behavior {
+  constructor() { super(PRIORITIES.INTERACT); }
+  act(me) {
+    var tiles = GameState.world.getAllTilesInRange(me.x, me.y, me.z, 1);
+    
+    for(let i = 0; i < tiles.length; i++) {
+      let tile = tiles[i];
+      
+      if(tile.canInteract && tile.interact && tile.canInteract(me)) {
+        let msg = tile.interact(me);
+        MessageQueue.add({message: msg});
+        return false;
+      }
+    }
+    
+    return true;
+  }
+}
+export var Interacts = () => new InteractsBehavior();
 
 /* breaks down doors that it finds */
-export var BreaksDoors = () => ({
-  priority: PRIORITIES.INTERACT,
-  act: (me) => {
-    
+class BreaksDoorsBehavior extends Behavior {
+  constructor() { super(PRIORITIES.INTERACT); }
+  act(me) {
     return false;
   }
-});
+}
+export var BreaksDoors = () => new BreaksDoorsBehavior();
 
 /* opens doors that it finds */
-export var OpensDoors = () => ({
-  priority: PRIORITIES.INTERACT,
-  act: (me) => {
+class OpensDoorsBehavior extends Behavior {
+  constructor() { super(PRIORITIES.INTERACT); }
+  act(me) {
     let doors = GameState.world.getValidTilesInRange(me.x, me.y, me.z, 1, (tile) => tile.constructor.name === 'Door' && tile.density);
     if(doors.length > 0) {
       let door = doors[0];
@@ -142,4 +192,5 @@ export var OpensDoors = () => ({
     
     return true;
   }
-});
+}
+export var OpensDoors = () => new OpensDoorsBehavior();
