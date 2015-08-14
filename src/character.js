@@ -57,7 +57,8 @@ export default class Character extends Entity {
     this.mp = new NumberRange(0, this.spawnMp+profMp, this.spawnMp+profMp);
     this.xp = new NumberRange(0, 0, this.calcLevelXp(this.level));
     this.gold += this.professionInst.gold;
-    this.equipment = [];
+    this.inventory = [];
+    this.equipment = {};
     
     GameState.world.moveEntity(this, this.x, this.y, this.z);
      

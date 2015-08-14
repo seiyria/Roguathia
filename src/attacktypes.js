@@ -23,7 +23,16 @@ export class Attack extends Abstract {
   }
   
   possibleTargets(owner) {
-    return GameState.world.getValidEntitiesInRange(owner.x, owner.y, owner.z, this.range, owner.canAttack);
+    let possibleTargets = [];
+    GameState.world.fov[owner.z].compute(
+      owner.x, owner.y, this.range, 
+      (x, y, radius, visibility) => {
+        let entity = GameState.world.getEntity(x, y, owner.z);
+        if(!entity || !owner.canAttack(entity)) return;
+        possibleTargets.push(entity);
+      }
+    );
+    return possibleTargets;
   }
   
   canUse(owner) { return this.possibleTargets(owner).length > 0; }
@@ -40,12 +49,41 @@ export class Attack extends Abstract {
     }
   }
   
+  animate(owner, target) {
+    if(!this.glyph) return;
+    let canPass = (x, y) => {
+      let entity = GameState.world.getEntity(x, y, owner.z);
+      let isAttackable = entity && owner.canAttack(entity);
+      let isMe = owner.x === x && owner.y === y;
+      return GameState.world.isTilePassable(x, y, owner.z) || isMe || isAttackable;
+    }
+    let astar = new ROT.Path.AStar(x, y, canPass, {topology: 8});
+
+    let path = [];
+    let pathCallback = function(x, y) {
+        path.push({x, y});
+    }
+    astar.compute(owner.x, owner.y, pathCallback);
+
+    path.shift();
+    
+    let projectile = new Projectile(this.glyph);
+    projectile.z = owner.z;
+    projectile.x = step[0].x;
+    projectile.y = step[0].y;
+    /*GameState.world.moveEntity(projectile, projectile.x, projectile.y, projectile.z);
+    _.each(path, (step) => {
+      GameState.world.moveEntity(projectile, projectile.x, projectile.y, projectile.z);
+    });*/
+  }
+  
   tryHit(owner, target) {
     if(!this.canHit(owner, target)) {
       let extra = this.missCallback(owner, target);
       MessageQueue.add({message: this.missString(owner, target, extra)});
       return false;
     }
+    this.animate(owner, target);
     this.hit(owner, target);
   }
   
@@ -75,5 +113,9 @@ export class Attack extends Abstract {
   missCallback() {}
 }
 
-export class Projectile extends Attack {}
-export class Magic extends Projectile {}
+export class Projectile {
+  getSpeed() { return 3000; }
+  constructor(glyph) {
+    this.glyph = glyph;
+  }
+}

@@ -1,8 +1,9 @@
 # TODO
 
+* Spells (and other ranged attacks)
+* Auto-revive
 * Equipment (and class starting equipment)
 * Items (epecially comestibles)
-* Spells (and other ranged attacks)
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
     * More character classes
