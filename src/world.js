@@ -86,9 +86,10 @@ export default class World {
     return tile && !tile.isDense() && !this.getEntity(x, y, z) && !this.isVoid(x, y, z);
   }
   
-  isTilePassable(x, y, z) {
+  isTilePassable(x, y, z, inclAIPass = true) {
     let tile = this.getTile(x, y, z);
-    return tile && tile._isAIPassable || this.isTileEmpty(x, y, z);
+    let aiPass = inclAIPass ? tile._isAIPassable : true;
+    return tile && aiPass || this.isTileEmpty(x, y, z);
   }
   
   ensureLocation(x, y, z) {

@@ -88,7 +88,7 @@ class ExplodesBehavior extends Behavior {
     }
     MessageQueue.add({message: `${me.name} violently explodes!`});
     _.each(GameState.world.getValidEntitiesInRange(me.x, me.y, me.z, 1), (entity) => {
-      if(me === entity) return; //infinite loop prevention
+      if(me === entity || entity.hp.atMin()) return; //infinite loop prevention
       entity.takeDamage(+dice.roll(this.roll), me);
     });
   }

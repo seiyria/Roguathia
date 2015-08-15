@@ -80,8 +80,12 @@ export default class Character extends Entity {
     this.sortBehaviors();
   }
   
+  hasBehavior(behavior) {
+    return _.contains(_.pluck(this.behaviors, 'constructor.name'), behavior);
+  }
+  
   addUniqueBehavior(behavior) {
-    if(_.contains(_.pluck(this.behaviors, 'constructor.name'), behavior.constructor.name)) return;
+    if(this.hasBehavior(behavior.constructor.name)) return;
     this.addBehavior(behavior);
   }
   
@@ -215,7 +219,7 @@ export default class Character extends Entity {
   }
   
   getAttacks() {
-    return this.attacks && this.attacks.length ? this.attacks : [Attacks.Fist('1d4')];
+    return this.attacks && this.attacks.length ? this.attacks : [Attacks.Fist('1d4'), Attacks.DeathRay('2d8', '0d0', 6)];
   }
   
   getStat(stat) {
