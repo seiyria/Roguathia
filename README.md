@@ -1,6 +1,5 @@
 # TODO
 
-* Spells (and other ranged attacks)
 * Auto-revive
 * Equipment (and class starting equipment)
 * Items (epecially comestibles)
