@@ -58,3 +58,39 @@ export class Tourist extends Profession {
     super(touristCfg);
   }
 }
+
+let wizardCfg = {
+  hp  : '1d4 + 1',
+  mp  : '2d10 + 5',
+  str : '1d2 - 1',
+  con : '1d2 - 1',
+  int : '1d6 + 1',
+  dex : '1d2 - 1',
+  wis : '1d2',
+  cha : '1d3 - 1',
+  titles: ['Evoker',, 'Conjurer',,, 'Thaumaturge',,, 'Magician',,, 'Enchantrex',,, 'Sorcerex',,, 'Necromancer',,, 'Wizard',,, 'Mage']
+};
+
+export class Wizard extends Profession {
+  constructor() {
+    super(wizardCfg);
+  }
+}
+
+let rangerCfg = {
+  hp  : '2d8 + 4',
+  mp  : '0d0',
+  str : '2d3',
+  con : '1d5',
+  int : '1d3',
+  dex : '2d5',
+  wis : '0d0',
+  cha : '1d1',
+  titles: ['Tenderfoot',, 'Lookout',,, 'Trailblazer',,, 'Reconnoiterex',,, 'Scout',,, 'Arbalester',,, 'Archer',,, 'Sharpshooter',,, 'Marksrex']
+};
+
+export class Ranger extends Profession {
+  constructor() {
+    super(rangerCfg);
+  }
+}
