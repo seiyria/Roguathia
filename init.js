@@ -12,7 +12,6 @@ if(!ROT.isSupported()) {
 } else {
   var game = GameState.game = new Game();
   document.body.appendChild(game.display.getContainer());
-  
   game.switchScreen(LoadScreen);
 
   setTimeout(() => game.setup(), 300);

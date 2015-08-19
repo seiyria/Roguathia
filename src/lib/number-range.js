@@ -3,7 +3,7 @@ export default class NumberRange {
   constructor(min, cur, max) {
     this.min = min;
     this.max = max;
-    this.cur = cur;
+    this._set(cur);
   }
   
   atMin() { return this.cur === this.min; }

@@ -2,7 +2,7 @@ import SETTINGS from "./settings";
 import World from "./world";
 import GameState from "./gamestate";
 
-import {GameScreen, DeadScreen} from "./screens";
+import {SingleGameScreen, DeadScreen} from "./screens";
 
 import Player from "./player";
 
@@ -84,6 +84,6 @@ export default class Game {
     GameState.players.push(player);
     this.engine.start();
     
-    setTimeout( () => this.switchScreen(GameScreen), 100);
+    setTimeout( () => this.switchScreen(SingleGameScreen), 100);
   }
 }

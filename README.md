@@ -22,3 +22,5 @@
     * More floor types (caves, mines, towns, etc)
 * Item type proficiencies (weapon, spells, etc)
 * Properties (Intrinsic, Extrinsic): (element|debuff)-resist, regeneration, searching, see/invisible, teleport/control, polymorph/control, levitation, stealth, aggravation, conflict, protection, warning, hunger, telepathy, speed, unbreathing, amphibious, jumping, infravision, reflection, life saving, phasing, fumbling, displacement, clairvoyance, half-(type)-damage, swimming, free action, flight, slow digestion
+* IRC bot (Elyk) to announce major events (deaths, etc) / scrollback to chat
+* Allow for main game to focus on party leader, or splitscreen like the other views.

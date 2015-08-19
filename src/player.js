@@ -15,10 +15,24 @@ export default class Player extends Character {
     this.behaviors = [Behaviors.Interacts(), Behaviors.Wanders(), Behaviors.Attacks()];
     this.sortBehaviors();
     this.spawnSteps = 100; // spawn creatures every 100 steps
+    this.totalXpEarned = 0;
+    this.kpEarned = 0;
+    
+    this.name = _.truncate(this.name, {length: 15, omission: ''});
   }
   
   getSpawnSteps() {
     return this.getStat('spawnSteps');
+  }
+  
+  gainXp(xp) {
+    super.gainXp(xp);
+    this.totalXpEarned += xp;
+  }
+  
+  kill(dead) {
+    super.kill(dead);
+    this.totalKpEarned += dead.difficulty * dead.killXp;
   }
   
   act() {
@@ -67,5 +81,9 @@ export default class Player extends Character {
   
   ascend() {
     GameState.currentFloor--;
+  }
+  
+  getScore() {
+    return this.currentTurn + this.gold + this.totalXpEarned + this.kpEarned;
   }
 }

@@ -15,6 +15,7 @@ export default class Monster extends Character {
   constructor(x, y, z, opts) {
     opts.attributes = _.extend({}, defaultMonsterStats, opts.attributes);
     super(opts.glyph, x, y, z, opts);
+    this.difficulty = opts.difficulty;
   }
   
   canAttack(entity) {

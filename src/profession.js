@@ -61,13 +61,15 @@ export class Tourist extends Profession {
 
 let wizardCfg = {
   hp  : '1d4 + 1',
-  mp  : '2d10 + 5',
-  str : '1d2 - 1',
+  mp  : '1d10 + 5',
+  str : '1d2 - 4',
   con : '1d2 - 1',
-  int : '1d6 + 1',
-  dex : '1d2 - 1',
+  int : '2d3 + 1',
+  dex : '1d2 - 4',
   wis : '1d2',
   cha : '1d3 - 1',
+  regenHp: 40,
+  regenMp: 7,
   titles: ['Evoker',, 'Conjurer',,, 'Thaumaturge',,, 'Magician',,, 'Enchantrex',,, 'Sorcerex',,, 'Necromancer',,, 'Wizard',,, 'Mage']
 };
 

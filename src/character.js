@@ -36,7 +36,7 @@ let defaultStats = {
   name: 'Dudley',
   attacks: [],
   behaviors: [],
-  profession: 'Tourist' 
+  profession: 'Wizard' 
 };
 
 export default class Character extends Entity {
@@ -45,7 +45,7 @@ export default class Character extends Entity {
     super(glyph, x, y, z);
     
     this.currentTurn = 0;
-
+    
     _.extend(this, defaultAttributes, opts.attributes, loadValue);
     _.extend(this, defaultStats, opts.stats);
     
@@ -56,7 +56,7 @@ export default class Character extends Entity {
     this.hp = new NumberRange(0, this.spawnHp+profHp, this.spawnHp+profHp);
     this.mp = new NumberRange(0, this.spawnMp+profMp, this.spawnMp+profMp);
     this.xp = new NumberRange(0, 0, this.calcLevelXp(this.level));
-    this.gold += this.professionInst.gold;
+    if(this.professionInst.gold) this.gold += this.professionInst.gold;
     this.inventory = [];
     this.equipment = {};
     
@@ -219,7 +219,7 @@ export default class Character extends Entity {
   }
   
   getAttacks() {
-    return this.attacks && this.attacks.length ? this.attacks : [Attacks.Fist('1d4'), Attacks.DeathRay('2d8', '0d0', 6)];
+    return _.has(this, 'attacks.length') ? this.attacks : [Attacks.Fist('1d4')/*, Attacks.DeathRay('2d8', '0d0', 6)*/];
   }
   
   getStat(stat) {
