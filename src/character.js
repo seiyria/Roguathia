@@ -9,7 +9,6 @@ import MessageQueue from "./message-handler";
 import loadValue from './lib/value-assign';
 import calc from "./lib/directional-probability";
 
-
 let defaultAttributes = {
   ac:  0,
   str: 8,
@@ -36,7 +35,7 @@ let defaultStats = {
   name: 'Dudley',
   attacks: [],
   behaviors: [],
-  profession: 'Wizard' 
+  profession: 'Tourist' 
 };
 
 export default class Character extends Entity {
@@ -219,7 +218,7 @@ export default class Character extends Entity {
   }
   
   getAttacks() {
-    return _.has(this, 'attacks.length') ? this.attacks : [Attacks.Fist('1d4')/*, Attacks.DeathRay('2d8', '0d0', 6)*/];
+    return this.attacks && this.attacks.length ? this.attacks : [Attacks.Fist('1d4')/*, Attacks.DeathRay('2d8', '0d0', 6)*/];
   }
   
   getStat(stat) {

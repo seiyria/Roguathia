@@ -15,8 +15,19 @@ class Screen {
   static drawLeftText(display, y, text) {
     display.drawText(0, y, text);
   }
+  static drawLeftTextNoTrim(display, y, text = '') {
+    for(let i = 0; i < text.length; i++) {
+      display.draw(i, y, text[i]);
+    }
+  }
   static padText(text, width) {
     return _.pad(text, width);
+  }
+  static getMainPlayer() {
+    return _.max(GameState.players, 'currentTurn');
+  }
+  static changeScreenWithDelay(newScreen, delay) {
+    setTimeout(() => GameState.game.switchScreen(newScreen), delay);
   }
 }
 
@@ -85,19 +96,93 @@ class GameScreen extends Screen {
   }
 }
 
+let tempKills = {
+  'newt': 100,
+  'gas spore': 3,
+  'jackal': 50,
+  'Juiblex': 1,
+  'Medusa': 1,
+  'Rodney': 1,
+  'quantum mechanic': 77,
+  'giant ant': 10,
+  'killer bee': 540,
+  'soldier ant': 10,
+  'queen bee': 2,
+  'giant beetle': 1,
+  'acid blob': 10,
+  'green blob': 5,
+  'gelatious cube': 1,
+  'cockatrice': 5,
+  'chickatrice': 10,
+  'fox': 1,
+  'coyote': 1,
+  'werejackal': 1,
+  'little dog': 1,
+  'dog': 1,
+  'large dog': 1,
+  'dingo': 1,
+  'wolf': 1,
+  'werewolf': 1,
+  'warg': 1,
+  'winter wolf cub': 1,
+  'winter wolf': 1,
+  'hell hound pup': 100,
+  'hell hound': 1,
+  'zeta tau': 100
+};
+
 class ScrollingScreen extends Screen {}
+class SingleScrollingScreen extends Screen {
+  static enter() {
+    this.currentIndex = 0;
+  }
+  static render(display) {
+    display.clear();
+    this.drawLeftText(display, 0, this.title);
+    this.drawLeftText(display, 1, _.repeat('-', this.title.length));
+    
+    let remainingHeight = SETTINGS.screen.height - 3;
+    let slice = this.scrollContent.slice(this.currentIndex, remainingHeight+this.currentIndex);
+    for(let i = 0; i < remainingHeight; i++) {
+      this.drawLeftTextNoTrim(display, i+2, slice[i]);
+    }
+    
+    setTimeout(() => {
+      if(slice.length < remainingHeight) {
+        this.changeScreenWithDelay(RespawnScreen, 5000);
+      } else {
+        this.currentIndex++;
+        this.render(display);
+      }
+    }, 2000);
+  }
+}
+class SplitScrollingScreen extends ScrollingScreen {}
 
-class SingleScrollingScreen extends Screen {}
-class SplitScrollingScreen extends Screen {}
-
-class SingleVanquishedScreen extends SingleScrollingScreen {}
+class SingleVanquishedScreen extends SingleScrollingScreen {
+  static enter(display) {
+    super.enter();
+    let target = this.getMainPlayer();
+    let killHash = tempKills;
+    //target.conquest
+    let sortedKills = _(killHash).keys().map((mon) => ({name: mon, num: killHash[mon]})).sortBy('name').value();
+    this.scrollContent = _.map(sortedKills, (kill) => `${_.padLeft(kill.num, 4)} ${kill.name}`);
+    let totalKills = _.reduce(sortedKills, ((prev, cur) => prev + cur.num), 0);
+    this.title = `${target.name}'s Conquest (${sortedKills.length} types|${totalKills} total)`; //shorten this for splitscreen
+  }
+}
 class SplitVanquishedScreen extends SplitScrollingScreen {}
 
 class SingleTraitsScreen extends SingleScrollingScreen {}
 class SplitTraitsScreen extends SplitScrollingScreen {}
 
 // Dead -> Vanquished -> Traits -> Respawn
-class RespawnScreen extends Screen {}
+// draw random stars the farther countdown gets (/ | \ -)
+class RespawnScreen extends Screen {
+  static render(display) {
+    this.drawCenterText(display,  11, 'Respawning soon (tm)...');
+  }
+}
 
 export class LoadScreen extends Screen {
   static enter(display) {
@@ -125,11 +210,16 @@ export class LoadScreen extends Screen {
 }
 
 export class DeadScreen extends Screen {
+  static enter() {
+    GameState.game.engine.lock();
+    
+    this.changeScreenWithDelay(SingleVanquishedScreen, 5000);
+  }
   static render(display) {
     const TOMBSTONE_WIDTH = 26;
     const goodbyes = ['Goodbye', 'Sayonara', 'Ciao', 'Adios', 'Toodles', 'Ta ta', 'Farewell', 'Bye-bye', 'Bye', 'So long', 'RIP'];
     
-    let latestDeath = _.max(GameState.players, 'currentTurn');
+    let latestDeath = this.getMainPlayer();
     let score = latestDeath.getScore();
     let floor = GameState.currentFloor + 1;
     let paddedName = this.padText(latestDeath.name, TOMBSTONE_WIDTH);
@@ -160,7 +250,7 @@ export class DeadScreen extends Screen {
     this.drawLeftText(display, i++,     `${goodbye}, ${latestDeath.name} the ${latestDeath.getAlign()} ${latestDeath.profession}...`);
     this.drawLeftText(display, i++,     `You were level ${latestDeath.level}/${latestDeath.professionInst.level} after earning ${latestDeath.totalXpEarned} experience.`);
     this.drawLeftText(display, i++,     `You died in ${mapName} on dungeon level ${floor}.`);
-    this.drawLeftText(display, i++,     `You earned ${score} points and ${latestDeath.gold} gold over ${latestDeath.currentTurn} steps.`);
+    this.drawLeftText(display, i++,     `You scored ${score} points and ${latestDeath.gold} gold over ${latestDeath.currentTurn} steps.`);
   }
 }
 
@@ -171,6 +261,10 @@ export class WinScreen extends Screen {
 }
 
 export class SingleGameScreen extends GameScreen {
+  
+  static enter() {
+    GameState.game.switchScreen(DeadScreen);
+  }
   
   static drawMessages(display, player) {
     

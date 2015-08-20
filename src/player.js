@@ -12,13 +12,14 @@ export default class Player extends Character {
   
   constructor(x, y, z, opts = {}) {
     super(x, y, z, opts);
-    this.behaviors = [Behaviors.Interacts(), Behaviors.Wanders(), Behaviors.Attacks()];
+    this.behaviors = [Behaviors.Attacks(), Behaviors.Interacts(), Behaviors.Wanders()];
     this.sortBehaviors();
     this.spawnSteps = 100; // spawn creatures every 100 steps
     this.totalXpEarned = 0;
     this.kpEarned = 0;
+    this.conquest = {};
     
-    this.name = _.truncate(this.name, {length: 15, omission: ''});
+    this.name = _.trunc(this.name, {length: 15, omission: ''});
   }
   
   getSpawnSteps() {
@@ -33,6 +34,8 @@ export default class Player extends Character {
   kill(dead) {
     super.kill(dead);
     this.totalKpEarned += dead.difficulty * dead.killXp;
+    if(!this.conquest[dead.name]) this.conquest[dead.name] = 0;
+    this.conquest[dead.name]++;
   }
   
   act() {

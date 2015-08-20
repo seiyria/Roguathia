@@ -1,6 +1,7 @@
 # TODO
 
 * Auto-revive
+* HP red if <25%, yellow if <50%
 * Equipment (and class starting equipment)
 * Items (epecially comestibles)
 * Meta-currency (and benefits)
@@ -24,3 +25,6 @@
 * Properties (Intrinsic, Extrinsic): (element|debuff)-resist, regeneration, searching, see/invisible, teleport/control, polymorph/control, levitation, stealth, aggravation, conflict, protection, warning, hunger, telepathy, speed, unbreathing, amphibious, jumping, infravision, reflection, life saving, phasing, fumbling, displacement, clairvoyance, half-(type)-damage, swimming, free action, flight, slow digestion
 * IRC bot (Elyk) to announce major events (deaths, etc) / scrollback to chat
 * Allow for main game to focus on party leader, or splitscreen like the other views.
+* Sliders for game speed, etc
+* Upside-down @ for a favicon
+* Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
