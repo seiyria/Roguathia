@@ -2,6 +2,7 @@
 import SETTINGS from "./settings";
 import GameState from "./gamestate";
 import MessageQueue from "./message-handler";
+import Start from "./game-starter";
 
 class Screen {
   static enter() {}
@@ -11,6 +12,7 @@ class Screen {
   static drawCenterText(display, y, text) {
     let x = Math.floor(SETTINGS.screen.width/2) - Math.floor(text.length/2);
     display.drawText(x, y, text);
+    return {x, y};
   }
   static drawLeftText(display, y, text) {
     display.drawText(0, y, text);
@@ -96,43 +98,8 @@ class GameScreen extends Screen {
   }
 }
 
-let tempKills = {
-  'newt': 100,
-  'gas spore': 3,
-  'jackal': 50,
-  'Juiblex': 1,
-  'Medusa': 1,
-  'Rodney': 1,
-  'quantum mechanic': 77,
-  'giant ant': 10,
-  'killer bee': 540,
-  'soldier ant': 10,
-  'queen bee': 2,
-  'giant beetle': 1,
-  'acid blob': 10,
-  'green blob': 5,
-  'gelatious cube': 1,
-  'cockatrice': 5,
-  'chickatrice': 10,
-  'fox': 1,
-  'coyote': 1,
-  'werejackal': 1,
-  'little dog': 1,
-  'dog': 1,
-  'large dog': 1,
-  'dingo': 1,
-  'wolf': 1,
-  'werewolf': 1,
-  'warg': 1,
-  'winter wolf cub': 1,
-  'winter wolf': 1,
-  'hell hound pup': 100,
-  'hell hound': 1,
-  'zeta tau': 100
-};
-
 class ScrollingScreen extends Screen {}
-class SingleScrollingScreen extends Screen {
+class SingleScrollingScreen extends ScrollingScreen {
   static enter() {
     this.currentIndex = 0;
   }
@@ -149,7 +116,7 @@ class SingleScrollingScreen extends Screen {
     
     setTimeout(() => {
       if(slice.length < remainingHeight) {
-        this.changeScreenWithDelay(RespawnScreen, 5000);
+        this.changeScreenWithDelay(this.nextScreen, 4000);
       } else {
         this.currentIndex++;
         this.render(display);
@@ -163,24 +130,112 @@ class SingleVanquishedScreen extends SingleScrollingScreen {
   static enter(display) {
     super.enter();
     let target = this.getMainPlayer();
-    let killHash = tempKills;
-    //target.conquest
+    let killHash = target.conquest;
     let sortedKills = _(killHash).keys().map((mon) => ({name: mon, num: killHash[mon]})).sortBy('name').value();
     this.scrollContent = _.map(sortedKills, (kill) => `${_.padLeft(kill.num, 4)} ${kill.name}`);
     let totalKills = _.reduce(sortedKills, ((prev, cur) => prev + cur.num), 0);
     this.title = `${target.name}'s Conquest (${sortedKills.length} types|${totalKills} total)`; //shorten this for splitscreen
+    if(!this.scrollContent.length) {
+      this.scrollContent = ['No kills.'];
+    }
+    this.nextScreen = SingleConductScreen;
   }
 }
 class SplitVanquishedScreen extends SplitScrollingScreen {}
 
-class SingleTraitsScreen extends SingleScrollingScreen {}
-class SplitTraitsScreen extends SplitScrollingScreen {}
+class SingleConductScreen extends SingleScrollingScreen {
+  static enter(display) {
+    super.enter();
+    let target = this.getMainPlayer();
+    let conductHash = target.conduct;
+    let sortedConduct = _(conductHash).values().compact().sortBy().value();
+    this.scrollContent = sortedConduct;
+    this.title = `${target.name}'s Conduct (${sortedConduct.length} types)`; //shorten this for splitscreen
+    this.nextScreen = RespawnScreen;
+    if(!this.scrollContent.length) {
+      this.scrollContent = ['All conduct broken.'];
+    }
+  }
+}
+class SplitConductsScreen extends SplitScrollingScreen {}
 
-// Dead -> Vanquished -> Traits -> Respawn
-// draw random stars the farther countdown gets (/ | \ -)
+// this exists solely to transition and start a new game. I'm bad. :(
+class NewGameScreen extends Screen {
+  static enter() {
+    Start();
+  }
+}
+
 class RespawnScreen extends Screen {
+  static enter() {
+    // would be nice if it redrew properly without needing duplicates in the list
+    this.phases = ['/', '/', '|', '|', '\\', '\\', '-', '-'];
+    this.stars = [];
+    this.timer = 15;
+
+    //one tick per star move, 4 ticks = new star and timer countdown
+    this.ticks = this.timer * this.phases.length;
+  }
+  static addStar(x, y, length) {
+    let minX = x - 1;
+    let maxX = x + length + 1;
+    let minY = y - 1;
+    let maxY = y + 1;
+    
+    let inBadZone = true;
+    let star = null;
+    
+    let distBetween = (me, target) => {
+      let a = target.x - me.x;
+      let b = target.y - me.y;
+      return Math.sqrt(a*a + b*b);
+    };
+    
+    while(inBadZone) {
+      let myX = ROT.RNG.getUniformInt(0, SETTINGS.screen.width);
+      let myY = ROT.RNG.getUniformInt(0, SETTINGS.screen.height);
+      let me = {x: myX, y: myY};
+      
+      if(_.filter(this.stars, (star) => distBetween(me, star) < 4).length !== 0 || 
+        myX >= minX && myX <= maxX &&
+        myY >= minY && myY <= maxY) {
+          continue;
+        }
+      
+      inBadZone = false;
+      star = {x: myX, y: myY, phase: ROT.RNG.getUniformInt(0, this.phases.length-1)};
+    }
+    
+    this.stars.push(star);
+  }
+  static drawStars(display) {
+    _.each(this.stars, (star) => {
+      display.draw(star.x, star.y, this.phases[star.phase]);
+      star.phase++;
+      if(star.phase > this.phases.length - 1) {
+        star.phase = 0;
+      }
+    });
+  }
   static render(display) {
-    this.drawCenterText(display,  11, 'Respawning soon (tm)...');
+    display.clear();
+    let text = `Respawning in ${this.timer} seconds...`;
+    let {x, y} = this.drawCenterText(display,  11, text);
+    
+    if(this.ticks % this.phases.length === 0) {
+      this.addStar(x, y, text.length);
+      this.timer--;
+    }
+    
+    this.ticks--;
+    
+    if(this.ticks <= 0) {
+      GameState.game.safeSwitchScreen(this, NewGameScreen);
+      return;
+    }
+    
+    this.drawStars(display);
+    setTimeout(() => this.render(display), 1000/this.phases.length);
   }
 }
 
@@ -263,7 +318,8 @@ export class WinScreen extends Screen {
 export class SingleGameScreen extends GameScreen {
   
   static enter() {
-    GameState.game.switchScreen(DeadScreen);
+    GameState.game.engine.lock();
+    GameState.game.switchScreen(RespawnScreen);
   }
   
   static drawMessages(display, player) {
@@ -299,6 +355,22 @@ export class SingleGameScreen extends GameScreen {
     display.drawText(0, SETTINGS.screen.height - 3, tag);
     display.drawText(0, SETTINGS.screen.height - 2, stats);
     display.drawText(0, SETTINGS.screen.height - 1, miscInfo);
+    
+    let redrawHp = (foreground) => {
+      let str = (''+player.hp.cur);
+      let index = miscInfo.indexOf(`HP:${player.hp.cur}`)+3;
+      let length = str.length;
+      let strIdx = 0;
+      for(let i = index; i < index+length; i++) {
+        display.draw(i, SETTINGS.screen.height - 1, str[strIdx], foreground);
+      }
+    };
+    
+    if(player.hp.ltePercent(20)) {
+      redrawHp('#7f0000');  
+    } else if(player.hp.ltePercent(50)) {
+      redrawHp('#ffd700');
+    }
   }
   
   static render(display) {

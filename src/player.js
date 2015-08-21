@@ -20,6 +20,28 @@ export default class Player extends Character {
     this.conquest = {};
     
     this.name = _.trunc(this.name, {length: 15, omission: ''});
+    this.conduct = this.baseConduct();
+  }
+  
+  baseConduct() {
+    return {
+      //foodless:     'You went without food.',
+      //vegan:        'You were vegan.',
+      //vegetarian:   'You were vegetarian.',
+      atheist:      'You were atheist.',
+      pacifist:     'You were a pacifist.',
+      noWeapon:     'You never hit with a wielded weapon.',
+      illiterate:   'You were illiterate.',
+      //noOtherPoly:  'You never polymorphed another being.',
+      //noSelfPoly:   'You were never polymorphed.',
+      //noGenocide:   'You did not commit genocide.',
+      wishless:     'You never wished for anything.',
+      //survivor:     'You were never revived.',
+      celibate:     'You were celibate.',
+      //nudist:       'You never wore armor.',
+      //zen:          'You were blind throughout your adventure.',
+      //stubborn:     'You never changed equipment.',
+    };
   }
   
   getSpawnSteps() {

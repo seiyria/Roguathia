@@ -38,6 +38,11 @@ export default class Game {
     this.switchScreen(DeadScreen);
   }
   
+  safeSwitchScreen(me, newScreen) {
+    if(this.currentScreen !== me) return;
+    this.switchScreen(newScreen);
+  }
+  
   switchScreen(screen) {
     if(this.currentScreen) {
       this.currentScreen.exit(this.display);
