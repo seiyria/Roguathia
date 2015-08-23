@@ -5,7 +5,6 @@ if(!GameState.messages) GameState.messages = [];
 
 export default class MessageQueue {
   static add(messageObj) {
-    
     GameState.messages.unshift({turnsLeft: 4, message: messageObj.message});
     GameState.messages.length = 50; // cap the messages off at the last 50
   }

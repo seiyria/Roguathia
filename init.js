@@ -1,7 +1,8 @@
-//todo - make analysis thing for a build that checks all entities and makes sure they have different glyphs/colors
 
-import "./src/debug";
 import Start from "./src/game-starter";
+
+// remove extra log line
+BRAGI.transports.get('Console').property({showMeta: false});
 
 if(!ROT.isSupported()) {
   alert('rot.js isn\'t supported :(');

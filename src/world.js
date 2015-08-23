@@ -9,6 +9,7 @@ export default class World {
     this.stairs = [];
     
     this.entities = [];
+    this.items = [];
     
     this.fov = [];
     this.explored = [];
@@ -93,10 +94,40 @@ export default class World {
     return tile && aiPass || this.isTileEmpty(x, y, z);
   }
   
-  ensureLocation(x, y, z) {
-    if(!this.entities[z]) this.entities[z] = [];
-    if(!this.entities[z][x]) this.entities[z][x] = [];
-    if(!this.entities[z][x][y]) this.entities[z][x][y] = null;
+  getWithoutInits(x, y, z, list = 'entities') {
+    if(!this[list][z]) return null;
+    if(!this[list][z][x]) return null;
+    if(!this[list][z][x][y]) return null;
+    
+    return this[list][z][x][y];
+  }
+  
+  ensureLocation(x, y, z, list = 'entities', setTo = null) {
+    if(!this[list][z]) this[list][z] = [];
+    if(!this[list][z][x]) this[list][z][x] = [];
+    if(!this[list][z][x][y]) this[list][z][x][y] = setTo;
+  }
+  
+  getItemsAt(x, y, z) {
+    return this.getWithoutInits(x, y, z, 'items');
+  }
+  
+  removeItem(item) {
+    this.items[item.z][item.x][item.y] = _.without(this.items[item.z][item.x][item.y], item);
+    item.x = item.y = item.z = undefined;
+  }
+  
+  moveItem(item, x, y, z) {
+    this.ensureLocation(x, y, z, 'items', []);
+    
+    if(item.x && item.y && item.z) {
+      this.removeItem(item);
+    }
+    
+    item.x = x;
+    item.y = y;
+    item.z = z;
+    this.items[z][x][y].push(item);
   }
   
   moveEntity(entity, x, y, z) {
@@ -118,8 +149,7 @@ export default class World {
   }
   
   getEntity(x, y, z) {
-    this.ensureLocation(x, y, z);
-    return this.entities[z][x][y];
+    return this.getWithoutInits(x, y, z);
   }
   
   placeEntityAtRandomLocation(entity, z) {

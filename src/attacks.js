@@ -1,11 +1,19 @@
 
 import * as Behaviors from "./behaviors";
-import {Attack, Projectile} from "./attacktypes";
+import {Attack} from "./attacktypes";
 import Glyph from "./glyph";
 
 class Fist extends Attack {}
 
 class Bite extends Attack {}
+
+class Slash extends Attack {}
+
+class Shot extends Attack {
+  init() {
+    this.glyph = new Glyph(')', '#00f');
+  }
+}
 
 class ElectricTouch extends Attack {
   hitString(owner, target, damage, extra) {
@@ -28,7 +36,7 @@ class DeathRay extends Attack {
 }
 
 let attacks = {};
-_.each([Fist, Bite, ElectricTouch, DeathRay], (attack) => attacks[attack.name] = (r, h, d) => new attack(r, h, d));
+_.each([Fist, Bite, Slash, Shot, ElectricTouch, DeathRay], (attack) => attacks[attack.name] = (r, h, d) => new attack(r, h, d));
 export default attacks;
 
 

@@ -1,6 +1,8 @@
 
 import GameState from "./gamestate";
 import MessageQueue from "./message-handler";
+import {Corpse} from "./items/comestibles";
+import {Gold} from "./items/special";
 // behaviors are functionality that cascade, ie, a monster could have 10 behaviors that override die()
 
 // priorities determine the ordering of behavior execution
@@ -50,6 +52,22 @@ class StunnedBehavior extends Behavior {
 
 export var Stunned = (numTurns) => new StunnedBehavior(numTurns);
 
+/* retrieve items from the ground */
+//TODO whitelist/blacklist
+class PickUpItemsBehavior extends Behavior {
+  constructor() { super(PRIORITIES.INTERACT); }
+  act(me) {
+    let items = GameState.world.getItemsAt(me.x, me.y, me.z);
+    _.each(items, (item) => {
+      GameState.world.removeItem(item);
+      me.addToInventory(item);
+      MessageQueue.add({message: `${me.name} picked up ${item.name}.`});
+    });
+  }
+}
+
+export var PickUpItems = () => new PickUpItemsBehavior();
+
 /* monsters can attack with this */
 class AttacksBehavior extends Behavior {
   constructor() { super(PRIORITIES.DEFENSE); }
@@ -67,11 +85,28 @@ class LeavesCorpseBehavior extends Behavior {
     this.dropPercent = dropPercent;
   }
   die(me) {
-    console.log('drop corpse');
+    if(ROT.RNG.getPercentage() > this.dropPercent) return;
+    let corpse = new Corpse(me);
+    GameState.world.moveItem(corpse, me.x, me.y, me.z);
   }
 }
 
 export var LeavesCorpse = (percent) => new LeavesCorpseBehavior(percent);
+
+/* some things drop gold */
+class DropsGoldBehavior extends Behavior {
+  constructor(gold) {
+    super(PRIORITIES.DEFER);
+    this.goldDrop = gold;
+  }
+  die(me) {
+    let droppedGold = +dice.roll(this.goldDrop);
+    let goldItem = new Gold(droppedGold);
+    GameState.world.moveItem(goldItem, me.x, me.y, me.z);
+  }
+}
+
+export var DropsGold = (gold) => new DropsGoldBehavior(gold);
 
 /* explodes upon death. can be pretty dangerous */
 class ExplodesBehavior extends Behavior {

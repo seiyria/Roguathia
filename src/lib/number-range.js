@@ -16,6 +16,12 @@ export default class NumberRange {
   gtePercent(pct) { return this.percent() >= pct; }
   ltePercent(pct) { return this.percent() <= pct; }
   
+  gt(num) { return this.cur > num; }
+  lt(num) { return this.cur < num; }
+  e(num)  { return this.cur === num; }
+  gte(num){ return this.cur >= num; }
+  lte(num){ return this.cur <= num; }
+  
   _set(num) { this.cur = Math.max(this.min, Math.min(this.max, num)); }
   add(num) { this._set(num + this.cur); }
   sub(num) { this.add(-num); }

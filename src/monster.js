@@ -1,6 +1,7 @@
 
 import Character from "./character";
 import GameState from "./gamestate";
+import Factions from "./factions";
 
 let defaultMonsterStats = {
   str: 8,
@@ -13,13 +14,12 @@ let defaultMonsterStats = {
 
 export default class Monster extends Character {
   constructor(x, y, z, opts) {
+    opts.stats.profession = 'Monster';
     opts.attributes = _.extend({}, defaultMonsterStats, opts.attributes);
     super(opts.glyph, x, y, z, opts);
     this.difficulty = opts.difficulty;
-  }
-  
-  canAttack(entity) {
-    return entity.constructor.name === 'Player';
+    this.antiFactions.push(Factions.PLAYER);
+    if(opts.addFactions) this.factions.push(...opts.addFactions);
   }
   
   toJSON() {

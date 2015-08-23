@@ -2,6 +2,7 @@
 import * as Monsters from "./monsters";
 import Monster from "./monster";
 import GameState from "./gamestate";
+import Log from "./lib/logger";
 
 export default class MonsterSpawner {
   static spawn(basedOn) {
@@ -11,7 +12,17 @@ export default class MonsterSpawner {
     let lowestDifficulty = Math.floor((dungeonLevel+targetLevel)/2);
     let highestDifficulty = 5 * dungeonLevel;
     
-    let chosenMonster = _(Monsters).values().filter(monster => monster.difficulty >= lowestDifficulty && monster.difficulty < highestDifficulty).sample();
+    let validMonsters = _(Monsters).values().filter(monster => monster.difficulty >= lowestDifficulty && monster.difficulty < highestDifficulty).value();
+    let monsterHash = _.reduce(validMonsters, ((prev, cur) => {
+      prev[cur.stats.name] = cur.frequency;
+      return prev;
+    }), {});
+    let chosenName = ROT.RNG.getWeightedValue(monsterHash);
+    let chosenMonster = _.findWhere(validMonsters, {stats: {name: chosenName}});
+    if(!chosenMonster) {
+      Log('MonsterSpawner', `Monster could not be spawned: DLvl ${dungeonLevel} TargetLevel ${targetLevel} | difficulty range ${lowestDifficulty}-${highestDifficulty}`);
+      return;
+    }
     let numMonsters = +dice.roll(chosenMonster.spawnPattern);
     
     for(let i = 0; i < numMonsters; i++) {

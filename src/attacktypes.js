@@ -42,7 +42,7 @@ export class Attack extends Abstract {
   canHit(owner, target) {
     if(owner.hp.atMin()) return false;
     let hitRoll = +dice.roll('1d20');
-    let targetAC = target.getAC() + owner.level + (+dice.roll(this.toHit));
+    let targetAC = target.getAC() + owner.level + (+dice.roll(this.toHit) + owner.getToHit());
 
     if(targetAC > 0) {
       return hitRoll < targetAC;
@@ -104,6 +104,7 @@ export class Attack extends Abstract {
   
   tryHit(owner, target) {
     if(!target) return;
+    if(this._itemRef) this._itemRef.use(owner, target);
     if(!this.canHit(owner, target)) {
       let extra = this.missCallback(owner, target);
       MessageQueue.add({message: this.missString(owner, target, extra)});
@@ -113,7 +114,7 @@ export class Attack extends Abstract {
   }
   
   calcDamage(owner, target) {
-    return +dice.roll(this.roll) + owner.calcStatBonus('str');
+    return +dice.roll(this.roll) + owner.calcStatBonus('str') + (this._itemRef ? this._itemRef.enchantment : 0);
   }
   
   hit(owner, target) {
@@ -136,6 +137,11 @@ export class Attack extends Abstract {
   
   missString(owner, target) { return `${owner.name} missed ${target.name}!`; }
   missCallback() {}
+  
+  toJSON() {
+    let me = _.omit(this, ['_itemRef']);
+    return JSON.stringify(me);
+  }
 }
 
 export class Projectile {

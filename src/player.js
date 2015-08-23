@@ -5,6 +5,7 @@ import GameState from "./gamestate";
 import MessageQueue from "./message-handler";
 import MonsterSpawner from "./monster-spawner";
 import * as Behaviors from "./behaviors";
+import Factions from "./factions";
 
 import calc from "./lib/directional-probability";
 
@@ -12,7 +13,9 @@ export default class Player extends Character {
   
   constructor(x, y, z, opts = {}) {
     super(x, y, z, opts);
-    this.behaviors = [Behaviors.Attacks(), Behaviors.Interacts(), Behaviors.Wanders()];
+    this.behaviors = [Behaviors.Attacks(), Behaviors.PickUpItems(), Behaviors.Interacts(), Behaviors.Wanders()];
+    this.factions.push(Factions.PLAYER);
+    this.antiFactions.push(Factions.MONSTER);
     this.sortBehaviors();
     this.spawnSteps = 100; // spawn creatures every 100 steps
     this.totalXpEarned = 0;
@@ -58,6 +61,11 @@ export default class Player extends Character {
     this.totalKpEarned += dead.difficulty * dead.killXp;
     if(!this.conquest[dead.name]) this.conquest[dead.name] = 0;
     this.conquest[dead.name]++;
+    
+    // probably refactor this into a lose/gainAlign and some constants for common occurrences
+    if(dead.hasFaction(Factions.PLAYER)) {
+      this.align -= 50;
+    }
   }
   
   act() {

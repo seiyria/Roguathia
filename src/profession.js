@@ -1,8 +1,11 @@
-
-//todo http://stackoverflow.com/questions/29722270/import-modules-from-files-in-directory
+/* jshint elision:false */
 //todo maybe make professions have their own xp/levelup stuff? that way it's not always 1/1 thief, 2/2 mage, etc. -- classes could grow at their own rates then, making some inherently more difficult than others.
 
 import loadValue from './lib/value-assign';
+import Factions from './factions';
+
+import {Gold} from './items/special';
+import {Dart, Dagger} from './items/weapons';
 
 let defaultCfg = {
   ac  : 0,
@@ -23,7 +26,10 @@ let defaultCfg = {
 };
 
 class Profession {
-  constructor(config) {
+  constructor(config = {}) {
+    config = _.clone(config); // to prevent overwriting stuff
+    if(!config.addFactions) config.addFactions = [];
+    config.addFactions.push(this.constructor.name);
     this.config = config;
     _.extend(this, defaultCfg, config, loadValue);
     this.level = 1;
@@ -49,8 +55,12 @@ let touristCfg = {
   wis : '1d2 - 3',
   cha : '1d3 + 1',
   luk : '1d3 - 1',
-  gold: '1d1000',
-  titles: ['Rambler',, 'Sightseer',,, 'Excursionist',,, 'Perigrinator',,, 'Traveler',,, 'Journeyer',,, 'Voyager',,, 'Explorer',,, 'Adventurer']
+  titles: ['Rambler',, 'Sightseer',,, 'Excursionist',,, 'Perigrinator',,, 'Traveler',,, 'Journeyer',,, 'Voyager',,, 'Explorer',,, 'Adventurer'],
+  startingItems: [
+    () => new Gold(+dice.roll('1d1000')),
+    () => new Dart({charges: '1d20 + 20', autoRemove: true}),
+    () => new Dagger()
+  ]
 };
 
 export class Tourist extends Profession {
@@ -70,7 +80,8 @@ let wizardCfg = {
   cha : '1d3 - 1',
   regenHp: 40,
   regenMp: 7,
-  titles: ['Evoker',, 'Conjurer',,, 'Thaumaturge',,, 'Magician',,, 'Enchantrex',,, 'Sorcerex',,, 'Necromancer',,, 'Wizard',,, 'Mage']
+  titles: ['Evoker',, 'Conjurer',,, 'Thaumaturge',,, 'Magician',,, 'Enchantrex',,, 'Sorcerex',,, 'Necromancer',,, 'Wizard',,, 'Mage'],
+  addFactions: [Factions.MAGIC]
 };
 
 export class Wizard extends Profession {

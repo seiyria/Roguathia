@@ -76,7 +76,10 @@ class GameScreen extends Screen {
         var background = glyph.bg;
         
         if(visible[x] && visible[x][y]) {
-          // TODO: display items
+          let items = world.getItemsAt(x, y, zLevel);
+          if(items && items.length > 0) {
+            glyph = items[items.length-1].glyph;
+          }
           
           var entity = world.getEntity(x, y, zLevel);
           if(entity) {
@@ -267,7 +270,6 @@ export class LoadScreen extends Screen {
 export class DeadScreen extends Screen {
   static enter() {
     GameState.game.engine.lock();
-    
     this.changeScreenWithDelay(SingleVanquishedScreen, 5000);
   }
   static render(display) {
@@ -302,7 +304,7 @@ export class DeadScreen extends Screen {
     
     i++;
     
-    this.drawLeftText(display, i++,     `${goodbye}, ${latestDeath.name} the ${latestDeath.getAlign()} ${latestDeath.profession}...`);
+    this.drawLeftText(display, i++,     `${goodbye}, ${latestDeath.name} the ${latestDeath.getAlign()} ${latestDeath.race} ${latestDeath.profession}...`);
     this.drawLeftText(display, i++,     `You were level ${latestDeath.level}/${latestDeath.professionInst.level} after earning ${latestDeath.totalXpEarned} experience.`);
     this.drawLeftText(display, i++,     `You died in ${mapName} on dungeon level ${floor}.`);
     this.drawLeftText(display, i++,     `You scored ${score} points and ${latestDeath.gold} gold over ${latestDeath.currentTurn} steps.`);
@@ -316,11 +318,6 @@ export class WinScreen extends Screen {
 }
 
 export class SingleGameScreen extends GameScreen {
-  
-  static enter() {
-    GameState.game.engine.lock();
-    GameState.game.switchScreen(RespawnScreen);
-  }
   
   static drawMessages(display, player) {
     
@@ -342,7 +339,7 @@ export class SingleGameScreen extends GameScreen {
   }
   
   static drawHUD(display, player) {
-    var tag = `${player.name} the ${player.getAlign()} ${player.level}/${player.professionInst.level} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
+    var tag = `${player.name} the ${player.getAlign()} ${player.level}/${player.professionInst.level} ${player.race} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
     var stats = `STR:${player.getStr()} DEX:${player.getDex()} CON:${player.getCon()} INT:${player.getInt()} WIS:${player.getWis()} CHA:${player.getCha()}`;
     var miscInfo = `Floor:${1+GameState.currentFloor} $:${player.gold} HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max} AC:${player.getAC()} Turn:${player.currentTurn}`;
     
