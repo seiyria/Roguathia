@@ -20,10 +20,10 @@ export var gasSpore =         { difficulty: 2, glyph: {key: 'e', fg: 'gray'}, sp
                                     behaviors: [Behaviors.Explodes('4d8'), Behaviors.Wanders()]
                                   }};
 export var jackal =           { difficulty: 2, glyph: {key: 'd', fg: 'brown'}, spawnPattern: '1d3 + 1',  frequency: 75,
-                                  attributes: {ac: -3, speed: 125, level: 1, str: '1d4 + 1', dex: '2d3 + 4', con: 4, killXp: '2d3 + 3', spawnHp: '1d5 + 5'}, 
+                                  attributes: {ac: -3, speed: 125, level: 1, str: '1d4 + 2', dex: '2d3 + 4', con: 4, killXp: '2d3 + 3', spawnHp: '3d3 + 5'}, 
                                   stats: {name: 'jackal', race: 'Canine',
                                     behaviors: [Behaviors.LeavesCorpse(), Behaviors.DropsGold('1d10'), Behaviors.Bloodthirsty(), Behaviors.Attacks()], 
-                                    attacks: [Attacks.Bite('1d2 + 1', '1d1')] 
+                                    attacks: [Attacks.Bite('1d2 + 1', '1d2')] 
                                   }};
 export var giantAnt =         { difficulty: 4, glyph: {key: 'a', fg: 'brown'}, spawnPattern: '1d4 + 2',  frequency: 20,
                                   attributes: {ac: -2, speed: 150, level: 3, str: '1d3 + 3', dex: '1d3 + 2', con: 4, killXp: '2d4 + 5', spawnHp: '1d8 + 5'}, 

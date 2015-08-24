@@ -3,14 +3,16 @@ import GameState from "./gamestate";
 
 export class Item {
   constructor(opts) {
-    this.glyph = new Glyph(opts.glyph.key, opts.glyph.fg);
-    this.enchantment = opts.enchantment || 0;
-    this.slotsTaken = opts.slotsTaken || 1;
-    if(opts.attacks) {
-      this.attacks = opts.attacks;
+    _.extend(this, opts);
+    this.enchantment = this.enchantment || 0;
+    this.slotsTaken = this.slotsTaken || 1;
+    if(this.attacks) {
       _.each(this.attacks, (attack) => attack._itemRef = this);
     }
-    this.generateBUC(opts.buc);
+    if(this.charges) this.charges = +dice.roll(this.charges);
+    if(this.startIdentified) this.identify();
+    this.glyph = new Glyph(opts.glyph.key, opts.glyph.fg);
+    this.generateBUC(opts.bucProb);
   }
   
   isIdentified() {
@@ -18,44 +20,65 @@ export class Item {
     return GameState.identification[myType];
   }
   
+  identify() {
+    let myType = this.getParentType();
+    GameState.identification[myType] = this.realName;
+  }
+  
+  pickFakeName(choices) {
+    let myType = this.getParentType();
+    if(GameState._idMap[this.realName]) {
+      return GameState._idMap[this.realName]; //this item has already been generated
+    }
+    let currentTypes = _.keys(GameState.identification[myType]);
+    let validTypes = _.difference(choices, currentTypes);
+    let name = _.sample(validTypes);
+    GameState._idMap[this.realName] = name;
+    return name;
+  }
+  
+  canUse(owner) {
+    if(this.manaCost) return owner.mp.gte(this.manaCost);
+    if(this.charges) return this.charges > 0;
+    return owner.isEquipped(this);
+  }
+  
+  use(owner) {
+    if(this.manaCost) owner.mp.sub(this.manaCost);
+    if(this.healRoll) owner.heal(this.healRoll, this);
+    if(this.charges) {
+      this.charges--;
+      if(this.charges <= 0 && this.autoRemove) owner.removeFromInventory(this);
+    }
+  }
+  
+  getCanonName() {
+    return _.startCase(this.constructor.name).toLowerCase();
+  }
+  
   getType() {
-    return this.constructor.name;
+    return this.constructor.name.toLowerCase();
   }
   
   getParentType() {
     return Object.getPrototypeOf(Object.getPrototypeOf(this)).constructor.name.toLowerCase();
   }
   
-  determineName() {
-    return GameState.identification[myType] ? this.realName : this.fakeName;
-  }
-  
-  pickFakeName(choices) {
-    let myType = this.getParentType();
-    let currentTypes = _.keys(GameState.identification[myType]);
-    let validTypes = _.difference(choices, currentTypes);
-    return _.sample(validTypes);
-  }
-  
   generateBUC(opts = { cursed: 5, blessed: 5, uncursed: 90 }) {
-    let status = ROT.RNG.getWeightedValue(opts);
+    if(!this.bucName) {
+      let status = ROT.RNG.getWeightedValue(opts);
+      this.bucName = status;
+    }
     let hash = { cursed: -1, uncursed: 1, blessed: 2 };
-    this.buc = hash[status];
-  }
-  
-  use(owner, target) {
-  }
-  
-  canUse(owner) {
-    return owner.isEquipped(this);
+    this.buc = hash[this.bucName];
   }
   
   value() {
     return this.buc * (100 - this.rarity - this.enchantment*5);
   }
   
-  identify() {
-    let myType = this.getParentType();
-    GameState.identification[myType] = this.realName;
+  toJSON() {
+    let me = _.omit(this, ['bucProb', 'startIdentified']);
+    return JSON.stringify(me);
   }
 }

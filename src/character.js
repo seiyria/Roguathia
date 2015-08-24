@@ -76,6 +76,12 @@ export default class Character extends Entity {
     this.game.scheduler.add(this, true);
   }
   
+  heal(roll, item) {
+    let value = +dice.roll(roll);
+    MessageQueue.add({message: `${this.name} used ${item.name} and regained ${value} health!`});
+    this.hp.add(value);
+  }
+  
   loadStartingEquipment() {
     if(!this.professionInst.startingItems) return;
     _.each(this.professionInst.startingItems, (item) => {
@@ -123,7 +129,7 @@ export default class Character extends Entity {
   
   getWorseItemsThan(item) {
     let slot = item.getParentType();
-    return _(this.equipment[slot]).filter((equip) => equip.value() < item.value());
+    return _(this.equipment[slot]).filter((equip) => equip.value() < item.value() && item.bucName !== 'cursed');
   }
   
   shouldEquip(item) {
@@ -136,6 +142,8 @@ export default class Character extends Entity {
   tryEquip(item) {
     if(!this.canEquip(item) || !this.shouldEquip(item)) return false;
     let worseItems = this.getWorseItemsThan(item);
+    if(worseItems.length < item.slotsTaken) return false; //cursed items
+    
     let slot = item.getParentType();
     if(worseItems.length > 0) {
       for(let i=0; i<item.slotsTaken; i++) {
@@ -214,7 +222,7 @@ export default class Character extends Entity {
       newTile = tiles[direction];
     }
     
-    if(!newTile) return;
+    if(!newTile) return; //surrounded
     this.move(newTile);
     this.lastDirection = direction;
   }
@@ -223,13 +231,80 @@ export default class Character extends Entity {
     let path = [];
     let addPath = (x, y) => path.push({x, y});
     target._path.compute(this.x, this.y, addPath);
+    
+    try {
 
     path.shift();
     let step = path.shift();
     if(!step) return false;
     
-    this.moveTo(step.x, step.y);
+    let blockingEntityInfo = (path) => {
+      let entity = null;
+      let step = null;
+      _.each(path, (step, i) => {
+        let testEntity = GameState.world.getEntity(step.x, step.y, this.z);
+        if(testEntity && !this.canAttack(testEntity)) {
+          entity = testEntity;
+          step = i;
+          return false;
+        }
+      });
+      return {entity, step};
+    };
+    
+    let mainBlockingInfo = blockingEntityInfo(path);
+    
+    // the main path is blocked
+    if(mainBlockingInfo.entity) {
+      let altPath = this.getAlternatePathTo(target);
+      
+      // no alternate path could be generated
+      if(!altPath) {
+        this.moveTo(step.x, step.y);
+        return true;
+      }
+      
+      let altBlockingInfo = blockingEntityInfo(altPath);
+
+      // both are blocked, take the shortest path
+      if(mainBlockingInfo.entity && altBlockingInfo.entity) {
+        let path = _.min([path, altPath], (path) => path.length);
+        let newStep = path.shift();
+        this.moveTo(newStep.x, newStep.y);
+        
+      // the alt path isn't blocked, take that
+      } else {
+        let newStep = altPath.shift();
+        this.moveTo(newStep.x, newStep.y);
+      }
+      
+    // no blockers, keep moving on
+    } else {
+      this.moveTo(step.x, step.y);
+    }
+    } catch(e) {
+      console.log()
+    }
+    
     return true;
+  }
+  
+  getAlternatePathTo(target) {
+    let canPass = (x, y) => {
+      let entity = GameState.world.getEntity(x, y, this.z);
+      let isAttackable = entity && this.canAttack(entity);
+      let isMe = this.x === x && this.y === y;
+      return GameState.world.isTilePassable(x, y, this.z) || isMe || isAttackable;
+    };
+    let astar = new ROT.Path.AStar(target.x, target.y, canPass);
+    
+    let path = [];
+    astar.compute(this.x, this.y, (x, y) => path.push({x, y}));
+    
+    path.shift();
+    let step = path.shift();
+    if(!step) return null;
+    return path;
   }
   
   canAttack(entity) {
@@ -241,11 +316,9 @@ export default class Character extends Entity {
     attacks = _.filter(attacks, (atk) => atk.canUse(this));
     if(attacks.length === 0) return false;
     
-    console.log(this.name, this.inventory, attacks);
-    
-    _.each(attacks, (attack) => {
+    _.each(attacks, (attack, hitNum) => {
       let target = attack.possibleTargets(this)[0];
-      attack.tryHit(this, target);
+      attack.tryHit(this, target, hitNum);
     });
     return true;
   }
@@ -258,11 +331,11 @@ export default class Character extends Entity {
   }
   
   moveTo(x, y) {
-    GameState.world.moveEntity(this, x, y, this.z);
+    return GameState.world.moveEntity(this, x, y, this.z);
   }
   
   move(newTile) {
-    GameState.world.moveEntity(this, newTile.x, newTile.y, newTile.z);
+    return GameState.world.moveEntity(this, newTile.x, newTile.y, newTile.z);
   }
   
   calcLevelXp(level) {
@@ -312,9 +385,9 @@ export default class Character extends Entity {
   
   getAttacks() {
     let baseAttacks = this.attacks || [];
-    let attacks = baseAttacks.concat(_(this.equipment).values().flatten().filter((item) => item.canUse(this) && item.attacks).map((item) => item.attacks).flatten().value());
-    if(attacks.length === 0) attacks = [Attacks.Fist('1d4')];
-    let inventoryAttacks = _(this.inventory).filter((item) => item.canUse(this) && item.attacks).map((item) => item.attacks).flatten().value();
+    let attacks = baseAttacks.concat(_(this.equipment).values().flatten().filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value());
+    if(attacks.length === 0) attacks = [Attacks.Unarmed('1d4')];
+    let inventoryAttacks = _(this.inventory).filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value();
     
     // all melee attacks are valid, but only one ranged inventory attack can be used
     if(attacks[0].canUse(this)) return attacks;

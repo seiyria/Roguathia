@@ -6,7 +6,9 @@ import {GetColor} from "./lib/valid-colors";
 class Equipment extends Item {
   get name() {
     let name = this.isIdentified() ? this.realName : this.fakeName;
-    return this.enchantment ? `+${this.enchantment} ${name}` : name;
+    let enchant = this.enchantment ? `+${this.enchantment} ${name}` : name;
+    let buc = this.bucName !== 'uncursed' ? `${this.bucName} ${enchant}` : enchant
+    return buc;
   }
 }
 
@@ -14,33 +16,18 @@ class Armor extends Equipment {}
 export class Weapon extends Equipment {
   constructor(opts) {
     super(opts);
-    if(opts.manaCost) this.manaCost = opts.manaCost;
-    if(opts.charges) this.charges = +dice.roll(opts.charges);
-    if(opts.autoRemove) this.autoRemove = opts.autoRemove;
-  }
-  
-  canUse(owner) {
-    if(this.manaCost) return owner.mp.gte(this.manaCost);
-    if(this.charges) return this.charges > 0;
-    return owner.isEquipped(this);
-  }
-  
-  use(owner) {
-    if(this.manaCost) owner.mp.sub(this.manaCost);
-    if(this.charges) {
-      this.charges--;
-      if(this.charges <= 0 && this.autoRemove) owner.removeFromInventory(this);
-    }
+    this.realName = this.fakeName = this.getType();
   }
 }
 
+//TODO abstract these (and other fake types) to a seperate module
 let ringFakeTypes = ['pearl', 'iron', 'twisted', 'steel', 'wire', 'engagement', 'shiny', 'bronze', 'brass', 'copper', 'silver', 'gold', 'wooden', 'granite', 'opal', 'clay', 'coral', 'black onyx', 'moonstone', 'tiger eye', 'jade', 'agate', 'topaz', 'sapphire', 'ruby', 'diamond', 'ivory', 'emerald'];
 export class Ring extends Armor {
   constructor(opts) {
-    opts.buc = { cursed: 7, blessed: 2, uncursed: 91 };
+    opts.bucProb = { cursed: 7, blessed: 2, uncursed: 91 };
     opts.glyph = {key: '=', fg: GetColor()};
     super(opts);
-    this.realName = `ring of ${_.startCase(this.constructor.name).toLowerCase()}`;
+    this.realName = `ring of ${this.getCanonName()}`;
     this.fakeName = `${this.pickFakeName(ringFakeTypes)} ring`;
   }
 }
@@ -59,15 +46,24 @@ export class Special extends Item {}
 class Gem extends Item {}
 class Scroll extends Item {}
 class Wand extends Item {}
-class Spellbook extends Item{}
+class Spellbook extends Item {}
 
 export class Comestible extends Item {
   constructor(opts) {
-    opts.glyph = {key: '%', fg: GetColor()};
+    if(!opts.glyph) opts.glyph = {key: '%', fg: GetColor()};
     super(opts);
   }
 }
-class Potion extends Comestible {}
+
+let potionFakeTypes = ['ruby', 'dark green', 'purple-red', 'smoky', 'brown', 'pink', 'cyan', 'puce', 'cloudy', 'fizzy', 'orange', 'sky blue', 'milky', 'effervescent', 'dark', 'yellow', 'brilliant blue', 'swirly', 'black', 'white', 'emerald', 'magenta', 'bubbly', 'golden', 'murky'];
+export class Potion extends Equipment {
+  constructor(opts) {
+    opts.glyph = {key: '!', fg: GetColor()};
+    super(opts);
+    this.realName = `potion of ${this.getCanonName()}`;
+    this.fakeName = `${this.pickFakeName(potionFakeTypes)} potion`;
+  }
+}
 
 //import * as Rings from "./items/rings";
 //export default { Rings };

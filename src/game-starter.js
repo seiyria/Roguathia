@@ -9,7 +9,7 @@ export default () => {
     (item) => { item.parentNode.removeChild(item); 
   });
   
-  GameState.identification = {};
+  GameState.reset();
   var game = GameState.game = new Game();
   document.body.appendChild(game.display.getContainer());
   game.switchScreen(LoadScreen);

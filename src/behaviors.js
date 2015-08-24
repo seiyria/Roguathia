@@ -8,7 +8,8 @@ import {Gold} from "./items/special";
 // priorities determine the ordering of behavior execution
 const PRIORITIES = {
   STUN: 0,
-  DEFENSE: 1,
+  HEAL: 1,
+  DEFENSE: 2,
   INTERACT: 3,
   MOVE: 5,
   DEFER: 10
@@ -30,6 +31,23 @@ class Behavior {
     this.priority = priority;
   }
 }
+
+class HealsBelowPercentBehavior extends Behavior {
+  constructor(percent = 50) {
+    super(PRIORITIES.HEAL);
+    this.healPercent = percent;
+  }
+  act(me) {
+    if(me.hp.gtPercent(this.healPercent)) return true;
+    let healItems = _.filter(me.inventory, (item) => item.healRoll &&  item.canUse(me));
+    if(healItems.length === 0) return true;
+    let healItem = _.sample(healItems);
+    healItem.use(me);
+    return false;
+  }
+}
+
+export var HealsBelowPercent = (percent) => new HealsBelowPercentBehavior(percent);
 
 /* being stunned sucks */
 class StunnedBehavior extends Behavior {
@@ -86,7 +104,7 @@ class LeavesCorpseBehavior extends Behavior {
   }
   die(me) {
     if(ROT.RNG.getPercentage() > this.dropPercent) return;
-    let corpse = new Corpse(me);
+    let corpse = new Corpse({monsterName: me.name});
     GameState.world.moveItem(corpse, me.x, me.y, me.z);
   }
 }

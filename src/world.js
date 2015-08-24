@@ -142,6 +142,7 @@ export default class World {
     entity.y = y;
     entity.z = z;
     this.entities[z][x][y] = entity;
+    return true;
   }
   
   removeEntity(entity) {

@@ -20,5 +20,5 @@ export default () => {
     GameState.renderAll = !GameState.renderAll;
   });
   
-  Object.observe(GameState.players[0].inventory, (changes) => console.log(changes));
+  //Object.observe(GameState.players[0].inventory, (changes) => console.log(changes));
 };

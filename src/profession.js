@@ -6,6 +6,7 @@ import Factions from './factions';
 
 import {Gold} from './items/special';
 import {Dart, Dagger} from './items/weapons';
+import {Healing} from './items/comestibles';
 
 let defaultCfg = {
   ac  : 0,
@@ -46,10 +47,10 @@ class Profession {
 export class Monster extends Profession {}
 
 let touristCfg = {
-  hp  : '1d10 + 5',
+  hp  : '1d5 + 5',
   mp  : '1d2 + 1',
   str : '1d3',
-  con : '1d3',
+  con : '1d2',
   int : '1d3 - 3',
   dex : '1d2',
   wis : '1d2 - 3',
@@ -58,8 +59,10 @@ let touristCfg = {
   titles: ['Rambler',, 'Sightseer',,, 'Excursionist',,, 'Perigrinator',,, 'Traveler',,, 'Journeyer',,, 'Voyager',,, 'Explorer',,, 'Adventurer'],
   startingItems: [
     () => new Gold(+dice.roll('1d1000')),
-    () => new Dart({charges: '1d20 + 20', autoRemove: true}),
-    () => new Dagger()
+    () => new Dart({charges: '1d5 + 5', bucName: 'uncursed'}),
+    () => new Dagger({bucName: 'uncursed'}),
+    //TODO make this import Potions.Healing so it's not confusing
+    () => new Healing({charges: '1d3 + 1', bucName: 'blessed', startIdentified: true})
   ]
 };
 

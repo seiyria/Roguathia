@@ -13,7 +13,7 @@ export default class Player extends Character {
   
   constructor(x, y, z, opts = {}) {
     super(x, y, z, opts);
-    this.behaviors = [Behaviors.Attacks(), Behaviors.PickUpItems(), Behaviors.Interacts(), Behaviors.Wanders()];
+    this.behaviors = [Behaviors.Attacks(), Behaviors.PickUpItems(), Behaviors.HealsBelowPercent(50), Behaviors.Interacts(), Behaviors.Wanders()];
     this.factions.push(Factions.PLAYER);
     this.antiFactions.push(Factions.MONSTER);
     this.sortBehaviors();

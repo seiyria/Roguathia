@@ -3,7 +3,9 @@ import * as Behaviors from "./behaviors";
 import {Attack} from "./attacktypes";
 import Glyph from "./glyph";
 
-class Fist extends Attack {}
+//TODO make some attacks inherit from "skill increasing" when proficiencies are implemented
+
+class Unarmed extends Attack {}
 
 class Bite extends Attack {}
 
@@ -36,7 +38,7 @@ class DeathRay extends Attack {
 }
 
 let attacks = {};
-_.each([Fist, Bite, Slash, Shot, ElectricTouch, DeathRay], (attack) => attacks[attack.name] = (r, h, d) => new attack(r, h, d));
+_.each([Unarmed, Bite, Slash, Shot, ElectricTouch, DeathRay], (attack) => attacks[attack.name] = (r, h, d) => new attack(r, h, d));
 export default attacks;
 
 

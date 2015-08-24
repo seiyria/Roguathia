@@ -39,16 +39,19 @@ export class Attack extends Abstract {
   
   canUse(owner) { return this.possibleTargets(owner).length > 0; }
   
-  canHit(owner, target) {
+  canHit(owner, target, attackNum) {
     if(owner.hp.atMin()) return false;
-    let hitRoll = +dice.roll('1d20');
-    let targetAC = target.getAC() + owner.level + (+dice.roll(this.toHit) + owner.getToHit());
+    let hitRoll = +dice.roll(`1d2${attackNum}`); //subsequent attacks are less likely to hit
+    let targetAC = target.getAC();
+    let myToHitBonus = (+dice.roll(this.toHit) - owner.getToHit() - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
+    let targetACRoll = 0;
 
-    if(targetAC > 0) {
-      return hitRoll < targetAC;
+    if(targetAC >= 0) {
+      targetACRoll = targetAC + owner.level - myToHitBonus;
     } else {
-      return false;
+      targetACRoll = 10 + ROT.RNG.getUniformInt(targetAC, -1) + owner.level - myToHitBonus;
     }
+    return hitRoll < targetACRoll;
   }
   
   animate(owner, target, callback) {
@@ -102,10 +105,10 @@ export class Attack extends Abstract {
     });
   }
   
-  tryHit(owner, target) {
+  tryHit(owner, target, attackNum) {
     if(!target) return;
     if(this._itemRef) this._itemRef.use(owner, target);
-    if(!this.canHit(owner, target)) {
+    if(!this.canHit(owner, target, attackNum)) {
       let extra = this.missCallback(owner, target);
       MessageQueue.add({message: this.missString(owner, target, extra)});
       return false;
