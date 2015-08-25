@@ -20,6 +20,10 @@ export class Attack extends Abstract {
     if(this.init) this.init();
   }
   
+  value() {
+    return dice.statistics(this.roll).mean + dice.statistics(this.toHit) + this.range * 3;
+  }
+  
   inRange(owner, target) { 
     return owner.distBetween(target) <= this.range;
   }

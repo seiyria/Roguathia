@@ -82,12 +82,37 @@ export default class Character extends Entity {
     this.hp.add(value);
   }
   
-  loadStartingEquipment() {
-    if(!this.professionInst.startingItems) return;
-    _.each(this.professionInst.startingItems, (item) => {
-      let inst = item();
+  tryToStack(item) {
+    if(!item.charges) return;
+    let didStack = false;
+    _.each(this.inventory, (testItem) => {
+      if(testItem.getType() !== item.getType()) return;
+      if(testItem.buc !== item.buc || testItem.enchantment !== item.enchantment) return;
+      testItem.charges += item.charges;
+      didStack = true;
+    });
+    return didStack;
+  }
+  
+  loadStartingEquipment(list = this.professionInst.startingItems) {
+    if(!list) return;
+    _.each(list, (item) => {
+      if(item.probability && ROT.RNG.getPercentage() > item.probability) return;
+      
+      let inst = null;
+      if(item.choices) {
+        let choice = ROT.RNG.getWeightedValue(item.choices);
+        inst = item.choicesInit[choice]();
+      } else {
+        inst = item.init();
+      }
+      
       this.addToInventory(inst);
     });
+  }
+  
+  dropItem(item) {
+    GameState.world.moveItem(item, this.x, this.y, this.z);
   }
   
   addToInventory(item) {
@@ -95,6 +120,7 @@ export default class Character extends Entity {
       this.gold += item.goldValue;
       return;
     }
+    if(this.tryToStack(item)) return;
     if(this.tryEquip(item)) return;
     this.inventory.push(item);
   }
@@ -232,8 +258,6 @@ export default class Character extends Entity {
     let addPath = (x, y) => path.push({x, y});
     target._path.compute(this.x, this.y, addPath);
     
-    try {
-
     path.shift();
     let step = path.shift();
     if(!step) return false;
@@ -268,8 +292,8 @@ export default class Character extends Entity {
 
       // both are blocked, take the shortest path
       if(mainBlockingInfo.entity && altBlockingInfo.entity) {
-        let path = _.min([path, altPath], (path) => path.length);
-        let newStep = path.shift();
+        let newPath = _.min([path, altPath], (testPath) => testPath.length);
+        let newStep = newPath.shift();
         this.moveTo(newStep.x, newStep.y);
         
       // the alt path isn't blocked, take that
@@ -281,9 +305,6 @@ export default class Character extends Entity {
     // no blockers, keep moving on
     } else {
       this.moveTo(step.x, step.y);
-    }
-    } catch(e) {
-      console.log()
     }
     
     return true;

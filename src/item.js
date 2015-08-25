@@ -74,7 +74,8 @@ export class Item {
   }
   
   value() {
-    return this.buc * (100 - this.rarity - this.enchantment*5);
+    let atkValue = _.reduce(this.attacks, ((prev, cur) => prev + cur.value()), 0);
+    return this.buc * (100 - this.rarity) + this.enchantment*5 + atkValue;
   }
   
   toJSON() {

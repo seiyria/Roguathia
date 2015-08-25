@@ -15,6 +15,17 @@ export class Dart extends Weapon {
   }
 }
 
+export class Arrow extends Weapon {
+  constructor(opts = {charges: '1d4'}) {
+    _.extend(opts, {
+      autoRemove: true,
+      glyph: {key: ')', fg: '#f0f'},
+      attacks: [Attacks.Shot('1d3', '0d0', 6)]
+    });
+    super(opts);
+  }
+}
+
 export class Dagger extends Hands {
   constructor(opts = {}) {
     _.extend(opts, {

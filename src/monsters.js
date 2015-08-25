@@ -1,6 +1,7 @@
 
 import * as Behaviors from "./behaviors";
 import Attacks from "./attacks";
+import * as Comestibles from "./items/comestibles";
 
 export var gridBug =          { difficulty: 1, glyph: {key: 'x', fg: 'purple'}, spawnPattern: '1d2', frequency: 100,
                                   attributes: {ac: -1, speed: 150, level: 1, str: 5, dex: 3, con: 0, killXp: '4d1', spawnHp: '1d4 + 2'}, 
@@ -20,9 +21,12 @@ export var gasSpore =         { difficulty: 2, glyph: {key: 'e', fg: 'gray'}, sp
                                     behaviors: [Behaviors.Explodes('4d8'), Behaviors.Wanders()]
                                   }};
 export var jackal =           { difficulty: 2, glyph: {key: 'd', fg: 'brown'}, spawnPattern: '1d3 + 1',  frequency: 75,
+                                  startingEquipment: [
+                                    { probability: 20, init: () => new Comestibles.Ration({charges: '1d2'})}
+                                  ],
                                   attributes: {ac: -3, speed: 125, level: 1, str: '1d4 + 2', dex: '2d3 + 4', con: 4, killXp: '2d3 + 3', spawnHp: '3d3 + 5'}, 
                                   stats: {name: 'jackal', race: 'Canine',
-                                    behaviors: [Behaviors.LeavesCorpse(), Behaviors.DropsGold('1d10'), Behaviors.Bloodthirsty(), Behaviors.Attacks()], 
+                                    behaviors: [Behaviors.LeavesCorpse(), Behaviors.DropsGold('1d10'), Behaviors.Bloodthirsty(), Behaviors.Attacks(), Behaviors.DropsItems()], 
                                     attacks: [Attacks.Bite('1d2 + 1', '1d2')] 
                                   }};
 export var giantAnt =         { difficulty: 4, glyph: {key: 'a', fg: 'brown'}, spawnPattern: '1d4 + 2',  frequency: 20,

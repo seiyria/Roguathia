@@ -7,7 +7,7 @@ class Equipment extends Item {
   get name() {
     let name = this.isIdentified() ? this.realName : this.fakeName;
     let enchant = this.enchantment ? `+${this.enchantment} ${name}` : name;
-    let buc = this.bucName !== 'uncursed' ? `${this.bucName} ${enchant}` : enchant
+    let buc = this.bucName !== 'uncursed' ? `${this.bucName} ${enchant}` : enchant;
     return buc;
   }
 }

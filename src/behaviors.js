@@ -86,6 +86,18 @@ class PickUpItemsBehavior extends Behavior {
 
 export var PickUpItems = () => new PickUpItemsBehavior();
 
+class DropsItemsBehavior extends Behavior {
+  constructor() { super(PRIORITIES.DEFER); }
+  die(me) {
+    let items = me.inventory.concat(_(me.equipment).values().flatten().value());
+    _.each(items, (item) => {
+      me.dropItem(item);
+    });
+  }
+}
+
+export var DropsItems = () => new DropsItemsBehavior();
+
 /* monsters can attack with this */
 class AttacksBehavior extends Behavior {
   constructor() { super(PRIORITIES.DEFENSE); }

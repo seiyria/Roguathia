@@ -1,5 +1,5 @@
 
-import {Comestible, Potion} from "../items";
+import {Comestible} from "../items";
 
 export class Corpse extends Comestible {
   constructor(opts = {monsterName: 'unknown'}) {
@@ -8,9 +8,9 @@ export class Corpse extends Comestible {
   }
 }
 
-export class Healing extends Potion {
-  constructor(opts = {charges: 1}) {
-    _.extend(opts, {healRoll: '4d4', autoRemove: true});
+export class Ration extends Comestible {
+  constructor(opts) {
     super(opts);
+    this.name = 'ration';
   }
 }

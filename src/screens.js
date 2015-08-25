@@ -75,7 +75,7 @@ class GameScreen extends Screen {
         var foreground = glyph.fg;
         var background = glyph.bg;
         
-        if(true){//visible[x] && visible[x][y]) {
+        if(visible[x] && visible[x][y]) {
           let items = world.getItemsAt(x, y, zLevel);
           if(items && items.length > 0) {
             glyph = items[items.length-1].glyph;

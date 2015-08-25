@@ -5,8 +5,8 @@ import loadValue from './lib/value-assign';
 import Factions from './factions';
 
 import {Gold} from './items/special';
-import {Dart, Dagger} from './items/weapons';
-import {Healing} from './items/comestibles';
+import * as Weapons from './items/weapons';
+import * as Potions from './items/potions';
 
 let defaultCfg = {
   ac  : 0,
@@ -58,11 +58,14 @@ let touristCfg = {
   luk : '1d3 - 1',
   titles: ['Rambler',, 'Sightseer',,, 'Excursionist',,, 'Perigrinator',,, 'Traveler',,, 'Journeyer',,, 'Voyager',,, 'Explorer',,, 'Adventurer'],
   startingItems: [
-    () => new Gold(+dice.roll('1d1000')),
-    () => new Dart({charges: '1d5 + 5', bucName: 'uncursed'}),
-    () => new Dagger({bucName: 'uncursed'}),
-    //TODO make this import Potions.Healing so it's not confusing
-    () => new Healing({charges: '1d3 + 1', bucName: 'blessed', startIdentified: true})
+    { init: () => new Gold(+dice.roll('1d1000')) },
+    { choices: {less: 5, more: 1}, 
+      choicesInit: { 
+        less: () => new Weapons.Dart({charges: '1d5 + 5', bucName: 'uncursed'}), 
+        more: () => new Weapons.Dart({charges: '5d10 + 10', bucName: 'uncursed'})} 
+    },
+    { probability: 30, init: () => new Weapons.Dagger({bucName: 'uncursed'}) },
+    { init: () => new Potions.Healing({charges: '1d3 + 1', bucName: 'blessed', startIdentified: true}) }
   ]
 };
 

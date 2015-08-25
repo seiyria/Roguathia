@@ -4,6 +4,8 @@ import {Attack} from "./attacktypes";
 import Glyph from "./glyph";
 
 //TODO make some attacks inherit from "skill increasing" when proficiencies are implemented
+// proficiencies should increase damage and to-hit by 1
+// maybe proficiency should also factor into value
 
 class Unarmed extends Attack {}
 
