@@ -1,15 +1,19 @@
 
 import * as Behaviors from "./behaviors";
-import {Attack} from "./attacktypes";
+import {Reagent, Attack} from "./attacktypes";
 import Glyph from "./glyph";
 
 //TODO make some attacks inherit from "skill increasing" when proficiencies are implemented
 // proficiencies should increase damage and to-hit by 1
 // maybe proficiency should also factor into value
 
+class Ranged extends Reagent {}
+
 class Unarmed extends Attack {}
 
 class Bite extends Attack {}
+
+class Bash extends Attack {}
 
 class Slash extends Attack {}
 
@@ -40,7 +44,7 @@ class DeathRay extends Attack {
 }
 
 let attacks = {};
-_.each([Unarmed, Bite, Slash, Shot, ElectricTouch, DeathRay], (attack) => attacks[attack.name] = (r, h, d) => new attack(r, h, d));
+_.each([Unarmed, Ranged, Bash, Bite, Slash, Shot, ElectricTouch, DeathRay], (attack) => attacks[attack.name] = (r, h, d) => new attack(r, h, d));
 export default attacks;
 
 

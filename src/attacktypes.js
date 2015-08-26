@@ -45,7 +45,7 @@ export class Attack extends Abstract {
   
   canHit(owner, target, attackNum) {
     if(owner.hp.atMin()) return false;
-    let hitRoll = +dice.roll(`1d2${attackNum}`); //subsequent attacks are less likely to hit
+    let hitRoll = +dice.roll(`1d${20 + attackNum}`); //subsequent attacks are less likely to hit
     let targetAC = target.getAC();
     let myToHitBonus = (+dice.roll(this.toHit) - owner.getToHit() - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
     let targetACRoll = 0;
@@ -109,6 +109,10 @@ export class Attack extends Abstract {
     });
   }
   
+  use(owner, target, attackNum) {
+    this.tryHit(owner, target, attackNum);
+  }
+  
   tryHit(owner, target, attackNum) {
     if(!target) return;
     if(this._itemRef) this._itemRef.use(owner, target);
@@ -121,7 +125,12 @@ export class Attack extends Abstract {
   }
   
   calcDamage(owner, target) {
-    return +dice.roll(this.roll) + owner.calcStatBonus('str') + (this._itemRef ? this._itemRef.enchantment : 0);
+    let damageBoost = 0;
+    if(this._itemRef) {
+      damageBoost += this._itemRef.enchantment;
+      if(this._itemRef._tempAttackBoost) damageBoost += +dice.roll(this._itemRef._tempAttackBoost);
+    }
+    return +dice.roll(this.roll) + owner.calcStatBonus('str') + damageBoost;
   }
   
   hit(owner, target) {
@@ -148,6 +157,18 @@ export class Attack extends Abstract {
   toJSON() {
     let me = _.omit(this, ['_itemRef']);
     return JSON.stringify(me);
+  }
+}
+
+export class Reagent extends Attack {
+  
+  isValidRangedAttack(owner) {
+    return this._itemRef && this._itemRef.canUse(owner) && this._itemRef.hasValidAmmo(owner);
+  }
+  
+  use(owner, target, attackNum) {
+    if(this.isValidRangedAttack(owner)) return this._itemRef.use(owner);
+    return super.use(owner, target, attackNum);
   }
 }
 

@@ -9,6 +9,9 @@ export class Item {
     if(this.attacks) {
       _.each(this.attacks, (attack) => attack._itemRef = this);
     }
+    if(this.range) {
+      this.range = _.extend({numShots: 1, damageBoost: '0d0', ammo: []}, this.range);
+    }
     if(this.charges) this.charges = +dice.roll(this.charges);
     if(this.startIdentified) this.identify();
     this.glyph = new Glyph(opts.glyph.key, opts.glyph.fg);
@@ -43,12 +46,33 @@ export class Item {
     return owner.isEquipped(this);
   }
   
+  hasValidAmmo(owner) {
+    return this.getValidAmmo(owner).length > 0;
+  }
+  
+  getValidAmmo(owner) {
+    return _.filter(owner.inventory, (item) => item.canUse(owner) && _.contains(this.range.ammo, item.getType()));
+  }
+  
   use(owner) {
     if(this.manaCost) owner.mp.sub(this.manaCost);
     if(this.healRoll) owner.heal(this.healRoll, this);
     if(this.charges) {
       this.charges--;
       if(this.charges <= 0 && this.autoRemove) owner.removeFromInventory(this);
+    }
+    if(this.range && this.hasValidAmmo(owner)) {
+      this.pewpew(owner);  
+    }
+  }
+  
+  pewpew(owner) {
+    for(let i=0; i<this.range.numShots; i++) {
+      let chosenAmmo = _.sample(this.getValidAmmo(owner));
+      chosenAmmo._tempAttackBoost = this.range.damageBoost;
+      let attack = _.sample(chosenAmmo.attacks);
+      owner.doAttack(attack, i);
+      delete chosenAmmo._tempAttackBoost;
     }
   }
   
@@ -79,7 +103,7 @@ export class Item {
   }
   
   toJSON() {
-    let me = _.omit(this, ['bucProb', 'startIdentified']);
+    let me = _.omit(this, ['bucProb', 'startIdentified', '_tempAttackBoost']);
     return JSON.stringify(me);
   }
 }

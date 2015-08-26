@@ -42,17 +42,22 @@
   * Find the ring of Selyk (opens a chamber leading to an altar)
   * Find the stone of Selyk (insta-win, low VP gain)
   * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
-* Doors that require keys that are spawned in the level, and have treasure or stairs behind them
 * Catchable ammo, recoverable ammo
-* Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
-* IRC bot (Selyk) to announce major events (deaths, etc) / scrollback to chat
-* Sliders for game speed, etc, and switches for skipping some screens, maybe
-* Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
 
-Pre-release
-* Analysis tool to make sure stats/etc are declared properly (they may need to be moved to the prototype so they can be imported)
-* Assertions, unit tests, logging, general code refactoring / cleanup
+# Website
+* Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
+* Sliders for game speed, etc, and switches for skipping some screens, maybe
 * Favicon: unicode goblin
 
+# Pre-release
+* Analysis tool to make sure stats/etc are declared properly (they may need to be moved to the prototype so they can be imported)
+* Assertions, unit tests, logging, general code refactoring / cleanup
+* IRC bot (Selyk) to announce major events (deaths, etc) / scrollback to chat
+* Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
+* Refactor / reorg / unit tests for classes
 
-V2
+# Post-release
+* Doors that require keys that are spawned in the level, and have treasure or stairs behind them
+* More content
+* More puzzles
+* More intricate death messages ("while asleep" "while stunned")

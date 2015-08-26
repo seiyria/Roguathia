@@ -105,7 +105,16 @@ let rangerCfg = {
   dex : '2d5',
   wis : '0d0',
   cha : '1d1',
-  titles: ['Tenderfoot',, 'Lookout',,, 'Trailblazer',,, 'Reconnoiterex',,, 'Scout',,, 'Arbalester',,, 'Archer',,, 'Sharpshooter',,, 'Marksrex']
+  titles: ['Tenderfoot',, 'Lookout',,, 'Trailblazer',,, 'Reconnoiterex',,, 'Scout',,, 'Arbalester',,, 'Archer',,, 'Sharpshooter',,, 'Marksrex'],
+  startingItems: [
+    { choices: {less: 5, more: 1}, 
+      choicesInit: { 
+        less: () => new Weapons.Arrow({charges: '1d10 + 5', bucName: 'uncursed'}), 
+        more: () => new Weapons.Arrow({charges: '2d10 + 10', bucName: 'uncursed'})} 
+    },
+    { init: () => new Weapons.Bow({bucName: 'uncursed'}) },
+    { init: () => new Potions.Healing({charges: '1d2', bucName: 'uncursed', startIdentified: true}) }
+  ]
 };
 
 export class Ranger extends Profession {

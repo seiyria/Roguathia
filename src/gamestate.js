@@ -12,5 +12,4 @@ class GameState {
   }
 }
 
-
 export default new GameState();

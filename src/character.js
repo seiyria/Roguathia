@@ -37,7 +37,7 @@ let defaultStats = {
   race: 'Human',
   attacks: [],
   behaviors: [],
-  profession: 'Tourist' 
+  profession: 'Ranger' 
 };
 
 export default class Character extends Entity {
@@ -144,7 +144,7 @@ export default class Character extends Entity {
     let slotsTaken = this.slotsTaken(slot);
     let totalSlots = this.raceInst.slots[slot];
     let itemSlots = item.slotsTaken;
-    return itemSlots < totalSlots - slotsTaken;
+    return itemSlots <= totalSlots - slotsTaken;
   }
   
   equip(item) {
@@ -332,15 +332,18 @@ export default class Character extends Entity {
     return _.intersection(entity.factions, this.antiFactions).length > 0;
   }
   
+  doAttack(attack, hitNum) {
+    let target = attack.possibleTargets(this)[0];
+    if(!target) return; //possibly a multi-shot attack that has killed early
+    attack.use(this, target, hitNum);
+  }
+  
   tryAttack() {
     let attacks = this.getAttacks();
     attacks = _.filter(attacks, (atk) => atk.canUse(this));
     if(attacks.length === 0) return false;
     
-    _.each(attacks, (attack, hitNum) => {
-      let target = attack.possibleTargets(this)[0];
-      attack.tryHit(this, target, hitNum);
-    });
+    _.each(attacks, this.doAttack, this);
     return true;
   }
   
@@ -411,7 +414,7 @@ export default class Character extends Entity {
     let inventoryAttacks = _(this.inventory).filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value();
     
     // all melee attacks are valid, but only one ranged inventory attack can be used
-    if(attacks[0].canUse(this)) return attacks;
+    if(_.some(attacks, (atk) => atk.canUse(this))) return attacks;
     return _.compact([_(inventoryAttacks).filter((atk) => atk.canUse(this)).sample()]);
   }
   
