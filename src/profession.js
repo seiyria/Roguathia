@@ -5,8 +5,13 @@ import loadValue from './lib/value-assign';
 import Factions from './factions';
 
 import {Gold} from './items/special';
+import * as Foods from './items/foods';
+import * as Rings from './items/rings';
 import * as Weapons from './items/weapons';
 import * as Potions from './items/potions';
+import * as Spellbooks from './items/spellbooks';
+import * as Projectiles from './items/projectiles';
+import * as Random from './items/random';
 
 let defaultCfg = {
   ac  : 0,
@@ -61,10 +66,11 @@ let touristCfg = {
     { init: () => new Gold(+dice.roll('1d1000')) },
     { choices: {less: 5, more: 1}, 
       choicesInit: { 
-        less: () => new Weapons.Dart({charges: '1d5 + 5', bucName: 'uncursed'}), 
-        more: () => new Weapons.Dart({charges: '5d10 + 10', bucName: 'uncursed'})} 
+        less: () => new Projectiles.Dart({charges: '1d5 + 5', bucName: 'uncursed'}), 
+        more: () => new Projectiles.Dart({charges: '5d10 + 10', bucName: 'uncursed'})} 
     },
     { probability: 30, init: () => new Weapons.Dagger({bucName: 'uncursed'}) },
+    { init: () => new Foods.Ration({charges: '1d5 + 5', bucName: 'uncursed'}) },
     { init: () => new Potions.Healing({charges: '1d3 + 1', bucName: 'blessed', startIdentified: true}) }
   ]
 };
@@ -77,7 +83,7 @@ export class Tourist extends Profession {
 
 let wizardCfg = {
   hp  : '1d4 + 1',
-  mp  : '1d10 + 5',
+  mp  : '1d10 + 15',
   str : '1d2 - 4',
   con : '1d2 - 1',
   int : '2d3 + 1',
@@ -87,7 +93,14 @@ let wizardCfg = {
   regenHp: 40,
   regenMp: 7,
   titles: ['Evoker',, 'Conjurer',,, 'Thaumaturge',,, 'Magician',,, 'Enchantrex',,, 'Sorcerex',,, 'Necromancer',,, 'Wizard',,, 'Mage'],
-  addFactions: [Factions.MAGIC]
+  addFactions: [Factions.MAGIC],
+  startingItems: [
+    { init: () => Random.Ring({bucName: 'uncursed'}) },
+    { init: () => new Spellbooks.ForceBolt({bucName: 'blessed'}) },
+    { init: () => new Weapons.Quarterstaff({bucName: 'uncursed'}) },
+    { init: () => new Foods.Ration({charges: '1d2', bucName: 'uncursed'}) },
+    { init: () => new Potions.Healing({charges: '1d2', bucName: 'uncursed'}) }
+  ]
 };
 
 export class Wizard extends Profession {
@@ -109,10 +122,11 @@ let rangerCfg = {
   startingItems: [
     { choices: {less: 5, more: 1}, 
       choicesInit: { 
-        less: () => new Weapons.Arrow({charges: '1d10 + 5', bucName: 'uncursed'}), 
-        more: () => new Weapons.Arrow({charges: '2d10 + 10', bucName: 'uncursed'})} 
+        less: () => new Projectiles.Arrow({charges: '1d10 + 5', bucName: 'uncursed'}), 
+        more: () => new Projectiles.Arrow({charges: '2d10 + 10', bucName: 'uncursed'})} 
     },
     { init: () => new Weapons.Bow({bucName: 'uncursed'}) },
+    { init: () => new Foods.Ration({charges: '1d3', bucName: 'uncursed'}) },
     { init: () => new Potions.Healing({charges: '1d2', bucName: 'uncursed', startIdentified: true}) }
   ]
 };

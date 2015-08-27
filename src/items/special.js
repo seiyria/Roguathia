@@ -1,5 +1,5 @@
 
-import {Special} from "../items";
+import {Special, Comestible} from "../items";
 
 export class Gold extends Special {
   constructor(num) {
@@ -9,5 +9,12 @@ export class Gold extends Special {
     super(opts);
     this.goldValue = num;
     this.name = `${this.goldValue} gold`;
+  }
+}
+
+export class Corpse extends Comestible {
+  constructor(opts = {monsterName: 'unknown'}) {
+    super(opts);
+    this.name = `corpse of ${opts.monsterName}`;
   }
 }

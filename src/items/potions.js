@@ -7,3 +7,4 @@ export class Healing extends Potion {
     super(opts);
   }
 }
+Healing.rarity = 50;

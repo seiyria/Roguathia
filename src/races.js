@@ -57,12 +57,16 @@ export class Manticore extends Race {
 
 let snakeOpts = {slots: {hands: 0, body: 1, feet: 0, heads: 1, neck: 1, ring: 1, cloak: 0, wrist: 0}};
 export class Snake extends Race {
-  
+  constructor() {
+    super(snakeOpts);
+  }
 }
 
 let spiderOpts = {slots: {hands: 0, body: 1, feet: 8, heads: 1, neck: 1, ring: 0, cloak: 0, wrist: 0}};
 export class Spider extends Race {
-  
+  constructor() {
+    super(spiderOpts);
+  }
 }
 
 export class Canine extends Race {}

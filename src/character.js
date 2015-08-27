@@ -37,7 +37,7 @@ let defaultStats = {
   race: 'Human',
   attacks: [],
   behaviors: [],
-  profession: 'Ranger' 
+  profession: 'Wizard' 
 };
 
 export default class Character extends Entity {
@@ -340,7 +340,6 @@ export default class Character extends Entity {
   
   tryAttack() {
     let attacks = this.getAttacks();
-    attacks = _.filter(attacks, (atk) => atk.canUse(this));
     if(attacks.length === 0) return false;
     
     _.each(attacks, this.doAttack, this);
@@ -410,7 +409,7 @@ export default class Character extends Entity {
   getAttacks() {
     let baseAttacks = this.attacks || [];
     let attacks = baseAttacks.concat(_(this.equipment).values().flatten().filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value());
-    if(attacks.length === 0) attacks = [Attacks.Unarmed('1d4')];
+    if(attacks.length === 0) attacks = [Attacks.Unarmed()];
     let inventoryAttacks = _(this.inventory).filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value();
     
     // all melee attacks are valid, but only one ranged inventory attack can be used

@@ -3,6 +3,15 @@ import {Item} from "./item";
 import GameState from "./gamestate";
 import {GetColor} from "./lib/valid-colors";
 
+export class Special extends Item {}
+
+export class Comestible extends Item {
+  constructor(opts = {}) {
+    if(!opts.glyph) opts.glyph = {key: '%', fg: GetColor()};
+    super(opts);
+  }
+}
+
 class Equipment extends Item {
   get name() {
     let name = this.isIdentified() ? this.realName : this.fakeName;
@@ -20,7 +29,6 @@ export class Weapon extends Equipment {
   }
 }
 
-//TODO abstract these (and other fake types) to a seperate module
 let ringFakeTypes = ['pearl', 'iron', 'twisted', 'steel', 'wire', 'engagement', 'shiny', 'bronze', 'brass', 'copper', 'silver', 'gold', 'wooden', 'granite', 'opal', 'clay', 'coral', 'black onyx', 'moonstone', 'tiger eye', 'jade', 'agate', 'topaz', 'sapphire', 'ruby', 'diamond', 'ivory', 'emerald'];
 export class Ring extends Armor {
   constructor(opts) {
@@ -33,27 +41,105 @@ export class Ring extends Armor {
 }
 Ring.rarity = 3;
 
-export class Hands extends Weapon {}
-export class Wrist extends Armor {}
-export class Feet extends Armor {}
-export class Head extends Armor {}
-export class Body extends Armor {}
-export class Cloak extends Armor {}
-export class Neck extends Armor {}
+export class Hands extends Weapon {
+  constructor() {
+    opts.glyph = _.extend({key: ')', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `${this.getCanonName()}`;
+  }
+}
+Hands.rarity = 10;
 
-export class Special extends Item {}
+export class Wrist extends Armor {
+  constructor() {
+    opts.glyph = _.extend({key: '[', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `${this.getCanonName()} gloves`;
+  }
+}
+Wrist.rarity = 10;
 
-class Gem extends Item {}
-class Scroll extends Item {}
-class Wand extends Item {}
-class Spellbook extends Item {}
+export class Feet extends Armor {
+  constructor() {
+    opts.glyph = _.extend({key: '[', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `${this.getCanonName()} boots`;
+    this.slotsTaken = 2;
+  }
+}
+Feet.rarity = 10;
 
-export class Comestible extends Item {
-  constructor(opts) {
-    if(!opts.glyph) opts.glyph = {key: '%', fg: GetColor()};
+export class Head extends Armor {
+  constructor() {
+    opts.glyph = _.extend({key: '[', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `${this.getCanonName()} helm`;
+  }
+}
+Head.rarity = 10;
+
+export class Body extends Armor {
+  constructor() {
+    opts.glyph = _.extend({key: '[', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `${this.getCanonName()} armor`;
+  }
+}
+Body.rarity = 10;
+
+export class Cloak extends Armor {
+  constructor() {
+    opts.glyph = _.extend({key: '[', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `ring of ${this.getCanonName()}`;
+  }
+}
+Cloak.rarity = 5;
+
+export class Neck extends Armor {
+  constructor() {
+    opts.glyph = _.extend({key: '"', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `amulet of ${this.getCanonName()}`;
+  }
+}
+Neck.rarity = 3;
+
+class Gem extends Item {
+  constructor() {
+    opts.glyph = _.extend({key: '*', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `amulet of ${this.getCanonName()}`;
+  }
+}
+Gem.rarity = 25;
+
+class Scroll extends Item {
+  constructor() {
+    opts.glyph = _.extend({key: '?', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `${this.getCanonName()}`;
+  }
+}
+Scroll.rarity = 15;
+
+class Wand extends Item {
+  constructor() {
+    opts.glyph = _.extend({key: '/', fg: GetColor()}, opts.glyph);
+    super(opts);
+    this.realName = this.fakeName = `wand of ${this.getCanonName()}`;
+  }
+}
+Wand.rarity = 2;
+
+export class Spellbook extends Weapon {
+  constructor(opts = {}) {
+    opts.manaCost = opts.manaCost || 3;
+    opts.glyph = {key: '+', fg: '#f0f'};
     super(opts);
   }
 }
+Spellbook.rarity = 1;
 
 let potionFakeTypes = ['ruby', 'dark green', 'purple-red', 'smoky', 'brown', 'pink', 'cyan', 'puce', 'cloudy', 'fizzy', 'orange', 'sky blue', 'milky', 'effervescent', 'dark', 'yellow', 'brilliant blue', 'swirly', 'black', 'white', 'emerald', 'magenta', 'bubbly', 'golden', 'murky'];
 export class Potion extends Equipment {
@@ -64,6 +150,7 @@ export class Potion extends Equipment {
     this.fakeName = `${this.pickFakeName(potionFakeTypes)} potion`;
   }
 }
+Potion.rarity = 15;
 
 //import * as Rings from "./items/rings";
 //export default { Rings };

@@ -37,14 +37,16 @@ class ElectricTouch extends Attack {
   }
 }
 
-class DeathRay extends Attack {
+class Magic extends Attack {
   init() {
     this.glyph = new Glyph(')', '#f00');
   }
 }
 
+class Force extends Magic {}
+
 let attacks = {};
-_.each([Unarmed, Ranged, Bash, Bite, Slash, Shot, ElectricTouch, DeathRay], (attack) => attacks[attack.name] = (r, h, d) => new attack(r, h, d));
+_.each([Unarmed, Ranged, Bash, Bite, Slash, Shot, ElectricTouch, Force], (attack) => attacks[attack.name] = (r, h, d) => new attack(r, h, d));
 export default attacks;
 
 

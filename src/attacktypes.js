@@ -12,11 +12,9 @@ let defaultRollOptions = {
 
 export class Attack extends Abstract {
   
-  constructor(roll = '1d1', toHit = '0d0', range = 1) {
+  constructor(opts) {
     super();
-    this.roll = roll;
-    this.toHit = toHit;
-    this.range = range;
+    _.extend(this, {roll: '1d4', toHit: '0d0', range: 1, chance: 100}, opts);
     if(this.init) this.init();
   }
   
@@ -41,7 +39,10 @@ export class Attack extends Abstract {
     return possibleTargets;
   }
   
-  canUse(owner) { return this.possibleTargets(owner).length > 0; }
+  canUse(owner) { 
+    if(ROT.RNG.getPercentage() > this.chance) return;
+    return this.possibleTargets(owner).length > 0; 
+  }
   
   canHit(owner, target, attackNum) {
     if(owner.hp.atMin()) return false;

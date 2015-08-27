@@ -1,5 +1,11 @@
 # TODO
 
+* Refactoring
+  * Factions -> Constants
+  * Fakes -> Constants
+  * Settings -> Constants
+  * Classes -> to their own files
+  * Random -> elsewhere (generators, maybe)
 * Content (all types of items)
 * Conducts
 * Add more players. Allow for main game to focus on party leader, or splitscreen like the other views. Allow for "vertical" or "horizontal" splitscreen - when you have 2 or more people adjust the screen accordingly.
@@ -43,6 +49,8 @@
   * Find the stone of Selyk (insta-win, low VP gain)
   * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
 * Catchable ammo, recoverable ammo
+* Gems: random category, unidentifieable until the end of the game
+* Scrolls: only usable by players?
 
 # Website
 * Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
@@ -54,7 +62,7 @@
 * Assertions, unit tests, logging, general code refactoring / cleanup
 * IRC bot (Selyk) to announce major events (deaths, etc) / scrollback to chat
 * Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
-* Refactor / reorg / unit tests for classes
+* Refactor / reorg / unit tests for classes, remove magic numbers
 
 # Post-release
 * Doors that require keys that are spawned in the level, and have treasure or stairs behind them
