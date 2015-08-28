@@ -2,12 +2,9 @@
 import Character from './character';
 import SETTINGS from './settings';
 import GameState from './gamestate';
-import MessageQueue from './message-handler';
 import MonsterSpawner from './monster-spawner';
 import * as Behaviors from './behaviors';
 import Factions from './factions';
-
-import calc from './lib/directional-probability';
 
 export default class Player extends Character {
   

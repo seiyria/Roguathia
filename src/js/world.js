@@ -202,7 +202,7 @@ export default class World {
     return tiles;
   }
   
-  getValidTilesInRange(x, y, z, radius, filter = (tile) => true) {
+  getValidTilesInRange(x, y, z, radius, filter = () => true) {
     let tiles = [];
     
     let lowerX = Math.max(x - radius, 0);
@@ -223,7 +223,7 @@ export default class World {
     return _.filter(tiles, filter);
   }
   
-  getValidEntitiesInRange(x, y, z, radius, filter = (entity) => true) {
+  getValidEntitiesInRange(x, y, z, radius, filter = () => true) {
     let entities = [];
     
     let lowerX = Math.max(x - radius, 0);

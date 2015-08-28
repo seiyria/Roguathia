@@ -57,7 +57,7 @@ class GameScreen extends Screen {
     
     world.fov[zLevel].compute(
       centerPoint.x, centerPoint.y, centerPoint.getSight(), 
-      (x, y, radius, visibility) => {
+      (x, y) => {
         if(!visible[x]) visible[x] = [];
         visible[x][y] = true;
         world.setExplored(x, y, zLevel, true);
@@ -127,10 +127,10 @@ class SingleScrollingScreen extends ScrollingScreen {
     }, 2000);
   }
 }
-class SplitScrollingScreen extends ScrollingScreen {}
+// class SplitScrollingScreen extends ScrollingScreen {}
 
 class SingleVanquishedScreen extends SingleScrollingScreen {
-  static enter(display) {
+  static enter() {
     super.enter();
     let target = this.getMainPlayer();
     let killHash = target.conquest;
@@ -144,10 +144,10 @@ class SingleVanquishedScreen extends SingleScrollingScreen {
     this.nextScreen = SingleConductScreen;
   }
 }
-class SplitVanquishedScreen extends SplitScrollingScreen {}
+// class SplitVanquishedScreen extends SplitScrollingScreen {}
 
 class SingleConductScreen extends SingleScrollingScreen {
-  static enter(display) {
+  static enter() {
     super.enter();
     let target = this.getMainPlayer();
     let conductHash = target.conduct;
@@ -160,7 +160,7 @@ class SingleConductScreen extends SingleScrollingScreen {
     }
   }
 }
-class SplitConductsScreen extends SplitScrollingScreen {}
+// class SplitConductsScreen extends SplitScrollingScreen {}
 
 // this exists solely to transition and start a new game. I'm bad. :(
 class NewGameScreen extends Screen {
@@ -378,4 +378,4 @@ export class SingleGameScreen extends GameScreen {
   }
 }
 
-export class SplitGameScreen extends GameScreen {}
+// export class SplitGameScreen extends GameScreen {}

@@ -2,13 +2,6 @@
 import GameState from './gamestate';
 import MessageQueue from './message-handler';
 import Abstract from './abstract';
-import Glyph from './glyph';
-
-let defaultRollOptions = {
-  roll: '1d1',
-  toHit: '0d0',
-  range: 1
-};
 
 export class Attack extends Abstract {
   
@@ -30,7 +23,7 @@ export class Attack extends Abstract {
     let possibleTargets = [];
     GameState.world.fov[owner.z].compute(
       owner.x, owner.y, this.range, 
-      (x, y, radius, visibility) => {
+      (x, y) => {
         let entity = GameState.world.getEntity(x, y, owner.z);
         if(!entity || !owner.canAttack(entity)) return;
         possibleTargets.push(entity);
@@ -125,7 +118,7 @@ export class Attack extends Abstract {
     this.animate(owner, target, () => this.hit(owner, target));
   }
   
-  calcDamage(owner, target) {
+  calcDamage(owner) {
     let damageBoost = 0;
     if(this._itemRef) {
       damageBoost += this._itemRef.enchantment;

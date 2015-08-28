@@ -5,7 +5,7 @@ import Factions from './factions';
 
 import { Gold } from './items/special';
 import * as Foods from './items/foods';
-import * as Rings from './items/rings';
+// import * as Rings from './items/rings';
 import * as Weapons from './items/weapons';
 import * as Potions from './items/potions';
 import * as Spellbooks from './items/spellbooks';

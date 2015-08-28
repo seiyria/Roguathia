@@ -179,7 +179,7 @@ class SeeksTargetInSightBehavior extends Behavior {
     
     GameState.world.fov[me.z].compute(
       me.x, me.y, me.getSight(), 
-      (x, y, radius, visibility) => {
+      (x, y) => {
         let entity = GameState.world.getEntity(x, y, me.z);
         if(!entity || !me.canAttack(entity)) return;
         possibleTargets.push(entity);
@@ -237,7 +237,7 @@ export var Interacts = () => new InteractsBehavior();
 /* breaks down doors that it finds */
 class BreaksDoorsBehavior extends Behavior {
   constructor() { super(PRIORITIES.INTERACT); }
-  act(me) {
+  act() {
     return false;
   }
 }

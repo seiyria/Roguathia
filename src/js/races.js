@@ -15,7 +15,7 @@ class Race {
     this.slots = _.extend({}, defaultSlots, opts.slots);
     this.addFactions = [this.constructor.name];
   }
-  canEquip(item) {
+  canEquip() {
     
   }
 }

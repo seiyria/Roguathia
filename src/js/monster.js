@@ -1,6 +1,5 @@
 
 import Character from './character';
-import GameState from './gamestate';
 import Factions from './factions';
 
 let defaultMonsterStats = {

@@ -1,6 +1,5 @@
 
 import { Item } from './item';
-import GameState from './gamestate';
 import { GetColor } from './lib/valid-colors';
 
 export class Special extends Item {}

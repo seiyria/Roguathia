@@ -38,7 +38,7 @@ export class StairsDown extends Stairs {
 export class StairsUp extends Stairs { 
   constructor() { super('<'); } 
   
-  canInteract(entity) {
+  canInteract() {
     return false;
     // return super.canInteract(entity) && this.z !== 0;
   }
@@ -65,7 +65,7 @@ export class Door extends Tile {
     return leftTileGlyph === '-' ? '|' : '-';
   }
   
-  canInteract(entity) {
+  canInteract() {
     return this.density;
   }
   
