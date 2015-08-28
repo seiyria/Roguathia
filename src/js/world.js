@@ -35,7 +35,7 @@ export default class World {
   
   getTile(x, y, z) {
     if(!this.width || !this.height || !this.depth) {
-      throw new Exception('World not yet generated');
+      throw new Error('World not yet generated');
     }
     
     if(x < 0 || x >= this.width ||

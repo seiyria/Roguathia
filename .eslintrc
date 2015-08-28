@@ -9,10 +9,12 @@
   "globals": {
     "_": true,
     "dice": true,
-    "ROT": true
+    "ROT": true,
+    "BRAGI": true
   },
   "rules": {
     "no-extra-parens": 0,
+    "no-sparse-arrays": 0,
     "no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
     "indent": [2, 2],
     "brace-style": [2, "1tbs", { "allowSingleLine": true }]

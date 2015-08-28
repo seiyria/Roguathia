@@ -37,10 +37,10 @@ export default class Player extends Character {
       // noGenocide:   'You did not commit genocide.',
       wishless:     'You never wished for anything.',
       // survivor:     'You were never revived.',
-      celibate:     'You were celibate.',
       // nudist:       'You never wore armor.',
       // zen:          'You were blind throughout your adventure.',
       // stubborn:     'You never changed equipment.',
+      celibate:     'You were celibate.'
     };
   }
   
