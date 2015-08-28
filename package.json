@@ -1,0 +1,82 @@
+{
+  "name": "Roguathia",
+  "description": "A small roguelike.",
+  "readme": "README.md",
+  "repository": "https://github.com/seiyria/Roguathia",
+  "version": "0.0.0",
+  "authors": [
+    "Kyle Kemp <kyle@seiyria.com>"
+  ],
+  "devDependencies": {
+    "babel-eslint": "^4.0.5",
+    "babelify": "^6.0.1",
+    "bower": "*",
+    "browserify": "*",
+    "del": "*",
+    "errorify": "^0.2.0",
+    "eslint-config-kellyirc": "^2.0.0",
+    "gulp": "*",
+    "gulp-bump": "~0.3.0",
+    "gulp-concat": "*",
+    "gulp-connect": "*",
+    "gulp-download": "*",
+    "gulp-eslint": "^1.0.0",
+    "gulp-filter": "~2.0.2",
+    "gulp-gh-pages": "~0.5.1",
+    "gulp-if": "*",
+    "gulp-jade": "^1.0.0",
+    "gulp-jscs": "~1.6.0",
+    "gulp-jshint": "*",
+    "gulp-less": "^3.0.2",
+    "gulp-minify-css": "*",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-open": "~0.3.2",
+    "gulp-processhtml": "*",
+    "gulp-rename": "*",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-streamify": "*",
+    "gulp-tag-version": "~1.2.1",
+    "gulp-uglify": "*",
+    "gulp-uncss": "^1.0.3",
+    "gulp-util": "*",
+    "gulp-watch": "*",
+    "jscs": "*",
+    "tiny-lr": "*",
+    "vinyl-paths": "*",
+    "vinyl-source-stream": "*",
+    "watchify": "*"
+  },
+  "scripts": {
+    "post-install": "node ./node_modules/bower/bin/bower install",
+    "start": "node ./node_modules/gulp/bin/gulp.js",
+    "build": "node ./node_modules/gulp/bin/gulp.js build",
+    "test": "gulp build"
+  },
+  "gulp": {
+    "less": "src/less/*.less",
+    "libjs": [
+      "./bower_components/lodash/lodash.min.js",
+      "./bower_components/angular/angular.min.js",
+      "./bower_components/angular-ui-bootstrap-bower/ui-bootstrap.min.js",
+      "./bower_components/ngstorage/ngStorage.min.js",
+      "./bower_components/dice.js/build/dice.min.js",
+      "./bower_components/bragi-browser/dist/bragi.min.js",
+      "./bower_components/rot.js/rot.js"
+    ],
+    "libcss": [
+      "./bower_components/bootstrap/dist/css/bootstrap.min.css",
+      "./bower_components/bootstra.386/v3.3.2/dist/css/bootstrap-theme.css"
+    ],
+    "favicon": [
+      "favicon.ico"
+    ],
+    "jade": [
+      "src/jade/**/*.jade"
+    ],
+    "js": [
+      "src/js/**/*.js"
+    ],
+    "entry": "./src/js/init.js",
+    "dist": "./dist/"
+  }
+}

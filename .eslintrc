@@ -1,0 +1,17 @@
+{
+  "extends": "kellyirc",
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "globals": {
+    "_": true
+  },
+  "rules": {
+    "no-extra-parens": 0,
+    "indent": [2, 2],
+    "brace-style": [2, "1tbs", { "allowSingleLine": true }]
+  }
+}

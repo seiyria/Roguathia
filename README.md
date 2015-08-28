@@ -1,11 +1,15 @@
+# Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
+
 # TODO
 
 * Refactoring
+  * Reorg all source
   * Factions -> Constants
   * Fakes -> Constants
   * Settings -> Constants
   * Classes -> to their own files
   * Random -> elsewhere (generators, maybe)
+  * Screens -> better split up
 * Content (all types of items)
 * Conducts
 * Add more players. Allow for main game to focus on party leader, or splitscreen like the other views. Allow for "vertical" or "horizontal" splitscreen - when you have 2 or more people adjust the screen accordingly.
