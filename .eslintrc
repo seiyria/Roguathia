@@ -7,7 +7,9 @@
     "browser": true
   },
   "globals": {
-    "_": true
+    "_": true,
+    "dice": true,
+    "ROT": true
   },
   "rules": {
     "no-extra-parens": 0,
