@@ -1,9 +1,11 @@
 import Glyph from './glyph';
 import { GetColor } from '../lib/valid-colors';
 import GameState from '../init/gamestate';
+import Abstract from './abstract';
 
-export class Item {
+export class Item extends Abstract {
   constructor(opts) {
+    super(opts);
     opts.glyph = _.extend({ fg: GetColor(), key: opts.symbol }, opts.glyph);
     _.extend(this, opts);
     this.enchantment = this.enchantment || 0;
@@ -76,18 +78,6 @@ export class Item {
       owner.doAttack(attack, i);
       delete chosenAmmo._tempAttackBoost;
     }
-  }
-  
-  getCanonName() {
-    return _.startCase(this.constructor.name).toLowerCase();
-  }
-  
-  getType() {
-    return this.constructor.name.toLowerCase();
-  }
-  
-  getParentType() {
-    return Object.getPrototypeOf(Object.getPrototypeOf(this)).constructor.name.toLowerCase();
   }
   
   generateBUC(opts = { cursed: 5, blessed: 5, uncursed: 90 }) {

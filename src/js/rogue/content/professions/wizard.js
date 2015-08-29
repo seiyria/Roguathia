@@ -8,6 +8,7 @@ import * as Weapons from '../items/weapons';
 import * as Potions from '../items/potions';
 import * as Spellbooks from '../items/spellbooks';
 import * as Random from '../../constants/random';
+import * as Thresholds from '../../constants/skill-thresholds';
 
 let wizardCfg = {
   hp  : '1d4 + 1',
@@ -21,6 +22,7 @@ let wizardCfg = {
   regenHp: 20,
   regenMp: -3,
   titles: ['Evoker',, 'Conjurer',,, 'Thaumaturge',,, 'Magician',,, 'Enchantrex',,, 'Sorcerex',,, 'Necromancer',,, 'Wizard',,, 'Mage'],
+  skillCaps: { bash: Thresholds.Skilled, stab: Thresholds.Skilled },
   addFactions: [Factions.MAGIC],
   startingItems: [
     { init: () => Random.Ring({ bucName: 'uncursed' }) },

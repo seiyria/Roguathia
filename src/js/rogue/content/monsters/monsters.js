@@ -1,6 +1,6 @@
 
 import * as Behaviors from '../behaviors/behaviors';
-import Attacks from '../attacks/attacks';
+import Attacks from '../attacks/_all';
 import * as Foods from '../items/foods';
 
 export var gridBug =          { difficulty: 1, glyph: { key: 'x', fg: 'purple' }, spawnPattern: '1d2', frequency: 100,

@@ -1,6 +1,6 @@
 
 import { Weapon } from '../../definitions/equipment';
-import Attacks from '../attacks/attacks';
+import Attacks from '../attacks/_all';
 
 export class Dart extends Weapon {
   constructor(opts = { charges: '1d4' }) {

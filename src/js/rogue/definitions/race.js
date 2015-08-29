@@ -26,7 +26,8 @@ const defaultStats = {
   speed: 0,
   sight: 0,
   spawnSteps: 0,
-  attacks: []
+  attacks: [],
+  skillBonus: {}
 };
 
 export default class Race {

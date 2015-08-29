@@ -5,13 +5,16 @@ import Professions from '../content/professions/_all';
 import Races from '../content/races/_all';
 import * as Behaviors from '../content/behaviors/behaviors';
 import GameState from '../init/gamestate';
-import Attacks from '../content/attacks/attacks';
+import Attacks from '../content/attacks/_all';
 import MessageQueue from '../display/message-handler';
 
 import loadValue from '../lib/value-assign';
 import calc from '../lib/directional-probability';
 
-let defaultAttributes = {
+import SkillThresholds, * as Thresholds from '../constants/skill-thresholds';
+import { SkilledAttack } from '../definitions/attack';
+
+const defaultAttributes = {
   ac:  0,
   str: 8,
   con: 8,
@@ -32,24 +35,26 @@ let defaultAttributes = {
   regenMp: 10
 };
 
-let defaultStats = { 
+const defaultStats = {
   gender: 'None', 
   name: 'Dudley',
-  race: 'Human',
+  race: 'Gnome',
   attacks: [],
   behaviors: [],
+  skills: {},
   profession: 'Wizard' 
 };
 
-let defaultBehaviors = [Behaviors.RegeneratesHp(), Behaviors.RegeneratesMp()];
+const defaultBehaviors = [Behaviors.RegeneratesHp(), Behaviors.RegeneratesMp()];
 
 export default class Character extends Entity {
   
   constructor(glyph, x, y, z, opts = { stats: {}, attributes: {} }) {
     super(glyph, x, y, z);
-    
+
     this.factions = [];
     this.antiFactions = [];
+    this.skills = {};
     
     this.currentTurn = 0;
     
@@ -76,9 +81,23 @@ export default class Character extends Entity {
     GameState.world.moveEntity(this, this.x, this.y, this.z);
     
     this.loadStartingEquipment();
+    this.loadStartingSkills();
      
     this.game = GameState.game;
     this.game.scheduler.add(this, true);
+  }
+
+  loadStartingSkills() {
+    const skillCaps = this.professionInst.skillCaps;
+    const skillBonus = this.raceInst.skillBonus;
+    const defaultLevel = Thresholds.Basic;
+    _.each(_.values(Attacks), (atk) => {
+      if(!(atk.real.prototype instanceof SkilledAttack)) return;
+      let atkName = atk.real.name.toLowerCase();
+      let level = defaultLevel + (skillBonus[atkName] || 0) + (skillCaps[atkName] || 0);
+      level = Math.min(level, Thresholds.Grandmaster);
+      this.skills[atkName] = new NumberRange(0, 0, SkillThresholds[level].max);
+    });
   }
   
   heal(roll, item) {
@@ -415,6 +434,18 @@ export default class Character extends Entity {
     // all melee attacks are valid, but only one ranged inventory attack can be used
     if(_.some(attacks, (atk) => atk.canUse(this))) return attacks;
     return _.compact([_(inventoryAttacks).filter((atk) => atk.canUse(this)).sample()]);
+  }
+
+  increaseSkill(type) {
+    if(!this.skills[type]) return;
+    this.skills[type].add(1);
+  }
+
+  getSkillLevel(type) {
+    if(!this.skills[type]) return 0;
+    let curNum = this.skills[type].cur;
+    let level = _.reject(SkillThresholds, threshold => threshold.max < curNum)[0];
+    return Thresholds[level.name];
   }
   
   getStat(stat) {

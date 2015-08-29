@@ -2,6 +2,7 @@
 import GameState from '../init/gamestate';
 import MessageQueue from '../display/message-handler';
 import Abstract from './abstract';
+import Glyph from './glyph';
 
 export class Attack extends Abstract {
   
@@ -41,7 +42,7 @@ export class Attack extends Abstract {
     if(owner.hp.atMin()) return false;
     let hitRoll = +dice.roll(`1d${20 + attackNum}`); // subsequent attacks are less likely to hit
     let targetAC = target.getAC();
-    let myToHitBonus = (+dice.roll(this.toHit) - owner.getToHit() - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
+    let myToHitBonus = (+dice.roll(this.toHit) - owner.getToHit() - owner.getSkillLevel(this.getType()) - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
     let targetACRoll = 0;
 
     if(targetAC >= 0) {
@@ -116,7 +117,8 @@ export class Attack extends Abstract {
       return false;
     }
     this.animate(owner, target, () => this.hit(owner, target));
-  }
+  }// this class is internal
+
   
   calcDamage(owner) {
     let damageBoost = 0;
@@ -166,8 +168,20 @@ export class Reagent extends Attack {
   }
 }
 
+export class SkilledAttack extends Attack {
+  hitCallback(owner) {
+    owner.increaseSkill(this.getType());
+  }
+}
+
 export class Projectile {
   constructor(glyph) {
     this.glyph = glyph;
+  }
+}
+
+export class Magic extends SkilledAttack {
+  init() {
+    this.glyph = new Glyph(')', '#f00');
   }
 }

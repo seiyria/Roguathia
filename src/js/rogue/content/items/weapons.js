@@ -2,7 +2,7 @@
 // extending Weapon means an item is not equippable but is a weapon.
 // etending Hands means an item is equippable in the hands slot
 import { Hands } from '../../definitions/equipment';
-import Attacks from '../attacks/attacks';
+import Attacks from '../attacks/_all';
 
 export class Bow extends Hands {
   constructor(opts = {}) {
@@ -36,7 +36,7 @@ export class Dagger extends Hands {
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#ccc' },
-      attacks: [Attacks.Slash({ roll: '1d4' })]
+      attacks: [Attacks.Stab({ roll: '1d4' })]
     });
     super(opts);
   }

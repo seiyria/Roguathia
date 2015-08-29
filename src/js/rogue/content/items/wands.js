@@ -1,6 +1,6 @@
 
 import { Wand } from '../../definitions/equipment';
-import Attacks from '../attacks/attacks';
+import Attacks from '../attacks/_all';
 
 export class Striking extends Wand {
   constructor(opts = {}) {

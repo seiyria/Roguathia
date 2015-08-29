@@ -1,11 +1,9 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
 # TODO
-
 * Conducts
-* Item type proficiencies (weapon, spells, etc) - these should be based off of the attack type (Slash, Shot, etc)
 * Add more players. Allow for main game to focus on party leader, or splitscreen like the other views. Allow for "vertical" or "horizontal" splitscreen - when you have 2 or more people adjust the screen accordingly.
-* Properties (Intrinsic, Extrinsic): (element|debuff)-resist, regeneration, searching, see/invisible, teleport/control, polymorph/control, levitation, stealth, aggravation, conflict, protection, warning, hunger, telepathy, speed, unbreathing, amphibious, jumping, infravision, reflection, life saving, phasing, fumbling, displacement, clairvoyance, half-(type)-damage, swimming, free action, flight, slow digestion
+* Properties (Intrinsic, Extrinsic): (element|debuff)-resist, regeneration, searching, see/invisible, teleport/control, polymorph/control, levitation, stealth, aggravation, conflict, protection, warning, hunger, telepathy, speed, unbreathing, amphibious, jumping, infravision, reflection, life saving, phasing, blind, fumbling, displacement, clairvoyance, half-(type)-damage, swimming, free action, flight, slow digestion
 * Content (all types of items)
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
@@ -16,13 +14,14 @@
     * More races
     * Assignable behaviors
     * Assignable classes
-    * More starting equipment (unlock certain starting equipment tiers)
+    * More starting equipment (unlock certain starting equipme7nt tiers)
     * Better starting equipment (enchanted, more charges, etc)
     * More item variety (ie, unlock the 25%, 50%, 75% and 100% percentile of rarity in items)
     * Temporary enchantments, blessings, uncursings, etc (spent in the meta, apply to current game only)
     * Better tombstones (per character)
     * Pet slot
     * Pet (based on chooseable monsters)
+    * Better starting proficiencies
     * Template slots (assignable to a character, but kept separate, these would allow you to store a configuration
   * KP (monsters are worth different amounts of points)
     * More monster variety
@@ -44,10 +43,6 @@
   * Find the ring of Selyk (opens a chamber leading to an altar)
   * Find the stone of Selyk (insta-win, low VP gain)
   * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
-* Catchable ammo, recoverable ammo
-* Gems: random category, unidentifieable until the end of the game
-* Scrolls: only usable by players? (ie, not the characters in the dungeon)
-* Drop items on dungeon floor occasionally
 
 # Website
 * Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
@@ -66,3 +61,7 @@
 * More content
 * More puzzles
 * More intricate death messages ("while asleep" "while stunned")
+* Catchable ammo, recoverable ammo
+* Gems: random category, unidentifieable until the end of the game
+* Scrolls: only usable by players? (ie, not the characters in the dungeon)
+* Drop items on dungeon floor occasionally during generation

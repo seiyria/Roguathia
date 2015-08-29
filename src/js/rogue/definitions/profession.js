@@ -16,7 +16,8 @@ const defaultCfg = {
   sight: 0,
   spawnSteps: 0,
   titles: [],
-  attacks: []
+  attacks: [],
+  skillCaps: {}
 };
 
 export default class Profession {

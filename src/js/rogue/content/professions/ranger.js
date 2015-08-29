@@ -5,6 +5,7 @@ import * as Foods from '../items/foods';
 import * as Weapons from '../items/weapons';
 import * as Potions from '../items/potions';
 import * as Projectiles from '../items/projectiles';
+import * as Thresholds from '../../constants/skill-thresholds';
 
 let rangerCfg = {
   hp  : '2d8 + 4',
@@ -16,6 +17,7 @@ let rangerCfg = {
   wis : '0d0',
   cha : '1d1',
   titles: ['Tenderfoot',, 'Lookout',,, 'Trailblazer',,, 'Reconnoiterex',,, 'Scout',,, 'Arbalester',,, 'Archer',,, 'Sharpshooter',,, 'Marksrex'],
+  skillCaps: { shot: Thresholds.Expert, stab: Thresholds.Skilled },
   startingItems: [
     { choices: { less: 5, more: 1 },
       choicesInit: {

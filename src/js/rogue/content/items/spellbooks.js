@@ -1,6 +1,6 @@
 
 import { Spellbook } from '../../definitions/equipment';
-import Attacks from '../attacks/attacks';
+import Attacks from '../attacks/_all';
 
 export class ForceBolt extends Spellbook {
   constructor(opts = {}) {
