@@ -71,7 +71,7 @@
     "js": [
       "src/js/**/*.js"
     ],
-    "entry": "./src/js/init.js",
+    "entry": "./src/js/rogue/init/init.js",
     "dist": "./dist/"
   }
 }

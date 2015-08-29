@@ -2,14 +2,6 @@
 
 # TODO
 
-* Refactoring
-  * Reorg all source
-  * Factions -> Constants
-  * Fakes -> Constants
-  * Settings -> Constants
-  * Classes -> to their own files
-  * Random -> elsewhere (generators, maybe)
-  * Screens -> better split up
 * Content (all types of items)
 * Conducts
 * Add more players. Allow for main game to focus on party leader, or splitscreen like the other views. Allow for "vertical" or "horizontal" splitscreen - when you have 2 or more people adjust the screen accordingly.
@@ -54,7 +46,8 @@
   * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
 * Catchable ammo, recoverable ammo
 * Gems: random category, unidentifieable until the end of the game
-* Scrolls: only usable by players?
+* Scrolls: only usable by players? (ie, not the characters in the dungeon)
+* Drop items on dungeon floor occasionally
 
 # Website
 * Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)

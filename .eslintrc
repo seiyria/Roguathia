@@ -15,8 +15,9 @@
   "rules": {
     "no-extra-parens": 0,
     "no-sparse-arrays": 0,
-    "no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
     "indent": [2, 2],
+    "no-undef": 2,
+    "no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
     "brace-style": [2, "1tbs", { "allowSingleLine": true }]
   }
 }
