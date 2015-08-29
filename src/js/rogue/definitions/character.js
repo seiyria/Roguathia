@@ -94,9 +94,10 @@ export default class Character extends Entity {
     _.each(_.values(Attacks), (atk) => {
       if(!(atk.real.prototype instanceof SkilledAttack)) return;
       let atkName = atk.real.name.toLowerCase();
-      let level = defaultLevel + (skillBonus[atkName] || 0) + (skillCaps[atkName] || 0);
-      level = Math.min(level, Thresholds.Grandmaster);
-      this.skills[atkName] = new NumberRange(0, 0, SkillThresholds[level].max);
+      let maxLevel = defaultLevel + (skillCaps[atkName] || 0);
+      maxLevel = Math.min(maxLevel, Thresholds.Legendary);
+      let level = skillBonus[atkName] || 0;
+      this.skills[atkName] = new NumberRange(0, SkillThresholds[level].max, SkillThresholds[maxLevel].max);
     });
   }
   
