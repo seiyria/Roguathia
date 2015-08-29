@@ -98,7 +98,7 @@ export var Stunned = (numTurns) => new StunnedBehavior(numTurns);
 
 /* retrieve items from the ground */
 class PickUpItemsBehavior extends Behavior {
-  constructor(blacklist = [], whitelist = []) { 
+  constructor(blacklist = [], whitelist = []) {
     super(PRIORITIES.INTERACT);
     this.blacklist = blacklist;
     this.whitelist = whitelist;
