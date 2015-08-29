@@ -97,12 +97,17 @@ class StunnedBehavior extends Behavior {
 export var Stunned = (numTurns) => new StunnedBehavior(numTurns);
 
 /* retrieve items from the ground */
-// TODO whitelist/blacklist
 class PickUpItemsBehavior extends Behavior {
-  constructor() { super(PRIORITIES.INTERACT); }
+  constructor(blacklist = [], whitelist = []) { 
+    super(PRIORITIES.INTERACT);
+    this.blacklist = blacklist;
+    this.whitelist = whitelist;
+  }
   act(me) {
     let items = GameState.world.getItemsAt(me.x, me.y, me.z);
     _.each(items, (item) => {
+      if(this.whitelist.length && !_.contains(this.whitelist, item.getType())) return;
+      if(this.blacklist.length && _.contains(this.blacklist, item.getType())) return;
       GameState.world.removeItem(item);
       me.addToInventory(item);
       MessageQueue.add({ message: `${me.name} picked up ${item.name}.` });
@@ -110,7 +115,7 @@ class PickUpItemsBehavior extends Behavior {
   }
 }
 
-export var PickUpItems = () => new PickUpItemsBehavior();
+export var PickUpItems = (bl, wl) => new PickUpItemsBehavior(bl, wl);
 
 class DropsItemsBehavior extends Behavior {
   constructor() { super(PRIORITIES.DEFER); }
