@@ -2,11 +2,11 @@
 
 # TODO
 
-* Content (all types of items)
 * Conducts
+* Item type proficiencies (weapon, spells, etc) - these should be based off of the attack type (Slash, Shot, etc)
 * Add more players. Allow for main game to focus on party leader, or splitscreen like the other views. Allow for "vertical" or "horizontal" splitscreen - when you have 2 or more people adjust the screen accordingly.
 * Properties (Intrinsic, Extrinsic): (element|debuff)-resist, regeneration, searching, see/invisible, teleport/control, polymorph/control, levitation, stealth, aggravation, conflict, protection, warning, hunger, telepathy, speed, unbreathing, amphibious, jumping, infravision, reflection, life saving, phasing, fumbling, displacement, clairvoyance, half-(type)-damage, swimming, free action, flight, slow digestion
-* Item type proficiencies (weapon, spells, etc) - these should be based off of the attack type (Slash, Shot, etc)
+* Content (all types of items)
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
     * More character classes

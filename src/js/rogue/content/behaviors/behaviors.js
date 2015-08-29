@@ -6,10 +6,11 @@ import { Gold, Corpse } from '../items/special';
 
 // priorities determine the ordering of behavior execution
 const PRIORITIES = {
-  STUN: 0,
-  HEAL: 1,
-  DEFENSE: 2,
-  INTERACT: 3,
+  ALWAYS: 0,
+  STUN: 1,
+  HEAL: 2,
+  DEFENSE: 3,
+  INTERACT: 4,
   MOVE: 5,
   DEFER: 10
 };
@@ -30,6 +31,32 @@ class Behavior {
     this.priority = priority;
   }
 }
+
+class RegeneratesHpBehavior extends Behavior {
+  constructor(amount = 1) {
+    super(PRIORITIES.ALWAYS);
+    this.amount = amount;
+  }
+
+  act(me) {
+    if(me.currentTurn % me.getRegenHp() === 0) me.hp.add(this.amount);
+  }
+}
+
+export var RegeneratesHp = () => new RegeneratesHpBehavior();
+
+class RegeneratesMpBehavior extends Behavior {
+  constructor(amount = 1) {
+    super(PRIORITIES.ALWAYS);
+    this.amount = amount;
+  }
+
+  act(me) {
+    if(me.currentTurn % me.getRegenMp() === 0) me.mp.add(this.amount);
+  }
+}
+
+export var RegeneratesMp = () => new RegeneratesMpBehavior();
 
 class HealsBelowPercentBehavior extends Behavior {
   constructor(percent = 50) {

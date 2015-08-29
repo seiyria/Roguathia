@@ -9,11 +9,10 @@ import Factions from '../constants/factions';
 export default class Player extends Character {
   
   constructor(x, y, z, opts = {}) {
+    _.extend(opts, { stats: { behaviors: [Behaviors.Attacks(), Behaviors.PickUpItems(), Behaviors.HealsBelowPercent(50), Behaviors.Interacts(), Behaviors.Wanders()] } });
     super(x, y, z, opts);
-    this.behaviors = [Behaviors.Attacks(), Behaviors.PickUpItems(), Behaviors.HealsBelowPercent(50), Behaviors.Interacts(), Behaviors.Wanders()];
     this.factions.push(Factions.PLAYER);
     this.antiFactions.push(Factions.MONSTER);
-    this.sortBehaviors();
     this.spawnSteps = 100; // spawn creatures every 100 steps
     this.totalXpEarned = 0;
     this.kpEarned = 0;

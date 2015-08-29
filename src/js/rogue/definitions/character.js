@@ -3,6 +3,7 @@ import Entity from './entity';
 import NumberRange from '../lib/number-range';
 import Professions from '../content/professions/_all';
 import Races from '../content/races/_all';
+import * as Behaviors from '../content/behaviors/behaviors';
 import GameState from '../init/gamestate';
 import Attacks from '../content/attacks/attacks';
 import MessageQueue from '../display/message-handler';
@@ -40,6 +41,8 @@ let defaultStats = {
   profession: 'Wizard' 
 };
 
+let defaultBehaviors = [Behaviors.RegeneratesHp(), Behaviors.RegeneratesMp()];
+
 export default class Character extends Entity {
   
   constructor(glyph, x, y, z, opts = { stats: {}, attributes: {} }) {
@@ -52,6 +55,8 @@ export default class Character extends Entity {
     
     _.extend(this, defaultAttributes, opts.attributes, loadValue);
     _.extend(this, defaultStats, opts.stats);
+
+    this.behaviors.push(...defaultBehaviors);
     
     this.sortBehaviors();
     
@@ -344,8 +349,6 @@ export default class Character extends Entity {
   
   act() {
     this.currentTurn++;
-    if(this.currentTurn % this.regenHp === 0) this.hp.add(1);
-    if(this.currentTurn % this.regenMp === 0) this.mp.add(1);
     this.doBehavior('act');
   }
   
@@ -417,6 +420,18 @@ export default class Character extends Entity {
   getStat(stat) {
     return this.rollOrAdd(this[stat]) + this.rollOrAdd(this.professionInst[stat]) + this.rollOrAdd(this.raceInst[stat]);
   }
+
+  getStatWithMin(stat, min = 0) {
+    return Math.max(min, this.getStat(stat));
+  }
+
+  getRegenHp() {
+    return this.getStatWithMin('regenHp');
+  }
+
+  getRegenMp() {
+    return this.getStatWithMin('regenMp');
+  }
   
   getBonusDamage() {
     return this.getStat('bonusDamage');
@@ -427,11 +442,11 @@ export default class Character extends Entity {
   }
   
   getSight() {
-    return this.getStat('sight');
+    return this.getStatWithMin('sight');
   }
   
   getSpeed() {
-    return this.getStat('speed');
+    return this.getStatWithMin('speed');
   }
   
   getAC() {
@@ -439,31 +454,31 @@ export default class Character extends Entity {
   }
   
   getStr() {
-    return this.getStat('str');
+    return this.getStatWithMin('str');
   }
   
   getDex() {
-    return this.getStat('dex');
+    return this.getStatWithMin('dex');
   }
   
   getCon() {
-    return this.getStat('con');
+    return this.getStatWithMin('con');
   }
   
   getInt() {
-    return this.getStat('int');
+    return this.getStatWithMin('int');
   }
   
   getWis() {
-    return this.getStat('wis');
+    return this.getStatWithMin('wis');
   }
   
   getCha() {
-    return this.getStat('cha');
+    return this.getStatWithMin('cha');
   }
   
   getLuk() {
-    return this.getStat('luk');
+    return this.getStatWithMin('luk');
   }
   
   // -2 = 4/5, -1 = 6/7, 0 = 8, +1 = 9/10, +2 = 10/11 (etc)

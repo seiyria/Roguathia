@@ -18,8 +18,8 @@ let wizardCfg = {
   dex : '1d2 - 4',
   wis : '1d2',
   cha : '1d3 - 1',
-  regenHp: 40,
-  regenMp: 7,
+  regenHp: 20,
+  regenMp: -3,
   titles: ['Evoker',, 'Conjurer',,, 'Thaumaturge',,, 'Magician',,, 'Enchantrex',,, 'Sorcerex',,, 'Necromancer',,, 'Wizard',,, 'Mage'],
   addFactions: [Factions.MAGIC],
   startingItems: [
