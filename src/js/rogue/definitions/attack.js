@@ -4,6 +4,12 @@ import MessageQueue from '../display/message-handler';
 import Abstract from './abstract';
 import Glyph from './glyph';
 
+export class Projectile {
+  constructor(glyph) {
+    this.glyph = glyph;
+  }
+}
+
 export class Attack extends Abstract {
   
   constructor(opts) {
@@ -171,12 +177,6 @@ export class Reagent extends Attack {
 export class SkilledAttack extends Attack {
   hitCallback(owner) {
     owner.increaseSkill(this.getType());
-  }
-}
-
-export class Projectile {
-  constructor(glyph) {
-    this.glyph = glyph;
   }
 }
 
