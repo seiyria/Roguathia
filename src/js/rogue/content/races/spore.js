@@ -1,4 +1,9 @@
 
 import Race from '../../definitions/race';
 
-export default class Spore extends Race {}
+const opts = { };
+export default class Spore extends Race {
+  constructor() {
+    super(opts);
+  }
+}
