@@ -404,7 +404,8 @@ export default class Character extends Entity {
   
   getAttacks() {
     let baseAttacks = this.attacks || [];
-    let attacks = baseAttacks.concat(_(this.equipment).values().flatten().filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value());
+    let racialAttacks = baseAttacks.concat(this.raceInst.attacks);
+    let attacks = racialAttacks.concat(_(this.equipment).values().flatten().filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value());
     if(attacks.length === 0) attacks = [Attacks.Unarmed()];
     let inventoryAttacks = _(this.inventory).filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value();
     
@@ -414,7 +415,7 @@ export default class Character extends Entity {
   }
   
   getStat(stat) {
-    return this.rollOrAdd(this[stat]) + this.rollOrAdd(this.professionInst[stat]);
+    return this.rollOrAdd(this[stat]) + this.rollOrAdd(this.professionInst[stat]) + this.rollOrAdd(this.raceInst[stat]);
   }
   
   getBonusDamage() {

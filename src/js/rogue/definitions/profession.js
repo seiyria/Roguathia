@@ -1,7 +1,7 @@
 
 import loadValue from '../lib/value-assign';
 
-let defaultCfg = {
+const defaultCfg = {
   ac  : 0,
   hp  : 0,
   mp  : 0,
