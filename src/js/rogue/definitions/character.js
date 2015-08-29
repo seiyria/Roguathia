@@ -55,6 +55,7 @@ export default class Character extends Entity {
     this.factions = [];
     this.antiFactions = [];
     this.skills = {};
+    this.brokenConduct = {};
     
     this.currentTurn = 0;
     
@@ -85,6 +86,10 @@ export default class Character extends Entity {
      
     this.game = GameState.game;
     this.game.scheduler.add(this, true);
+  }
+
+  breakConduct(conduct) {
+    this.brokenConduct[conduct] = true;
   }
 
   loadStartingSkills() {
@@ -172,6 +177,10 @@ export default class Character extends Entity {
     let slot = item.getParentType();
     if(!this.equipment[slot]) this.equipment[slot] = [];
     this.equipment[slot].push(item);
+    this.breakConduct('stubborn');
+    if(this.getType() !== 'Hands') {
+      this.breakConduct('nudist');
+    }
   }
   
   getWorseItemsThan(item) {

@@ -148,7 +148,12 @@ export class Attack extends Abstract {
   }
   
   hitString(owner, target, damage) { return `${owner.name} hit ${target.name} for ${damage} damage!`; }
-  hitCallback() {}
+  hitCallback(owner) {
+    owner.breakConduct('pacifist');
+    if(this.getType() !== 'Unarmed' && this.prototype instanceof SkilledAttack) {
+      owner.breakConduct('wieldedWeapon');
+    }
+  }
   
   blockString(owner, target) { return `${target.name} blocked ${owner.name}'s attack!`; }
   blockCallback() {}
@@ -176,6 +181,7 @@ export class Reagent extends Attack {
 
 export class SkilledAttack extends Attack {
   hitCallback(owner) {
+    super.hitCallback(owner);
     owner.increaseSkill(this.getType());
   }
 }

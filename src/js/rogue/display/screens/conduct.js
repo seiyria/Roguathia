@@ -1,13 +1,13 @@
 
 import { SingleScrollingScreen } from '../screen';
 import RespawnScreen from './respawn';
+import ConductCalc from '../../constants/conducts';
 
 export class SingleConductScreen extends SingleScrollingScreen {
   static enter() {
     super.enter();
     let target = this.getMainPlayer();
-    let conductHash = target.conduct;
-    let sortedConduct = _(conductHash).values().compact().sortBy().value();
+    let sortedConduct = ConductCalc(target);
     this.scrollContent = sortedConduct;
     this.title = `${target.name}'s Conduct (${sortedConduct.length} types)`; // shorten this for splitscreen
     this.nextScreen = RespawnScreen;
