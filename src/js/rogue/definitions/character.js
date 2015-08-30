@@ -90,7 +90,7 @@ export default class Character extends Entity {
   }
 
   getTraits() {
-    return this.traits.concat(this.raceInst.traits).concat(this.professionInst.traits);
+    return this.traits.concat(this.raceInst.traits).concat(this.professionInst.traits).concat(_.values(this.equipment));
   }
 
   hasTrait(propertyName) {
