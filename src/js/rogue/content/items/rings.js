@@ -58,14 +58,14 @@ export class Luck extends Ring {
 Luck.rarity = 1;
 
 export class Speed extends Ring {
-  speed() {
-    return this.buc;
+  haste() {
+    return this.buc * 25;
   }
 }
 Speed.rarity = 20;
 
 export class Sight extends Ring {
-  sight() {
+  infravision() {
     return this.buc;
   }
 }

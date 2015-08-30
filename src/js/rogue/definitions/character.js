@@ -14,6 +14,8 @@ import calc from '../lib/directional-probability';
 import SkillThresholds, * as Thresholds from '../constants/skill-thresholds';
 import { SkilledAttack } from '../definitions/attack';
 
+import Settings from '../constants/settings';
+
 const defaultAttributes = {
   ac:  0,
   str: 8,
@@ -26,8 +28,8 @@ const defaultAttributes = {
   gold: 0,
   level: 1,
   align: 0, 
-  speed: 100, 
-  sight: 4,
+  speed: Settings.game.baseSpeed,
+  sight: Settings.game.baseSight,
   killXp: '0d0',
   spawnHp: '15d1',
   spawnMp: '0d0',
@@ -509,7 +511,7 @@ export default class Character extends Entity {
   }
   
   getSpeed() {
-    return this.getStatWithMin('speed');
+    return this.getStatWithMin('speed') + this.getTraitValue('haste');
   }
   
   getAC() {

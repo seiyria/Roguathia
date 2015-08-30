@@ -12,3 +12,9 @@ class ProtectionTrait extends Trait {
 }
 
 export var Protection = (level) => new ProtectionTrait(level);
+
+class HasteTrait extends Trait {
+  haste() { return this.level * 25; }
+}
+
+export var Haste = (level) => new HasteTrait(level);

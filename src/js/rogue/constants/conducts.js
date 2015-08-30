@@ -1,4 +1,6 @@
 
+import Settings from './settings';
+
 const conducts = [
   // breakable conducts
   { check: (player) => !player.brokenConduct.stubborn, affirmMessage: 'You never changed equipment.' },
@@ -9,6 +11,8 @@ const conducts = [
   // traits
   { check: (player) => player.hasTrait('Infravision'), affirmMessage: 'You %had infravision.' },
   { check: (player) => player.hasTrait('Protection'), affirmMessage: 'You %had protection.' },
+  { check: (player) => player.getSpeed() > Settings.game.baseSpeed, affirmMessage: 'You %were fast.' },
+  { check: (player) => player.getSpeed() < Settings.game.baseSpeed, affirmMessage: 'You %were slow.' },
 
   // alignment
   { check: (player) => player.getAlign() === 0, affirmMessage: 'You %were neutral.' },
