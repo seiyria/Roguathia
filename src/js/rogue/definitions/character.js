@@ -93,7 +93,7 @@ export default class Character extends Entity {
   }
 
   calcDifficulty(entity) {
-    return Math.max(1, Math.min(5, Math.floor((entity.level - this.level) / 4)));
+    return Math.max(1, Math.min(5, Math.floor((entity.level - this.level) / 2)));
   }
 
   getTraits() {
