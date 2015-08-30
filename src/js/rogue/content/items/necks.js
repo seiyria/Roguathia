@@ -11,7 +11,7 @@ Ordinary.rarity = 100;
 
 export class Protective extends Neck {
   protection() {
-    return this.buc * -1;
+    return this.buc;
   }
 }
 Protective.rarity = 5;

@@ -11,7 +11,14 @@ Ordinary.rarity = 25;
 
 export class Protective extends Head {
   ac() {
-    return this.buc * -1;
+    return this.buc;
   }
 }
 Protective.rarity = 5;
+
+export class NightGoggles extends Head {
+  infravision() {
+    return this.buc;
+  }
+}
+NightGoggles.rarity = 1;

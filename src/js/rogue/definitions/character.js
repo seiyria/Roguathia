@@ -90,7 +90,7 @@ export default class Character extends Entity {
   }
 
   getTraits() {
-    return this.traits.concat(this.raceInst.traits).concat(this.professionInst.traits).concat(_.values(this.equipment));
+    return this.traits.concat(this.raceInst.traits).concat(this.professionInst.traits).concat(_.flatten(_.values(this.equipment)));
   }
 
   hasTrait(propertyName) {
@@ -99,7 +99,7 @@ export default class Character extends Entity {
 
   getTraitValue(property, defaultVal = 0) {
     let properties = this.getTraits();
-    return _.reduce(properties, ((prev, prop) => prev + prop[property] ? prop[property]() : defaultVal), defaultVal);
+    return _.reduce(properties, ((prev, prop) => prev + (prop[property] ? prop[property]() : defaultVal)), defaultVal);
   }
 
   addTrait(property) {
