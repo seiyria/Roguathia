@@ -301,6 +301,7 @@ export default class Character extends Entity {
     killer.kill(this);
     
     this.killerName = killer.name;
+    this.removeSelf();
   }
 
   removeSelf() {

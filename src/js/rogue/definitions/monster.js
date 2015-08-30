@@ -24,8 +24,8 @@ export default class Monster extends Character {
   }
 
   arePlayersAPossibility() {
-    let minZ = _.min(GameState.players, 'z');
-    return minZ > this.z;
+    let minZ = _.min(GameState.players, 'z').z;
+    return minZ <= this.z;
   }
 
   act() {
