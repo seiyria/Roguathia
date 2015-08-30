@@ -67,7 +67,7 @@ export default class Dungeon extends Generator {
       }
       
       // draw top and bottom walls
-      for(var i = room.getLeft()-1; i <= room.getRight()+1; i++) {
+      for(let i = room.getLeft()-1; i <= room.getRight()+1; i++) {
         if(!map[i][room.getTop() - 1].glyph.key) {
           placeTile(Tiles.DungeonHorizontalWall, i, room.getTop() - 1);
         }
