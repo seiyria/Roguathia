@@ -11,6 +11,9 @@ const conducts = [
   // traits
   { check: (player) => player.hasTrait('Infravision'), affirmMessage: 'You %had infravision.' },
   { check: (player) => player.hasTrait('Protection'), affirmMessage: 'You %had protection.' },
+  { check: (player) => player.hasTrait('Clairvoyance'), affirmMessage: 'You %had clairvoyance.' },
+  { check: (player) => player.hasTrait('Warning'), affirmMessage: 'You %were warned.' },
+  { check: (player) => player.hasTrait('Telepathy'), affirmMessage: 'You %were telepathic.' },
   { check: (player) => player.getSpeed() > Settings.game.baseSpeed, affirmMessage: 'You %were fast.' },
   { check: (player) => player.getSpeed() < Settings.game.baseSpeed, affirmMessage: 'You %were slow.' },
 
