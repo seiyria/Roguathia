@@ -10,7 +10,7 @@ export class Ordinary extends Neck {
 Ordinary.rarity = 100;
 
 export class Protective extends Neck {
-  protection() {
+  Protection() {
     return this.buc;
   }
 }

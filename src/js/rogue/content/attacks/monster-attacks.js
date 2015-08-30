@@ -17,3 +17,12 @@ export class ElectricTouch extends Attack {
     return true;
   }
 }
+
+export class TelepathicBlast extends Attack {
+  hitString(owner, target, damage) {
+    return `${owner.name} got blasted by ${target.name}'s psychic blast for ${damage} damage!`;
+  }
+  hitCallback(owner) {
+    return owner.hasTrait('Telepathy');
+  }
+}

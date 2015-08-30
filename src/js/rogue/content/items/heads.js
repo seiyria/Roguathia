@@ -17,7 +17,7 @@ export class Protective extends Head {
 Protective.rarity = 5;
 
 export class NightGoggles extends Head {
-  infravision() {
+  Infravision() {
     return this.buc;
   }
 }

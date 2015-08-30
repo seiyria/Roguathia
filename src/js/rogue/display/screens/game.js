@@ -35,33 +35,58 @@ export class GameScreen extends Screen {
       }
     );
 
+    let isVisible = (x, y) => {
+      return visible[x] && visible[x][y];
+    };
+
+    let hasValidTelepathy = (x, y) => {
+      return centerPoint.hasTrait('Telepathy') && centerPoint.distBetweenXY(x, y) <= centerPoint.getTraitValue('Telepathy');
+    };
+
     for(let x = offset.x; x < offset.x + width; x++) {
       for(let y = offset.y; y < offset.y + height; y++) {
-        if(!GameState.world.isExplored(x, y, centerPoint.z) && !GameState.renderAll) continue;
+        let hasTelepathy = hasValidTelepathy(x, y);
+        let hasSeen = GameState.world.isExplored(x, y, centerPoint.z);
+        if(!hasSeen && !GameState.renderAll && !hasTelepathy) continue;
 
         var tile = world.getTile(x, y, zLevel);
         if(!tile) continue; // no out of bounds drawing
 
-        var glyph = tile.glyph;
-        var foreground = glyph.fg;
-        var background = glyph.bg;
+        var glyph = { key: null };
+        var foreground = null;
+        var background = null;
 
-        if(visible[x] && visible[x][y]) {
+        let baseIsVisible = isVisible(x, y);
+
+        if(baseIsVisible || hasSeen) {
+          glyph = tile.glyph;
+          foreground = glyph.fg;
+          background = glyph.bg;
+        }
+
+        if(baseIsVisible) {
           let items = world.getItemsAt(x, y, zLevel);
-          if(items && items.length > 0) {
-            glyph = items[items.length-1].glyph;
+          if (items && items.length > 0) {
+            glyph = items[items.length - 1].glyph;
+            foreground = glyph.fg;
           }
+        }
 
+        if(baseIsVisible || hasTelepathy) {
           var entity = world.getEntity(x, y, zLevel);
           if(entity) {
             glyph = entity.glyph;
+            foreground = glyph.fg;
           }
+        }
 
-          foreground = glyph.fg;
+        // visible things have a black background
+        if(baseIsVisible) {
           background = '#333';
+        }
 
-          // prevent taking color away from things that have it
-        } else if(!foreground) {
+        // prevent taking color away from things that have it
+        if(!baseIsVisible && !foreground) {
           foreground = '#555';
         }
 

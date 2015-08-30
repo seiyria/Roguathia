@@ -10,7 +10,7 @@ export class Ordinary extends Cloak {
 Ordinary.rarity = 100;
 
 export class Protection extends Cloak {
-  protection() {
+  Protection() {
     return this.buc * -2;
   }
 }

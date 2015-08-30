@@ -6,6 +6,10 @@ export default class Abstract {
     return Math.sqrt(a*a + b*b);
   }
 
+  distBetweenXY(x, y) {
+    return this.distBetween({ x, y });
+  }
+
   getCanonName() {
     return _.startCase(this.constructor.name).toLowerCase();
   }

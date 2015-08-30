@@ -57,6 +57,7 @@ export default class Character extends Entity {
     this.factions = [];
     this.antiFactions = [];
     this.traits = [];
+    this.traitHash = {};
     this.skills = {};
     this.brokenConduct = {};
     
@@ -96,20 +97,31 @@ export default class Character extends Entity {
   }
 
   hasTrait(propertyName) {
+    if(this.traitHash[propertyName]) return this.traitHash[propertyName];
     return _.contains(_.pluck(this.getTraits(), 'constructor.name'), `${propertyName}Trait`);
   }
 
   getTraitValue(property, defaultVal = 0) {
+    if(this.traitHash[property]) return this.traitHash[property];
     let properties = this.getTraits();
-    return _.reduce(properties, ((prev, prop) => prev + (prop[property] ? prop[property]() : defaultVal)), defaultVal);
+    let value = _.reduce(properties, ((prev, prop) => prev + (prop[property] ? prop[property]() : defaultVal)), defaultVal);
+    this.traitHash[property] = value;
+    return value;
   }
 
   addTrait(property) {
     this.traits.push(property);
+    this.flushTraits(property.constructor.name);
   }
 
   removeTrait(property) {
     this.traits = _.without(this.traits, property);
+    this.flushTraits(property.constructor.name);
+  }
+
+  flushTraits(key) {
+    if(key) return delete this.traitHash[key];
+    this.traitHash = {};
   }
 
   breakConduct(conduct) {
@@ -205,6 +217,7 @@ export default class Character extends Entity {
     if(this.getType() !== 'Hands') {
       this.breakConduct('nudist');
     }
+    this.flushTraits();
   }
   
   getWorseItemsThan(item) {
@@ -508,15 +521,15 @@ export default class Character extends Entity {
   }
   
   getSight() {
-    return this.getStatWithMin('sight') + this.getTraitValue('infravision');
+    return this.getStatWithMin('sight') + this.getTraitValue('Infravision');
   }
   
   getSpeed() {
-    return this.getStatWithMin('speed') + this.getTraitValue('haste');
+    return this.getStatWithMin('speed') + this.getTraitValue('Haste');
   }
   
   getAC() {
-    return 10 + this.getStat('ac') - this.calcStatBonus('dex') - this.getTraitValue('protection');
+    return 10 + this.getStat('ac') - this.calcStatBonus('dex') - this.getTraitValue('Protection');
   }
   
   getStr() {
@@ -553,7 +566,7 @@ export default class Character extends Entity {
   }
   
   toJSON() {
-    let me = _.omit(this, ['game', '_path']);
+    let me = _.omit(this, ['game', '_path', 'traitHash']);
     return JSON.stringify(me);
   }
 }
