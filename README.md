@@ -67,4 +67,4 @@
 * Drop items on dungeon floor occasionally during generation
 * Traps in the dungeon (also implement levitation)
 * Deities
-* Conflict
+* Conflict trait
