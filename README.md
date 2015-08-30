@@ -1,7 +1,7 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
 # TODO
-* Implement traits: invisible, see invisible, warning, telepathy, clairvoyance, blind (make conducts for these as well) -- entertain the idea of working on conflict
+* Implement traits: invisible, see invisible, blind (make conducts for these as well) -- entertain the idea of working on conflict
 * Add more players. Allow for main game to focus on party leader, or splitscreen like the other views. Allow for "vertical" or "horizontal" splitscreen - when you have 2 or more people adjust the screen accordingly.
   * Allow people to choose whether they want their party to follow (ie, one goes down, they all go down) or be separate.
 * Content (all types of items)
