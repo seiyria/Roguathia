@@ -3,6 +3,12 @@
 # TODO
 * Add more players. Allow for main game to focus on party leader, or splitscreen like the other views. Allow for "vertical" or "horizontal" splitscreen - when you have 2 or more people adjust the screen accordingly.
   * Allow people to choose whether they want their party to follow (ie, one goes down, they all go down) or be separate.
+* Ending conditions (worth different amounts of VP)
+  * Kill Selyk
+  * Find the ring of Selyk (opens a chamber leading to an altar)
+  * Find the stone of Selyk (insta-win, low VP gain)
+  * Last a certain number of turns
+  * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
 * Content (all types of items)
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
@@ -22,6 +28,7 @@
     * Pet (based on chooseable monsters)
     * Better starting proficiencies
     * Template slots (assignable to a character, but kept separate, these would allow you to store a configuration
+    * More color choices
   * KP (monsters are worth different amounts of points)
     * More monster variety
     * Stronger monsters (ie, their stats are overall better)
@@ -37,16 +44,10 @@
     * Better items generated on the floor
     * Possibly unlock a dungeon editor (you can rearrange what floors are in what order, and how many of them spawn)
     * Better respawn time
-* Ending conditions (worth different amounts of VP)
-  * Kill Selyk
-  * Find the ring of Selyk (opens a chamber leading to an altar)
-  * Find the stone of Selyk (insta-win, low VP gain)
-  * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
+* Refactor stair placement to Generator
 
 # Website
 * Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
-* Sliders for game speed, etc, and switches for skipping some screens, maybe
-* Favicon: unicode goblin
 
 # Pre-release
 * Analysis tool to make sure stats/etc are declared properly (they may need to be moved to the prototype so they can be imported)

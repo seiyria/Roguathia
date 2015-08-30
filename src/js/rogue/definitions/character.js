@@ -301,7 +301,9 @@ export default class Character extends Entity {
     killer.kill(this);
     
     this.killerName = killer.name;
-    
+  }
+
+  removeSelf() {
     this.game.scheduler.remove(this);
     GameState.world.removeEntity(this);
   }
