@@ -35,19 +35,23 @@ export class GameScreen extends Screen {
       }
     );
 
+    let cache = {};
+    _.each(['Telepathy', 'Clairvoyance'], (trait) => cache[trait] = centerPoint.getTraitValue(trait));
+
     let isVisible = (x, y) => {
       return visible[x] && visible[x][y];
     };
 
-    let hasValidTelepathy = (x, y) => {
-      return centerPoint.hasTrait('Telepathy') && centerPoint.distBetweenXY(x, y) <= centerPoint.getTraitValue('Telepathy');
+    let hasValid = (trait, x, y) => {
+      return cache[trait] && centerPoint.distBetweenXY(x, y) <= cache[trait];
     };
 
     for(let x = offset.x; x < offset.x + width; x++) {
       for(let y = offset.y; y < offset.y + height; y++) {
-        let hasTelepathy = hasValidTelepathy(x, y);
+        let hasTelepathy = hasValid('Telepathy', x, y);
+        let hasClairvoyance = hasValid('Clairvoyance', x, y);
         let hasSeen = GameState.world.isExplored(x, y, centerPoint.z);
-        if(!hasSeen && !GameState.renderAll && !hasTelepathy) continue;
+        if(!hasSeen && !GameState.renderAll && !hasTelepathy && !hasClairvoyance) continue;
 
         var tile = world.getTile(x, y, zLevel);
         if(!tile) continue; // no out of bounds drawing
@@ -56,7 +60,7 @@ export class GameScreen extends Screen {
         var foreground = null;
         var background = null;
 
-        let baseIsVisible = isVisible(x, y);
+        let baseIsVisible = isVisible(x, y) || hasClairvoyance;
 
         if(baseIsVisible || hasSeen) {
           glyph = tile.glyph;

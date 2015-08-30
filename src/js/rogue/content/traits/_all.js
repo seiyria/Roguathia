@@ -24,3 +24,9 @@ class TelepathyTrait extends Trait {
 }
 
 export var Telepathy = (level) => new TelepathyTrait(level);
+
+class ClairvoyanceTrait extends Trait {
+  Clairvoyance() { return this.level; }
+}
+
+export var Clairvoyance = (level) => new ClairvoyanceTrait(level);
