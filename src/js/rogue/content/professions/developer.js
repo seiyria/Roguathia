@@ -19,7 +19,7 @@ const devCfg = {
   wis : '4d5',
   cha : '4d5',
   titles: ['Developer'],
-  traits: [Traits.Infravision(3), Traits.Haste(4), Traits.Warning(30)],
+  traits: [Traits.Infravision(3), Traits.Haste(4), Traits.Warning(30), Traits.Invisible(50)],
   skillCaps: { shot: Thresholds.Expert, stab: Thresholds.Skilled },
   startingItems: [
     { init: () => new Weapons.Bow({ bucName: 'uncursed' }) },

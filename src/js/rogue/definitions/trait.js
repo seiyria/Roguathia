@@ -1,6 +1,6 @@
 
 export default class Trait {
-  constructor(level) {
+  constructor(level = 1) {
     this.level = level;
   }
 }

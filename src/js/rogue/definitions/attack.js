@@ -32,7 +32,8 @@ export class Attack extends Abstract {
       owner.x, owner.y, this.range, 
       (x, y) => {
         let entity = GameState.world.getEntity(x, y, owner.z);
-        if(!entity || !owner.canAttack(entity)) return;
+        // no target, can't attack target, or the target is invisible and hasn't attacked you yet
+        if(!entity || !owner.canAttack(entity) || (owner._attackedBy !== entity && !owner.canSee(entity))) return;
         possibleTargets.push(entity);
       }
     );
@@ -111,6 +112,7 @@ export class Attack extends Abstract {
   }
   
   use(owner, target, attackNum) {
+    target._attackedBy = owner;
     this.tryHit(owner, target, attackNum);
   }
   

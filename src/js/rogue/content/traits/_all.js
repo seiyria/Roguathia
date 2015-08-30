@@ -36,3 +36,15 @@ class WarningTrait extends Trait {
 }
 
 export var Warning = (level) => new WarningTrait(level);
+
+class InvisibleTrait extends Trait {
+  Invisible() { return this.level; }
+}
+
+export var Invisible = (level) => new InvisibleTrait(level);
+
+class SeeInvisibleTrait extends Trait {
+  SeeInvisible() { return this.level; }
+}
+
+export var SeeInvisible = (level) => new SeeInvisibleTrait(level);

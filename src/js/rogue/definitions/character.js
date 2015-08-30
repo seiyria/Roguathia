@@ -92,6 +92,10 @@ export default class Character extends Entity {
     this.game.scheduler.add(this, true);
   }
 
+  canSee(entity) {
+    return this.getTraitValue('SeeInvisible') > entity.getTraitValue('Invisible');
+  }
+
   calcDifficulty(entity) {
     return Math.max(1, Math.min(5, Math.floor((entity.level - this.level) / 2)));
   }
@@ -326,6 +330,9 @@ export default class Character extends Entity {
   }
   
   stepTowards(target) {
+    if(!this.canSee(target)) {
+      return this.stepRandomly();
+    }
     let path = [];
     let addPath = (x, y) => path.push({ x, y });
     target._path.compute(this.x, this.y, addPath);
@@ -570,7 +577,7 @@ export default class Character extends Entity {
   }
   
   toJSON() {
-    let me = _.omit(this, ['game', '_path', 'traitHash']);
+    let me = _.omit(this, ['game', '_path', 'traitHash', '_attackedBy']);
     return JSON.stringify(me);
   }
 }
