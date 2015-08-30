@@ -30,3 +30,9 @@ class ClairvoyanceTrait extends Trait {
 }
 
 export var Clairvoyance = (level) => new ClairvoyanceTrait(level);
+
+class WarningTrait extends Trait {
+  Warning() { return this.level; }
+}
+
+export var Warning = (level) => new WarningTrait(level);

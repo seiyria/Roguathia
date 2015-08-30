@@ -92,6 +92,10 @@ export default class Character extends Entity {
     this.game.scheduler.add(this, true);
   }
 
+  calcDifficulty(entity) {
+    return Math.max(1, Math.min(5, Math.floor((entity.level - this.level) / 4)));
+  }
+
   getTraits() {
     return this.traits.concat(this.raceInst.traits).concat(this.professionInst.traits).concat(_.flatten(_.values(this.equipment)));
   }

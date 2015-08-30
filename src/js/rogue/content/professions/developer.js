@@ -9,7 +9,7 @@ import * as Potions from '../items/potions';
 import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
-let devCfg = {
+const devCfg = {
   hp  : '9d5',
   mp  : '9d5',
   str : '4d5',
@@ -19,7 +19,7 @@ let devCfg = {
   wis : '4d5',
   cha : '4d5',
   titles: ['Developer'],
-  traits: [Traits.Infravision(3), Traits.Haste(4), Traits.Clairvoyance(10)],
+  traits: [Traits.Infravision(3), Traits.Haste(4), Traits.Warning(30)],
   skillCaps: { shot: Thresholds.Expert, stab: Thresholds.Skilled },
   startingItems: [
     { init: () => new Weapons.Bow({ bucName: 'uncursed' }) },

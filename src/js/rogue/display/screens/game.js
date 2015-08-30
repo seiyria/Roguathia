@@ -36,7 +36,7 @@ export class GameScreen extends Screen {
     );
 
     let cache = {};
-    _.each(['Telepathy', 'Clairvoyance'], (trait) => cache[trait] = centerPoint.getTraitValue(trait));
+    _.each(['Telepathy', 'Clairvoyance', 'Warning'], (trait) => cache[trait] = centerPoint.getTraitValue(trait));
 
     let isVisible = (x, y) => {
       return visible[x] && visible[x][y];
@@ -46,12 +46,16 @@ export class GameScreen extends Screen {
       return cache[trait] && centerPoint.distBetweenXY(x, y) <= cache[trait];
     };
 
+    // white (doesn't count), green, yellow, orange, red, purple
+    const warningColors = ['#fff', '#0f0', '#ff0', '#ffa500', '#f00', '#ff0'];
+
     for(let x = offset.x; x < offset.x + width; x++) {
       for(let y = offset.y; y < offset.y + height; y++) {
         let hasTelepathy = hasValid('Telepathy', x, y);
         let hasClairvoyance = hasValid('Clairvoyance', x, y);
+        let hasWarning = hasValid('Warning', x, y);
         let hasSeen = GameState.world.isExplored(x, y, centerPoint.z);
-        if(!hasSeen && !GameState.renderAll && !hasTelepathy && !hasClairvoyance) continue;
+        if(!hasSeen && !GameState.renderAll && !hasTelepathy && !hasClairvoyance && !hasWarning) continue;
 
         var tile = world.getTile(x, y, zLevel);
         if(!tile) continue; // no out of bounds drawing
@@ -76,11 +80,19 @@ export class GameScreen extends Screen {
           }
         }
 
-        if(baseIsVisible || hasTelepathy) {
+        if(baseIsVisible || hasTelepathy || hasWarning) {
           var entity = world.getEntity(x, y, zLevel);
           if(entity) {
-            glyph = entity.glyph;
-            foreground = glyph.fg;
+
+            if(baseIsVisible || hasTelepathy) {
+              glyph = entity.glyph;
+              foreground = glyph.fg;
+
+            } else if(hasWarning && centerPoint.canAttack(entity)) {
+              let difficulty = centerPoint.calcDifficulty(entity);
+              glyph = { key: difficulty };
+              foreground = warningColors[difficulty];
+            }
           }
         }
 
