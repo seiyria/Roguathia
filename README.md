@@ -2,7 +2,7 @@
 
 # TODO
 * Properties (Intrinsic, Extrinsic): (element|debuff)-resist, searching, see/invisible, teleport/control, polymorph/control, levitation, stealth, aggravation, conflict, protection, warning, hunger, telepathy, speed, unbreathing, amphibious, jumping, infravision, reflection, life saving, phasing, blind, fumbling, displacement, clairvoyance, half-(type)-damage, swimming, free action, flight, slow digestion
-  * Easiest to implement: invisible, see invisible, warning, telepathy, speed, infravision, clairvoyance, blind, asleep, stunned (make conducts for these as well) -- entertain the idea of working on conflict
+  * Easiest to implement: invisible, see invisible, warning, telepathy, speed, clairvoyance, blind, asleep, stunned (make conducts for these as well) -- entertain the idea of working on conflict
   * Keep in mind BUC
 * Add more players. Allow for main game to focus on party leader, or splitscreen like the other views. Allow for "vertical" or "horizontal" splitscreen - when you have 2 or more people adjust the screen accordingly.
 * Content (all types of items)

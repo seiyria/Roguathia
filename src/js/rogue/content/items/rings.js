@@ -2,7 +2,7 @@
 import { Ring } from '../../definitions/equipment';
 
 export class Protection extends Ring {
-  ac() {
+  protection() {
     return this.buc * -1;
   }
 }

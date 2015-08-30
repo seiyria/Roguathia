@@ -8,6 +8,7 @@ const conducts = [
 
   // traits
   { check: (player) => player.hasTrait('Infravision'), affirmMessage: 'You %had infravision.' },
+  { check: (player) => player.hasTrait('Protection'), affirmMessage: 'You %had protection.' },
 
   // alignment
   { check: (player) => player.getAlign() === 0, affirmMessage: 'You %were neutral.' },

@@ -1,7 +1,7 @@
 
-import { Head } from '../../definitions/equipment';
+import { Neck } from '../../definitions/equipment';
 
-export class Ordinary extends Head {
+export class Ordinary extends Neck {
   constructor(opts) {
     super(opts);
     this.realName = this.fakeName = 'ordinary amulet';
@@ -9,8 +9,8 @@ export class Ordinary extends Head {
 }
 Ordinary.rarity = 100;
 
-export class Protective extends Head {
-  ac() {
+export class Protective extends Neck {
+  protection() {
     return this.buc * -1;
   }
 }

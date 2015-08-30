@@ -38,11 +38,11 @@ const defaultAttributes = {
 const defaultStats = {
   gender: 'None', 
   name: 'Dudley',
-  race: 'Gnome',
+  race: 'Human',
   attacks: [],
   behaviors: [],
   skills: {},
-  profession: 'Wizard' 
+  profession: 'Developer'
 };
 
 const defaultBehaviors = [Behaviors.RegeneratesHp(), Behaviors.RegeneratesMp()];
@@ -513,7 +513,7 @@ export default class Character extends Entity {
   }
   
   getAC() {
-    return 10 + this.getStat('ac') - this.calcStatBonus('dex');
+    return 10 + this.getStat('ac') - this.calcStatBonus('dex') - this.getTraitValue('protection');
   }
   
   getStr() {
