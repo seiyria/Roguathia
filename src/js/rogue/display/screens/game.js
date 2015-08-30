@@ -95,7 +95,7 @@ export class SingleGameScreen extends GameScreen {
   }
 
   static drawHUD(display, player) {
-    var tag = `${player.name} the ${player.getAlign()} ${player.level} ${player.race} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
+    var tag = `${player.name} the level ${player.level} ${player.race} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
     var stats = `STR:${player.getStr()} DEX:${player.getDex()} CON:${player.getCon()} INT:${player.getInt()} WIS:${player.getWis()} CHA:${player.getCha()}`;
     var miscInfo = `Floor:${1+GameState.currentFloor} $:${player.gold} HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max} AC:${player.getAC()} Turn:${player.currentTurn}`;
 
