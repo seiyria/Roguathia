@@ -14,6 +14,9 @@ const conducts = [
   { check: (player) => player.getSpeed() > Settings.game.baseSpeed, affirmMessage: 'You %were fast.' },
   { check: (player) => player.getSpeed() < Settings.game.baseSpeed, affirmMessage: 'You %were slow.' },
 
+  // statuses
+  { check: (player) => player.hasBehavior('Stunned'), affirmMessage: 'You %were stunned.' },
+
   // alignment
   { check: (player) => player.getAlign() === 0, affirmMessage: 'You %were neutral.' },
   { check: (player) => player.getAlign() < 0, affirmMessage: 'You %were evil.' },

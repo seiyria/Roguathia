@@ -254,6 +254,7 @@ export default class Character extends Entity {
   }
   
   hasBehavior(behavior) {
+    if(!_.contains(behavior, 'Behavior')) behavior = `${behavior}Behavior`;
     return _.contains(_.pluck(this.behaviors, 'constructor.name'), behavior);
   }
   
