@@ -27,6 +27,7 @@ const defaultStats = {
   sight: 0,
   spawnSteps: 0,
   attacks: [],
+  traits: [],
   skillBonus: {}
 };
 

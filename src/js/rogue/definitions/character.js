@@ -27,7 +27,7 @@ const defaultAttributes = {
   level: 1,
   align: 0, 
   speed: 100, 
-  sight: 7,
+  sight: 4,
   killXp: '0d0',
   spawnHp: '15d1',
   spawnMp: '0d0',
@@ -54,6 +54,7 @@ export default class Character extends Entity {
 
     this.factions = [];
     this.antiFactions = [];
+    this.traits = [];
     this.skills = {};
     this.brokenConduct = {};
     
@@ -86,6 +87,27 @@ export default class Character extends Entity {
      
     this.game = GameState.game;
     this.game.scheduler.add(this, true);
+  }
+
+  getTraits() {
+    return this.traits.concat(this.raceInst.traits).concat(this.professionInst.traits);
+  }
+
+  hasTrait(propertyName) {
+    return _.contains(_.pluck(this.getTraits(), 'constructor.name'), `${propertyName}Trait`);
+  }
+
+  getTraitValue(property, defaultVal = 0) {
+    let properties = this.getTraits();
+    return _.reduce(properties, ((prev, prop) => prev + prop[property] ? prop[property]() : defaultVal), defaultVal);
+  }
+
+  addTrait(property) {
+    this.traits.push(property);
+  }
+
+  removeTrait(property) {
+    this.traits = _.without(this.traits, property);
   }
 
   breakConduct(conduct) {
@@ -483,7 +505,7 @@ export default class Character extends Entity {
   }
   
   getSight() {
-    return this.getStatWithMin('sight');
+    return this.getStatWithMin('sight') + this.getTraitValue('infravision');
   }
   
   getSpeed() {

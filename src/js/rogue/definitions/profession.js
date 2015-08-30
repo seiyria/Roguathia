@@ -17,6 +17,7 @@ const defaultCfg = {
   spawnSteps: 0,
   titles: [],
   attacks: [],
+  traits: [],
   skillCaps: {}
 };
 

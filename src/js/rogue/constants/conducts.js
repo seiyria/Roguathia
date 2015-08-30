@@ -1,19 +1,32 @@
 
 const conducts = [
+  // breakable conducts
   { check: (player) => !player.brokenConduct.stubborn, affirmMessage: 'You never changed equipment.' },
   { check: (player) => !player.brokenConduct.wieldedWeapon, affirmMessage: 'You never hit with a wielded weapon.' },
-  { check: (player) => !player.brokenConduct.pacifist, affirmMessage: 'You %tense a pacifist.' },
+  { check: (player) => !player.brokenConduct.pacifist, affirmMessage: 'You %were a pacifist.' },
   { check: (player) => !player.brokenConduct.nudist, affirmMessage: 'You never equipped armor.' },
-  { check: (player) => player.getAlign() === 0, affirmMessage: 'You %tense neutral.' },
-  { check: (player) => player.getAlign() < 0, affirmMessage: 'You %tense evil.' },
-  { check: (player) => player.getAlign() > 0, affirmMessage: 'You %tense good.' },
+
+  // traits
+  { check: (player) => player.hasTrait('Infravision'), affirmMessage: 'You %had infravision.' },
+
+  // alignment
+  { check: (player) => player.getAlign() === 0, affirmMessage: 'You %were neutral.' },
+  { check: (player) => player.getAlign() < 0, affirmMessage: 'You %were evil.' },
+  { check: (player) => player.getAlign() > 0, affirmMessage: 'You %were good.' },
+
+  // you probably always see this
   { check: (player) => player.hp.atMin(), affirmMessage: 'You died.' }
 ];
 
 export default (player) => {
   let finalConduct = [];
 
-  let adjustMessage = (msg) => msg.split('%tense').join(player.hp.atMin() ? 'were' : 'are');
+  let tenses = [
+    { split: '%were', past: 'were', now: 'are' },
+    { split: '%had',  past: 'had',  now: 'have' }
+  ];
+
+  let adjustMessage = (msg) => _.reduce(tenses, ((prev, obj) => prev.split(obj.split).join(player.hp.atMin() ? obj.past : obj.now)), msg);
   let addMessage = (msg) => finalConduct.push(adjustMessage(msg));
 
   _.each(conducts, (conduct) => {
