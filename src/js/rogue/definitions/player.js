@@ -56,8 +56,13 @@ export default class Player extends Character {
     }
     
     this.game.refresh();
-    
-    setTimeout(() => engine.unlock(), SETTINGS.game.turnDelay/GameState.players.length);
+
+    let livingPlayers = _.reject(GameState.players, (player) => player.hp.atMin());
+    setTimeout(() => engine.unlock(), SETTINGS.game.turnDelay/livingPlayers.length);
+  }
+
+  takeDamage(damage, attacker) {
+    super.takeDamage(damage, attacker);
   }
   
   rebuildPathingMap() {
@@ -73,9 +78,8 @@ export default class Player extends Character {
   
   die(killer) {
     super.die(killer);
-    this._isDead = true;
 
-    if(_.every(GameState.players, (player) => player._isDead)) { // this should check hp.atMin(), but, bugs.
+    if(_.every(GameState.players, (player) => player.hp.atMin())) { // this should check hp.atMin(), but, bugs.
       GameState.game.gameOver();
       GameState.game.engine.lock();
     }
@@ -90,6 +94,7 @@ export default class Player extends Character {
     let stairs = GameState.world.stairs[newFloor].up;
 
     _.each(GameState.players, (player) => {
+      if(player.hp.atMin()) return;
       GameState.world.moveEntity(player, stairs[0], stairs[1], newFloor);
       player.stepRandomly();
     });

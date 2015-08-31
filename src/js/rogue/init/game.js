@@ -89,15 +89,20 @@ export default class Game {
 
     GameState.currentFloor = 0;
 
-    for(let i = 0; i < 1; i++) {
+    for(let i = 0; i < 4; i++) {
       let startTile = playerLocations.shift();
       let player = new Player(0, 0, 0);
 
       GameState.world.moveEntity(player, startTile.x, startTile.y, 0);
       GameState.players.push(player);
+      player.name = `Dudley${i}`;
+      player.xp.cur = 19;
     }
     this.engine.start();
     
-    setTimeout(() => this.switchScreen(SingleGameScreen), 100);
+    setTimeout(() => {
+      this.switchScreen(SingleGameScreen);
+      if(GameState.players.length > 1) this.changeSplitScreen();
+    }, 100);
   }
 }

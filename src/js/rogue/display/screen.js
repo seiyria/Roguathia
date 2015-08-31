@@ -128,7 +128,7 @@ export class SplitScrollingScreen extends ScrollingScreen {
 
     setTimeout(() => {
       if(this.isDone()) {
-        this.changeScreenWithDelay(this.nextScreen, 4000);
+        this.changeScreenWithDelay(this.nextScreen, 6000);
       } else {
         this.currentIndices = _.map(this.currentIndices, (index) => index === true ? true : index + 1);
         this.render(display);

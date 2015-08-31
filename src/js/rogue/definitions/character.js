@@ -454,6 +454,7 @@ export default class Character extends Entity {
   }
   
   gainXp(number) {
+    if(this.hp.atMin()) return;
     this.xp.add(number);
     if(this.xp.atMax()) {
       this.levelup();
@@ -474,9 +475,9 @@ export default class Character extends Entity {
     this.xp.max = this.calcLevelXp(this.level);
     
     // resets
-    this.xp.cur = 0;
-    this.hp.cur = this.hp.max;
-    this.mp.cur = this.mp.max;
+    this.xp.toMin();
+    this.hp.toMax();
+    this.mp.toMax();
     
     MessageQueue.add({ message: `${this.name} has reached experience level ${this.level}!` });
   }

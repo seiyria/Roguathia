@@ -28,8 +28,10 @@ export class GameScreen extends Screen {
     var world = GameState.world;
     var zLevel = centerPoint.z;
 
+    let isDead = centerPoint.hp.atMin();
+
     world.fov[zLevel].compute(
-      centerPoint.x, centerPoint.y, centerPoint.hp.atMin() ? 0 : centerPoint.getSight(),
+      centerPoint.x, centerPoint.y, isDead ? 1 : centerPoint.getSight(),
       (x, y) => {
         if(!visible[x]) visible[x] = [];
         visible[x][y] = true;
@@ -45,7 +47,7 @@ export class GameScreen extends Screen {
     };
 
     let hasValid = (trait, x, y) => {
-      return cache[trait] && centerPoint.distBetweenXY(x, y) <= cache[trait];
+      return !isDead && cache[trait] && centerPoint.distBetweenXY(x, y) <= cache[trait];
     };
 
     // white (doesn't count), green, yellow, orange, red, purple

@@ -8,6 +8,9 @@ export default class NumberRange {
   
   atMin() { return this.cur === this.min; }
   atMax() { return this.cur === this.max; }
+
+  toMin() { this.cur = this.min; }
+  toMax() { this.cur = this.max; }
   
   percent()       { return ~~((this.cur / this.max)*100); }
   gtPercent(pct)  { return this.percent() > pct; }

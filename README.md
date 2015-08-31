@@ -1,11 +1,7 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
 # TODO
-* Sometimes people come back to life but are actually dead
-* Fix multi-person dead rendering
 * AI retarget in sight if there is another player that's not the target
-* Add more players. Allow for main game to focus on party leader, or splitscreen like the other views. Allow for "vertical" or "horizontal" splitscreen - when you have 2 or more people adjust the screen accordingly.
-  * Allow people to choose whether they want their party to follow (ie, one goes down, they all go down) or be separate.
 * Magic Mapping trait (call it something different, like dungeon arcana?)
 * Ending conditions (worth different amounts of VP)
   * Kill Selyk
@@ -41,7 +37,7 @@
     * Tameable monster variety
     * More pet choices
   * VP (you get points for surviving the dungeon, your conduct is worth lots of points)
-    * More dungeon features (fountains, thrones, decorations, sinks, etc)
+    * More dungeon features (fountains, thrones, decorations, sinks, torches, etc)
     * Deeper dungeons (+2 floors / lvl)
     * More floor types (caves, mines, towns, etc) (see [here](http://crawl.chaosforge.org/Dungeon_branches) for possible branch types)
     * More chance of generating items on the floor (say, .1% chance per floor, increasing by .1% each time [evaluated per tile])
@@ -50,6 +46,7 @@
     * Possibly unlock a dungeon editor (you can rearrange what floors are in what order, and how many of them spawn)
     * Better respawn time
 * Refactor stair placement to Generator
+* Unlock traits at certain levels
 * Achievements
   * Beat game with one party member @ level X (10, 25, 50, 100)
   * Beat game with one party member where dungeon size >= X (10, 25, 50, 100)
@@ -58,6 +55,7 @@
   * Customize a player (template slot | color | pet | tombstone)
   * Deck out a player (template slot, color, pet, tombstone)
   * Get an item enchanted to +5, +7, +9
+* More focus on lighting, and make player sight more limited.
 
 # Website
 * Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
