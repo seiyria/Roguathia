@@ -44,12 +44,20 @@
     * More dungeon features (fountains, thrones, decorations, sinks, etc)
     * Deeper dungeons (+2 floors / lvl)
     * More floor types (caves, mines, towns, etc) (see [here](http://crawl.chaosforge.org/Dungeon_branches) for possible branch types)
-    * More chance of generating items on the floor (say, 1% chance per floor, increasing by 1% each time)
+    * More chance of generating items on the floor (say, .1% chance per floor, increasing by .1% each time [evaluated per tile])
     * More items generated on the floor (say, increase the max by 1 per level - the min would always be 1)
     * Better items generated on the floor
     * Possibly unlock a dungeon editor (you can rearrange what floors are in what order, and how many of them spawn)
     * Better respawn time
 * Refactor stair placement to Generator
+* Achievements
+  * Beat game with one party member @ level X (10, 25, 50, 100)
+  * Beat game with one party member where dungeon size >= X (10, 25, 50, 100)
+  * Unlock all Y (Y = party member slots, behaviors, traits, classes, races, colors, pets, dungeon floor types, dungeon features)
+  * Get a dungeon of size X (10, 20, 30, 40, 50...)
+  * Customize a player (template slot | color | pet | tombstone)
+  * Deck out a player (template slot, color, pet, tombstone)
+  * Get an item enchanted to +5, +7, +9
 
 # Website
 * Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
@@ -60,6 +68,7 @@
 * IRC bot (Selyk) to announce major events (deaths, etc) / scrollback to chat
 * Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
 * Refactor / reorg / unit tests for classes, remove magic numbers
+* Better dungeon corners
 
 # Post-release
 * Doors that require keys that are spawned in the level, and have treasure or stairs behind them
