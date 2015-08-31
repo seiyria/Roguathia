@@ -68,7 +68,6 @@ class HealsBelowPercentBehavior extends Behavior {
     let healItems = _.filter(me.inventory, (item) => item.healRoll &&  item.canUse(me));
     if(healItems.length === 0) return true;
     let healItem = _.sample(healItems);
-    console.log(me.name,'using',healItem.name);
     healItem.use(me);
     return false;
   }
