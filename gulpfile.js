@@ -51,7 +51,7 @@ gulp.task('clean', function() {
     .on('error', util.log);
 });
 
-gulp.task('copyfavicon', ['clean'], function() {
+gulp.task('copy:favicon', ['clean'], function() {
   var paths = getPaths();
 
   return gulp.src(paths.favicon)
@@ -59,7 +59,7 @@ gulp.task('copyfavicon', ['clean'], function() {
     .on('error', util.log);
 });
 
-gulp.task('buildlibcss', ['clean', 'compilejade', 'compilesass'], function() {
+gulp.task('build:libcss', ['clean', 'compile:jade', 'compile:sass'], function() {
   var paths = getPaths();
 
   return gulp.src(paths.libcss)
@@ -76,7 +76,7 @@ gulp.task('buildlibcss', ['clean', 'compilejade', 'compilesass'], function() {
     .on('error', util.log);
 });
 
-gulp.task('buildlibjs', ['clean'], function() {
+gulp.task('build:libjs', ['clean'], function() {
   var paths = getPaths();
 
   return gulp.src(paths.libjs)
@@ -87,7 +87,7 @@ gulp.task('buildlibjs', ['clean'], function() {
     .on('error', util.log);
 });
 
-gulp.task('compilejs', ['eslint', 'clean'], function() {
+gulp.task('compile:js', ['eslint', 'clean'], function() {
   var paths = getPaths();
 
   var bundler = browserify({
@@ -129,7 +129,7 @@ gulp.task('eslint', function() {
     .pipe(eslint.failOnError());
 });
 
-gulp.task('compilesass', ['clean', 'compilejade'], function() {
+gulp.task('compile:sass', ['clean', 'compile:jade'], function() {
   var paths = getPaths();
 
   return gulp.src(paths.sass)
@@ -153,7 +153,7 @@ gulp.task('compilesass', ['clean', 'compilejade'], function() {
     .on('error', util.log);
 });
 
-gulp.task('compilejade', ['clean'], function() {
+gulp.task('compile:jade', ['clean'], function() {
   var paths = getPaths();
 
   return gulp.src(paths.jade)
@@ -218,5 +218,5 @@ gulp.task('bump:major', function() {
 });
 
 gulp.task('default', ['build', 'connect', 'open', 'watch']);
-gulp.task('build', ['clean', 'copyfavicon', 'buildlibjs', 'buildlibcss', 'compile']);
-gulp.task('compile', ['compilejs', 'compilesass', 'compilejade']);
+gulp.task('build', ['clean', 'copy:favicon', 'build:libjs', 'build:libcss', 'compile']);
+gulp.task('compile', ['compile:js', 'compile:sass', 'compile:jade']);
