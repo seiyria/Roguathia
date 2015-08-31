@@ -1,9 +1,9 @@
 
 import * as Behaviors from '../behaviors/behaviors';
-// import Attacks from '../attacks/_all';
-// import * as Foods from '../items/foods';
+import Attacks from '../attacks/_all';
+import * as Foods from '../items/foods';
 
-/*
+
 export var gridBug =          { difficulty: 1, glyph: { key: 'x', fg: 'purple' }, spawnPattern: '1d2', frequency: 100,
                                   attributes: { ac: -1, speed: 150, level: 1, str: 5, dex: 3, con: 0, killXp: '4d1', spawnHp: '1d4 + 2' },
                                   stats: { name: 'grid bug', race: 'Insect',
@@ -16,13 +16,11 @@ export var newt =             { difficulty: 1, glyph: { key: ':', fg: 'yellow' }
                                     behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()], 
                                     attacks: [Attacks.Bite({ roll: '1d3 + 1' })]
                                   } };
-*/
 export var gasSpore =         { difficulty: 2, glyph: { key: 'e', fg: 'gray' }, spawnPattern: '1d1',  frequency: 50,
                                   attributes: { ac: 0, speed: 25, level: 2, str: 0, dex: 0, con: 0, killXp: '12d1', spawnHp: '2d4' },
                                   stats: { name: 'gas spore', race: 'Spore',
                                     behaviors: [Behaviors.Explodes('4d8'), Behaviors.Wanders()]
                                   } };
-/*
 export var jackal =           { difficulty: 2, glyph: { key: 'd', fg: 'brown' }, spawnPattern: '1d3 + 1',  frequency: 75,
                                   startingEquipment: [
                                     { probability: 20, init: () => new Foods.Ration({ charges: '1d2' }) }
@@ -38,4 +36,3 @@ export var giantAnt =         { difficulty: 4, glyph: { key: 'a', fg: 'brown' },
                                     behaviors: [Behaviors.LeavesCorpse(), Behaviors.DropsGold('2d4'), Behaviors.Bloodthirsty(), Behaviors.Attacks()], 
                                     attacks: [Attacks.Bite({ roll: '1d4 + 1' })]
                                   } };
-  */
