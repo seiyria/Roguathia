@@ -43,6 +43,12 @@ export default class Game {
     if(this.currentScreen !== me) return;
     this.switchScreen(newScreen);
   }
+
+  changeSplitScreen() {
+    if(!this.currentScreen.split || GameState.players.length === 1) return;
+    this.splitScreen = !this.splitScreen;
+    this.switchScreen(this.currentScreen.split);
+  }
   
   switchScreen(screen) {
     if(this.currentScreen) {
@@ -58,7 +64,6 @@ export default class Game {
   }
   
   setup() {
-    
     this.scheduler = new ROT.Scheduler.Speed();
     this.engine = new ROT.Engine(this.scheduler);
     
@@ -81,13 +86,16 @@ export default class Game {
     let playerLocations = GameState.world.getValidTilesInRange(
       zeroStartStairs[0], zeroStartStairs[1], 0, 2, (tile) => tile.glyph.key === '.'
     );
-      
-    let startTile = _.sample(playerLocations);
-    let player = new Player(0, 0, 0);
-    
+
     GameState.currentFloor = 0;
-    GameState.world.moveEntity(player, startTile.x, startTile.y, 0);
-    GameState.players.push(player);
+
+    for(let i = 0; i < 4; i++) {
+      let startTile = playerLocations.shift();
+      let player = new Player(0, 0, 0);
+
+      GameState.world.moveEntity(player, startTile.x, startTile.y, 0);
+      GameState.players.push(player);
+    }
     this.engine.start();
     
     setTimeout(() => this.switchScreen(SingleGameScreen), 100);

@@ -19,4 +19,10 @@ export default () => {
     
     GameState.renderAll = !GameState.renderAll;
   });
+
+  document.body.addEventListener('keydown', (e) => {
+    if(e.keyCode !== ROT.VK_S) return;
+
+    GameState.game.changeSplitScreen();
+  });
 };

@@ -38,7 +38,7 @@ const defaultAttributes = {
 };
 
 const defaultStats = {
-  gender: 'None', 
+  gender: 'Male',
   name: 'Dudley',
   race: 'Human',
   attacks: [],
@@ -93,7 +93,7 @@ export default class Character extends Entity {
   }
 
   canSee(entity) {
-    return this.getTraitValue('SeeInvisible') > entity.getTraitValue('Invisible');
+    return this.getTraitValue('SeeInvisible') >= entity.getTraitValue('Invisible');
   }
 
   calcDifficulty(entity) {

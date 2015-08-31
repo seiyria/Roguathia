@@ -9,7 +9,7 @@ import Factions from '../constants/factions';
 export default class Player extends Character {
   
   constructor(x, y, z, opts = {}) {
-    opts.stats = { behaviors: [Behaviors.Attacks(), Behaviors.PickUpItems(), Behaviors.HealsBelowPercent(50), Behaviors.Interacts(), Behaviors.Wanders()] };
+    opts.stats = { behaviors: [Behaviors.Attacks(), Behaviors.PickUpItems(), Behaviors.DropsItems(), Behaviors.DropsGold('0d0'), Behaviors.HealsBelowPercent(50), Behaviors.Interacts(), Behaviors.Wanders()] };
     super({ key: '@' }, x, y, z, opts);
     this.factions.push(Factions.PLAYER);
     this.antiFactions.push(Factions.MONSTER);
@@ -73,8 +73,12 @@ export default class Player extends Character {
   
   die(killer) {
     super.die(killer);
-    GameState.game.gameOver();
-    GameState.game.engine.lock();
+    this._isDead = true;
+
+    if(_.every(GameState.players, (player) => player._isDead)) { // this should check hp.atMin(), but, bugs.
+      GameState.game.gameOver();
+      GameState.game.engine.lock();
+    }
   }
   
   spawnMonster() {
@@ -84,7 +88,11 @@ export default class Player extends Character {
   descend() {
     let newFloor = GameState.currentFloor = GameState.currentFloor+1;
     let stairs = GameState.world.stairs[newFloor].up;
-    GameState.world.moveEntity(this, stairs[0], stairs[1], newFloor);
+
+    _.each(GameState.players, (player) => {
+      GameState.world.moveEntity(player, stairs[0], stairs[1], newFloor);
+      player.stepRandomly();
+    });
   }
   
   ascend() {

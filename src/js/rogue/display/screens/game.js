@@ -19,7 +19,9 @@ export class GameScreen extends Screen {
     };
   }
 
-  static drawTiles(display, centerPoint, width = SETTINGS.screen.width, height = SETTINGS.screen.height, offset = this.getScreenOffsets()) {
+  static drawTiles(display, centerPoint, options = { width: SETTINGS.screen.width, height: SETTINGS.screen.height, offset: this.getScreenOffsets(), gameOffset: { x: 0, y: 0 } }) {
+
+    let { width, height, offset, gameOffset } = options;
 
     var visible = [];
 
@@ -27,7 +29,7 @@ export class GameScreen extends Screen {
     var zLevel = centerPoint.z;
 
     world.fov[zLevel].compute(
-      centerPoint.x, centerPoint.y, centerPoint.getSight(),
+      centerPoint.x, centerPoint.y, centerPoint.hp.atMin() ? 0 : centerPoint.getSight(),
       (x, y) => {
         if(!visible[x]) visible[x] = [];
         visible[x][y] = true;
@@ -106,9 +108,19 @@ export class GameScreen extends Screen {
           foreground = '#555';
         }
 
-        display.draw(x - offset.x, y - offset.y, glyph.key, foreground, background);
+        display.draw(gameOffset.x + x - offset.x, gameOffset.y + y - offset.y, glyph.key, foreground, background);
 
       }
+    }
+  }
+
+  static redrawHp(display, foreground, player, string, x = 0, y = SETTINGS.screen.height - 1) {
+    let str = (''+player.hp.cur);
+    let index = string.indexOf(`HP:${player.hp.cur}`)+3;
+    let length = str.length;
+    let strIdx = 0;
+    for(let i = index; i < index+length; i++) {
+      display.draw(x+i, y, str[strIdx], foreground);
     }
   }
 }
@@ -136,7 +148,7 @@ export class SingleGameScreen extends GameScreen {
   }
 
   static drawHUD(display, player) {
-    var tag = `${player.name} the level ${player.level} ${player.race} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
+    var tag = `${player.name} the ${player.getAlign()} ${player.gender} level ${player.level} ${player.race} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
     var stats = `STR:${player.getStr()} DEX:${player.getDex()} CON:${player.getCon()} INT:${player.getInt()} WIS:${player.getWis()} CHA:${player.getCha()}`;
     var miscInfo = `Floor:${1+GameState.currentFloor} $:${player.gold} HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max} AC:${player.getAC()} Turn:${player.currentTurn}`;
 
@@ -150,20 +162,10 @@ export class SingleGameScreen extends GameScreen {
     display.drawText(0, SETTINGS.screen.height - 2, stats);
     display.drawText(0, SETTINGS.screen.height - 1, miscInfo);
 
-    let redrawHp = (foreground) => {
-      let str = (''+player.hp.cur);
-      let index = miscInfo.indexOf(`HP:${player.hp.cur}`)+3;
-      let length = str.length;
-      let strIdx = 0;
-      for(let i = index; i < index+length; i++) {
-        display.draw(i, SETTINGS.screen.height - 1, str[strIdx], foreground);
-      }
-    };
-
     if(player.hp.ltePercent(20)) {
-      redrawHp('#7f0000');
+      this.redrawHp(display, '#7f0000', player, miscInfo);
     } else if(player.hp.ltePercent(50)) {
-      redrawHp('#ffd700');
+      this.redrawHp(display, '#ffd700', player, miscInfo);
     }
   }
 
@@ -173,6 +175,78 @@ export class SingleGameScreen extends GameScreen {
     this.drawHUD(display, player);
     this.drawMessages(display, player);
   }
+
+  static get split() { return SplitGameScreen; }
 }
 
-// export class SplitGameScreen extends GameScreen {}
+export class SplitGameScreen extends GameScreen {
+
+  static enter() {
+    this.width = GameState.players.length > 2 ? (SETTINGS.screen.width / 2) : SETTINGS.screen.width;
+    this.height = SETTINGS.screen.height / 2;
+
+    this.tlCoords = [
+      { x: 0, y: 0 },
+      { x: 0, y: this.height+1 },
+      { x: this.width+1, y: 0 },
+      { x: this.width+1, y: this.height+1 }
+    ];
+
+    this.hudCoords = [
+      { x: 0, y: this.height-1 },
+      { x: 0, y: (this.height*2)-1 },
+      { x: this.width+1, y: this.height-1 },
+      { x: this.width+1, y: (this.height*2)-1 }
+    ];
+  }
+
+  static render(display) {
+
+    _.each(GameState.players, (player, i) => {
+      this.drawTiles(display, player, { width: this.width, height: this.height, offset: this.getScreenOffsets(player, this.width, this.height), gameOffset: this.tlCoords[i] });
+      this.drawHUDs(display, player, this.hudCoords[i]);
+    });
+
+    this.drawBorder(display);
+  }
+
+  static drawBorder(display) {
+
+    let middleY = SETTINGS.screen.height / 2;
+    for(let i = 0; i < SETTINGS.screen.width; i++) {
+      display.draw(i, middleY, '=');
+    }
+
+    if(GameState.players.length > 2) {
+      let middleX = SETTINGS.screen.width / 2;
+      for(let i = 0; i < SETTINGS.screen.height; i++) {
+        display.draw(middleX, i, '‖');
+      }
+    }
+
+    this.drawLeftCenterText(display, middleY, `Floor:${GameState.currentFloor+1}`);
+    this.drawRightCenterText(display, middleY, `Turns:${_.max(GameState.players, 'currentTurn').currentTurn}`);
+  }
+
+  static stripTo3(string) {
+    return string.substring(0, 3);
+  }
+
+  static drawHUDs(display, player, hudCoords) {
+    let { x, y } = hudCoords;
+
+    let topString = `${player.name} ${this.stripTo3(player.getAlign())}${this.stripTo3(player.gender)}${this.stripTo3(player.race)}${this.stripTo3(player.profession)}`;
+    let bottomString = `Lv.${player.level} (${player.xp.cur}/${player.xp.max}) HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max}`;
+
+    display.drawText(x, y-1, topString);
+    display.drawText(x, y, bottomString);
+
+    if(player.hp.ltePercent(20)) {
+      this.redrawHp(display, '#7f0000', player, bottomString, x, y);
+    } else if(player.hp.ltePercent(50)) {
+      this.redrawHp(display, '#ffd700', player, bottomString, x, y);
+    }
+  }
+
+  static get split() { return SingleGameScreen; }
+}

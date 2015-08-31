@@ -17,11 +17,11 @@ const PRIORITIES = {
 
 // retarget and find a new player to attack
 let targetNewPlayer = (me) => {
-  if(!me.target || (me.target && me.target.hp.atMin())) {
+  if(!me.target || (me.target && me.target.hp.atMin()) || (me.target && me.target.z !== me.z)) {
     me.target = _(GameState.players).reject(player => player.hp.atMin()).sample();
   }
 
-  if(!me.target || me.target.z !== me.z) return false; // they can wait, you may come back
+  if(!me.target) return false; // they can wait, you may come back
 
   return true; // successful retarget
 };
@@ -162,7 +162,7 @@ class DropsGoldBehavior extends Behavior {
   }
   die(me) {
     let droppedGold = +dice.roll(this.goldDrop);
-    let goldItem = new Gold(droppedGold);
+    let goldItem = new Gold(droppedGold + me.gold);
     GameState.world.moveItem(goldItem, me.x, me.y, me.z);
   }
 }

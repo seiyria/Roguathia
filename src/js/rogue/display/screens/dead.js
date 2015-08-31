@@ -1,12 +1,12 @@
 
 import { Screen } from '../screen';
-import { SingleVanquishedScreen } from './vanquished';
+import { SingleVanquishedScreen, SplitVanquishedScreen } from './vanquished';
 import GameState from '../../init/gamestate';
 
 export default class DeadScreen extends Screen {
   static enter() {
     GameState.game.engine.lock();
-    this.changeScreenWithDelay(SingleVanquishedScreen, 5000);
+    this.changeScreenWithDelay({ single: SingleVanquishedScreen, multi: SplitVanquishedScreen }, 5000);
   }
   static render(display) {
     const TOMBSTONE_WIDTH = 26;
@@ -40,8 +40,8 @@ export default class DeadScreen extends Screen {
 
     i++;
 
-    this.drawLeftText(display, i++,     `${goodbye}, ${latestDeath.name} the ${latestDeath.getAlign()} ${latestDeath.race} ${latestDeath.profession}...`);
-    this.drawLeftText(display, i++,     `You were level ${latestDeath.level}/${latestDeath.professionInst.level} after earning ${latestDeath.totalXpEarned} experience.`);
+    this.drawLeftText(display, i++,     `${goodbye}, ${latestDeath.name} the ${latestDeath.getAlign()} ${latestDeath.gender} ${latestDeath.race} ${latestDeath.profession}...`);
+    this.drawLeftText(display, i++,     `You were level ${latestDeath.level} after earning ${latestDeath.totalXpEarned} experience.`);
     this.drawLeftText(display, i++,     `You died in ${mapName} on dungeon level ${floor}.`);
     this.drawLeftText(display, i++,     `You scored ${score} points and ${latestDeath.gold} gold over ${latestDeath.currentTurn} steps.`);
   }

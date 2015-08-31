@@ -1,6 +1,7 @@
 
-import { SingleScrollingScreen } from '../screen';
-import { SingleConductScreen } from './conduct';
+import { SingleScrollingScreen, SplitScrollingScreen } from '../screen';
+import { SingleConductScreen, SplitConductScreen } from './conduct';
+import GameState from '../../init/gamestate';
 
 export class SingleVanquishedScreen extends SingleScrollingScreen {
   static enter() {
@@ -16,5 +17,29 @@ export class SingleVanquishedScreen extends SingleScrollingScreen {
     }
     this.nextScreen = SingleConductScreen;
   }
+
+  // static get split() { return SplitVanquishedScreen; }
 }
-// class SplitVanquishedScreen extends SplitScrollingScreen {}
+
+export class SplitVanquishedScreen extends SplitScrollingScreen {
+  static enter() {
+    super.enter();
+
+    this.scrollContent = [];
+    this.title = [];
+
+    _.each(GameState.players, (target, i) => {
+      let killHash = target.conquest;
+      let sortedKills = _(killHash).keys().map((mon) => ({ name: mon, num: killHash[mon] })).sortBy('name').value();
+      this.scrollContent[i] = _.map(sortedKills, (kill) => `${_.padLeft(kill.num, 4)} ${kill.name}`);
+      let totalKills = _.reduce(sortedKills, ((prev, cur) => prev + cur.num), 0);
+      this.title[i] = `${target.name}'s Conquest (${sortedKills.length} types|${totalKills} total)`; // shorten this for splitscreen
+      if(!this.scrollContent[i].length) {
+        this.scrollContent[i] = ['No kills.'];
+      }
+    });
+
+    this.nextScreen = SplitConductScreen;
+  }
+  // static get split() { return SingleVanquishedScreen; }
+}
