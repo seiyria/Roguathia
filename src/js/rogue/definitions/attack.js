@@ -169,18 +169,6 @@ export class Attack extends Abstract {
   }
 }
 
-export class Reagent extends Attack {
-  
-  isValidRangedAttack(owner) {
-    return this._itemRef && this._itemRef.canUse(owner) && this._itemRef.hasValidAmmo(owner);
-  }
-  
-  use(owner, target, attackNum) {
-    if(this.isValidRangedAttack(owner)) return this._itemRef.use(owner);
-    return super.use(owner, target, attackNum);
-  }
-}
-
 export class SkilledAttack extends Attack {
   hitCallback(owner) {
     super.hitCallback(owner);
@@ -188,6 +176,18 @@ export class SkilledAttack extends Attack {
       owner.breakConduct('wieldedWeapon');
     }
     owner.increaseSkill(this.getType());
+  }
+}
+
+export class Reagent extends SkilledAttack {
+
+  isValidRangedAttack(owner) {
+    return this._itemRef && this._itemRef.canUse(owner) && this._itemRef.hasValidAmmo(owner);
+  }
+
+  use(owner, target, attackNum) {
+    if(this.isValidRangedAttack(owner)) return this._itemRef.use(owner);
+    return super.use(owner, target, attackNum);
   }
 }
 
