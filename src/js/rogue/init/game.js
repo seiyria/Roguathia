@@ -95,8 +95,6 @@ export default class Game {
 
       GameState.world.moveEntity(player, startTile.x, startTile.y, 0);
       GameState.players.push(player);
-      player.name = `Dudley${i}`;
-      player.xp.cur = 19;
     }
     this.engine.start();
     
