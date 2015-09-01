@@ -2,7 +2,7 @@
 
 # TODO
 * Drop items on dungeon floor occasionally during generation
-* Refactor stair placement to Generator
+* Refactor stair placement to Generator (also, add a changeFloor callback so some victory conditions can be taken care of properly)
 * Unlock traits at certain levels
 * AI retarget in sight if there is another player that's not the target
 * Magic Mapping trait (call it something different, like dungeon arcana?)
