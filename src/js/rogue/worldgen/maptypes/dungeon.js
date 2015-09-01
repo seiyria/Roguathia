@@ -23,7 +23,7 @@ export default class Dungeon extends Generator {
     _.each(digger._corridors, (corridor) => {
       this.placeCorridorTiles(map, corridor, z);
     });
-    
+
     // handle room outlines and doors
     _.each(digger.getRooms(), (room) => {
 
@@ -36,8 +36,10 @@ export default class Dungeon extends Generator {
       // maybe draw some doors
       this.drawDoors(map, room, z);
     });
+
+    let stairs = this.placeStairs(map, digger.getRooms(), z);
     
-    return { map: map, validStartRooms: digger.getRooms(), mapName: 'The Dungeons of Doom', shortMapName: 'Dungeon' };
+    return { map, stairs, mapName: 'The Dungeons of Doom', shortMapName: 'Dungeon' };
   }
 
   static placeCorridorTiles(map, corridor, z) {
@@ -96,5 +98,28 @@ export default class Dungeon extends Generator {
         door.setProperCharacter(map[x-1][y]);
       }
     });
+  }
+
+  static placeStairs(map, validRooms, z) {
+    let rooms = _.sample(validRooms, 2);
+
+    let getCoordsForRoom = (room) => {
+      return [
+        Math.floor(ROT.RNG.getUniform()*(room._x2 - room._x1)) + room._x1,
+        Math.floor(ROT.RNG.getUniform()*(room._y2 - room._y1)) + room._y1
+      ];
+    };
+
+    let setStairs = (stairs, x, y) => {
+      return this.placeTile(map, stairs, x, y, z);
+    };
+
+    let [firstX, firstY] = getCoordsForRoom(rooms[0]);
+    let [secondX, secondY] = getCoordsForRoom(rooms[1]);
+
+    let stairsUp = setStairs(Tiles.StairsUp, firstX, firstY);
+    let stairsDown = setStairs(Tiles.StairsDown, secondX, secondY);
+
+    return [stairsUp, stairsDown];
   }
 }

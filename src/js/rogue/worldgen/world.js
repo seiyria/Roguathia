@@ -24,11 +24,11 @@ export default class World {
     this.setupFOV();
     
     for(let i = 0; i < depth; i++) {
-      let { map, mapName, shortMapName, validStartRooms } = Dungeon.generate(width, height, i);
+      let { map, mapName, shortMapName, stairs } = Dungeon.generate(width, height, i);
       this.tiles[i] = map;
       this.tiles[i].mapName = mapName;
       this.tiles[i].shortMapName = shortMapName;
-      let [upStairs, downStairs] = this.placeStairs(validStartRooms, i);
+      let [upStairs, downStairs] = stairs;
       
       this.stairs[i] = { up: [upStairs.x, upStairs.y], down: [downStairs.x, downStairs.y] };
     }
@@ -159,36 +159,6 @@ export default class World {
     this.moveEntity(entity, tile.x, tile.y, z);
   }
   
-  placeStairs(validRooms, z) {
-    let rooms = _.sample(validRooms, 2);
-    
-    let stairsUp = new Tiles.StairsUp();
-    let stairsDown = new Tiles.StairsDown();
-    
-    let getCoordsForRoom = (room) => {
-      return [
-        Math.floor(ROT.RNG.getUniform()*(room._x2 - room._x1)) + room._x1, 
-        Math.floor(ROT.RNG.getUniform()*(room._y2 - room._y1)) + room._y1
-      ];
-    };
-    
-    let setStairs = (stairs, x, y) => {
-      stairs.x = x;
-      stairs.y = y;
-      stairs.z = z;
-      
-      this.tiles[z][x][y] = stairs;
-    };
-    
-    let [firstX, firstY] = getCoordsForRoom(rooms[0]);
-    let [secondX, secondY] = getCoordsForRoom(rooms[1]);
-    
-    setStairs(stairsUp, firstX, firstY);
-    setStairs(stairsDown, secondX, secondY);
-    
-    return [stairsUp, stairsDown];
-  }
-  
   getAllTilesInRange(x, y, z, radius) {
     let tiles = [];
     
@@ -202,7 +172,7 @@ export default class World {
     
     return tiles;
   }
-  
+
   getValidTilesInRange(x, y, z, radius, filter = () => true) {
     let tiles = [];
     
@@ -242,5 +212,9 @@ export default class World {
     }
 
     return _.filter(entities, filter);
+  }
+
+  descend() {
+    // do stuff with victories, like generate bosses or items
   }
 }

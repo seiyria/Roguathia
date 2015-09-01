@@ -100,6 +100,8 @@ export default class Player extends Character {
       GameState.world.moveEntity(player, stairs[0], stairs[1], newFloor);
       player.stepRandomly();
     });
+
+    GameState.world.descend();
   }
   
   ascend() {

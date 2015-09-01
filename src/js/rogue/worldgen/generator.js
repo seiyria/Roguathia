@@ -10,4 +10,5 @@ export default class Generator {
     return map[x][y];
   };
 
+  static placeStairs() {}
 }
