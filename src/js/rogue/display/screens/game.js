@@ -237,7 +237,7 @@ export class SplitGameScreen extends GameScreen {
   static drawHUDs(display, player, hudCoords) {
     let { x, y } = hudCoords;
 
-    let topString = `${player.name} ${this.stripTo3(player.getAlign())}${this.stripTo3(player.gender)}${this.stripTo3(player.race)}${this.stripTo3(player.profession)}`;
+    let topString = `${player.name} ${this.stripTo3(player.getAlign())} ${this.stripTo3(player.gender)} ${this.stripTo3(player.race)} ${this.stripTo3(player.profession)}`;
     let bottomString = `Lv.${player.level} (${player.xp.cur}/${player.xp.max}) HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max}`;
 
     display.drawText(x, y-1, topString);
