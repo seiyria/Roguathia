@@ -24,9 +24,10 @@ export default class World {
     this.setupFOV();
     
     for(let i = 0; i < depth; i++) {
-      let { map, mapName, validStartRooms } = Dungeon.generate(width, height, i);
+      let { map, mapName, shortMapName, validStartRooms } = Dungeon.generate(width, height, i);
       this.tiles[i] = map;
       this.tiles[i].mapName = mapName;
+      this.tiles[i].shortMapName = shortMapName;
       let [upStairs, downStairs] = this.placeStairs(validStartRooms, i);
       
       this.stairs[i] = { up: [upStairs.x, upStairs.y], down: [downStairs.x, downStairs.y] };

@@ -88,6 +88,6 @@ export default class Dungeon extends Generator {
       });
     });
     
-    return { map: map, validStartRooms: digger.getRooms(), mapName: 'The Dungeons of Doom' };
+    return { map: map, validStartRooms: digger.getRooms(), mapName: 'The Dungeons of Doom', shortMapName: 'Dungeon' };
   }
 }

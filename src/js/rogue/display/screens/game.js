@@ -151,8 +151,8 @@ export class SingleGameScreen extends GameScreen {
 
   static drawHUD(display, player) {
     var tag = `${player.name} the ${player.getAlign()} ${player.gender} level ${player.level} ${player.race} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
-    var stats = `STR:${player.getStr()} DEX:${player.getDex()} CON:${player.getCon()} INT:${player.getInt()} WIS:${player.getWis()} CHA:${player.getCha()}`;
-    var miscInfo = `Floor:${1+GameState.currentFloor} $:${player.gold} HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max} AC:${player.getAC()} Turn:${player.currentTurn}`;
+    var stats = `STR:${player.getStr()} DEX:${player.getDex()} CON:${player.getCon()} INT:${player.getInt()} WIS:${player.getWis()} CHA:${player.getCha()} AC:${player.getAC()}`;
+    var miscInfo = `Floor:${1+GameState.currentFloor} (${GameState.world.tiles[GameState.currentFloor].shortMapName}) $:${player.gold} HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max} Turn:${player.currentTurn}`;
 
     for(let y = 1; y <= 3; y++) {
       for(let x = 0; x < SETTINGS.screen.width; x++) {
@@ -226,7 +226,7 @@ export class SplitGameScreen extends GameScreen {
       }
     }
 
-    this.drawLeftCenterText(display, middleY, `Floor:${GameState.currentFloor+1}`);
+    this.drawLeftCenterText(display, middleY, `Floor:${GameState.currentFloor+1} (${GameState.world.tiles[GameState.currentFloor].shortMapName})`);
     this.drawRightCenterText(display, middleY, `Turns:${_.max(GameState.players, 'currentTurn').currentTurn}`);
   }
 
