@@ -3,7 +3,7 @@ import Entity from './entity';
 import NumberRange from '../lib/number-range';
 import Professions from '../content/professions/_all';
 import Races from '../content/races/_all';
-import * as Behaviors from '../content/behaviors/behaviors';
+import * as Behaviors from '../content/behaviors/_all';
 import GameState from '../init/gamestate';
 import Attacks from '../content/attacks/_all';
 import MessageQueue from '../display/message-handler';

@@ -1,7 +1,7 @@
 
 import Profession from '../../definitions/profession';
 
-import { Gold } from '../items/special';
+import { Gold } from '../items/_special';
 import * as Foods from '../items/foods';
 import * as Potions from '../items/potions';
 import * as Projectiles from '../items/projectiles';

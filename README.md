@@ -1,6 +1,8 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
 # TODO
+* Refactor stair placement to Generator
+* Unlock traits at certain levels
 * AI retarget in sight if there is another player that's not the target
 * Magic Mapping trait (call it something different, like dungeon arcana?)
 * Ending conditions (worth different amounts of VP)
@@ -45,8 +47,6 @@
     * Better items generated on the floor
     * Possibly unlock a dungeon editor (you can rearrange what floors are in what order, and how many of them spawn)
     * Better respawn time
-* Refactor stair placement to Generator
-* Unlock traits at certain levels
 * Achievements
   * Beat game with one party member @ level X (10, 25, 50, 100)
   * Beat game with one party member where dungeon size >= X (10, 25, 50, 100)
@@ -68,7 +68,7 @@
 * Refactor / reorg / unit tests for classes, remove magic numbers
 * Better dungeon corners
 
-# Post-release
+# Idea Bucket (TBD)
 * Doors that require keys that are spawned in the level, and have treasure or stairs behind them
 * More content
 * More puzzles

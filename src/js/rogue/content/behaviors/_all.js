@@ -1,7 +1,7 @@
 
 import GameState from '../../init/gamestate';
 import MessageQueue from '../../display/message-handler';
-import { Gold, Corpse } from '../items/special';
+import { Gold, Corpse } from '../items/_special';
 // behaviors are functionality that cascade, ie, a monster could have 10 behaviors that override die()
 
 // priorities determine the ordering of behavior execution

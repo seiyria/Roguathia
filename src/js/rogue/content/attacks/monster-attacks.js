@@ -1,5 +1,5 @@
 
-import * as Behaviors from '../behaviors/behaviors';
+import * as Behaviors from '../behaviors/_all';
 import { Attack } from '../../definitions/attack';
 
 export class Bite extends Attack {}

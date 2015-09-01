@@ -1,5 +1,5 @@
 
-import * as Monsters from '../content/monsters/monsters';
+import * as Monsters from '../content/monsters/_all';
 import Monster from '../definitions/monster';
 import GameState from '../init/gamestate';
 import Log from '../lib/logger';

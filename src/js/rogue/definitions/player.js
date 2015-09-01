@@ -3,7 +3,7 @@ import Character from './character';
 import SETTINGS from '../constants/settings';
 import GameState from '../init/gamestate';
 import MonsterSpawner from '../worldgen/monster-spawner';
-import * as Behaviors from '../content/behaviors/behaviors';
+import * as Behaviors from '../content/behaviors/_all';
 import Factions from '../constants/factions';
 
 export default class Player extends Character {
