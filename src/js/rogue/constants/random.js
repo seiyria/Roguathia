@@ -11,6 +11,7 @@ import * as Weapons from '../content/items/weapons';
 import * as Potions from '../content/items/potions';
 import * as Spellbooks from '../content/items/spellbooks';
 import * as Projectiles from '../content/items/projectiles';
+import * as Professions from '../content/professions/_all';
 
 let getRandom = (from, exclude = []) => _(from).values().filter((type) => !_.contains(exclude, type.name)).sample();
 
@@ -26,3 +27,4 @@ export var Weapon = (opts, exclude) => new (getRandom(Weapons, exclude))(opts);
 export var Potion = (opts, exclude) => new (getRandom(Potions, exclude))(opts);
 export var Spellbook = (opts, exclude) => new (getRandom(Spellbooks, exclude))(opts);
 export var Projectile = (opts, exclude) => new (getRandom(Projectiles, exclude))(opts);
+export var Profession = (opts, exclude = ['Monster', 'Developer']) => new (getRandom(Professions, exclude))(opts);
