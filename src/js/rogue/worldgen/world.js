@@ -171,6 +171,11 @@ export default class World {
     this.items[z][x][y].push(item);
   }
 
+  placeItemAtRandomLocation(item, z) {
+    var tile = _(this.tiles[z]).flatten().filter(tile => tile.glyph.key).reject(tile => tile.isDense()).sample();
+    this.moveItem(item, tile.x, tile.y, z);
+  }
+
   // ENTITY
   moveEntity(entity, x, y, z) {
     if(!this.isTileEmpty(x, y, z)) return false;
