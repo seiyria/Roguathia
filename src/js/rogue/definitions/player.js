@@ -44,6 +44,8 @@ export default class Player extends Character {
   }
   
   act() {
+    if(GameState.game.checkWin()) return;
+
     var engine = this.game.engine;
     engine.lock();
     
@@ -105,6 +107,6 @@ export default class Player extends Character {
   }
   
   getScore() {
-    return this.currentTurn + this.gold + this.totalXpEarned + this.kpEarned;
+    return this.currentTurn + this.gold + this.totalXpEarned;
   }
 }

@@ -1,6 +1,7 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
 # TODO
+* Drop items on dungeon floor occasionally during generation
 * Refactor stair placement to Generator
 * Unlock traits at certain levels
 * AI retarget in sight if there is another player that's not the target
@@ -10,7 +11,6 @@
   * Kill Selyk
   * Find the ring of Selyk (opens a chamber leading to an altar)
   * Find the stone of Selyk (insta-win, low VP gain)
-  * Last a certain number of turns
   * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
 * Content (all types of items)
 * Meta-currency (and benefits)
@@ -34,7 +34,7 @@
     * More color choices for players to be
     * More border style choices (style = character[s] + color)
   * KP (monsters are worth different amounts of points)
-    * More monster variety
+    * More monster variety (ie, unlock certain difficulties for monsters. By default you only get up to difficulty 5 or so.)
     * Stronger monsters (ie, their stats are overall better)
     * Expand item drop variety (ie, their starting equipment is better)
     * Tameable monster variety
@@ -75,9 +75,8 @@
 * More puzzles
 * More intricate death messages ("while asleep" "while stunned")
 * Catchable ammo, recoverable ammo
-* Gems: random category, unidentifieable until the end of the game
+* Gems: random category, unidentifiable until the end of the game
 * Scrolls: only usable by players? (ie, not the characters in the dungeon)
-* Drop items on dungeon floor occasionally during generation
 * Traps in the dungeon (also implement levitation)
 * Deities
 * Conflict trait

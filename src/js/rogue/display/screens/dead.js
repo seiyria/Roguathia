@@ -44,5 +44,6 @@ export default class DeadScreen extends Screen {
     this.drawLeftText(display, i++,     `You were level ${latestDeath.level} after earning ${latestDeath.totalXpEarned} experience.`);
     this.drawLeftText(display, i++,     `You died in ${mapName} on dungeon level ${floor}.`);
     this.drawLeftText(display, i++,     `You scored ${score} points and ${latestDeath.gold} gold over ${latestDeath.currentTurn} steps.`);
+    this.drawLeftText(display, i++,     `You earned ${GameState.spEarned} SP and ${GameState.kpEarned} KP.`);
   }
 }

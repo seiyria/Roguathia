@@ -34,7 +34,7 @@ export class Screen {
   }
   static changeScreenWithDelay(newScreen, delay) {
     setTimeout(() => {
-      let multiChoice = GameState.game.splitScreen ? newScreen.multi : newScreen.single;
+      let multiChoice = GameState.splitScreen ? newScreen.multi : newScreen.single;
       let screen = newScreen.single && newScreen.multi ? multiChoice : newScreen;
       GameState.game.switchScreen(screen);
     }, delay);

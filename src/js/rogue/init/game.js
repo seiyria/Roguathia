@@ -4,8 +4,10 @@ import GameState from './gamestate';
 
 import { SingleGameScreen } from '../display/screens/game';
 import DeadScreen from '../display/screens/dead';
+import WinScreen from '../display/screens/win';
 
 import Player from '../definitions/player';
+import * as Victories from '../constants/victories';
 
 export default class Game {
   constructor() {
@@ -38,6 +40,16 @@ export default class Game {
   gameOver() {
     this.switchScreen(DeadScreen);
   }
+
+  checkWin() {
+    let didWin = GameState.winCondition.check();
+    if(didWin) this.win();
+    return didWin;
+  }
+
+  win() {
+    this.switchScreen(WinScreen);
+  }
   
   safeSwitchScreen(me, newScreen) {
     if(this.currentScreen !== me) return;
@@ -46,7 +58,7 @@ export default class Game {
 
   changeSplitScreen() {
     if(!this.currentScreen.split || GameState.players.length === 1) return;
-    this.splitScreen = !this.splitScreen;
+    GameState.splitScreen = !GameState.splitScreen;
     this.switchScreen(this.currentScreen.split);
   }
   
@@ -86,6 +98,8 @@ export default class Game {
     let playerLocations = GameState.world.getValidTilesInRange(
       zeroStartStairs[0], zeroStartStairs[1], 0, 2, (tile) => tile.glyph.key === '.'
     );
+
+    GameState.winCondition = _(Victories).values().sample();
 
     GameState.currentFloor = 0;
 
