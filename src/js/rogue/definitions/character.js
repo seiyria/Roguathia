@@ -112,7 +112,7 @@ export default class Character extends Entity {
   getTraitValue(property, defaultVal = 0) {
     if(this.traitHash[property]) return this.traitHash[property];
     let properties = this.getTraits();
-    let value = _.reduce(properties, ((prev, prop) => prev + (prop[property] ? prop[property]() : defaultVal)), defaultVal);
+    let value = _.reduce(properties, ((prev, prop) => prev + (prop[property] && prop.canUse(this) ? prop[property]() : defaultVal)), defaultVal);
     this.traitHash[property] = value;
     return value;
   }
@@ -481,6 +481,8 @@ export default class Character extends Entity {
     this.xp.toMin();
     this.hp.toMax();
     this.mp.toMax();
+
+    this.flushTraits();
     
     MessageQueue.add({ message: `${this.name} has reached experience level ${this.level}!` });
   }
