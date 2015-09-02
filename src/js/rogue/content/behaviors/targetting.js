@@ -34,7 +34,7 @@ class SeeksTargetInSightBehavior extends Behavior {
       me.x, me.y, me.getSight(),
       (x, y) => {
         let entity = GameState.world.getEntity(x, y, me.z);
-        if(!entity || !me.canAttack(entity)) return;
+        if(!entity || !me.canAttack(entity) || !me.canSee(entity)) return;
         possibleTargets.push(entity);
       }
     );

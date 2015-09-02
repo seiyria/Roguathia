@@ -350,8 +350,8 @@ export default class Character extends Entity {
     let blockingEntityInfo = (path) => {
       let entity = null;
       let step = null;
-      _.each(path, (step, i) => {
-        let testEntity = GameState.world.getEntity(step.x, step.y, this.z);
+      _.each(path, (pathStep, i) => {
+        let testEntity = GameState.world.getEntity(pathStep.x, pathStep.y, this.z);
         if(testEntity && !this.canAttack(testEntity)) {
           entity = testEntity;
           step = i;
