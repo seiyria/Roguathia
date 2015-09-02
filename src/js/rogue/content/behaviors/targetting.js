@@ -60,7 +60,6 @@ class WandersBehavior extends Behavior {
   constructor() { super(Priority.MOVE); }
   act(me) {
     me.stepRandomly();
-
     return false;
   }
 }

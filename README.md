@@ -5,7 +5,6 @@
 * Unlock traits at certain levels
 * AI retarget in sight if there is another player that's not the target
 * Magic Mapping trait (call it something different, like dungeon arcana?)
-* TeleportWhenHit behavior
 * Ending conditions (worth different amounts of VP)
   * Kill Selyk
   * Find the ring of Selyk (opens a chamber leading to an altar)
@@ -42,7 +41,7 @@
     * More dungeon features (fountains, thrones, decorations, sinks, torches, etc)
     * Deeper dungeons (+2 floors / lvl)
     * More floor types (caves, mines, towns, etc) (see [here](http://crawl.chaosforge.org/Dungeon_branches) for possible branch types)
-    * More chance of generating items on the floor (say, .1% chance per floor, increasing by .1% each time [evaluated per tile])
+    * More chance of generating items on the floor (try to generate 1%, one tile, then try to generate another 1% for another item (keep going until max is reached, or failure occurs))
     * More items generated on the floor (say, increase the max by 1 per level - the min would always be 1)
     * Better items generated on the floor
     * Possibly unlock a dungeon editor (you can rearrange what floors are in what order, and how many of them spawn)

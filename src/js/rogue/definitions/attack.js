@@ -128,8 +128,7 @@ export class Attack extends Abstract {
       return false;
     }
     this.animate(owner, target, () => this.hit(owner, target));
-  }// this class is internal
-
+  }
   
   calcDamage(owner) {
     let damageBoost = 0;

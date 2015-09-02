@@ -62,10 +62,6 @@ export default class Player extends Character {
     let livingPlayers = _.reject(GameState.players, (player) => player.hp.atMin());
     setTimeout(() => engine.unlock(), SETTINGS.game.turnDelay/livingPlayers.length);
   }
-
-  takeDamage(damage, attacker) {
-    super.takeDamage(damage, attacker);
-  }
   
   rebuildPathingMap() {
     let canPass = (x, y) => {

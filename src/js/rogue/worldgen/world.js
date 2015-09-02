@@ -200,7 +200,7 @@ export default class World {
     return this.getWithoutInits(x, y, z);
   }
   
-  placeEntityAtRandomLocation(entity, z) {
+  placeEntityAtRandomLocation(entity, z = entity.z) {
     var tile = _(this.tiles[z]).flatten().filter(tile => tile.glyph.key).reject(tile => tile.isDense()).sample();
     this.moveEntity(entity, tile.x, tile.y, z);
   }
