@@ -14,6 +14,6 @@ export var giantAnt =
 { difficulty: 4, glyph: { key: 'a', fg: 'brown' }, spawnPattern: '1d4 + 2',  frequency: 10,
   attributes: { ac: -2, speed: 150, level: 3, str: '1d3 + 3', dex: '1d3 + 2', con: 4, killXp: '2d4 + 5', spawnHp: '1d8 + 5' },
   stats: { name: 'giant ant', race: 'Insect',
-    behaviors: [Behaviors.LeavesCorpse(), Behaviors.DropsGold('2d4'), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
+    behaviors: [Behaviors.LeavesCorpse(), Behaviors.DropsGold('2d4'), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
     attacks: [Attacks.Bite({ roll: '1d4 + 1' })]
   } };

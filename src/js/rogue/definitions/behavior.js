@@ -13,6 +13,7 @@ export var Priority = {
   HEAL: 2,
   DEFENSE: 3,
   INTERACT: 4,
-  MOVE: 5,
+  TARGET: 5,
+  MOVE: 6,
   DEFER: 10
 };

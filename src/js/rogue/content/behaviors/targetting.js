@@ -5,7 +5,7 @@ import GameState from '../../init/gamestate';
 // retarget and find a new player to attack
 let targetNewPlayer = (me) => {
   if(!me.target || (me.target && me.target.hp.atMin()) || (me.target && me.target.z !== me.z)) {
-    me.target = _(GameState.players).reject(player => player.hp.atMin()).sample();
+    me.setTarget(_(GameState.players).reject(player => player.hp.atMin()).sample());
   }
 
   if(!me.target) return false; // they can wait, you may come back
@@ -15,7 +15,7 @@ let targetNewPlayer = (me) => {
 
 /* always seeks a target */
 class BloodthirstyBehavior extends Behavior {
-  constructor() { super(Priority.MOVE); }
+  constructor() { super(Priority.TARGET); }
   act(me) {
     if(!targetNewPlayer(me)) return;
     me.stepTowards(me.target);
@@ -43,7 +43,7 @@ class SeeksTargetInSightBehavior extends Behavior {
       me.stepTowards(me.target);
 
     } else if(possibleTargets.length > 0) {
-      me.target = _.sample(possibleTargets);
+      me.setTarget(_.sample(possibleTargets));
       me.stepTowards(me.target);
 
     } else {
@@ -55,6 +55,28 @@ class SeeksTargetInSightBehavior extends Behavior {
 }
 export var SeeksTargetInSight = () => new SeeksTargetInSightBehavior();
 
+class SeeksTargetViaHearingBehavior extends Behavior {
+  constructor(range = 50) {
+    super(Priority.MOVE);
+    this.range = range;
+  }
+  act(me) {
+    if(!me.target) return true;
+    me.stepTowards(me.target);
+    return false;
+  }
+  hear(me, potentialTarget) {
+    let distBetweenTarget = me.distBetween(potentialTarget);
+    if(distBetweenTarget > this.range) return;
+    if(!me.target) {
+      me.setTarget(potentialTarget);
+    } else if(distBetweenTarget < me.distBetween(me.target)) {
+      me.setTarget(potentialTarget);
+    }
+  }
+}
+export var SeeksTargetViaHearing = (range) => new SeeksTargetViaHearingBehavior(range);
+
 /* wanders around aimlessly */
 class WandersBehavior extends Behavior {
   constructor() { super(Priority.MOVE); }
@@ -64,3 +86,13 @@ class WandersBehavior extends Behavior {
   }
 }
 export var Wanders = () => new WandersBehavior();
+
+/* has very loud footsteps. pretty much, only players have or need this */
+class AlertsOnStepBehavior extends Behavior {
+  constructor() { super(Priority.ALWAYS); }
+  step(me) {
+    me.alertAllInRange();
+  }
+}
+
+export var AlertsOnStep = () => new AlertsOnStepBehavior();

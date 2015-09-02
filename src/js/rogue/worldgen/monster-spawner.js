@@ -27,8 +27,7 @@ export default class MonsterSpawner {
     
     for(let i = 0; i < numMonsters; i++) {
       let tile = _.sample(GameState.world.getValidTilesInRange(basedOn.x, basedOn.y, basedOn.z, 50, (tile) => basedOn.distBetween(tile) > basedOn.getSight()));
-      let monster = new Monster(tile.x, tile.y, tile.z, chosenMonster);
-      monster.target = basedOn;
+      new Monster(tile.x, tile.y, tile.z, chosenMonster);
     }
   }
 }

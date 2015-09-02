@@ -30,6 +30,7 @@ const defaultAttributes = {
   align: 0, 
   speed: Settings.game.baseSpeed,
   sight: Settings.game.baseSight,
+  sound: Settings.game.baseSound,
   killXp: '0d0',
   spawnHp: '15d1',
   spawnMp: '0d0',
@@ -316,6 +317,14 @@ export default class Character extends Entity {
     this.gainXp(dead.killXp);
     this.doBehavior('kill');
   }
+
+  alertAllInRange() {
+    let soundRange = this.getSoundEmission();
+    let entities = GameState.world.getValidEntitiesInRange(this.x, this.y, this.z, soundRange, (entity) => entity.canAttack(this));
+    _.each(entities, (entity) => {
+      entity.doBehavior('hear', [this]);
+    });
+  }
   
   stepRandomly() {
     var tiles = GameState.world.getAllTilesInRange(this.x, this.y, this.z, 1);
@@ -333,6 +342,11 @@ export default class Character extends Entity {
     if(!newTile) return; // surrounded
     this.move(newTile);
     this.lastDirection = direction;
+    this.doBehavior('step');
+  }
+
+  setTarget(newTarget) {
+    this.target = newTarget;
   }
   
   stepTowards(target) {
@@ -391,6 +405,8 @@ export default class Character extends Entity {
     } else {
       this.moveTo(step.x, step.y);
     }
+
+    this.doBehavior('step');
     
     return true;
   }
@@ -538,6 +554,10 @@ export default class Character extends Entity {
   
   getToHit() {
     return this.getStat('toHit');
+  }
+
+  getSoundEmission() {
+    return this.getStatWithMin('sound') - this.getTraitValue('Stealth');
   }
   
   getSight() {

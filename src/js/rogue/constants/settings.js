@@ -7,6 +7,7 @@ export default {
   game: {
     turnDelay: 50,
     baseSpeed: 100,
-    baseSight: 4
+    baseSight: 4,
+    baseSound: 50
   }
 };

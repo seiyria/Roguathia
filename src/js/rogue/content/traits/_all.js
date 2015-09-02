@@ -48,3 +48,9 @@ class SeeInvisibleTrait extends Trait {
 }
 
 export var SeeInvisible = (opts) => new SeeInvisibleTrait(opts);
+
+class StealthTrait extends Trait {
+  Stealth() { return this.level; }
+}
+
+export var Stealth = (opts) => new StealthTrait(opts);

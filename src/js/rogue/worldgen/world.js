@@ -215,8 +215,7 @@ export default class World {
     
     for(let newX = lowerX; newX <= upperX; newX++) {
       for(let newY = lowerY; newY <= upperY; newY++) {
-        this.ensureLocation(newX, newY, z);
-        let entity = this.entities[z][newX][newY];
+        let entity = this.getEntity(newX, newY, z);
         if(!entity) continue;
         entities.push(entity);
       }
