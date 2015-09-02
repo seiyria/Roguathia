@@ -4,7 +4,6 @@
 * Drop items on dungeon floor occasionally during generation
 * Unlock traits at certain levels
 * AI retarget in sight if there is another player that's not the target
-* Magic Mapping trait (call it something different, like dungeon arcana?)
 * Ending conditions (worth different amounts of VP)
   * Kill Selyk
   * Find the ring of Selyk (opens a chamber leading to an altar)
