@@ -1,3 +1,6 @@
+
+require('babel/register');
+
 var gulp = require('gulp');
 var del = require('del');
 var source = require('vinyl-source-stream');
@@ -29,6 +32,7 @@ var uncss = require('gulp-uncss');
 var eslint = require('gulp-eslint');
 var autoprefixer = require('gulp-autoprefixer');
 var changed = require('gulp-changed');
+var mocha = require('gulp-mocha');
 
 var watching = false;
 
@@ -217,6 +221,14 @@ gulp.task('bump:major', function() {
     .pipe(tagVersion({ prefix: '' }));
 });
 
+gulp.task('test', function() {
+  var paths = getPaths();
+
+  gulp.src(paths.testjs)
+    .pipe(mocha());
+});
+
 gulp.task('default', ['build', 'connect', 'open', 'watch']);
 gulp.task('build', ['clean', 'copy:favicon', 'build:libjs', 'build:libcss', 'compile']);
 gulp.task('compile', ['compile:js', 'compile:sass', 'compile:jade']);
+gulp.task('check', ['test', 'build']);

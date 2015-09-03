@@ -1,7 +1,12 @@
 
+import _ from 'lodash';
+
 // behaviors are functionality that cascade, ie, a monster could have 10 behaviors that override die()
 export default class Behavior {
   constructor(priority) {
+    if(!_.isNumber(priority)) {
+      throw new Error(`${this.constructor.name} should be instantiated with a priority.`);
+    }
     this.priority = priority;
   }
 }

@@ -18,10 +18,10 @@ export default class Entity extends Abstract {
   }
   
   isDense() {
-    return this.density;
+    return !!this.density;
   }
   
   isBlockingLight() {
-    return this.opacity;
+    return !!this.opacity;
   }
 }
