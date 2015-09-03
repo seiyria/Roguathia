@@ -3,6 +3,7 @@ import { Spellbook } from '../../definitions/equipment';
 import Attacks from '../attacks/_all';
 
 export class ForceBolt extends Spellbook {
+  static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
       manaCost: 2,
@@ -11,4 +12,3 @@ export class ForceBolt extends Spellbook {
     super(opts);
   }
 }
-ForceBolt.rarity = 25;

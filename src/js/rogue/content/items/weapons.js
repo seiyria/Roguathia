@@ -5,6 +5,7 @@ import { Hands } from '../../definitions/equipment';
 import Attacks from '../attacks/_all';
 
 export class Bow extends Hands {
+  static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#f00' },
@@ -18,9 +19,9 @@ export class Bow extends Hands {
     super(opts);
   }
 }
-Bow.rarity = 25;
 
 export class Quarterstaff extends Hands {
+  static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#49311c' },
@@ -30,9 +31,9 @@ export class Quarterstaff extends Hands {
     super(opts);
   }
 }
-Quarterstaff.rarity = 25;
 
 export class Dagger extends Hands {
+  static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#ccc' },
@@ -41,4 +42,3 @@ export class Dagger extends Hands {
     super(opts);
   }
 }
-Dagger.rarity = 25;

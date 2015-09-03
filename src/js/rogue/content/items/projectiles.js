@@ -3,6 +3,7 @@ import { Weapon } from '../../definitions/equipment';
 import Attacks from '../attacks/_all';
 
 export class Dart extends Weapon {
+  static get rarity() { return 50; }
   constructor(opts = { charges: '1d4' }) {
     _.extend(opts, {
       autoRemove: true,
@@ -12,9 +13,9 @@ export class Dart extends Weapon {
     super(opts);
   }
 }
-Dart.rarity = 50;
 
 export class Arrow extends Weapon {
+  static get rarity() { return 25; }
   constructor(opts = { charges: '1d4' }) {
     _.extend(opts, {
       autoRemove: true,
@@ -24,4 +25,3 @@ export class Arrow extends Weapon {
     super(opts);
   }
 }
-Arrow.rarity = 25;

@@ -2,85 +2,85 @@
 import { Ring } from '../../definitions/equipment';
 
 export class Protection extends Ring {
+  static get rarity() { return 5; }
   protection() {
     return this.buc;
   }
 }
-Protection.rarity = 5;
 
 export class Strength extends Ring {
+  static get rarity() { return 15; }
   str() {
     return this.buc;
   }
 }
-Strength.rarity = 15;
 
 export class Constitution extends Ring {
+  static get rarity() { return 5; }
   con() {
     return this.buc;
   }
 }
-Constitution.rarity = 5;
 
 export class Dexterity extends Ring {
+  static get rarity() { return 15; }
   dex() {
     return this.buc;
   }
 }
-Dexterity.rarity = 15;
 
 export class Intelligence extends Ring {
+  static get rarity() { return 20; }
   int() {
     return this.buc;
   }
 }
-Intelligence.rarity = 20;
 
 export class Wisdom extends Ring {
+  static get rarity() { return 25; }
   wis() {
     return this.buc;
   }
 }
-Wisdom.rarity = 25;
 
 export class Charisma extends Ring {
+  static get rarity() { return 2; }
   cha() {
     return this.buc;
   }
 }
-Charisma.rarity = 2;
 
 export class Luck extends Ring {
+  static get rarity() { return 1; }
   luk() {
     return this.buc;
   }
 }
-Luck.rarity = 1;
 
 export class Speed extends Ring {
+  static get rarity() { return 4; }
   Haste() {
     return this.buc * 25;
   }
 }
-Speed.rarity = 20;
 
 export class Sight extends Ring {
+  static get rarity() { return 1; }
   Infravision() {
     return this.buc;
   }
 }
-Sight.rarity = 40;
 
 export class Accuracy extends Ring {
+  static get rarity() { return 50; }
   toHit() {
     return `0d0 +${this.buc}`;
   }
 }
-Accuracy.rarity = 50;
 
 export class BonusDamage extends Ring {
+  static get rarity() { return 30; }
   bonusDamage() {
     return `0d0 +${this.buc}`;
   }
 }
-BonusDamage.rarity = 30;

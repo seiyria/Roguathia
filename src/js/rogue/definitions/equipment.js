@@ -30,15 +30,16 @@ export class Weapon extends Equipment {
 }
 
 export class Body extends Armor {
+  static get rarity() { return 25; }
   constructor(opts) {
     opts.symbol = '[';
     super(opts);
     this.realName = this.fakeName = `${this.getCanonName()} armor`;
   }
 }
-Body.rarity = 10;
 
 export class Ring extends Armor {
+  static get rarity() { return 3; }
   constructor(opts) {
     opts.bucProb = { cursed: 7, blessed: 2, uncursed: 91 };
     opts.symbol = '=';
@@ -47,27 +48,27 @@ export class Ring extends Armor {
     this.fakeName = `${this.pickFakeName(Fakes.Ring)} ring`;
   }
 }
-Ring.rarity = 3;
 
 export class Hands extends Weapon {
+  static get rarity() { return 25; }
   constructor(opts) {
     opts.symbol = ')';
     super(opts);
     this.realName = this.fakeName = `${this.getCanonName()}`;
   }
 }
-Hands.rarity = 10;
 
 export class Wrist extends Armor {
+  static get rarity() { return 5; }
   constructor(opts) {
     opts.symbol = '[';
     super(opts);
     this.realName = this.fakeName = `${this.getCanonName()} gloves`;
   }
 }
-Wrist.rarity = 10;
 
 export class Feet extends Armor {
+  static get rarity() { return 5; }
   constructor(opts) {
     opts.symbol = '[';
     super(opts);
@@ -75,72 +76,72 @@ export class Feet extends Armor {
     this.slotsTaken = 2;
   }
 }
-Feet.rarity = 10;
 
 export class Head extends Armor {
+  static get rarity() { return 5; }
   constructor(opts) {
     opts.symbol = '[';
     super(opts);
     this.realName = this.fakeName = `${this.getCanonName()} helm`;
   }
 }
-Head.rarity = 10;
 
 export class Cloak extends Armor {
+  static get rarity() { return 3; }
   constructor(opts) {
     opts.symbol = '[';
     super(opts);
     this.realName = this.fakeName = `ring of ${this.getCanonName()}`;
   }
 }
-Cloak.rarity = 5;
 
 export class Neck extends Armor {
+  static get rarity() { return 1; }
   constructor(opts) {
     opts.symbol = '"';
     super(opts);
     this.realName = this.fakeName = `amulet of ${this.getCanonName()}`;
   }
 }
-Neck.rarity = 3;
 
 export class Gem extends Item {
+  static get rarity() { return 8; }
   constructor(opts) {
     opts.symbol = '*';
     super(opts);
     this.realName = this.fakeName = `amulet of ${this.getCanonName()}`;
   }
 }
-Gem.rarity = 25;
 
 export class Scroll extends Item {
+  static get rarity() { return 15; }
   constructor(opts) {
     opts.symbol = '?';
     super(opts);
     this.realName = this.fakeName = `${this.getCanonName()}`;
   }
 }
-Scroll.rarity = 15;
 
 export class Wand extends Item {
+  static get rarity() { return 2; }
   constructor(opts) {
     opts.symbol = '/';
     super(opts);
     this.realName = this.fakeName = `wand of ${this.getCanonName()}`;
   }
 }
-Wand.rarity = 2;
 
 export class Spellbook extends Weapon {
+  static get rarity() { return 1; }
   constructor(opts = {}) {
     opts.manaCost = opts.manaCost || 3;
     opts.symbol = '+';
     super(opts);
   }
 }
-Spellbook.rarity = 1;
 
 export class Potion extends Equipment {
+  static get rarity() { return 20; }
   constructor(opts) {
     opts.symbol = '!';
     super(opts);
@@ -148,4 +149,3 @@ export class Potion extends Equipment {
     this.fakeName = `${this.pickFakeName(Fakes.Potion)} potion`;
   }
 }
-Potion.rarity = 15;
