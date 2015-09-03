@@ -36,7 +36,7 @@ export default class World {
     }
   }
 
-  // SETUP
+  // region Setup functions
   setupExplored() {
     for(let z=0; z<this.depth; z++) {
       this.explored[z] = [];
@@ -58,8 +58,9 @@ export default class World {
       );
     }
   }
+  // endregion
 
-  // EXPLORATION
+  // region Exploration functions
   setExplored(x, y, z, state = true) {
     if(this.isVoid(x, y, z)) return;
     this.explored[z][x][y] = state;
@@ -68,13 +69,10 @@ export default class World {
   isExplored(x, y, z) {
     return this.isVoid(x, y, z) ? false : this.explored[z][x][y];
   }
+  // endregion
 
-  // TILES
+  // region Tile functions
   getTile(x, y, z) {
-    if(!this.width || !this.height || !this.depth) {
-      throw new Error('World not yet generated');
-    }
-
     if(x < 0 || x >= this.width ||
       y < 0 || y >= this.height ||
       z < 0 || z >= this.depth) {
@@ -134,8 +132,9 @@ export default class World {
 
     return _.filter(tiles, filter);
   }
+  // endregion
 
-  // DUAL-PURPOSE GETTERS/SETTERS
+  // region Dual-purpose getters/setters
   getWithoutInits(x, y, z, list = 'entities') {
     if(!this[list][z]) return null;
     if(!this[list][z][x]) return null;
@@ -149,8 +148,9 @@ export default class World {
     if(!this[list][z][x]) this[list][z][x] = [];
     if(!this[list][z][x][y]) this[list][z][x][y] = setTo;
   }
+  // endregion
 
-  // ITEMS
+  // region Item functions
   getItemsAt(x, y, z) {
     return this.getWithoutInits(x, y, z, 'items');
   }
@@ -177,8 +177,9 @@ export default class World {
     const tile = _(this.tiles[z]).flatten().filter(tile => tile.glyph.key).reject(tile => tile.isDense()).sample();
     this.moveItem(item, tile.x, tile.y, z);
   }
+  // endregion
 
-  // ENTITY
+  // region Entity functions
   moveEntity(entity, x, y, z) {
     if(!this.isTileEmpty(x, y, z)) return false;
     
@@ -225,8 +226,8 @@ export default class World {
 
     return _.filter(entities, filter);
   }
+  // endregion
 
-  // OTHER
   descend() {
     // do stuff with victories, like generate bosses or items
   }

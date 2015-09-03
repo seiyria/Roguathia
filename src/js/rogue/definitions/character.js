@@ -95,14 +95,18 @@ export default class Character extends Entity {
     this.game.scheduler.add(this, true);
   }
 
-  canSee(entity) {
-    return this.getTraitValue('SeeInvisible') >= entity.getTraitValue('Invisible');
+  // region Static functions
+  static calcLevelXp(level) {
+    return 10 * Math.pow(2, level);
   }
 
-  calcDifficulty(entity) {
-    return Math.max(1, Math.min(5, Math.floor((entity.level - this.level) / 2)));
+  static rollOrAdd(val) {
+    val = _.isString(val) ? +dice.roll(val) : val;
+    return !val || _.isNaN(val) ? 0 : val;
   }
+  // endregion
 
+  // region Trait functions
   getTraits() {
     return this.traits.concat(this.raceInst.traits).concat(this.professionInst.traits).concat(_.flatten(_.values(this.equipment)));
   }
@@ -134,11 +138,23 @@ export default class Character extends Entity {
     if(key) return delete this.traitHash[key];
     this.traitHash = {};
   }
+  // endregion
 
-  breakConduct(conduct) {
-    this.brokenConduct[conduct] = true;
+  // region Skill-related functions
+  increaseSkill(type) {
+    if(!this.skills[type]) return;
+    this.skills[type].add(1);
   }
 
+  getSkillLevel(type) {
+    if(!this.skills[type]) return 0;
+    const curNum = this.skills[type].cur;
+    const level = _.reject(SkillThresholds, threshold => threshold.max < curNum)[0];
+    return Thresholds[level.name];
+  }
+  // endregion
+
+  // region Loading functions (skills, equipment)
   loadStartingSkills() {
     const skillCaps = this.professionInst.skillCaps;
     const skillBonus = this.raceInst.skillBonus;
@@ -151,31 +167,6 @@ export default class Character extends Entity {
       const level = skillBonus[atkName] || 0;
       this.skills[atkName] = new NumberRange(0, SkillThresholds[level].max, SkillThresholds[maxLevel].max);
     });
-  }
-  alertAllInRange() {
-    const soundRange = this.getSoundEmission();
-    const entities = GameState.world.getValidEntitiesInRange(this.x, this.y, this.z, soundRange, (entity) => entity.canAttack(this));
-    _.each(entities, (entity) => {
-      entity.doBehavior('hear', [this]);
-    });
-  }
-
-  heal(roll, item) {
-    const value = +dice.roll(roll);
-    MessageQueue.add({ message: `${this.name} used ${item.name} and regained ${value} health!` });
-    this.hp.add(value);
-  }
-
-  tryToStack(item) {
-    if(!item.charges) return;
-    let didStack = false;
-    _.each(this.inventory, (testItem) => {
-      if(testItem.getType() !== item.getType()) return;
-      if(testItem.buc !== item.buc || testItem.enchantment !== item.enchantment) return;
-      testItem.charges += item.charges;
-      didStack = true;
-    });
-    return didStack;
   }
 
   loadStartingEquipment(list = this.professionInst.startingItems) {
@@ -193,6 +184,20 @@ export default class Character extends Entity {
 
       this.addToInventory(inst);
     });
+  }
+  // endregion
+
+  // region Inventory functions (stacking, add, remove, etc)
+  tryToStack(item) {
+    if(!item.charges) return;
+    let didStack = false;
+    _.each(this.inventory, (testItem) => {
+      if(testItem.getType() !== item.getType()) return;
+      if(testItem.buc !== item.buc || testItem.enchantment !== item.enchantment) return;
+      testItem.charges += item.charges;
+      didStack = true;
+    });
+    return didStack;
   }
 
   dropItem(item) {
@@ -212,7 +217,9 @@ export default class Character extends Entity {
   removeFromInventory(item) {
     this.inventory = _.without(this.inventory, item);
   }
+  // endregion
 
+  // region Equip-related (slot-checking, equip, unequip, etc)
   isEquipped(item) {
     const slot = item.getParentType();
     return _.contains(this.equipment[slot], item);
@@ -265,11 +272,9 @@ export default class Character extends Entity {
     this.equip(item);
     return true;
   }
+  // endregion
 
-  hasFaction(faction) {
-    return _.contains(this.factions, faction);
-  }
-
+  // region Behavior-related functions
   doBehavior(action, args = []) {
     args.unshift(this);
     _.each(this.behaviors, (behavior) => { if(behavior[action]) return behavior[action].apply(behavior, args); }); // returning false from any behavior will cancel subsequent ones
@@ -297,7 +302,9 @@ export default class Character extends Entity {
   removeBehavior(behavior) {
     this.behaviors = _.without(this.behaviors, behavior);
   }
+  // endregion
 
+  // region Damage / dying / targetting
   takeDamage(damage, attacker) {
     this.hp.sub(damage);
     if(this.hp.atMin()) {
@@ -327,7 +334,9 @@ export default class Character extends Entity {
   setTarget(newTarget) {
     this.target = newTarget;
   }
+  // endregion
 
+  // region Movement (pathfinding, stepping)
   stepRandomly() {
     const tiles = GameState.world.getAllTilesInRange(this.x, this.y, this.z, 1);
     const validTiles = _.map(tiles, (tile, i) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z) ? i+1 : null); // 1-9 instead of 0-8
@@ -426,6 +435,40 @@ export default class Character extends Entity {
     return path;
   }
 
+  moveTo(x, y) {
+    return GameState.world.moveEntity(this, x, y, this.z);
+  }
+
+  move(newTile) {
+    return GameState.world.moveEntity(this, newTile.x, newTile.y, newTile.z);
+  }
+
+  alertAllInRange() {
+    const soundRange = this.getSoundEmission();
+    const entities = GameState.world.getValidEntitiesInRange(this.x, this.y, this.z, soundRange, (entity) => entity.canAttack(this));
+    _.each(entities, (entity) => {
+      entity.doBehavior('hear', [this]);
+    });
+  }
+  // endregion
+
+  // region Attack-related (vision, attacking, etc)
+  getAttacks() {
+    const baseAttacks = this.attacks || [];
+    const racialAttacks = baseAttacks.concat(this.raceInst.attacks);
+    let attacks = racialAttacks.concat(_(this.equipment).values().flatten().filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value());
+    if(attacks.length === 0) attacks = [Attacks.Unarmed()];
+    const inventoryAttacks = _(this.inventory).filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value();
+
+    // all melee attacks are valid, but only one ranged inventory attack can be used
+    if(_.some(attacks, (atk) => atk.canUse(this))) return attacks;
+    return _.compact([_(inventoryAttacks).filter((atk) => atk.canUse(this)).sample()]);
+  }
+
+  canSee(entity) {
+    return this.getTraitValue('SeeInvisible') >= entity.getTraitValue('Invisible');
+  }
+
   canAttack(entity) {
     return _.intersection(entity.factions, this.antiFactions).length > 0;
   }
@@ -443,24 +486,9 @@ export default class Character extends Entity {
     _.each(attacks, this.doAttack, this);
     return true;
   }
+  // endregion
 
-  act() {
-    this.currentTurn++;
-    this.doBehavior('act');
-  }
-
-  moveTo(x, y) {
-    return GameState.world.moveEntity(this, x, y, this.z);
-  }
-
-  move(newTile) {
-    return GameState.world.moveEntity(this, newTile.x, newTile.y, newTile.z);
-  }
-
-  calcLevelXp(level) {
-    return 10 * Math.pow(2, level);
-  }
-
+  // region Levelup/XP functions
   calcLevelHpBonus() {
     return +dice.roll(this.professionInst.config.hp) + this.calcStatBonus('con');
   }
@@ -475,12 +503,6 @@ export default class Character extends Entity {
     if(this.xp.atMax()) {
       this.levelup();
     }
-  }
-
-  getAlign() {
-    if(this.align <= -100) return 'Evil';
-    if(this.align >= 100) return 'Good';
-    return 'Neutral';
   }
 
   levelup() {
@@ -498,34 +520,13 @@ export default class Character extends Entity {
     this.flushTraits();
     MessageQueue.add({ message: `${this.name} has reached experience level ${this.level}!` });
   }
+  // endregion
 
-  rollOrAdd(val) {
-    val = _.isString(val) ? +dice.roll(val) : val;
-    return !val || _.isNaN(val) ? 0 : val;
-  }
-
-  getAttacks() {
-    const baseAttacks = this.attacks || [];
-    const racialAttacks = baseAttacks.concat(this.raceInst.attacks);
-    let attacks = racialAttacks.concat(_(this.equipment).values().flatten().filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value());
-    if(attacks.length === 0) attacks = [Attacks.Unarmed()];
-    const inventoryAttacks = _(this.inventory).filter((item) => item.canUse(this) && item.attacks).pluck('attacks').flatten().value();
-
-    // all melee attacks are valid, but only one ranged inventory attack can be used
-    if(_.some(attacks, (atk) => atk.canUse(this))) return attacks;
-    return _.compact([_(inventoryAttacks).filter((atk) => atk.canUse(this)).sample()]);
-  }
-
-  increaseSkill(type) {
-    if(!this.skills[type]) return;
-    this.skills[type].add(1);
-  }
-
-  getSkillLevel(type) {
-    if(!this.skills[type]) return 0;
-    const curNum = this.skills[type].cur;
-    const level = _.reject(SkillThresholds, threshold => threshold.max < curNum)[0];
-    return Thresholds[level.name];
+  // region Getters (Stats, etc)
+  getAlign() {
+    if(this.align <= -100) return 'Evil';
+    if(this.align >= 100) return 'Good';
+    return 'Neutral';
   }
 
   getStat(stat) {
@@ -594,6 +595,30 @@ export default class Character extends Entity {
 
   getLuk() {
     return this.getStatWithMin('luk');
+  }
+
+  hasFaction(faction) {
+    return _.contains(this.factions, faction);
+  }
+  // endregion (Stats, etc)
+
+  act() {
+    this.currentTurn++;
+    this.doBehavior('act');
+  }
+
+  breakConduct(conduct) {
+    this.brokenConduct[conduct] = true;
+  }
+
+  calcDifficulty(entity) {
+    return Math.max(1, Math.min(5, Math.floor((entity.level - this.level) / 2)));
+  }
+
+  heal(roll, item) {
+    const value = +dice.roll(roll);
+    MessageQueue.add({ message: `${this.name} used ${item.name} and regained ${value} health!` });
+    this.hp.add(value);
   }
 
   // -2 = 4/5, -1 = 6/7, 0 = 8, +1 = 9/10, +2 = 10/11 (etc)
