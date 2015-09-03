@@ -2,9 +2,13 @@
 import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
 
+const isTargetBad = (me) => {
+  return !me.target || (me.target && me.target.hp.atMin()) || (me.target && me.target.z !== me.z);
+};
+
 // retarget and find a new player to attack
 const targetNewPlayer = (me) => {
-  if(!me.target || (me.target && me.target.hp.atMin()) || (me.target && me.target.z !== me.z)) {
+  if(isTargetBad(me)) {
     me.setTarget(_(GameState.players).reject(player => player.hp.atMin()).sample());
   }
 
@@ -61,7 +65,7 @@ class SeeksTargetViaHearingBehavior extends Behavior {
     this.range = range;
   }
   act(me) {
-    if(!me.target) return true;
+    if(!me.target || isTargetBad(me)) return true;
     me.stepTowards(me.target);
     return false;
   }
