@@ -54,8 +54,13 @@ export default class Player extends Character {
 
     const engine = this.game.engine;
     engine.lock();
-    
-    super.act();
+
+    const livingPlayers = _.reject(GameState.players, (player) => player.hp.atMin());
+
+    if(!GameState.manualMove) {
+      super.act();
+      setTimeout(() => engine.unlock(), SETTINGS.game.turnDelay/livingPlayers.length);
+    }
     
     this.rebuildPathingMap();
     
@@ -64,9 +69,6 @@ export default class Player extends Character {
     }
     
     this.game.refresh();
-
-    const livingPlayers = _.reject(GameState.players, (player) => player.hp.atMin());
-    setTimeout(() => engine.unlock(), SETTINGS.game.turnDelay/livingPlayers.length);
   }
   
   rebuildPathingMap() {
@@ -94,6 +96,7 @@ export default class Player extends Character {
   }
   
   descend() {
+    if(GameState.currentFloor+1 === GameState.world.depth) return;
     const newFloor = GameState.currentFloor = GameState.currentFloor+1;
     const stairs = GameState.world.stairs[newFloor].up;
 

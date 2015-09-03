@@ -6,7 +6,7 @@ import Generator from '../generator';
 
 export default class Dungeon extends Generator {
 
-  static generate(w, h, z) {
+  static generate(w, h, z, doStairsDown = true) {
     const map = [];
     
     // -3 to adjust for the UI components at the bottom
@@ -39,7 +39,7 @@ export default class Dungeon extends Generator {
       this.drawDoors(map, room, z);
     });
 
-    const stairs = this.placeStairs(map, digger.getRooms(), z);
+    const stairs = this.placeStairs(map, digger.getRooms(), z, doStairsDown);
     
     return { map, stairs, mapName: 'The Dungeons of Doom', shortMapName: 'Dungeon' };
   }
@@ -102,7 +102,7 @@ export default class Dungeon extends Generator {
     });
   }
 
-  static placeStairs(map, validRooms, z) {
+  static placeStairs(map, validRooms, z, doStairsDown = true) {
     const rooms = _.sample(validRooms, 2);
 
     const getCoordsForRoom = (room) => {
@@ -120,7 +120,7 @@ export default class Dungeon extends Generator {
     const [secondX, secondY] = getCoordsForRoom(rooms[1]);
 
     const stairsUp = setStairs(Tiles.StairsUp, firstX, firstY);
-    const stairsDown = setStairs(Tiles.StairsDown, secondX, secondY);
+    const stairsDown = doStairsDown ? setStairs(Tiles.StairsDown, secondX, secondY) : null;
 
     return [stairsUp, stairsDown];
   }

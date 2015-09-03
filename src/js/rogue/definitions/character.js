@@ -200,6 +200,10 @@ export default class Character extends Entity {
     return didStack;
   }
 
+  hasInInventory(itemProto) {
+    return _.find(this.inventory, (item) => item.getType() === itemProto.name.toLowerCase());
+  }
+
   dropItem(item) {
     GameState.world.moveItem(item, this.x, this.y, this.z);
   }

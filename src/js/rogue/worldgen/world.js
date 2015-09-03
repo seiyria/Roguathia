@@ -3,6 +3,7 @@ import _ from 'lodash';
 import ROT from 'rot-js';
 import * as Tiles from './tiles';
 import Dungeon from './maptypes/dungeon';
+import GameState from '../init/gamestate';
 
 export default class World {
   constructor() {
@@ -26,13 +27,15 @@ export default class World {
     this.setupFOV();
     
     for(let i = 0; i < depth; i++) {
-      const { map, mapName, shortMapName, stairs } = Dungeon.generate(width, height, i);
+      const { map, mapName, shortMapName, stairs } = Dungeon.generate(width, height, i, i !== depth-1);
       this.tiles[i] = map;
       this.tiles[i].mapName = mapName;
       this.tiles[i].shortMapName = shortMapName;
       const [upStairs, downStairs] = stairs;
       
-      this.stairs[i] = { up: [upStairs.x, upStairs.y], down: [downStairs.x, downStairs.y] };
+      this.stairs[i] = {};
+      if(upStairs) this.stairs[i].up = [upStairs.x, upStairs.y];
+      if(downStairs) this.stairs[i].down = [downStairs.x, downStairs.y];
     }
   }
 
@@ -229,6 +232,7 @@ export default class World {
   // endregion
 
   descend() {
-    // do stuff with victories, like generate bosses or items
+    if(!GameState.winCondition.shouldTrigger()) return;
+    GameState.winCondition.trigger();
   }
 }

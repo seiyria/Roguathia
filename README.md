@@ -5,7 +5,6 @@
 * Ending conditions (worth different amounts of VP)
   * Kill Selyk
   * Find the ring of Selyk (opens a chamber leading to an altar)
-  * Find the stone of Selyk (insta-win, low VP gain)
   * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
 * Content (all types of items)
 * Meta-currency (and benefits)
