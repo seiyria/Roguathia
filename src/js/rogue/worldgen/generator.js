@@ -8,7 +8,7 @@ export default class Generator {
     map[x][y].y = y;
     map[x][y].z = z;
     return map[x][y];
-  };
+  }
 
   static placeStairs() {}
 }
