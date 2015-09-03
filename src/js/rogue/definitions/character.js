@@ -96,11 +96,11 @@ export default class Character extends Entity {
   }
 
   // region Static functions
-  static calcLevelXp(level) {
+  calcLevelXp(level) {
     return 10 * Math.pow(2, level);
   }
 
-  static rollOrAdd(val) {
+  rollOrAdd(val) {
     val = _.isString(val) ? +dice.roll(val) : val;
     return !val || _.isNaN(val) ? 0 : val;
   }
