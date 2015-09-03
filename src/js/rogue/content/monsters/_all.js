@@ -1,4 +1,5 @@
 
+import _ from 'lodash';
 import * as Canines from './canines';
 import * as Insects from './insects';
 import * as Salamanders from './salamanders';

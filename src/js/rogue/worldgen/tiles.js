@@ -1,4 +1,5 @@
 
+import ROT from 'rot-js';
 import Entity from '../definitions/entity';
 import GameState from '../init/gamestate';
 

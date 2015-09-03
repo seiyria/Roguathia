@@ -1,4 +1,5 @@
 
+import _ from 'lodash';
 import { Potion } from '../../definitions/equipment';
 
 export class Healing extends Potion {

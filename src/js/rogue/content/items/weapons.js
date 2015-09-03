@@ -1,6 +1,7 @@
 
 // extending Weapon means an item is not equippable but is a weapon.
 // etending Hands means an item is equippable in the hands slot
+import _ from 'lodash';
 import { Hands } from '../../definitions/equipment';
 import Attacks from '../attacks/_all';
 

@@ -1,4 +1,5 @@
 
+import _ from 'lodash';
 import { Weapon } from '../../definitions/equipment';
 import Attacks from '../attacks/_all';
 

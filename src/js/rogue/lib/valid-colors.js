@@ -1,4 +1,6 @@
 
+import _ from 'lodash';
+
 export const Colors = [
   '#00f',   // blue
   '#0f0',   // green

@@ -1,4 +1,5 @@
 
+import ROT from 'rot-js';
 import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
 

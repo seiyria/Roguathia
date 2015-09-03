@@ -1,4 +1,6 @@
 
+import _ from 'lodash';
+import ROT from 'rot-js';
 import * as Tiles from '../tiles';
 import Generator from '../generator';
 

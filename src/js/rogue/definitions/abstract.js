@@ -1,4 +1,6 @@
 
+import _ from 'lodash';
+
 export default class Abstract {
   distBetween(target) {
     const a = target.x - this.x;

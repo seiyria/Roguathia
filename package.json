@@ -76,5 +76,10 @@
     ],
     "entry": "./src/js/init.js",
     "dist": "./dist/"
+  },
+  "dependencies": {
+    "bragi-browser": "0.0.12",
+    "lodash": "^3.10.1",
+    "rot-js": "^0.6.0"
   }
 }

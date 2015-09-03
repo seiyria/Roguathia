@@ -1,4 +1,5 @@
 
+import _ from 'lodash';
 import * as MonsterAttacks from './monster-attacks';
 import * as PhysicalAttacks from './physical-attacks';
 import * as MagicAttacks from './magic-attacks';

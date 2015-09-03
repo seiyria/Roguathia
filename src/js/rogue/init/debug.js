@@ -1,4 +1,5 @@
 
+import ROT from 'rot-js';
 import GameState from './gamestate';
 
 export default () => {

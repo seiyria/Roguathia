@@ -1,4 +1,5 @@
 
+import _ from 'lodash';
 import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
 

@@ -7,10 +7,7 @@
     "browser": true
   },
   "globals": {
-    "_": true,
-    "dice": true,
-    "ROT": true,
-    "BRAGI": true
+    "dice": true
   },
   "rules": {
     "no-var": 2,
