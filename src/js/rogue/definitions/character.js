@@ -30,6 +30,7 @@ const defaultAttributes = {
   align: 0, 
   speed: Settings.game.baseSpeed,
   sight: Settings.game.baseSight,
+  sound: Settings.game.baseSound,
   killXp: '0d0',
   spawnHp: '15d1',
   spawnMp: '0d0',
@@ -112,7 +113,7 @@ export default class Character extends Entity {
   getTraitValue(property, defaultVal = 0) {
     if(this.traitHash[property]) return this.traitHash[property];
     const properties = this.getTraits();
-    const value = _.reduce(properties, ((prev, prop) => prev + (prop[property] ? prop[property]() : defaultVal)), defaultVal);
+    const value = _.reduce(properties, ((prev, prop) => prev + (prop[property]&& prop.canUse(this) ? prop[property]() : defaultVal)), defaultVal);
     this.traitHash[property] = value;
     return value;
   }
@@ -147,6 +148,13 @@ export default class Character extends Entity {
       maxLevel = Math.min(maxLevel, Thresholds.Legendary);
       const level = skillBonus[atkName] || 0;
       this.skills[atkName] = new NumberRange(0, SkillThresholds[level].max, SkillThresholds[maxLevel].max);
+    });
+  }
+  alertAllInRange() {
+    const soundRange = this.getSoundEmission();
+    const entities = GameState.world.getValidEntitiesInRange(this.x, this.y, this.z, soundRange, (entity) => entity.canAttack(this));
+    _.each(entities, (entity) => {
+      entity.doBehavior('hear', [this]);
     });
   }
 
@@ -314,6 +322,10 @@ export default class Character extends Entity {
     this.doBehavior('kill');
   }
 
+  setTarget(newTarget) {
+    this.target = newTarget;
+  }
+
   stepRandomly() {
     const tiles = GameState.world.getAllTilesInRange(this.x, this.y, this.z, 1);
     const validTiles = _.map(tiles, (tile, i) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z) ? i+1 : null); // 1-9 instead of 0-8
@@ -330,6 +342,7 @@ export default class Character extends Entity {
     if(!newTile) return; // surrounded
     this.move(newTile);
     this.lastDirection = direction;
+    this.doBehavior('step');
   }
 
   stepTowards(target) {
@@ -389,6 +402,7 @@ export default class Character extends Entity {
       this.moveTo(step.x, step.y);
     }
 
+    this.doBehavior('step');
     return true;
   }
 
@@ -479,6 +493,7 @@ export default class Character extends Entity {
     this.hp.toMax();
     this.mp.toMax();
 
+    this.flushTraits();
     MessageQueue.add({ message: `${this.name} has reached experience level ${this.level}!` });
   }
 
@@ -541,6 +556,10 @@ export default class Character extends Entity {
 
   getSpeed() {
     return this.getStatWithMin('speed') + this.getTraitValue('Haste');
+  }
+
+  getSoundEmission() {
+    return this.getStatWithMin('sound') - this.getTraitValue('Stealth');
   }
 
   getAC() {
