@@ -13,6 +13,8 @@
     "BRAGI": true
   },
   "rules": {
+    "no-var": 2,
+    "prefer-const": 2,
     "no-extra-parens": 0,
     "no-sparse-arrays": 0,
     "indent": [2, 2],

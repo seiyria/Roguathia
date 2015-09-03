@@ -14,7 +14,6 @@ const conducts = [
   { check: (player) => player.hasTrait('Clairvoyance'), affirmMessage: 'You %had clairvoyance.' },
   { check: (player) => player.hasTrait('Warning'), affirmMessage: 'You %were warned.' },
   { check: (player) => player.hasTrait('Telepathy'), affirmMessage: 'You %were telepathic.' },
-  { check: (player) => player.hasTrait('Stealth'), affirmMessage: 'You %were stealthy.' },
   { check: (player) => player.hasTrait('Invisible'), affirmMessage: 'You %were invisible.' },
   { check: (player) => player.hasTrait('SeeInvisible'), affirmMessage: 'You %could see invisible.' },
   { check: (player) => player.getSpeed() > Settings.game.baseSpeed, affirmMessage: 'You %were fast.' },
@@ -33,16 +32,16 @@ const conducts = [
 ];
 
 export default (player) => {
-  let finalConduct = [];
+  const finalConduct = [];
 
-  let tenses = [
+  const tenses = [
     { split: '%could', past: 'could', now: 'can' },
     { split: '%were',  past: 'were',  now: 'are' },
     { split: '%had',   past: 'had',   now: 'have' }
   ];
 
-  let adjustMessage = (msg) => _.reduce(tenses, ((prev, obj) => prev.split(obj.split).join(player.hp.atMin() ? obj.past : obj.now)), msg);
-  let addMessage = (msg) => finalConduct.push(adjustMessage(msg));
+  const adjustMessage = (msg) => _.reduce(tenses, ((prev, obj) => prev.split(obj.split).join(player.hp.atMin() ? obj.past : obj.now)), msg);
+  const addMessage = (msg) => finalConduct.push(adjustMessage(msg));
 
   _.each(conducts, (conduct) => {
     if(conduct.check(player)) {

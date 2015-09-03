@@ -11,7 +11,7 @@ class PickUpItemsBehavior extends Behavior {
     this.whitelist = whitelist;
   }
   act(me) {
-    let items = GameState.world.getItemsAt(me.x, me.y, me.z);
+    const items = GameState.world.getItemsAt(me.x, me.y, me.z);
     _.each(items, (item) => {
       if(this.whitelist.length && !_.contains(this.whitelist, item.getType())) return;
       if(this.blacklist.length && _.contains(this.blacklist, item.getType())) return;
@@ -22,19 +22,19 @@ class PickUpItemsBehavior extends Behavior {
   }
 }
 
-export var PickUpItems = (bl, wl) => new PickUpItemsBehavior(bl, wl);
+export const PickUpItems = (bl, wl) => new PickUpItemsBehavior(bl, wl);
 
 /* interacts with everything */
 class InteractsBehavior extends Behavior {
   constructor() { super(Priority.INTERACT); }
   act(me) {
-    var tiles = GameState.world.getAllTilesInRange(me.x, me.y, me.z, 1);
+    const tiles = GameState.world.getAllTilesInRange(me.x, me.y, me.z, 1);
 
     for(let i = 0; i < tiles.length; i++) {
-      let tile = tiles[i];
+      const tile = tiles[i];
 
       if(tile.canInteract && tile.interact && tile.canInteract(me)) {
-        let msg = tile.interact(me);
+        const msg = tile.interact(me);
         MessageQueue.add({ message: msg });
         return false;
       }
@@ -43,7 +43,7 @@ class InteractsBehavior extends Behavior {
     return true;
   }
 }
-export var Interacts = () => new InteractsBehavior();
+export const Interacts = () => new InteractsBehavior();
 
 /* breaks down doors that it finds */
 class BreaksDoorsBehavior extends Behavior {
@@ -52,15 +52,15 @@ class BreaksDoorsBehavior extends Behavior {
     return false;
   }
 }
-export var BreaksDoors = () => new BreaksDoorsBehavior();
+export const BreaksDoors = () => new BreaksDoorsBehavior();
 
 /* opens doors that it finds */
 class OpensDoorsBehavior extends Behavior {
   constructor() { super(Priority.INTERACT); }
   act(me) {
-    let doors = GameState.world.getValidTilesInRange(me.x, me.y, me.z, 1, (tile) => tile.constructor.name === 'Door' && tile.density);
+    const doors = GameState.world.getValidTilesInRange(me.x, me.y, me.z, 1, (tile) => tile.constructor.name === 'Door' && tile.density);
     if(doors.length > 0) {
-      let door = doors[0];
+      const door = doors[0];
       door.interact(me);
       return false;
     }
@@ -68,4 +68,4 @@ class OpensDoorsBehavior extends Behavior {
     return true;
   }
 }
-export var OpensDoors = () => new OpensDoorsBehavior();
+export const OpensDoors = () => new OpensDoorsBehavior();

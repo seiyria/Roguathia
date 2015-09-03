@@ -12,15 +12,15 @@ export default class DeadScreen extends Screen {
     const TOMBSTONE_WIDTH = 26;
     const goodbyes = ['Goodbye', 'Sayonara', 'Ciao', 'Adios', 'Toodles', 'Ta ta', 'Farewell', 'Bye-bye', 'Bye', 'So long', 'RIP'];
 
-    let latestDeath = this.getMainPlayer();
-    let score = latestDeath.getScore();
-    let floor = GameState.currentFloor + 1;
-    let paddedName = this.padText(latestDeath.name, TOMBSTONE_WIDTH);
-    let paddedScore = this.padText(`Score: ${score}`, TOMBSTONE_WIDTH);
-    let paddedKiller = this.padText(latestDeath.killerName, TOMBSTONE_WIDTH);
+    const latestDeath = this.getMainPlayer();
+    const score = latestDeath.getScore();
+    const floor = GameState.currentFloor + 1;
+    const paddedName = this.padText(latestDeath.name, TOMBSTONE_WIDTH);
+    const paddedScore = this.padText(`Score: ${score}`, TOMBSTONE_WIDTH);
+    const paddedKiller = this.padText(latestDeath.killerName, TOMBSTONE_WIDTH);
 
-    let goodbye = _.sample(goodbyes);
-    let mapName = GameState.world.tiles[GameState.currentFloor].mapName;
+    const goodbye = _.sample(goodbyes);
+    const mapName = GameState.world.tiles[GameState.currentFloor].mapName;
     let i = 3;
 
     this.drawCenterText(display, i++,                `------------------`);

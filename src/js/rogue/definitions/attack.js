@@ -27,15 +27,15 @@ export class Attack extends Abstract {
   }
   
   possibleTargets(owner) {
-    let possibleTargets = [];
+    const possibleTargets = [];
     GameState.world.fov[owner.z].compute(
       owner.x, owner.y, this.range, 
       (x, y) => {
-        let entity = GameState.world.getEntity(x, y, owner.z);
+        const entity = GameState.world.getEntity(x, y, owner.z);
         if(!entity) return;
         // no target, can't attack target, or the target is invisible and hasn't attacked you yet
-        let canOwnerSee = owner.canSee(entity);
-        let sightCheck = canOwnerSee || (!canOwnerSee && owner._attackedBy !== entity);
+        const canOwnerSee = owner.canSee(entity);
+        const sightCheck = canOwnerSee || (!canOwnerSee && owner._attackedBy !== entity);
         if(!owner.canAttack(entity) || !sightCheck) return;
         possibleTargets.push(entity);
       }
@@ -50,9 +50,9 @@ export class Attack extends Abstract {
   
   canHit(owner, target, attackNum) {
     if(owner.hp.atMin()) return false;
-    let hitRoll = +dice.roll(`1d${20 + attackNum}`); // subsequent attacks are less likely to hit
-    let targetAC = target.getAC();
-    let myToHitBonus = (+dice.roll(this.toHit) - owner.getToHit() - owner.getSkillLevel(this.getType()) - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
+    const hitRoll = +dice.roll(`1d${20 + attackNum}`); // subsequent attacks are less likely to hit
+    const targetAC = target.getAC();
+    const myToHitBonus = (+dice.roll(this.toHit) - owner.getToHit() - owner.getSkillLevel(this.getType()) - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
     let targetACRoll = 0;
 
     if(targetAC >= 0) {
@@ -65,38 +65,38 @@ export class Attack extends Abstract {
   
   animate(owner, target, callback) {
     if(!this.glyph) return callback();
-    
-    var engine = GameState.game.engine;
+
+    const engine = GameState.game.engine;
     engine.lock();
-    
-    let canPass = (x, y) => {
-      let entity = GameState.world.getEntity(x, y, owner.z);
-      let isAttackable = entity && owner.canAttack(entity);
-      let isMe = owner.x === x && owner.y === y;
+
+    const canPass = (x, y) => {
+      const entity = GameState.world.getEntity(x, y, owner.z);
+      const isAttackable = entity && owner.canAttack(entity);
+      const isMe = owner.x === x && owner.y === y;
       return GameState.world.isTilePassable(x, y, owner.z, false) || isMe || isAttackable;
     };
-    let astar = new ROT.Path.AStar(target.x, target.y, canPass, { topology: 8 });
+    const astar = new ROT.Path.AStar(target.x, target.y, canPass, { topology: 8 });
 
-    let path = [];
-    let pathCallback = function(x, y) {
+    const path = [];
+    const pathCallback = function(x, y) {
       path.push({ x, y });
     };
     
     astar.compute(owner.x, owner.y, pathCallback);
 
     path.shift();
-    
-    let projectile = new Projectile(this.glyph);
+
+    const projectile = new Projectile(this.glyph);
     projectile.z = owner.z;
     projectile.x = path[0].x;
     projectile.y = path[0].y;
-    
-    let moveTo = (x, y) => {
+
+    const moveTo = (x, y) => {
       GameState.world.moveEntity(projectile, x, y, projectile.z);
       GameState.game.refresh();
     };
-    
-    let finalize = () => {
+
+    const finalize = () => {
       GameState.world.removeEntity(projectile);
       callback();
       GameState.game.refresh();
@@ -106,7 +106,7 @@ export class Attack extends Abstract {
     moveTo(projectile.x, projectile.y);
     
     _.each(path, (step, i) => {
-      let curStep = step;
+      const curStep = step;
       setTimeout(() => {
         moveTo(curStep.x, curStep.y);
         if(i === path.length - 1) finalize();
@@ -123,12 +123,13 @@ export class Attack extends Abstract {
     if(!target) return;
     if(this._itemRef) this._itemRef.use(owner, target);
     if(!this.canHit(owner, target, attackNum)) {
-      let extra = this.missCallback(owner, target);
+      const extra = this.missCallback(owner, target);
       MessageQueue.add({ message: this.missString(owner, target, extra) });
       return false;
     }
     this.animate(owner, target, () => this.hit(owner, target));
-  }
+  }// this class is internal
+
   
   calcDamage(owner) {
     let damageBoost = 0;
@@ -140,13 +141,13 @@ export class Attack extends Abstract {
   }
   
   hit(owner, target) {
-    let damage = this.calcDamage(owner, target);
+    const damage = this.calcDamage(owner, target);
     if(damage <= 0) {
-      let extra = this.blockCallback(owner, target);
+      const extra = this.blockCallback(owner, target);
       MessageQueue.add({ message: this.blockString(owner, target, extra) });
       return false;
     }
-    let extra = this.hitCallback(owner, target, damage);
+    const extra = this.hitCallback(owner, target, damage);
     MessageQueue.add({ message: this.hitString(owner, target, damage, extra) });
     target.takeDamage(damage, owner);
   }
@@ -163,7 +164,7 @@ export class Attack extends Abstract {
   missCallback() {}
   
   toJSON() {
-    let me = _.omit(this, ['_itemRef']);
+    const me = _.omit(this, ['_itemRef']);
     return JSON.stringify(me);
   }
 }

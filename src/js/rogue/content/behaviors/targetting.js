@@ -3,7 +3,7 @@ import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
 
 // retarget and find a new player to attack
-let targetNewPlayer = (me) => {
+const targetNewPlayer = (me) => {
   if(!me.target || (me.target && me.target.hp.atMin()) || (me.target && me.target.z !== me.z)) {
     me.setTarget(_(GameState.players).reject(player => player.hp.atMin()).sample());
   }
@@ -22,18 +22,18 @@ class BloodthirstyBehavior extends Behavior {
     return false;
   }
 }
-export var Bloodthirsty = () => new BloodthirstyBehavior();
+export const Bloodthirsty = () => new BloodthirstyBehavior();
 
 /* seeks a target if they're within vision range */
 class SeeksTargetInSightBehavior extends Behavior {
   constructor() { super(Priority.MOVE); }
   act(me) {
-    let possibleTargets = [];
+    const possibleTargets = [];
 
     GameState.world.fov[me.z].compute(
       me.x, me.y, me.getSight(),
       (x, y) => {
-        let entity = GameState.world.getEntity(x, y, me.z);
+        const entity = GameState.world.getEntity(x, y, me.z);
         if(!entity || !me.canAttack(entity) || !me.canSee(entity)) return;
         possibleTargets.push(entity);
       }
@@ -53,7 +53,7 @@ class SeeksTargetInSightBehavior extends Behavior {
     return false;
   }
 }
-export var SeeksTargetInSight = () => new SeeksTargetInSightBehavior();
+export const SeeksTargetInSight = () => new SeeksTargetInSightBehavior();
 
 class SeeksTargetViaHearingBehavior extends Behavior {
   constructor(range = 50) {
@@ -66,7 +66,7 @@ class SeeksTargetViaHearingBehavior extends Behavior {
     return false;
   }
   hear(me, potentialTarget) {
-    let distBetweenTarget = me.distBetween(potentialTarget);
+    const distBetweenTarget = me.distBetween(potentialTarget);
     if(distBetweenTarget > this.range) return;
     if(!me.target) {
       me.setTarget(potentialTarget);
@@ -75,7 +75,7 @@ class SeeksTargetViaHearingBehavior extends Behavior {
     }
   }
 }
-export var SeeksTargetViaHearing = (range) => new SeeksTargetViaHearingBehavior(range);
+export const SeeksTargetViaHearing = (range) => new SeeksTargetViaHearingBehavior(range);
 
 /* wanders around aimlessly */
 class WandersBehavior extends Behavior {
@@ -85,7 +85,7 @@ class WandersBehavior extends Behavior {
     return false;
   }
 }
-export var Wanders = () => new WandersBehavior();
+export const Wanders = () => new WandersBehavior();
 
 /* has very loud footsteps. pretty much, only players have or need this */
 class AlertsOnStepBehavior extends Behavior {
@@ -95,4 +95,4 @@ class AlertsOnStepBehavior extends Behavior {
   }
 }
 
-export var AlertsOnStep = () => new AlertsOnStepBehavior();
+export const AlertsOnStep = () => new AlertsOnStepBehavior();

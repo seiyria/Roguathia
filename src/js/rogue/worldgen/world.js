@@ -24,11 +24,11 @@ export default class World {
     this.setupFOV();
     
     for(let i = 0; i < depth; i++) {
-      let { map, mapName, shortMapName, stairs } = Dungeon.generate(width, height, i);
+      const { map, mapName, shortMapName, stairs } = Dungeon.generate(width, height, i);
       this.tiles[i] = map;
       this.tiles[i].mapName = mapName;
       this.tiles[i].shortMapName = shortMapName;
-      let [upStairs, downStairs] = stairs;
+      const [upStairs, downStairs] = stairs;
       
       this.stairs[i] = { up: [upStairs.x, upStairs.y], down: [downStairs.x, downStairs.y] };
     }
@@ -36,11 +36,11 @@ export default class World {
 
   // SETUP
   setupExplored() {
-    for(var z=0; z<this.depth; z++) {
+    for(let z=0; z<this.depth; z++) {
       this.explored[z] = [];
-      for(var x=0; x<this.width; x++) {
+      for(let x=0; x<this.width; x++) {
         this.explored[z][x] = [];
-        for(var y=0; y<this.height; y++) {
+        for(let y=0; y<this.height; y++) {
           this.explored[z][x][y] = false;
         }
       }
@@ -83,28 +83,28 @@ export default class World {
   }
   
   isVoid(x, y, z) {
-    let tile = this.getTile(x, y, z);
+    const tile = this.getTile(x, y, z);
     return !tile || !this.getTile(x, y, z).glyph.key;
   }
   
   isTileEmpty(x, y, z) {
-    let tile = this.getTile(x, y, z);
+    const tile = this.getTile(x, y, z);
     return tile && !tile.isDense() && !this.getEntity(x, y, z) && !this.isVoid(x, y, z);
   }
   
   isTilePassable(x, y, z, inclAIPass = true) {
-    let tile = this.getTile(x, y, z);
-    let aiPass = inclAIPass ? tile._isAIPassable : true;
+    const tile = this.getTile(x, y, z);
+    const aiPass = inclAIPass ? tile._isAIPassable : true;
     return tile && aiPass || this.isTileEmpty(x, y, z);
   }
 
   getAllTilesInRange(x, y, z, radius) {
-    let tiles = [];
+    const tiles = [];
 
     // line these tiles up with the numpad
     for(let newY = y + radius; newY >= y - radius; newY--) {
       for(let newX = x - radius; newX <= x + radius; newX++) {
-        let tile = this.tiles[z][newX][newY];
+        const tile = this.tiles[z][newX][newY];
         tiles.push(tile);
       }
     }
@@ -113,17 +113,17 @@ export default class World {
   }
 
   getValidTilesInRange(x, y, z, radius, filter = () => true) {
-    let tiles = [];
+    const tiles = [];
 
-    let lowerX = Math.max(x - radius, 0);
-    let upperX = Math.min(x + radius, this.width);
-    let lowerY = Math.max(y - radius, 0);
-    let upperY = Math.min(y + radius, this.height);
+    const lowerX = Math.max(x - radius, 0);
+    const upperX = Math.min(x + radius, this.width);
+    const lowerY = Math.max(y - radius, 0);
+    const upperY = Math.min(y + radius, this.height);
 
     for(let newX = lowerX; newX <= upperX; newX++) {
       for(let newY = lowerY; newY <= upperY; newY++) {
         if(!this.tiles[z][newX]) continue;
-        let tile = this.tiles[z][newX][newY];
+        const tile = this.tiles[z][newX][newY];
         if(!tile) continue;
         if(!this.isTileEmpty(newX, newY, z)) continue;
         tiles.push(tile);
@@ -172,7 +172,7 @@ export default class World {
   }
 
   placeItemAtRandomLocation(item, z) {
-    var tile = _(this.tiles[z]).flatten().filter(tile => tile.glyph.key).reject(tile => tile.isDense()).sample();
+    const tile = _(this.tiles[z]).flatten().filter(tile => tile.glyph.key).reject(tile => tile.isDense()).sample();
     this.moveItem(item, tile.x, tile.y, z);
   }
 
@@ -201,21 +201,21 @@ export default class World {
   }
   
   placeEntityAtRandomLocation(entity, z = entity.z) {
-    var tile = _(this.tiles[z]).flatten().filter(tile => tile.glyph.key).reject(tile => tile.isDense()).sample();
+    const tile = _(this.tiles[z]).flatten().filter(tile => tile.glyph.key).reject(tile => tile.isDense()).sample();
     this.moveEntity(entity, tile.x, tile.y, z);
   }
   
   getValidEntitiesInRange(x, y, z, radius, filter = () => true) {
-    let entities = [];
+    const entities = [];
     
-    let lowerX = Math.max(x - radius, 0);
-    let upperX = Math.min(x + radius, this.width);
-    let lowerY = Math.max(y - radius, 0);
-    let upperY = Math.min(y + radius, this.height);
+    const lowerX = Math.max(x - radius, 0);
+    const upperX = Math.min(x + radius, this.width);
+    const lowerY = Math.max(y - radius, 0);
+    const upperY = Math.min(y + radius, this.height);
     
     for(let newX = lowerX; newX <= upperX; newX++) {
       for(let newY = lowerY; newY <= upperY; newY++) {
-        let entity = this.getEntity(newX, newY, z);
+        const entity = this.getEntity(newX, newY, z);
         if(!entity) continue;
         entities.push(entity);
       }

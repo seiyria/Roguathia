@@ -51,8 +51,8 @@ export class StairsUp extends Stairs {
 
 export class Door extends Tile {
   constructor() {
-    let isClosed = !!Math.round(ROT.RNG.getUniform());
-    let openChar = isClosed ? '-' : '+';
+    const isClosed = !!Math.round(ROT.RNG.getUniform());
+    const openChar = isClosed ? '-' : '+';
     super(openChar, 'gold');
     this._isAIPassable = true;
     
@@ -61,7 +61,7 @@ export class Door extends Tile {
   }
   
   getOpenChar(basedOn) {
-    let leftTileGlyph = basedOn.glyph.key;
+    const leftTileGlyph = basedOn.glyph.key;
     return leftTileGlyph === '-' ? '|' : '-';
   }
   
@@ -70,8 +70,8 @@ export class Door extends Tile {
   }
   
   setProperCharacter(basedOn = GameState.world.getTile(this.x - 1, this.y, this.z)) {
-    let isOpen = this.density;
-    let toggleChar = isOpen ? '+' : this.getOpenChar(basedOn);
+    const isOpen = this.density;
+    const toggleChar = isOpen ? '+' : this.getOpenChar(basedOn);
     this.glyph.key = toggleChar;
   }
   

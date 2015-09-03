@@ -1,12 +1,12 @@
 
-export var Unskilled = 0;
-export var Basic = 1;
-export var Competent = 2;
-export var Skilled = 3;
-export var Expert = 4;
-export var Master = 5;
-export var Grandmaster = 6;
-export var Legendary = 7;
+export const Unskilled = 0;
+export const Basic = 1;
+export const Competent = 2;
+export const Skilled = 3;
+export const Expert = 4;
+export const Master = 5;
+export const Grandmaster = 6;
+export const Legendary = 7;
 
 export default [
   { name: 'Unskilled', max: 0 },

@@ -7,10 +7,10 @@ import SETTINGS from '../../constants/settings';
 export class GameScreen extends Screen {
 
   static getScreenOffsets(centerPoint = GameState.players[0], width = SETTINGS.screen.width, height = SETTINGS.screen.height) {
-    var topLeftX = Math.max(0, centerPoint.x - Math.round(width/2));
+    let topLeftX = Math.max(0, centerPoint.x - Math.round(width/2));
     topLeftX = Math.min(topLeftX, GameState.world.width - width);
 
-    var topLeftY = Math.max(0, centerPoint.y - Math.round(height/2));
+    let topLeftY = Math.max(0, centerPoint.y - Math.round(height/2));
     topLeftY = Math.min(topLeftY, GameState.world.height - height);
 
     return {
@@ -21,14 +21,14 @@ export class GameScreen extends Screen {
 
   static drawTiles(display, centerPoint, options = { width: SETTINGS.screen.width, height: SETTINGS.screen.height, offset: this.getScreenOffsets(), gameOffset: { x: 0, y: 0 } }) {
 
-    let { width, height, offset, gameOffset } = options;
+    const { width, height, offset, gameOffset } = options;
 
-    var visible = [];
+    const visible = [];
 
-    var world = GameState.world;
-    var zLevel = centerPoint.z;
+    const world = GameState.world;
+    const zLevel = centerPoint.z;
 
-    let isDead = centerPoint.hp.atMin();
+    const isDead = centerPoint.hp.atMin();
 
     world.fov[zLevel].compute(
       centerPoint.x, centerPoint.y, isDead ? 1 : centerPoint.getSight(),
@@ -39,14 +39,14 @@ export class GameScreen extends Screen {
       }
     );
 
-    let cache = {};
+    const cache = {};
     _.each(['Telepathy', 'Clairvoyance', 'Warning'], (trait) => cache[trait] = centerPoint.getTraitValue(trait));
 
-    let isVisible = (x, y) => {
+    const isVisible = (x, y) => {
       return visible[x] && visible[x][y];
     };
 
-    let hasValid = (trait, x, y) => {
+    const hasValid = (trait, x, y) => {
       return !isDead && cache[trait] && centerPoint.distBetweenXY(x, y) <= cache[trait];
     };
 
@@ -55,20 +55,20 @@ export class GameScreen extends Screen {
 
     for(let x = offset.x; x < offset.x + width; x++) {
       for(let y = offset.y; y < offset.y + height; y++) {
-        let hasTelepathy = hasValid('Telepathy', x, y);
-        let hasClairvoyance = hasValid('Clairvoyance', x, y);
-        let hasWarning = hasValid('Warning', x, y);
-        let hasSeen = GameState.world.isExplored(x, y, centerPoint.z);
+        const hasTelepathy = hasValid('Telepathy', x, y);
+        const hasClairvoyance = hasValid('Clairvoyance', x, y);
+        const hasWarning = hasValid('Warning', x, y);
+        const hasSeen = GameState.world.isExplored(x, y, centerPoint.z);
         if(!hasSeen && !GameState.renderAll && !hasTelepathy && !hasClairvoyance && !hasWarning) continue;
 
-        var tile = world.getTile(x, y, zLevel);
+        const tile = world.getTile(x, y, zLevel);
         if(!tile) continue; // no out of bounds drawing
 
-        var glyph = { key: null };
-        var foreground = null;
-        var background = null;
+        let glyph = { key: null };
+        let foreground = null;
+        let background = null;
 
-        let baseIsVisible = isVisible(x, y) || hasClairvoyance;
+        const baseIsVisible = isVisible(x, y) || hasClairvoyance;
 
         if(baseIsVisible || hasSeen) {
           glyph = tile.glyph;
@@ -77,7 +77,7 @@ export class GameScreen extends Screen {
         }
 
         if(baseIsVisible) {
-          let items = world.getItemsAt(x, y, zLevel);
+          const items = world.getItemsAt(x, y, zLevel);
           if (items && items.length > 0) {
             glyph = items[items.length - 1].glyph;
             foreground = glyph.fg;
@@ -85,7 +85,7 @@ export class GameScreen extends Screen {
         }
 
         if(baseIsVisible || hasTelepathy || hasWarning) {
-          var entity = world.getEntity(x, y, zLevel);
+          const entity = world.getEntity(x, y, zLevel);
           if(entity) {
 
             if(baseIsVisible || hasTelepathy) {
@@ -93,7 +93,7 @@ export class GameScreen extends Screen {
               foreground = glyph.fg;
 
             } else if(hasWarning && centerPoint.canAttack(entity)) {
-              let difficulty = centerPoint.calcDifficulty(entity);
+              const difficulty = centerPoint.calcDifficulty(entity);
               glyph = { key: difficulty };
               foreground = warningColors[difficulty];
             }
@@ -117,10 +117,10 @@ export class GameScreen extends Screen {
   }
 
   static redrawHp(display, foreground, player, string, x = 0, y = SETTINGS.screen.height - 1) {
-    let str = (''+player.hp.cur);
-    let index = string.indexOf(`HP:${player.hp.cur}`)+3;
-    let length = str.length;
-    let strIdx = 0;
+    const str = (''+player.hp.cur);
+    const index = string.indexOf(`HP:${player.hp.cur}`)+3;
+    const length = str.length;
+    const strIdx = 0;
     for(let i = index; i < index+length; i++) {
       display.draw(x+i, y, str[strIdx], foreground);
     }
@@ -141,7 +141,7 @@ export class SingleGameScreen extends GameScreen {
     }
 
     for(let y = 0; y < 3; y++) {
-      var messageObj = GameState.messages[y];
+      const messageObj = GameState.messages[y];
       if(!messageObj || messageObj.turn < player.currentTurn - 4) continue;
       display.drawText(0, y, messageObj.message);
     }
@@ -150,9 +150,9 @@ export class SingleGameScreen extends GameScreen {
   }
 
   static drawHUD(display, player) {
-    var tag = `${player.name} the ${player.getAlign()} ${player.gender} level ${player.level} ${player.race} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
-    var stats = `STR:${player.getStr()} DEX:${player.getDex()} CON:${player.getCon()} INT:${player.getInt()} WIS:${player.getWis()} CHA:${player.getCha()} AC:${player.getAC()}`;
-    var miscInfo = `Floor:${1+GameState.currentFloor} (${GameState.world.tiles[GameState.currentFloor].shortMapName}) $:${player.gold} HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max} Turn:${player.currentTurn}`;
+    const tag = `${player.name} the ${player.getAlign()} ${player.gender} level ${player.level} ${player.race} ${player.professionInst.title} (${player.xp.cur}/${player.xp.max})`;
+    const stats = `STR:${player.getStr()} DEX:${player.getDex()} CON:${player.getCon()} INT:${player.getInt()} WIS:${player.getWis()} CHA:${player.getCha()} AC:${player.getAC()}`;
+    const miscInfo = `Floor:${1+GameState.currentFloor} (${GameState.world.tiles[GameState.currentFloor].shortMapName}) $:${player.gold} HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max} Turn:${player.currentTurn}`;
 
     for(let y = 1; y <= 3; y++) {
       for(let x = 0; x < SETTINGS.screen.width; x++) {
@@ -172,7 +172,7 @@ export class SingleGameScreen extends GameScreen {
   }
 
   static render(display) {
-    var player = GameState.players[0];
+    const player = GameState.players[0];
     this.drawTiles(display, player);
     this.drawHUD(display, player);
     this.drawMessages(display, player);
@@ -214,13 +214,13 @@ export class SplitGameScreen extends GameScreen {
 
   static drawBorder(display) {
 
-    let middleY = SETTINGS.screen.height / 2;
+    const middleY = SETTINGS.screen.height / 2;
     for(let i = 0; i < SETTINGS.screen.width; i++) {
       display.draw(i, middleY, '=');
     }
 
     if(GameState.players.length > 2) {
-      let middleX = SETTINGS.screen.width / 2;
+      const middleX = SETTINGS.screen.width / 2;
       for(let i = 0; i < SETTINGS.screen.height; i++) {
         display.draw(middleX, i, '‖');
       }
@@ -235,10 +235,10 @@ export class SplitGameScreen extends GameScreen {
   }
 
   static drawHUDs(display, player, hudCoords) {
-    let { x, y } = hudCoords;
+    const { x, y } = hudCoords;
 
-    let topString = `${player.name} ${this.stripTo3(player.getAlign())} ${this.stripTo3(player.gender)} ${this.stripTo3(player.race)} ${this.stripTo3(player.profession)}`;
-    let bottomString = `Lv.${player.level} (${player.xp.cur}/${player.xp.max}) HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max}`;
+    const topString = `${player.name} ${this.stripTo3(player.getAlign())} ${this.stripTo3(player.gender)} ${this.stripTo3(player.race)} ${this.stripTo3(player.profession)}`;
+    const bottomString = `Lv.${player.level} (${player.xp.cur}/${player.xp.max}) HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max}`;
 
     display.drawText(x, y-1, topString);
     display.drawText(x, y, bottomString);

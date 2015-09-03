@@ -10,7 +10,7 @@ import * as Spellbooks from '../items/spellbooks';
 import * as Random from '../../constants/random';
 import * as Thresholds from '../../constants/skill-thresholds';
 
-let wizardCfg = {
+const wizardCfg = {
   hp  : '1d4 + 1',
   mp  : '1d5 + 5',
   str : '1d2 - 4',

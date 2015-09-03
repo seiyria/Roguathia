@@ -6,7 +6,7 @@ import * as Foods from '../items/foods';
 import * as Potions from '../items/potions';
 import * as Projectiles from '../items/projectiles';
 
-let touristCfg = {
+const touristCfg = {
   hp  : '1d5 + 5',
   mp  : '1d2 + 1',
   str : '1d3',

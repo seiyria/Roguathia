@@ -50,7 +50,7 @@ export default class Player extends Character {
   act() {
     if(GameState.game.checkWin()) return;
 
-    var engine = this.game.engine;
+    const engine = this.game.engine;
     engine.lock();
     
     super.act();
@@ -63,15 +63,15 @@ export default class Player extends Character {
     
     this.game.refresh();
 
-    let livingPlayers = _.reject(GameState.players, (player) => player.hp.atMin());
+    const livingPlayers = _.reject(GameState.players, (player) => player.hp.atMin());
     setTimeout(() => engine.unlock(), SETTINGS.game.turnDelay/livingPlayers.length);
   }
   
   rebuildPathingMap() {
-    let canPass = (x, y) => {
-      let entity = GameState.world.getEntity(x, y, this.z);
-      let isAttackable = entity && this.canAttack(entity);
-      let isMe = this.x === x && this.y === y;
+    const canPass = (x, y) => {
+      const entity = GameState.world.getEntity(x, y, this.z);
+      const isAttackable = entity && this.canAttack(entity);
+      const isMe = this.x === x && this.y === y;
       return GameState.world.isTilePassable(x, y, this.z) || isMe || isAttackable;
     };
     
@@ -92,8 +92,8 @@ export default class Player extends Character {
   }
   
   descend() {
-    let newFloor = GameState.currentFloor = GameState.currentFloor+1;
-    let stairs = GameState.world.stairs[newFloor].up;
+    const newFloor = GameState.currentFloor = GameState.currentFloor+1;
+    const stairs = GameState.world.stairs[newFloor].up;
 
     _.each(GameState.players, (player) => {
       if(player.hp.atMin()) return;

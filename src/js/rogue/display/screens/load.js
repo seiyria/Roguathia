@@ -5,7 +5,7 @@ export class LoadScreen extends Screen {
   static enter(display) {
     this.flicker = 0;
 
-    let dotStatus = ['.  ', '.. ', '...', ' ..', '  .'];
+    const dotStatus = ['.  ', '.. ', '...', ' ..', '  .'];
 
     this.interval = setInterval(() => {
       display.clear();

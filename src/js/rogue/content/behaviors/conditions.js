@@ -21,4 +21,4 @@ class StunnedBehavior extends Behavior {
   }
 }
 
-export var Stunned = (numTurns) => new StunnedBehavior(numTurns);
+export const Stunned = (numTurns) => new StunnedBehavior(numTurns);

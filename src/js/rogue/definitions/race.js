@@ -39,10 +39,10 @@ export default class Race {
     _.extend(this, defaultStats, opts.stats, loadValue);
   }
   canEquip(owner, item) {
-    let slot = item.getParentType();
-    let slotsTaken = owner.slotsTaken(slot);
-    let totalSlots = this.slots[slot];
-    let itemSlots = item.slotsTaken;
+    const slot = item.getParentType();
+    const slotsTaken = owner.slotsTaken(slot);
+    const totalSlots = this.slots[slot];
+    const itemSlots = item.slotsTaken;
     return itemSlots <= totalSlots - slotsTaken;
   }
 }

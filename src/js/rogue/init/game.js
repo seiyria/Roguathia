@@ -20,8 +20,8 @@ export default class Game {
       
     });
     this.currentScreen = null;
-    
-    let bindToScreen = (event) => {
+
+    const bindToScreen = (event) => {
       window.addEventListener(event, (e) => {
         if(this.currentScreen === null) return;
         
@@ -42,7 +42,7 @@ export default class Game {
   }
 
   checkWin() {
-    let didWin = GameState.winCondition.check();
+    const didWin = GameState.winCondition.check();
     if(didWin) this.win();
     return didWin;
   }
@@ -79,11 +79,12 @@ export default class Game {
     this.scheduler = new ROT.Scheduler.Speed();
     this.engine = new ROT.Engine(this.scheduler);
     
-    if(false) {
+/*    if(false) {
       this.loadOldData();
       return;
     }
-    
+*/
+
     this.startNewGame();
   }
   
@@ -92,10 +93,10 @@ export default class Game {
   startNewGame() {
     GameState.world = new World();
     GameState.world.generateWorld();
-    let zeroStartStairs = GameState.world.stairs[0].up;
+    const zeroStartStairs = GameState.world.stairs[0].up;
     
     GameState.players = [];
-    let playerLocations = GameState.world.getValidTilesInRange(
+    const playerLocations = GameState.world.getValidTilesInRange(
       zeroStartStairs[0], zeroStartStairs[1], 0, 2, (tile) => tile.glyph.key === '.'
     );
 
@@ -103,9 +104,9 @@ export default class Game {
 
     GameState.currentFloor = 0;
 
-    for(let i = 0; i < 1; i++) {
-      let startTile = playerLocations.shift();
-      let player = new Player(0, 0, 0);
+    for(let i = 0; i < 4; i++) {
+      const startTile = playerLocations.shift();
+      const player = new Player(0, 0, 0);
 
       GameState.world.moveEntity(player, startTile.x, startTile.y, 0);
       GameState.players.push(player);

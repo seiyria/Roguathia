@@ -7,7 +7,7 @@ export default class Behavior {
 }
 
 // priorities determine the ordering of behavior execution
-export var Priority = {
+export const Priority = {
   ALWAYS: 0,
   STUN: 1,
   HEAL: 2,

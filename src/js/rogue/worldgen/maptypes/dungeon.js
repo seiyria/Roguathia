@@ -5,15 +5,15 @@ import Generator from '../generator';
 export default class Dungeon extends Generator {
 
   static generate(w, h, z) {
-    var map = [];
+    const map = [];
     
     // -3 to adjust for the UI components at the bottom
-    var digger = new ROT.Map.Digger(w, h-3, { roomWidth: [4, 8], roomHeight: [4, 7], corridorLength: [5, 13] });
+    const digger = new ROT.Map.Digger(w, h-3, { roomWidth: [4, 8], roomHeight: [4, 7], corridorLength: [5, 13] });
     
     digger.create((x, y, value) => {
       if(!map[x]) map[x] = [];
-      
-      var proto = Tiles.Void;
+
+      let proto = Tiles.Void;
       if(!value) proto = Tiles.DungeonFloor;
       
       this.placeTile(map, proto, x, y, z);
@@ -37,7 +37,7 @@ export default class Dungeon extends Generator {
       this.drawDoors(map, room, z);
     });
 
-    let stairs = this.placeStairs(map, digger.getRooms(), z);
+    const stairs = this.placeStairs(map, digger.getRooms(), z);
     
     return { map, stairs, mapName: 'The Dungeons of Doom', shortMapName: 'Dungeon' };
   }
@@ -75,8 +75,8 @@ export default class Dungeon extends Generator {
   static drawVerticalWalls(map, room, z) {
     for(let i = room.getTop(); i <= room.getBottom(); i++) {
 
-      var leftTile = map[room.getLeft()-1][i].glyph.key;
-      var rightTile = map[room.getRight()+1][i].glyph.key;
+      const leftTile = map[room.getLeft()-1][i].glyph.key;
+      const rightTile = map[room.getRight()+1][i].glyph.key;
 
       // these tiles take precedence, otherwise some walls look uggo
       if(!leftTile || leftTile === '-') {
@@ -94,31 +94,31 @@ export default class Dungeon extends Generator {
       if(ROT.RNG.getPercentage() < 70) {
         this.placeTile(map, Tiles.DungeonFloor, x, y, z);
       } else {
-        let door = this.placeTile(map, Tiles.Door, x, y, z);
+        const door = this.placeTile(map, Tiles.Door, x, y, z);
         door.setProperCharacter(map[x-1][y]);
       }
     });
   }
 
   static placeStairs(map, validRooms, z) {
-    let rooms = _.sample(validRooms, 2);
+    const rooms = _.sample(validRooms, 2);
 
-    let getCoordsForRoom = (room) => {
+    const getCoordsForRoom = (room) => {
       return [
         Math.floor(ROT.RNG.getUniform()*(room._x2 - room._x1)) + room._x1,
         Math.floor(ROT.RNG.getUniform()*(room._y2 - room._y1)) + room._y1
       ];
     };
 
-    let setStairs = (stairs, x, y) => {
+    const setStairs = (stairs, x, y) => {
       return this.placeTile(map, stairs, x, y, z);
     };
 
-    let [firstX, firstY] = getCoordsForRoom(rooms[0]);
-    let [secondX, secondY] = getCoordsForRoom(rooms[1]);
+    const [firstX, firstY] = getCoordsForRoom(rooms[0]);
+    const [secondX, secondY] = getCoordsForRoom(rooms[1]);
 
-    let stairsUp = setStairs(Tiles.StairsUp, firstX, firstY);
-    let stairsDown = setStairs(Tiles.StairsDown, secondX, secondY);
+    const stairsUp = setStairs(Tiles.StairsUp, firstX, firstY);
+    const stairsDown = setStairs(Tiles.StairsDown, secondX, secondY);
 
     return [stairsUp, stairsDown];
   }

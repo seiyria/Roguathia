@@ -6,7 +6,7 @@ export class Bite extends Attack {}
 
 export class ElectricTouch extends Attack {
   hitString(owner, target, damage, extra) {
-    var zap = ``;
+    let zap = ``;
     if(extra) {
       zap = ` ${target.name} got zapped!`;
       target.addUniqueBehavior(Behaviors.Stunned());

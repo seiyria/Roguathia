@@ -8,7 +8,7 @@ export class Screen {
   static render() {}
   static handleInput() {}
   static drawCenterText(display, y, text, divisor = 2, xOffset = 0) {
-    let x = xOffset + Math.floor(SETTINGS.screen.width/divisor) - Math.floor(text.length/2);
+    const x = xOffset + Math.floor(SETTINGS.screen.width/divisor) - Math.floor(text.length/2);
     display.drawText(x, y, text);
     return { x, y };
   }
@@ -34,8 +34,8 @@ export class Screen {
   }
   static changeScreenWithDelay(newScreen, delay) {
     setTimeout(() => {
-      let multiChoice = GameState.splitScreen ? newScreen.multi : newScreen.single;
-      let screen = newScreen.single && newScreen.multi ? multiChoice : newScreen;
+      const multiChoice = GameState.splitScreen ? newScreen.multi : newScreen.single;
+      const screen = newScreen.single && newScreen.multi ? multiChoice : newScreen;
       GameState.game.switchScreen(screen);
     }, delay);
   }
@@ -50,9 +50,9 @@ export class SingleScrollingScreen extends ScrollingScreen {
     display.clear();
     this.drawLeftText(display, 0, this.title);
     this.drawLeftText(display, 1, _.repeat('-', this.title.length));
-    
-    let remainingHeight = SETTINGS.screen.height - 3;
-    let slice = this.scrollContent.slice(this.currentIndex, remainingHeight+this.currentIndex);
+
+    const remainingHeight = SETTINGS.screen.height - 3;
+    const slice = this.scrollContent.slice(this.currentIndex, remainingHeight+this.currentIndex);
     for(let i = 0; i < remainingHeight; i++) {
       this.drawLeftTextNoTrim(display, i+2, slice[i]);
     }
@@ -72,8 +72,8 @@ export class SplitScrollingScreen extends ScrollingScreen {
   static enter() {
     this.currentIndices = _.map(GameState.players, () => 0);
 
-    let width = SETTINGS.screen.width / 2;
-    let height = GameState.players.length > 2 ? (SETTINGS.screen.height / 2): SETTINGS.screen.height;
+    const width = SETTINGS.screen.width / 2;
+    const height = GameState.players.length > 2 ? (SETTINGS.screen.height / 2): SETTINGS.screen.height;
 
     this.tlCoords = [
       { x: 0, y: 0 },
@@ -88,13 +88,13 @@ export class SplitScrollingScreen extends ScrollingScreen {
 
   static drawBorder(display) {
 
-    let middleX = SETTINGS.screen.width / 2;
+    const middleX = SETTINGS.screen.width / 2;
     for (let i = 0; i < SETTINGS.screen.height; i++) {
       display.draw(middleX, i, '‖');
     }
 
     if (GameState.players.length > 2) {
-      let middleY = SETTINGS.screen.height / 2;
+      const middleY = SETTINGS.screen.height / 2;
       for (let i = 0; i < SETTINGS.screen.width; i++) {
         display.draw(i, middleY, '=');
       }
@@ -103,13 +103,13 @@ export class SplitScrollingScreen extends ScrollingScreen {
 
   static drawList(display, playerIndex) {
 
-    let offset = this.tlCoords[playerIndex];
+    const offset = this.tlCoords[playerIndex];
 
     this.drawLeftText(display, offset.y, this.title[playerIndex], offset.x);
     this.drawLeftText(display, offset.y+1, _.repeat('-', this.title[playerIndex].length), offset.x);
 
-    let remainingHeight = (GameState.players.length > 2 ? (SETTINGS.screen.height / 2): SETTINGS.screen.height) - 3;
-    let slice = this.scrollContent[playerIndex].slice(this.currentIndices[playerIndex], remainingHeight+this.currentIndices[playerIndex]);
+    const remainingHeight = (GameState.players.length > 2 ? (SETTINGS.screen.height / 2): SETTINGS.screen.height) - 3;
+    const slice = this.scrollContent[playerIndex].slice(this.currentIndices[playerIndex], remainingHeight+this.currentIndices[playerIndex]);
     for(let i = 0; i < remainingHeight; i++) {
       this.drawLeftTextNoTrim(display, offset.y+i+2, slice[i], offset.x);
     }

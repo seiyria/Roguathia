@@ -1,5 +1,5 @@
 
-export var Colors = [
+export const Colors = [
   '#00f',   // blue
   '#0f0',   // green
   '#f00',   // red
@@ -15,4 +15,4 @@ export var Colors = [
   '#ffa'    // lightyellow
 ];
 
-export var GetColor = () => _.sample(Colors);
+export const GetColor = () => _.sample(Colors);

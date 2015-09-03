@@ -4,9 +4,9 @@ import * as Fakes from '../constants/faketypes';
 
 class Equipment extends Item {
   get name() {
-    let name = this.isIdentified() ? this.realName : this.fakeName;
-    let enchant = this.enchantment ? `+${this.enchantment} ${name}` : name;
-    let buc = this.bucName !== 'uncursed' ? `${this.bucName} ${enchant}` : enchant;
+    const name = this.isIdentified() ? this.realName : this.fakeName;
+    const enchant = this.enchantment ? `+${this.enchantment} ${name}` : name;
+    const buc = this.bucName !== 'uncursed' ? `${this.bucName} ${enchant}` : enchant;
     return buc;
   }
 }

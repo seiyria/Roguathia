@@ -23,23 +23,23 @@ export class Item extends Abstract {
   }
   
   isIdentified() {
-    let myType = this.getParentType();
+    const myType = this.getParentType();
     return GameState.identification[myType];
   }
   
   identify() {
-    let myType = this.getParentType();
+    const myType = this.getParentType();
     GameState.identification[myType] = this.realName;
   }
   
   pickFakeName(choices) {
-    let myType = this.getParentType();
+    const myType = this.getParentType();
     if(GameState._idMap[this.realName]) {
       return GameState._idMap[this.realName]; // this item has already been generated
     }
-    let currentTypes = _.keys(GameState.identification[myType]);
-    let validTypes = _.difference(choices, currentTypes);
-    let name = _.sample(validTypes);
+    const currentTypes = _.keys(GameState.identification[myType]);
+    const validTypes = _.difference(choices, currentTypes);
+    const name = _.sample(validTypes);
     GameState._idMap[this.realName] = name;
     return name;
   }
@@ -72,9 +72,9 @@ export class Item extends Abstract {
   
   pewpew(owner) {
     for(let i=0; i<this.range.numShots; i++) {
-      let chosenAmmo = _.sample(this.getValidAmmo(owner));
+      const chosenAmmo = _.sample(this.getValidAmmo(owner));
       chosenAmmo._tempAttackBoost = this.range.damageBoost;
-      let attack = _.sample(chosenAmmo.attacks);
+      const attack = _.sample(chosenAmmo.attacks);
       owner.doAttack(attack, i);
       delete chosenAmmo._tempAttackBoost;
     }
@@ -82,20 +82,20 @@ export class Item extends Abstract {
   
   generateBUC(opts = { cursed: 5, blessed: 5, uncursed: 90 }) {
     if(!this.bucName) {
-      let status = ROT.RNG.getWeightedValue(opts);
+      const status = ROT.RNG.getWeightedValue(opts);
       this.bucName = status;
     }
-    let hash = { cursed: -1, uncursed: 1, blessed: 2 };
+    const hash = { cursed: -1, uncursed: 1, blessed: 2 };
     this.buc = hash[this.bucName];
   }
   
   value() {
-    let atkValue = _.reduce(this.attacks, ((prev, cur) => prev + cur.value()), 0);
+    const atkValue = _.reduce(this.attacks, ((prev, cur) => prev + cur.value()), 0);
     return this.buc * (100 - this.rarity) + this.enchantment*5 + atkValue;
   }
   
   toJSON() {
-    let me = _.omit(this, ['bucProb', 'startIdentified', '_tempAttackBoost', 'symbol']);
+    const me = _.omit(this, ['bucProb', 'startIdentified', '_tempAttackBoost', 'symbol']);
     return JSON.stringify(me);
   }
 }

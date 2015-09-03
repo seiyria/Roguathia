@@ -12,7 +12,7 @@ class RegeneratesHpBehavior extends Behavior {
   }
 }
 
-export var RegeneratesHp = () => new RegeneratesHpBehavior();
+export const RegeneratesHp = () => new RegeneratesHpBehavior();
 
 class RegeneratesMpBehavior extends Behavior {
   constructor(amount = 1) {
@@ -25,7 +25,7 @@ class RegeneratesMpBehavior extends Behavior {
   }
 }
 
-export var RegeneratesMp = () => new RegeneratesMpBehavior();
+export const RegeneratesMp = () => new RegeneratesMpBehavior();
 
 class HealsBelowPercentBehavior extends Behavior {
   constructor(percent = 50) {
@@ -34,12 +34,12 @@ class HealsBelowPercentBehavior extends Behavior {
   }
   act(me) {
     if(me.hp.gtPercent(this.healPercent)) return true;
-    let healItems = _.filter(me.inventory, (item) => item.healRoll &&  item.canUse(me));
+    const healItems = _.filter(me.inventory, (item) => item.healRoll &&  item.canUse(me));
     if(healItems.length === 0) return true;
-    let healItem = _.sample(healItems);
+    const healItem = _.sample(healItems);
     healItem.use(me);
     return false;
   }
 }
 
-export var HealsBelowPercent = (percent) => new HealsBelowPercentBehavior(percent);
+export const HealsBelowPercent = (percent) => new HealsBelowPercentBehavior(percent);

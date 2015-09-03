@@ -12,7 +12,7 @@ export default () => {
   );
   
   GameState.reset();
-  var game = GameState.game = new Game();
+  const game = GameState.game = new Game();
   document.body.appendChild(game.display.getContainer());
   game.switchScreen(LoadScreen);
 

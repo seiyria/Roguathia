@@ -7,7 +7,7 @@ import * as Potions from '../items/potions';
 import * as Projectiles from '../items/projectiles';
 import * as Thresholds from '../../constants/skill-thresholds';
 
-let rangerCfg = {
+const rangerCfg = {
   hp  : '2d8 + 4',
   mp  : '0d0',
   str : '2d3',

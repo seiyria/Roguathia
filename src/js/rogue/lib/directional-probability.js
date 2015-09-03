@@ -4,10 +4,10 @@ const INDICES = [1, 2, 3, 6, 9, 8, 7, 4];
 const PROBABILITIES = [10000, 2000, 500, 50, 10, 50, 500, 2000];
 
 export default (lastNumpadDirection) => {
-  let lastIndexDirection = INDICES.indexOf(lastNumpadDirection);
-  let shifted = PROBABILITIES.slice(PROBABILITIES.length - lastIndexDirection)
+  const lastIndexDirection = INDICES.indexOf(lastNumpadDirection);
+  const shifted = PROBABILITIES.slice(PROBABILITIES.length - lastIndexDirection)
     .concat(PROBABILITIES.slice(0, PROBABILITIES.length - lastIndexDirection));
-  let result = {};
+  const result = {};
   for(let i = 0, l = INDICES.length; i < l; i++) {
     result[INDICES[i]] = shifted[i];
   }

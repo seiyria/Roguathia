@@ -10,7 +10,7 @@ class AttacksBehavior extends Behavior {
   }
 }
 
-export var Attacks = () => new AttacksBehavior();
+export const Attacks = () => new AttacksBehavior();
 
 class TeleportsWhenHitBehavior extends Behavior {
   constructor(percent = 100) {
@@ -23,4 +23,4 @@ class TeleportsWhenHitBehavior extends Behavior {
   }
 }
 
-export var TeleportsWhenHit = (percent) => new TeleportsWhenHitBehavior(percent);
+export const TeleportsWhenHit = (percent) => new TeleportsWhenHitBehavior(percent);

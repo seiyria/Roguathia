@@ -3,7 +3,7 @@ import { Special, Comestible } from '../../definitions/equipment';
 
 export class Gold extends Special {
   constructor(num) {
-    let opts = {
+    const opts = {
       glyph: { key: '$', fg: 'yellow' }
     };
     super(opts);

@@ -16,24 +16,24 @@ export default class RespawnScreen extends Screen {
   }
 
   static addStar(x, y, length) {
-    let minX = x - 1;
-    let maxX = x + length + 1;
-    let minY = y - 1;
-    let maxY = y + 1;
+    const minX = x - 1;
+    const maxX = x + length + 1;
+    const minY = y - 1;
+    const maxY = y + 1;
 
     let inBadZone = true;
     let star = null;
 
-    let distBetween = (me, target) => {
-      let a = target.x - me.x;
-      let b = target.y - me.y;
+    const distBetween = (me, target) => {
+      const a = target.x - me.x;
+      const b = target.y - me.y;
       return Math.sqrt(a*a + b*b);
     };
 
     while(inBadZone) {
-      let myX = ROT.RNG.getUniformInt(0, SETTINGS.screen.width);
-      let myY = ROT.RNG.getUniformInt(0, SETTINGS.screen.height);
-      let me = { x: myX, y: myY };
+      const myX = ROT.RNG.getUniformInt(0, SETTINGS.screen.width);
+      const myY = ROT.RNG.getUniformInt(0, SETTINGS.screen.height);
+      const me = { x: myX, y: myY };
 
       if(_.filter(this.stars, (star) => distBetween(me, star) < 4).length !== 0 ||
         myX >= minX && myX <= maxX &&
@@ -60,8 +60,8 @@ export default class RespawnScreen extends Screen {
 
   static render(display) {
     display.clear();
-    let text = `Respawning in ${this.timer} seconds...`;
-    let { x, y } = this.drawCenterText(display,  11, text);
+    const text = `Respawning in ${this.timer} seconds...`;
+    const { x, y } = this.drawCenterText(display,  11, text);
 
     if(this.ticks % this.phases.length === 0) {
       this.addStar(x, y, text.length);

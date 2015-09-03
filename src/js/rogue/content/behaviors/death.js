@@ -8,14 +8,14 @@ import { Gold, Corpse } from '../items/_special';
 class DropsItemsBehavior extends Behavior {
   constructor() { super(Priority.DEFER); }
   die(me) {
-    let items = me.inventory.concat(_(me.equipment).values().flatten().value());
+    const items = me.inventory.concat(_(me.equipment).values().flatten().value());
     _.each(items, (item) => {
       me.dropItem(item);
     });
   }
 }
 
-export var DropsItems = () => new DropsItemsBehavior();
+export const DropsItems = () => new DropsItemsBehavior();
 
 /* monsters leave a corpse */
 class LeavesCorpseBehavior extends Behavior {
@@ -25,12 +25,12 @@ class LeavesCorpseBehavior extends Behavior {
   }
   die(me) {
     if(ROT.RNG.getPercentage() > this.dropPercent) return;
-    let corpse = new Corpse({ monsterName: me.name });
+    const corpse = new Corpse({ monsterName: me.name });
     GameState.world.moveItem(corpse, me.x, me.y, me.z);
   }
 }
 
-export var LeavesCorpse = (percent) => new LeavesCorpseBehavior(percent);
+export const LeavesCorpse = (percent) => new LeavesCorpseBehavior(percent);
 
 /* some things drop gold */
 class DropsGoldBehavior extends Behavior {
@@ -39,13 +39,13 @@ class DropsGoldBehavior extends Behavior {
     this.goldDrop = gold;
   }
   die(me) {
-    let droppedGold = +dice.roll(this.goldDrop);
-    let goldItem = new Gold(droppedGold + me.gold);
+    const droppedGold = +dice.roll(this.goldDrop);
+    const goldItem = new Gold(droppedGold + me.gold);
     GameState.world.moveItem(goldItem, me.x, me.y, me.z);
   }
 }
 
-export var DropsGold = (gold) => new DropsGoldBehavior(gold);
+export const DropsGold = (gold) => new DropsGoldBehavior(gold);
 
 /* explodes upon death. can be pretty dangerous */
 class ExplodesBehavior extends Behavior {
@@ -68,4 +68,4 @@ class ExplodesBehavior extends Behavior {
   }
 }
 
-export var Explodes = (roll, percent) => new ExplodesBehavior(roll, percent);
+export const Explodes = (roll, percent) => new ExplodesBehavior(roll, percent);

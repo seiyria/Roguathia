@@ -7,8 +7,8 @@ import GameState from '../../init/gamestate';
 export class SingleConductScreen extends SingleScrollingScreen {
   static enter() {
     super.enter();
-    let target = this.getMainPlayer();
-    let sortedConduct = ConductCalc(target);
+    const target = this.getMainPlayer();
+    const sortedConduct = ConductCalc(target);
     this.scrollContent = sortedConduct;
     this.title = `${target.name}'s Traits (${sortedConduct.length})`; // shorten this for splitscreen
     this.nextScreen = RespawnScreen;
@@ -23,7 +23,7 @@ export class SplitConductScreen extends SplitScrollingScreen {
     this.title = [];
 
     _.each(GameState.players, (target, i) => {
-      let sortedConduct = ConductCalc(target);
+      const sortedConduct = ConductCalc(target);
       this.scrollContent[i] = sortedConduct;
       this.title[i] = `${target.name}'s Traits (${sortedConduct.length})`; // shorten this for splitscreen
     });

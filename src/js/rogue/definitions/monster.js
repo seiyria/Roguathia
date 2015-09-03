@@ -3,7 +3,7 @@ import Character from './character';
 import Factions from '../constants/factions';
 import GameState from '../init/gamestate';
 
-let defaultMonsterStats = {
+const defaultMonsterStats = {
   str: 8,
   con: 8,
   dex: 8,
@@ -24,7 +24,7 @@ export default class Monster extends Character {
   }
 
   arePlayersAPossibility() {
-    let minZ = _.min(GameState.players, 'z').z;
+    const minZ = _.min(GameState.players, 'z').z;
     return minZ <= this.z;
   }
 
@@ -36,8 +36,8 @@ export default class Monster extends Character {
   }
   
   toJSON() {
-    let base = JSON.parse(super.toJSON());
-    let me = _.omit(base, 'target');
+    const base = JSON.parse(super.toJSON());
+    const me = _.omit(base, 'target');
     return JSON.stringify(me);
   }
 }
