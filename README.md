@@ -5,7 +5,7 @@
 * Inherit behaviors from races (humans, elves, etc should all have the same general set of behaviors)
 * Scaling monsters (ie, Selyk) -- use the level attribute to apply levelups to a monster and have it scale that way
 * Ending conditions (worth different amounts of VP)
-  * Find the ring of Selyk (opens a chamber leading to an altar)
+  * Find the key of Selyk (opens a chamber leading to an altar, step on altar to win)
   * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
 * Content (all types of items)
 * Meta-currency (and benefits)
