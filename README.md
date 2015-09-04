@@ -2,8 +2,9 @@
 
 # TODO
 * Drop items on dungeon floor occasionally during generation
+* Inherit behaviors from races (humans, elves, etc should all have the same general set of behaviors)
+* Scaling monsters (ie, Selyk) -- use the level attribute to apply levelups to a monster and have it scale that way
 * Ending conditions (worth different amounts of VP)
-  * Kill Selyk
   * Find the ring of Selyk (opens a chamber leading to an altar)
   * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
 * Content (all types of items)

@@ -103,7 +103,7 @@ export default class Game {
       zeroStartStairs[0], zeroStartStairs[1], 0, 2, (tile) => tile.glyph.key === '.'
     );
 
-    GameState.winCondition = _(Victories).values().sample();
+    GameState.winCondition = Victories.KillSelyk; // _(Victories).values().sample();
 
     GameState.currentFloor = 0;
 
