@@ -2,6 +2,7 @@
 import ROT from 'rot-js';
 import Entity from '../definitions/entity';
 import GameState from '../init/gamestate';
+import { SelykCellarKey } from '../content/items/_special';
 
 class Tile extends Entity {
   constructor(key, fg, bg) {
@@ -34,6 +35,18 @@ export class StairsDown extends Stairs {
   interact(entity) {
     entity.descend();
     return `${entity.name} descended the stairs.`; 
+  }
+}
+export class SelykStairsDown extends Stairs {
+  constructor() { super('>', '#f0f'); }
+
+  canInteract(entity) {
+    return entity.hasInInventory(SelykCellarKey);
+  }
+
+  interact(entity) {
+    entity.descend();
+    return `${entity.name} descended the stairs to Selyk's Cellar.`;
   }
 }
 export class StairsUp extends Stairs { 

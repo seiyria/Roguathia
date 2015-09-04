@@ -149,3 +149,11 @@ export class Potion extends Equipment {
     this.fakeName = `${this.pickFakeName(Fakes.Potion)} potion`;
   }
 }
+
+export class Tool extends Item {
+  static get rarity() { return 0; }
+  constructor(opts = {}) {
+    opts.symbol = '(';
+    super(opts);
+  }
+}

@@ -1,5 +1,5 @@
 
-import { Special, Comestible, Gem } from '../../definitions/equipment';
+import { Special, Comestible, Gem, Tool } from '../../definitions/equipment';
 
 export class Gold extends Special {
   constructor(num) {
@@ -23,5 +23,12 @@ export class StoneOfSelyk extends Gem {
   constructor() {
     super({ glyph: { fg: '#f0f' } });
     this.name = `Stone of Selyk`;
+  }
+}
+
+export class SelykCellarKey extends Tool {
+  constructor() {
+    super({ glyph: { fg: '#f0f' } });
+    this.name = `Selyk's Cellar Key`;
   }
 }
