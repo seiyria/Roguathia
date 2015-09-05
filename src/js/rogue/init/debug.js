@@ -37,6 +37,9 @@ export default () => {
     if(e.keyCode !== ROT.VK_M) return;
 
     GameState.manualMove = !GameState.manualMove;
+    if(!GameState.manualMove) {
+      GameState.game.engine.unlock();
+    }
   });
 
   document.body.addEventListener('keydown', (e) => {
