@@ -2,11 +2,9 @@
 
 # TODO
 * Drop items on dungeon floor occasionally during generation
+* More focus on lighting, and make player sight more limited
 * Inherit behaviors from races (humans, elves, etc should all have the same general set of behaviors)
 * Scaling monsters (ie, Selyk) -- use the level attribute to apply levelups to a monster and have it scale that way
-* Ending conditions (worth different amounts of VP)
-  * Find the key of Selyk (opens a chamber leading to an altar (VIA STAIRS, since doors might make an impossible puzzle), step on altar to win) -- new map generation type, Altar Floor
-  * Possibly other endings depending on dungeon path (or maybe all ends lead to Selyk), or other paths have different artifacts you can collect/use that are worth different amounts of VP
 * Content (all types of items)
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
@@ -51,7 +49,6 @@
   * Customize a player (template slot | color | pet | tombstone)
   * Deck out a player (template slot, color, pet, tombstone)
   * Get an item enchanted to +5, +7, +9
-* More focus on lighting, and make player sight more limited.
 
 # Website
 * Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
@@ -76,3 +73,4 @@
 * Deities
 * Conflict trait
 * More floor types such as [this](http://www.gamasutra.com/blogs/AAdonaac/20150903/252889/Procedural_Dungeon_Generation_Algorithm.php)
+* More victory types leading through various dungeons (similar to SelykAltar, generate a few extra floors at the bottom)

@@ -1,7 +1,7 @@
 
 import _ from 'lodash';
 import ROT from 'rot-js';
-import * as Tiles from './tiles';
+import * as Tiles from './tiles/_all';
 import Dungeon from './maptypes/dungeon';
 import GameState from '../init/gamestate';
 
@@ -17,29 +17,42 @@ export default class World {
     this.fov = [];
     this.explored = [];
   }
+
+  setMapAt(floor, i) {
+    const { map, mapName, shortMapName, stairs } = floor;
+    this.tiles[i] = map;
+    this.tiles[i].mapName = mapName;
+    this.tiles[i].shortMapName = shortMapName;
+    const [upStairs, downStairs] = stairs;
+
+    this.stairs[i] = {};
+    if(upStairs) this.stairs[i].up = [upStairs.x, upStairs.y];
+    if(downStairs) this.stairs[i].down = [downStairs.x, downStairs.y];
+  }
   
   generateWorld(width = 70, height = 70, depth = 10) {
     this.width = width;
     this.height = height;
     this.depth = depth;
     
-    this.setupExplored();
-    this.setupFOV();
-    
     for(let i = 0; i < depth; i++) {
-      const { map, mapName, shortMapName, stairs } = Dungeon.generate(width, height, i, i !== depth-1);
-      this.tiles[i] = map;
-      this.tiles[i].mapName = mapName;
-      this.tiles[i].shortMapName = shortMapName;
-      const [upStairs, downStairs] = stairs;
-      
-      this.stairs[i] = {};
-      if(upStairs) this.stairs[i].up = [upStairs.x, upStairs.y];
-      if(downStairs) this.stairs[i].down = [downStairs.x, downStairs.y];
+      const genOpts = { w: width, h: height, z: i };
+      this.setMapAt(Dungeon.generate(genOpts), i);
     }
+
+    if(GameState.winCondition.mapAdditions()) {
+      this.depth = this.tiles.length;
+    }
+
+    this.setup();
   }
 
   // region Setup functions
+  setup() {
+    this.setupExplored();
+    this.setupFOV();
+  }
+
   setupExplored() {
     for(let z=0; z<this.depth; z++) {
       this.explored[z] = [];
@@ -76,9 +89,9 @@ export default class World {
 
   // region Tile functions
   getTile(x, y, z) {
-    if(x < 0 || x >= this.width ||
-      y < 0 || y >= this.height ||
-      z < 0 || z >= this.depth) {
+    if(z < 0 || z > this.tiles.length ||
+      x < 0 || x >= this.tiles[z].length ||
+      y < 0 || y >= this.tiles[z][x].length) {
       return new Tiles.Void();
     }
 

@@ -94,6 +94,8 @@ export default class Game {
   loadOldData() {}
   
   startNewGame() {
+    GameState.winCondition = _(Victories).values().sample();
+
     GameState.world = new World();
     GameState.world.generateWorld();
     const zeroStartStairs = GameState.world.stairs[0].up;
@@ -102,8 +104,6 @@ export default class Game {
     const playerLocations = GameState.world.getValidTilesInRange(
       zeroStartStairs[0], zeroStartStairs[1], 0, 2, (tile) => tile.glyph.key === '.'
     );
-
-    GameState.winCondition = Victories.KillSelyk; // _(Victories).values().sample();
 
     GameState.currentFloor = 0;
 

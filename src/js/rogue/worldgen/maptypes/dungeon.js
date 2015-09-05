@@ -1,12 +1,13 @@
 
 import _ from 'lodash';
 import ROT from 'rot-js';
-import * as Tiles from '../tiles';
+import * as Tiles from '../tiles/_all';
 import Generator from '../generator';
 
 export default class Dungeon extends Generator {
 
-  static generate(w, h, z, doStairsDown = true) {
+  static generate(opts) {
+    const { w, h, z } = opts;
     const map = [];
     
     // -3 to adjust for the UI components at the bottom
@@ -39,7 +40,12 @@ export default class Dungeon extends Generator {
       this.drawDoors(map, room, z);
     });
 
-    const stairs = this.placeStairs(map, digger.getRooms(), z, doStairsDown);
+    const [stairsUp, stairsDown] = this.getStairs(z);
+    const rooms = _.sample(digger.getRooms(), 2);
+    const stairs = [
+      this.placeStairsInRoom(map, rooms[0], z, stairsUp),
+      stairsDown ? this.placeStairsInRoom(map, rooms[1], z, stairsDown) : null
+    ];
     
     return { map, stairs, mapName: 'The Dungeons of Doom', shortMapName: 'Dungeon' };
   }
@@ -62,35 +68,6 @@ export default class Dungeon extends Generator {
     }
   }
 
-  static drawHorizontalWalls(map, room, z) {
-    for(let i = room.getLeft()-1; i <= room.getRight()+1; i++) {
-      if(!map[i][room.getTop() - 1].glyph.key) {
-        this.placeTile(map, Tiles.DungeonHorizontalWall, i, room.getTop() - 1, z);
-      }
-
-      if(!map[i][room.getBottom() + 1].glyph.key) {
-        this.placeTile(map, Tiles.DungeonHorizontalWall, i, room.getBottom() + 1, z);
-      }
-    }
-  }
-
-  static drawVerticalWalls(map, room, z) {
-    for(let i = room.getTop(); i <= room.getBottom(); i++) {
-
-      const leftTile = map[room.getLeft()-1][i].glyph.key;
-      const rightTile = map[room.getRight()+1][i].glyph.key;
-
-      // these tiles take precedence, otherwise some walls look uggo
-      if(!leftTile || leftTile === '-') {
-        this.placeTile(map, Tiles.DungeonVerticalWall, room.getLeft()-1, i, z);
-      }
-
-      if(!rightTile || rightTile === '-') {
-        this.placeTile(map, Tiles.DungeonVerticalWall, room.getRight()+1, i, z);
-      }
-    }
-  }
-
   static drawDoors(map, room, z) {
     room.getDoors((x, y) => {
       if(ROT.RNG.getPercentage() < 70) {
@@ -100,28 +77,5 @@ export default class Dungeon extends Generator {
         door.setProperCharacter(map[x-1][y]);
       }
     });
-  }
-
-  static placeStairs(map, validRooms, z, doStairsDown = true) {
-    const rooms = _.sample(validRooms, 2);
-
-    const getCoordsForRoom = (room) => {
-      return [
-        Math.floor(ROT.RNG.getUniform()*(room._x2 - room._x1)) + room._x1,
-        Math.floor(ROT.RNG.getUniform()*(room._y2 - room._y1)) + room._y1
-      ];
-    };
-
-    const setStairs = (stairs, x, y) => {
-      return this.placeTile(map, stairs, x, y, z);
-    };
-
-    const [firstX, firstY] = getCoordsForRoom(rooms[0]);
-    const [secondX, secondY] = getCoordsForRoom(rooms[1]);
-
-    const stairsUp = setStairs(Tiles.StairsUp, firstX, firstY);
-    const stairsDown = doStairsDown ? setStairs(Tiles.StairsDown, secondX, secondY) : null;
-
-    return [stairsUp, stairsDown];
   }
 }
