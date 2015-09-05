@@ -48,7 +48,7 @@ export default () => {
       [ROT.VK_RIGHT]: { x: 1, y: 0 }
     };
 
-    if(!offsets[e.keyCode]) return;
+    if(!offsets[e.keyCode] || !GameState.manualMove) return;
 
     const player = GameState.players[0];
     player.moveTo(player.x+offsets[e.keyCode].x, player.y+offsets[e.keyCode].y);
