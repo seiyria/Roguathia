@@ -5,7 +5,4 @@ import * as Insects from './insects';
 import * as Salamanders from './salamanders';
 import * as Spores from './spores';
 
-export default _.values(Canines)
-  .concat(_.values(Insects))
-  .concat(_.values(Salamanders))
-  .concat(_.values(Spores));
+export default _.extend({}, Canines, Insects, Salamanders, Spores);
