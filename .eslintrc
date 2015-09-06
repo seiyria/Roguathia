@@ -6,6 +6,11 @@
     "es6": true,
     "browser": true
   },
+  "globals": {
+    "describe": true,
+    "beforeEach": true,
+    "it": true
+  },
   "rules": {
     "no-var": 2,
     "prefer-const": 2,
