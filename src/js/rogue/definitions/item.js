@@ -1,6 +1,7 @@
 
 import _ from 'lodash';
 import ROT from 'rot-js';
+import dice from 'dice.js';
 import Glyph from './glyph';
 import { GetColor } from '../lib/valid-colors';
 import GameState from '../init/gamestate';

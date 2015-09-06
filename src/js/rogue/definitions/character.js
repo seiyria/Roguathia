@@ -1,6 +1,7 @@
 
 import _ from 'lodash';
 import ROT from 'rot-js';
+import dice from 'dice.js';
 import Entity from './entity';
 import NumberRange from '../lib/number-range';
 import Professions from '../content/professions/_all';

@@ -1,6 +1,7 @@
 
 import _ from 'lodash';
 import ROT from 'rot-js';
+import dice from 'dice.js';
 import GameState from '../init/gamestate';
 import MessageQueue from '../display/message-handler';
 import Abstract from './abstract';

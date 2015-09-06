@@ -1,6 +1,7 @@
 
 import Profession from '../../definitions/profession';
 
+import dice from 'dice.js';
 import { Gold } from '../items/_special';
 import * as Foods from '../items/foods';
 import * as Potions from '../items/potions';

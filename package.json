@@ -4,6 +4,7 @@
   "readme": "README.md",
   "repository": "https://github.com/seiyria/Roguathia",
   "version": "0.0.0",
+  "license": "MIT",
   "authors": [
     "Kyle Kemp <kyle@seiyria.com>"
   ],
@@ -86,6 +87,7 @@
   },
   "dependencies": {
     "bragi-browser": "0.0.12",
+    "dice.js": "^0.8.0",
     "lodash": "^3.10.1",
     "rot-js": "^0.6.0"
   }
