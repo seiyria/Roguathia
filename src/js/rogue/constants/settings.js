@@ -9,5 +9,12 @@ export default {
     baseSpeed: 100,
     baseSight: 4,
     baseSound: 50
+  },
+  upgrades: {
+    itemsInDungeon: 1,
+    itemDropChance: 100
+  },
+  upgradesMax: {
+    itemDropChance: 75
   }
 };

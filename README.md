@@ -3,6 +3,19 @@
 # TODO
 * Drop items on dungeon floor occasionally during generation
 * Dungeon features / room types generating
+  * Fountain (and an Oracle Room)
+  * Throne (and a Throne Room)
+  * Sink (and a Bathroom)
+  * Gravestone (and a Graveyard)
+* Dungeon types
+  * Mines
+  * Town (arena with shops in it)
+  * Big Room
+  * Fortress
+  * Swamp
+  * Flooded
+  * Castle
+  * Lava floes
 * More focus on lighting, and make player sight more limited
 * Content (all types of items)
 * Meta-currency (and benefits)
@@ -59,7 +72,8 @@
 * Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
 * Refactor / reorg / unit tests for classes, remove magic numbers
 * Better dungeon corners
-* Firebase: centrally track statistics anonymously (allow people to login with reddit)
+* Firebase: centrally track (important) statistics anonymously (allow people to login with reddit for less anonymous, leaderboards)
+  * track deaths always, floor, race, name, and profession of the death (for headstone generation)
 
 # Idea Bucket (TBD)
 * Doors that require keys that are spawned in the level, and have treasure or stairs behind them
