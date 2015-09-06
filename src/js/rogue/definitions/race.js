@@ -36,7 +36,6 @@ const defaultStats = {
 
 export default class Race {
   constructor(opts = {}) {
-    opts = _.clone(opts); // to prevent overwriting stuff
     this.slots = _.extend({}, defaultSlots, opts.slots);
     _.extend(this, defaultStats, opts.stats, loadValue);
     this.addFactions.push(this.constructor.name);

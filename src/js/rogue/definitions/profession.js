@@ -26,7 +26,7 @@ const defaultCfg = {
 
 export default class Profession {
   constructor(config = {}) {
-    config = _.clone(_.extend({}, defaultCfg, config)); // to prevent overwriting stuff
+    config = _.extend({}, defaultCfg, config);
     this.config = config;
     _.extend(this, config, loadValue);
     config.addFactions.push(this.constructor.name);
