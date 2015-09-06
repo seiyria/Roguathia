@@ -24,6 +24,7 @@
     * More party members
     * More behavior types
     * More races
+    * Higher starting level
     * Assignable behaviors
     * Assignable classes
     * More starting equipment (unlock certain starting equipment tiers)
