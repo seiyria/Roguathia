@@ -32,12 +32,11 @@ export default class MonsterSpawner {
       return;
     }
 
-    const chosenMonster = Monsters[chosenName].init();
     const numMonsters = +dice.roll(Monsters[chosenName].spawnPattern);
     
     for(let i = 0; i < numMonsters; i++) {
       const tile = _.sample(GameState.world.getValidTilesInRange(basedOn.x, basedOn.y, basedOn.z, 50, (tile) => basedOn.distBetween(tile) > basedOn.getSight()));
-      new Monster(tile.x, tile.y, tile.z, chosenMonster);
+      new Monster(tile.x, tile.y, tile.z, Monsters[chosenName].init());
     }
   }
 }

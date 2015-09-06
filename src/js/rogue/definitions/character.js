@@ -47,7 +47,6 @@ const defaultStats = {
   race: 'Human',
   attacks: [],
   behaviors: [],
-  skills: {},
   profession: 'Developer'
 };
 
@@ -85,6 +84,8 @@ export default class Character extends Entity {
     this.raceInst = new Races[this.race]();
     this.factions.push(...this.raceInst.addFactions);
     this.behaviors.push(...this.raceInst.addBehaviors);
+
+    console.log(this.name, this.behaviors);
 
     this.inventory = [];
     this.equipment = {};
