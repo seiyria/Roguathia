@@ -2,6 +2,7 @@
 
 # TODO
 * Drop items on dungeon floor occasionally during generation
+* Dungeon features / room types generating
 * More focus on lighting, and make player sight more limited
 * Content (all types of items)
 * Meta-currency (and benefits)
