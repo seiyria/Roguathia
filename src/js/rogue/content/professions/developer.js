@@ -30,7 +30,7 @@ const devCfg = {
   ]
 };
 
-export default class Ranger extends Profession {
+export default class Developer extends Profession {
   constructor() {
     super(devCfg);
   }

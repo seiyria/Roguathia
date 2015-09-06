@@ -4,7 +4,6 @@
 * Drop items on dungeon floor occasionally during generation
 * More focus on lighting, and make player sight more limited
 * Inherit behaviors from races (humans, elves, etc should all have the same general set of behaviors)
-* Scaling monsters (ie, Selyk) -- use the level attribute to apply levelups to a monster and have it scale that way
 * Content (all types of items)
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
@@ -60,6 +59,7 @@
 * Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
 * Refactor / reorg / unit tests for classes, remove magic numbers
 * Better dungeon corners
+* Firebase: centrally track statistics anonymously (allow people to login with reddit)
 
 # Idea Bucket (TBD)
 * Doors that require keys that are spawned in the level, and have treasure or stairs behind them

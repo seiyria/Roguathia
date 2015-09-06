@@ -3,9 +3,9 @@ import _ from 'lodash';
 import loadValue from '../lib/value-assign';
 
 const defaultCfg = {
+  hp  : '0d0',
+  mp  : '0d0',
   ac  : 0,
-  hp  : 0,
-  mp  : 0,
   str : 0,
   con : 0,
   int : 0,
@@ -24,11 +24,11 @@ const defaultCfg = {
 
 export default class Profession {
   constructor(config = {}) {
-    config = _.clone(config); // to prevent overwriting stuff
+    config = _.clone(_.extend({}, defaultCfg, config)); // to prevent overwriting stuff
     if(!config.addFactions) config.addFactions = [];
     config.addFactions.push(this.constructor.name);
     this.config = config;
-    _.extend(this, defaultCfg, config, loadValue);
+    _.extend(this, config, loadValue);
     this.level = 1;
     this.title = this.titles[0];
   }
@@ -37,5 +37,13 @@ export default class Profession {
     if(this.titles[this.level-1]) {
       this.title = this.titles[this.level-1];
     }
+    _(this.config)
+      .keys()
+      .reject(key => _.isObject(this.config[key]))
+      .value()
+      .forEach(key => {
+        const val = loadValue(null, this.config[key]);
+        this[key] += val;
+      });
   }
 }

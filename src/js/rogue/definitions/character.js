@@ -91,6 +91,11 @@ export default class Character extends Entity {
     this.loadStartingEquipment();
     this.loadStartingSkills();
 
+    // calculate levelup bonuses
+    for(let i=1; i<this.level; i++) {
+      this.levelupStatBoost();
+    }
+
     this.game = GameState.game;
     this.game.scheduler.add(this, true);
   }
@@ -326,7 +331,7 @@ export default class Character extends Entity {
   }
 
   removeSelf() {
-    this.game.scheduler.remove(this);
+    GameState.game.scheduler.remove(this);
     GameState.world.removeEntity(this);
   }
 
@@ -510,11 +515,9 @@ export default class Character extends Entity {
   }
 
   levelup() {
-    this.professionInst.levelup();
     this.level += 1;
-    this.hp.max += this.calcLevelHpBonus();
-    this.mp.max += this.calcLevelMpBonus();
     this.xp.max = this.calcLevelXp(this.level);
+    this.levelupStatBoost();
 
     // resets
     this.xp.toMin();
@@ -523,6 +526,12 @@ export default class Character extends Entity {
 
     this.flushTraits();
     MessageQueue.add({ message: `${this.name} has reached experience level ${this.level}!` });
+  }
+
+  levelupStatBoost() {
+    this.professionInst.levelup();
+    this.hp.max += this.calcLevelHpBonus();
+    this.mp.max += this.calcLevelMpBonus();
   }
   // endregion
 
