@@ -4,6 +4,7 @@ import ROT from 'rot-js';
 import * as Tiles from './tiles/_all';
 import Dungeon from './maptypes/dungeon';
 import GameState from '../init/gamestate';
+import ItemGenerator from './item-generator';
 
 export default class World {
   constructor() {
@@ -28,6 +29,8 @@ export default class World {
     this.stairs[i] = {};
     if(upStairs) this.stairs[i].up = [upStairs.x, upStairs.y];
     if(downStairs) this.stairs[i].down = [downStairs.x, downStairs.y];
+
+    this.placeItemsOnMap(i);
   }
   
   generateWorld(width = 70, height = 70, depth = 10) {
@@ -167,6 +170,13 @@ export default class World {
   // endregion
 
   // region Item functions
+  placeItemsOnMap(z, itemsRemaining = GameState.upgrades.itemsInDungeon) {
+    while(itemsRemaining > 0 && ROT.RNG.getPercentage() < GameState.upgrades.itemDropChance) {
+      itemsRemaining--;
+      GameState.world.placeItemAtRandomLocation(ItemGenerator.spawn(), z);
+    }
+  }
+
   getItemsAt(x, y, z) {
     return this.getWithoutInits(x, y, z, 'items');
   }

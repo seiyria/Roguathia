@@ -105,7 +105,7 @@ export class Neck extends Armor {
 }
 
 export class Gem extends Item {
-  static get rarity() { return 8; }
+  static get rarity() { return 0; } // actually a value of 8 but they're not implemented yet
   constructor(opts = {}) {
     opts.symbol = '*';
     super(opts);
@@ -114,7 +114,7 @@ export class Gem extends Item {
 }
 
 export class Scroll extends Item {
-  static get rarity() { return 15; }
+  static get rarity() { return 0; } // actually a value of 15 but not yet implemented
   constructor(opts = {}) {
     opts.symbol = '?';
     super(opts);

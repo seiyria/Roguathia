@@ -5,9 +5,10 @@ import Attacks from '../attacks/_all';
 
 export class Dart extends Weapon {
   static get rarity() { return 50; }
-  constructor(opts = { charges: '1d4' }) {
+  constructor(opts = {}) {
     _.extend(opts, {
       autoRemove: true,
+      charges: '2d4',
       glyph: { key: ')', fg: '#00f' },
       attacks: [Attacks.Shot({ roll: '1d3', toHit: '0d0', range: 3 })]
     });
@@ -17,9 +18,10 @@ export class Dart extends Weapon {
 
 export class Arrow extends Weapon {
   static get rarity() { return 25; }
-  constructor(opts = { charges: '1d4' }) {
+  constructor(opts = {}) {
     _.extend(opts, {
       autoRemove: true,
+      charges: '1d4',
       glyph: { key: ')', fg: '#f0f' },
       attacks: [Attacks.Shot({ roll: '1d6', toHit: '0d0', range: 6 })]
     });

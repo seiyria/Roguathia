@@ -25,7 +25,6 @@ class GameState {
           this.upgrades[key] = Math.min(Settings.upgradesMax[key], this.upgrades[key]);
         }
       });
-    console.log(this.upgrades);
   }
 
   get vpEarned() { return this.winCondition.vp(); }
