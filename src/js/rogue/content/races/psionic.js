@@ -1,8 +1,8 @@
 
-import Race from '../../definitions/race';
+import Humanoid from './_humanoid';
 
 const opts = { stats: { dex: -5, str: -5, con: -3, int: 5, wis: 5 } };
-export default class Psionic extends Race {
+export default class Psionic extends Humanoid {
   constructor() {
     super(opts);
   }

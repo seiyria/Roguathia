@@ -3,7 +3,6 @@
 # TODO
 * Drop items on dungeon floor occasionally during generation
 * More focus on lighting, and make player sight more limited
-* Inherit behaviors from races (humans, elves, etc should all have the same general set of behaviors)
 * Content (all types of items)
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)

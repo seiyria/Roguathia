@@ -27,6 +27,8 @@ const defaultStats = {
   speed: 0,
   sight: 0,
   spawnSteps: 0,
+  addFactions: [],
+  addBehaviors: [],
   attacks: [],
   traits: [],
   skillBonus: {}
@@ -36,8 +38,8 @@ export default class Race {
   constructor(opts = {}) {
     opts = _.clone(opts); // to prevent overwriting stuff
     this.slots = _.extend({}, defaultSlots, opts.slots);
-    this.addFactions = [this.constructor.name];
     _.extend(this, defaultStats, opts.stats, loadValue);
+    this.addFactions.push(this.constructor.name);
   }
   canEquip(owner, item) {
     const slot = item.getParentType();

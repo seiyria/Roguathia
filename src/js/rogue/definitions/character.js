@@ -79,9 +79,11 @@ export default class Character extends Entity {
     this.mp = new NumberRange(0, this.spawnMp+profMp, this.spawnMp+profMp);
     this.xp = new NumberRange(0, 0, this.calcLevelXp(this.level));
     this.factions.push(...this.professionInst.addFactions);
+    this.behaviors.push(...this.professionInst.addBehaviors);
 
     this.raceInst = new Races[this.race]();
     this.factions.push(...this.raceInst.addFactions);
+    this.behaviors.push(...this.raceInst.addBehaviors);
 
     this.inventory = [];
     this.equipment = {};

@@ -16,6 +16,8 @@ const defaultCfg = {
   speed: 0,
   sight: 0,
   spawnSteps: 0,
+  addFactions: [],
+  addBehaviors: [],
   titles: [],
   attacks: [],
   traits: [],
@@ -25,10 +27,9 @@ const defaultCfg = {
 export default class Profession {
   constructor(config = {}) {
     config = _.clone(_.extend({}, defaultCfg, config)); // to prevent overwriting stuff
-    if(!config.addFactions) config.addFactions = [];
-    config.addFactions.push(this.constructor.name);
     this.config = config;
     _.extend(this, config, loadValue);
+    config.addFactions.push(this.constructor.name);
     this.level = 1;
     this.title = this.titles[0];
   }

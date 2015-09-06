@@ -12,8 +12,8 @@ export default class Player extends Character {
   
   constructor(x, y, z, opts = {}) {
     opts.stats = { behaviors: [
-      Behaviors.Attacks(), Behaviors.PickUpItems(), Behaviors.DropsItems(),
-      Behaviors.DropsGold('0d0'), Behaviors.HealsBelowPercent(50), Behaviors.Interacts(),
+      Behaviors.Attacks(),
+      Behaviors.DropsGold('0d0'), Behaviors.HealsBelowPercent(50),
       Behaviors.Wanders(), Behaviors.AlertsOnStep()
     ] };
     super({ key: '@' }, x, y, z, opts);
