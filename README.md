@@ -74,6 +74,7 @@
 * Better dungeon corners
 * Firebase: centrally track (important) statistics anonymously (allow people to login with reddit for less anonymous, leaderboards)
   * track deaths always, floor, race, name, and profession of the death (for headstone generation)
+* Conventional changelog for bump/release
 
 # Idea Bucket (TBD)
 * Doors that require keys that are spawned in the level, and have treasure or stairs behind them
