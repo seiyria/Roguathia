@@ -71,8 +71,6 @@ export default class Character extends Entity {
 
     this.behaviors.push(...defaultBehaviors);
 
-    this.sortBehaviors();
-
     this.professionInst = new Professions[this.profession]();
     const [profHp, profMp] = [this.professionInst.hp, this.professionInst.mp];
     this.hp = new NumberRange(0, this.spawnHp+profHp, this.spawnHp+profHp);
@@ -85,7 +83,7 @@ export default class Character extends Entity {
     this.factions.push(...this.raceInst.addFactions);
     this.behaviors.push(...this.raceInst.addBehaviors);
 
-    console.log(this.name, this.behaviors);
+    this.sortBehaviors();
 
     this.inventory = [];
     this.equipment = {};
