@@ -10,7 +10,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const devCfg = {
-  hp  : '1d1',
+  hp  : '100d1',
   mp  : '9d5',
   str : '1d1',
   con : '1d1',
@@ -24,7 +24,7 @@ const devCfg = {
   startingItems: [
     { init: () => new Weapons.Bow({ bucName: 'uncursed' }) },
     { init: () => new Heads.NightGoggles({ bucName: 'uncursed' }) },
-    { init: () => new Necks.Protective({ bucName: 'uncursed' }) },
+    { init: () => new Necks.Protection({ bucName: 'uncursed' }) },
     { init: () => new Foods.Ration({ charges: '1d3', bucName: 'uncursed' }) },
     { init: () => new Potions.Healing({ charges: '1d1', bucName: 'uncursed', startIdentified: true }) }
   ]

@@ -54,3 +54,9 @@ class StealthTrait extends Trait {
 }
 
 export const Stealth = (opts) => new StealthTrait(opts);
+
+class PoisonResistanceTrait extends Trait {
+  PoisonResistance() { return 1; }
+}
+
+export const PoisonResistance = () => new PoisonResistanceTrait();

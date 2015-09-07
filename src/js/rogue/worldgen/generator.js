@@ -4,6 +4,13 @@ import ROT from 'rot-js';
 import * as Tiles from './tiles/_all';
 import GameState from '../init/gamestate';
 
+const featureTypes = [
+  { name: 'fountain', proto: Tiles.Fountain }/*,
+  { name: 'grave' },
+  { name: 'throne' },
+  { name: 'sink' }*/
+];
+
 export default class Generator {
   static generate() {}
 
@@ -56,6 +63,7 @@ export default class Generator {
   }
 
   static placeStairsInRoom(map, room, z, stairs) {
+    this.markRoomInelligible(room);
     const setStairs = (stairs, x, y) => {
       return this.placeTile(map, stairs, x, y, z);
     };
@@ -66,5 +74,24 @@ export default class Generator {
 
   static getStairs(z) {
     return GameState.winCondition.mapStairs(z);
+  }
+
+  static markRoomInelligible(room) {
+    room._noMoreFeatures = false;
+  }
+
+  static attemptFeaturePlacement(map, z, rooms) {
+    const validRooms = _.reject(rooms, room => room._noMoreFeatures);
+    _.each(validRooms, room => {
+      _.each(featureTypes, type => {
+        // if(ROT.RNG.getUniformInt(1, 10000) <= GameState.upgrades[`${type.name}SpawnChance`])
+        if(true) {
+          const [x, y] = this.getRandomCoordsInRoom(room);
+          this.placeTile(map, type.proto, x, y, z);
+          this.markRoomInelligible(room);
+          return false;
+        }
+      });
+    });
   }
 }

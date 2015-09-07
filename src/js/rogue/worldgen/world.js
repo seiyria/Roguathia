@@ -171,7 +171,7 @@ export default class World {
 
   // region Item functions
   placeItemsOnMap(z, itemsRemaining = GameState.upgrades.itemsInDungeon) {
-    while(itemsRemaining > 0 && ROT.RNG.getPercentage() < GameState.upgrades.itemDropChance) {
+    while(itemsRemaining > 0 && ROT.RNG.getPercentage() <= GameState.upgrades.itemDropChance) {
       itemsRemaining--;
       GameState.world.placeItemAtRandomLocation(ItemGenerator.spawn(), z);
     }

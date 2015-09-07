@@ -34,7 +34,7 @@ export class Body extends Armor {
   constructor(opts = {}) {
     opts.symbol = '[';
     super(opts);
-    this.realName = this.fakeName = `${this.getCanonName()} armor`;
+    this.realName = this.fakeName = `${this.getCanonName()}`;
   }
 }
 

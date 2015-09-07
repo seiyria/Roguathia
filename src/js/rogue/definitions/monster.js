@@ -20,7 +20,6 @@ export default class Monster extends Character {
     super(opts.glyph, x, y, z, opts);
     this.difficulty = opts.difficulty;
     this.antiFactions.push(Factions.PLAYER);
-    if(opts.addFactions) this.factions.push(...opts.addFactions);
     if(opts.startingEquipment) this.loadStartingEquipment(opts.startingEquipment);
   }
 

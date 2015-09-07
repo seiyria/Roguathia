@@ -36,7 +36,7 @@ class InteractsBehavior extends Behavior {
 
       if(tile.canInteract && tile.interact && tile.canInteract(me)) {
         const msg = tile.interact(me);
-        MessageQueue.add({ message: msg });
+        if(msg) MessageQueue.add({ message: msg });
         return false;
       }
     }

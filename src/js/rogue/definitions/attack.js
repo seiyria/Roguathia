@@ -6,6 +6,8 @@ import GameState from '../init/gamestate';
 import MessageQueue from '../display/message-handler';
 import Abstract from './abstract';
 import Glyph from './glyph';
+import { WeightedExtension } from '../lib/rot-extensions';
+import MonsterSpawner from '../worldgen/monster-spawner';
 
 export class Projectile {
   constructor(glyph) {
@@ -131,9 +133,8 @@ export class Attack extends Abstract {
       return false;
     }
     this.animate(owner, target, () => this.hit(owner, target));
-  }// this class is internal
+  }
 
-  
   calcDamage(owner) {
     let damageBoost = 0;
     if(this._itemRef) {
@@ -158,6 +159,13 @@ export class Attack extends Abstract {
   hitString(owner, target, damage) { return `${owner.name} hit ${target.name} for ${damage} damage!`; }
   hitCallback(owner) {
     owner.breakConduct('pacifist');
+
+    if(this.spawn && ROT.RNG.getPercentage() <= this.spawnChance) {
+      const spawnMe = WeightedExtension(this.spawn).key;
+      const validTile = _.sample(GameState.world.getValidTilesInRange(owner.x, owner.y, owner.z, 1, (tile) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z)));
+      if(!validTile) return;
+      MonsterSpawner.spawnSingle(spawnMe, validTile);
+    }
   }
   
   blockString(owner, target) { return `${target.name} blocked ${owner.name}'s attack!`; }

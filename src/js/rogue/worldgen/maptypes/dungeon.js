@@ -23,7 +23,7 @@ export default class Dungeon extends Generator {
     });
     
     // replace all corridors with corridor tiles
-    _.each(digger._corridors, (corridor) => {
+    _.each(digger.getCorridors(), (corridor) => {
       this.placeCorridorTiles(map, corridor, z);
     });
 
@@ -46,6 +46,8 @@ export default class Dungeon extends Generator {
       this.placeStairsInRoom(map, rooms[0], z, stairsUp),
       stairsDown ? this.placeStairsInRoom(map, rooms[1], z, stairsDown) : null
     ];
+
+    this.attemptFeaturePlacement(map, z, digger.getRooms());
     
     return { map, stairs, mapName: 'The Dungeons of Doom', shortMapName: 'Dungeon' };
   }
@@ -70,7 +72,7 @@ export default class Dungeon extends Generator {
 
   static drawDoors(map, room, z) {
     room.getDoors((x, y) => {
-      if(ROT.RNG.getPercentage() < 70) {
+      if(ROT.RNG.getPercentage() > 30) {
         this.placeTile(map, Tiles.DungeonFloor, x, y, z);
       } else {
         const door = this.placeTile(map, Tiles.Door, x, y, z);

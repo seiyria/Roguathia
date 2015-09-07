@@ -1,20 +1,10 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
 # TODO
-* Dungeon features / room types generating
-  * Fountain (and an Oracle Room)
-  * Throne (and a Throne Room)
-  * Sink (and a Bathroom)
-  * Gravestone (and a Graveyard)
-* Dungeon types
-  * Mines
-  * Town (arena with shops in it)
-  * Big Room
-  * Fortress
-  * Swamp
-  * Flooded
-  * Castle
-  * Lava floes
+* Dungeon features
+  * Throne
+  * Sink
+  * Gravestone
 * More focus on lighting, and make player sight more limited
 * Content (all types of items)
 * Meta-currency (and benefits)
@@ -70,23 +60,32 @@
 * Assertions, unit tests, logging, general code refactoring / cleanup
 * IRC bot (Selyk) to announce major events (deaths, etc) / scrollback to chat
 * Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
-* Refactor / reorg / unit tests for classes, remove magic numbers
+* Refactor / reorg / unit tests for classes, remove magic numbers (and magic colors)
 * Better dungeon corners
 * Firebase: centrally track (important) statistics anonymously (allow people to login with reddit for less anonymous, leaderboards)
   * track deaths always, floor, race, name, and profession of the death (for headstone generation)
 * Conventional changelog for bump/release
 
 # Idea Bucket (TBD)
-* Doors that require keys that are spawned in the level, and have treasure or stairs behind them
-* More content
-* More puzzles
+* Chests and other containers
 * More intricate death messages ("while asleep" "while stunned")
 * Catchable ammo, recoverable ammo
 * Gems: random category, unidentifiable until the end of the game
 * Scrolls: only usable by players? (ie, not the characters in the dungeon)
 * Traps in the dungeon (also implement levitation)
-* Deities
+* Deities (also, add altars as dungeon features and temples as possible rooms)
 * Conflict trait
 * More floor types such as [this](http://www.gamasutra.com/blogs/AAdonaac/20150903/252889/Procedural_Dungeon_Generation_Algorithm.php)
 * More victory types leading through various dungeons (similar to SelykAltar, generate a few extra floors at the bottom)
 * Possibly allow people to use a slider to determine the relative generatability of room types
+* Allow fountains to also spurt out pools onto the floor
+* Themed rooms (Oracle room, Throne room, Bathroom, Graveyard)
+* More dungeon types
+  * Mines
+  * Town (arena with shops in it, or a digger with empty spaces/corridor spaces replaced with basic tile)
+  * Big Room
+  * Fortress
+  * Swamp
+  * Flooded
+  * Castle
+  * Lava floes

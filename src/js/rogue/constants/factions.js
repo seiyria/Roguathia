@@ -3,5 +3,7 @@ export default {
   MONSTER: 'Monster',
   PLAYER: 'Player',
   
-  MAGIC: 'Magic'
+  MAGIC: 'Magic',
+
+  ALL: 'all'
 };

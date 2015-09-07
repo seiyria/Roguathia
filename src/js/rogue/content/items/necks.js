@@ -9,7 +9,7 @@ export class Ordinary extends Neck {
   }
 }
 
-export class Protective extends Neck {
+export class Protection extends Neck {
   static get rarity() { return 5; }
   Protection() {
     return this.buc;

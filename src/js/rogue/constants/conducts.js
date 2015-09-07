@@ -8,6 +8,7 @@ const conducts = [
   { check: (player) => !player.brokenConduct.wieldedWeapon, affirmMessage: 'You never hit with a wielded weapon.' },
   { check: (player) => !player.brokenConduct.pacifist, affirmMessage: 'You %were a pacifist.' },
   { check: (player) => !player.brokenConduct.nudist, affirmMessage: 'You never equipped armor.' },
+  { check: (player) => !player.brokenConduct.celibate, affirmMessage: 'You %were celibate.' },
 
   // traits
   { check: (player) => player.hasTrait('Infravision'), affirmMessage: 'You %had infravision.' },
@@ -21,8 +22,12 @@ const conducts = [
   { check: (player) => player.getSpeed() > Settings.game.baseSpeed, affirmMessage: 'You %were fast.' },
   { check: (player) => player.getSpeed() < Settings.game.baseSpeed, affirmMessage: 'You %were slow.' },
 
+  { check: (player) => player.hasTrait('PoisonResistance'), affirmMessage: 'You %were poison resistant.' },
+
   // statuses
   { check: (player) => player.hasBehavior('Stunned'), affirmMessage: 'You %were stunned.' },
+  { check: (player) => player.hasBehavior('Poisoned'), affirmMessage: 'You %were poisoned.' },
+  { check: (player) => player.hasBehavior('Seduced'), affirmMessage: 'You %were seduced.' },
 
   // alignment
   { check: (player) => player.getAlign() === 0, affirmMessage: 'You %were neutral.' },

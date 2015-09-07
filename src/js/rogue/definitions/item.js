@@ -83,14 +83,33 @@ export class Item extends Abstract {
       delete chosenAmmo._tempAttackBoost;
     }
   }
+
+  curse() {
+    this.bucName = 'cursed';
+    this.setBUC();
+  }
+
+  uncurse() {
+    this.bucName = 'uncursed';
+    this.setBUC();
+  }
+
+  bless() {
+    this.bucName = 'blessed';
+    this.setBUC();
+  }
+
+  setBUC() {
+    const hash = { cursed: -1, uncursed: 1, blessed: 2 };
+    this.buc = hash[this.bucName];
+  }
   
   generateBUC(opts = { cursed: 5, blessed: 5, uncursed: 90 }) {
     if(!this.bucName) {
       const status = ROT.RNG.getWeightedValue(opts);
       this.bucName = status;
     }
-    const hash = { cursed: -1, uncursed: 1, blessed: 2 };
-    this.buc = hash[this.bucName];
+    this.setBUC();
   }
   
   value() {

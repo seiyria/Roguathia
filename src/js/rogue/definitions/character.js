@@ -83,6 +83,9 @@ export default class Character extends Entity {
     this.factions.push(...this.raceInst.addFactions);
     this.behaviors.push(...this.raceInst.addBehaviors);
 
+    if(opts.addFactions) this.factions.push(...opts.addFactions);
+    if(opts.addAntiFactions) this.antiFactions.push(...opts.addAntiFactions);
+
     this.sortBehaviors();
 
     this.inventory = [];
@@ -212,6 +215,7 @@ export default class Character extends Entity {
   }
 
   dropItem(item) {
+    this.inventory = _.without(this.inventory, item);
     GameState.world.moveItem(item, this.x, this.y, this.z);
   }
 
@@ -273,15 +277,19 @@ export default class Character extends Entity {
     const worseItems = this.getWorseItemsThan(item);
     if(worseItems.length < item.slotsTaken) return false; // cursed items
 
-    const slot = item.getParentType();
     if(worseItems.length > 0) {
       for(let i=0; i<item.slotsTaken; i++) {
-        this.equipment[slot] = _.without(this.equipment[slot], worseItems[i]);
-        this.inventory.push(worseItems[i]);
+        this.unequip(worseItems[i]);
       }
     }
     this.equip(item);
     return true;
+  }
+
+  unequip(item) {
+    const slot = item.getParentType();
+    this.equipment[slot] = _.without(this.equipment[slot], item);
+    this.inventory.push(item);
   }
   // endregion
 
@@ -481,7 +489,11 @@ export default class Character extends Entity {
   }
 
   canAttack(entity) {
-    return _.intersection(entity.factions, this.antiFactions).length > 0;
+    // they have a faction that you are against
+    return _.intersection(entity.factions, this.antiFactions).length > 0 ||
+
+      // or you attack everything but your own faction
+      (_.contains(this.antiFactions, 'all') && _.intersection(entity.factions, this.factions).length === 0);
   }
 
   doAttack(attack, hitNum) {
@@ -534,6 +546,16 @@ export default class Character extends Entity {
     this.professionInst.levelup();
     this.hp.max += this.calcLevelHpBonus();
     this.mp.max += this.calcLevelMpBonus();
+  }
+  // endregion
+
+  // region Stat manipulation
+  abuse(stat, loss = '1d1') {
+    this[stat] = Math.max(this[stat]-(+dice.roll(loss)), 3);
+  }
+
+  exercise(stat, gain = '1d1') {
+    this[stat] += (+dice.roll(gain));
   }
   // endregion
 

@@ -2,6 +2,7 @@
 import ROT from 'rot-js';
 import Tile from '../../definitions/tile';
 import GameState from '../../init/gamestate';
+import * as FountainEffects from '../../content/effects/fountain';
 
 export class Door extends Tile {
   constructor() {
@@ -41,12 +42,32 @@ export class Door extends Tile {
 export class SelykAltar extends Tile {
   constructor() { super('_', '#f0f'); }
 
-  canInteract() {
-    return true;
+  canInteract(entity) {
+    return this.distBetween(entity) <= 1;
   }
 
   interact(entity) {
     entity._ascended = true;
     return `${entity.name} has acended to the Selykian Plane.`;
+  }
+}
+
+export class Fountain extends Tile {
+  constructor() {
+    super('{', '#00f');
+    this.density = 1;
+  }
+
+  canInteract(entity) {
+    return this.distBetween(entity) <= 1;
+  }
+
+  interact(entity) {
+    const effect = this.getRandomEffect(FountainEffects);
+    effect.use(entity);
+    if(ROT.RNG.getPercentage() > 66) {
+      this.ceaseExisting();
+      return `The fountain dried up!`;
+    }
   }
 }

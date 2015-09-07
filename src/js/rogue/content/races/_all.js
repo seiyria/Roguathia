@@ -1,5 +1,6 @@
 
 import Canine from './canine';
+import Demon from './demon';
 import Elf from './elf';
 import Gnome from './gnome';
 import Human from './human';
@@ -13,4 +14,4 @@ import Snake from './snake';
 import Spider from './spider';
 import Spore from './spore';
 
-export default { Canine, Elf, Gnome, Human, Insect, Lizard, Manticore, Orc, Psionic, Salamander, Snake, Spider, Spore };
+export default { Canine, Demon, Elf, Gnome, Human, Insect, Lizard, Manticore, Orc, Psionic, Salamander, Snake, Spider, Spore };
