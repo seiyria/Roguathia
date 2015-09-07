@@ -1,6 +1,5 @@
 
 import chai from 'chai';
-const expect = chai.expect;
 chai.should();
 
 import Behavior, { Priority } from '../../../src/js/rogue/definitions/behavior';
@@ -8,7 +7,7 @@ import Behavior, { Priority } from '../../../src/js/rogue/definitions/behavior';
 describe('Behavior', () => {
 
   it('should have a priority assigned to it', () => {
-    let behavior = new Behavior(Priority.ALWAYS);
+    const behavior = new Behavior(Priority.ALWAYS);
     behavior.priority.should.eq(Priority.ALWAYS);
 
     (() => {

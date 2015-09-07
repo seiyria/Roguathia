@@ -1,6 +1,5 @@
 
 import chai from 'chai';
-const expect = chai.expect;
 chai.should();
 
 import Entity from '../../../src/js/rogue/definitions/entity';
@@ -36,13 +35,13 @@ describe('Entity', () => {
   });
 
   it('should calculate the distance between it and another entity properly', () => {
-    entity.distBetween({x: 2, y: 1}).should.eq(2);
-    entity.distBetween({x: 0, y: 3}).should.eq(2);
+    entity.distBetween({ x: 2, y: 1 }).should.eq(2);
+    entity.distBetween({ x: 0, y: 3 }).should.eq(2);
   });
 
   it('should calculate the distance between it and another point properly', () => {
     entity.distBetweenXY(2, 1).should.eq(2);
     entity.distBetweenXY(0, 3).should.eq(2);
-  })
+  });
 
 });

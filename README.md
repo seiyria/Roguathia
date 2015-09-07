@@ -89,3 +89,4 @@
 * Conflict trait
 * More floor types such as [this](http://www.gamasutra.com/blogs/AAdonaac/20150903/252889/Procedural_Dungeon_Generation_Algorithm.php)
 * More victory types leading through various dungeons (similar to SelykAltar, generate a few extra floors at the bottom)
+* Possibly allow people to use a slider to determine the relative generatability of room types
