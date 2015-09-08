@@ -5,7 +5,7 @@ import * as Tiles from './tiles/_all';
 import GameState from '../init/gamestate';
 
 const featureTypes = [
-  { name: 'fountain', proto: Tiles.Fountain }/*,
+  { name: 'fountain', proto: Tiles.Fountain }/* ,
   { name: 'grave' },
   { name: 'throne' },
   { name: 'sink' }*/

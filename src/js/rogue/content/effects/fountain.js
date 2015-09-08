@@ -13,14 +13,14 @@ import { waterNymph } from '../monsters/nymphs';
 class FountainEffect extends Effect {}
 
 export class NoEffect extends FountainEffect {
-  static get probability() { return 0; } // 45
+  static get probability() { return 45; }
   static use(entity) {
     this.msg(`${entity.name} drinks from the fountain, but the tepid water is tasteless.`);
   }
 }
 
 export class DropGold extends FountainEffect {
-  static get probability() { return 0; } // 20
+  static get probability() { return 20; }
   static use(entity) {
     const gold = new Gold(+dice.roll('1d1000'));
     GameState.world.moveItem(gold, entity.x, entity.y, entity.z);
@@ -29,7 +29,7 @@ export class DropGold extends FountainEffect {
 }
 
 export class Contaminated extends FountainEffect {
-  static get probability() { return 0; } // 1
+  static get probability() { return 1; }
   static use(entity) {
     const hasPsnRst = entity.hasTrait('PoisonResistance');
     const damageRoll = hasPsnRst ? '1d4' : '1d10';
@@ -46,7 +46,7 @@ export class Contaminated extends FountainEffect {
 }
 
 export class BlurredVision extends FountainEffect {
-  static get probability() { return 0; } // 1
+  static get probability() { return 2; }
   static use(entity) {
     entity.addTrait(Traits.SeeInvisible({ level: 5 }));
     entity.exercise('wis');
@@ -55,7 +55,7 @@ export class BlurredVision extends FountainEffect {
 }
 
 export class SpawnSnakes extends FountainEffect {
-  static get probability() { return 0; } // 1
+  static get probability() { return 1; }
   static use(entity) {
     this.msg(entity, `${entity.name} drinks from the fountain.`);
     this.msg(entity, `An endless stream of snakes pours out!`);
@@ -71,7 +71,7 @@ export class SpawnSnakes extends FountainEffect {
 }
 
 export class StrangeFeeling extends FountainEffect {
-  static get probability() { return 0; } // 1
+  static get probability() { return 3; }
   static use(entity) {
     this.msg(entity, `${entity.name} momentarily feels strange, then it passes.`);
     entity.exercise('wis');
@@ -79,7 +79,7 @@ export class StrangeFeeling extends FountainEffect {
 }
 
 export class CurseItems extends FountainEffect {
-  static get probability() { return 0; } // 1
+  static get probability() { return 2; }
   static use(entity) {
     this.msg(entity, `${entity.name} drank some bad water!`);
     _.each(entity.inventory, item => {
@@ -90,7 +90,7 @@ export class CurseItems extends FountainEffect {
 }
 
 export class SpawnDemon extends FountainEffect {
-  static get probability() { return 0; } // 1
+  static get probability() { return 1; }
   static use(entity) {
 
     const validTile = _.sample(this.getEmptyTilesInRange(entity));
@@ -102,7 +102,7 @@ export class SpawnDemon extends FountainEffect {
 }
 
 export class SpawnNymph extends FountainEffect {
-  static get probability() { return 1; } // 1
+  static get probability() { return 1; }
   static use(entity) {
 
     const validTile = _.sample(this.getEmptyTilesInRange(entity));
