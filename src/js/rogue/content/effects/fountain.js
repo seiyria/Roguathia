@@ -13,14 +13,14 @@ import { waterNymph } from '../monsters/nymphs';
 class FountainEffect extends Effect {}
 
 export class NoEffect extends FountainEffect {
-  static get probability() { return 45; }
+  static get probability() { return 19; }
   static use(entity) {
     this.msg(`${entity.name} drinks from the fountain, but the tepid water is tasteless.`);
   }
 }
 
 export class DropGold extends FountainEffect {
-  static get probability() { return 20; }
+  static get probability() { return 8; }
   static use(entity) {
     const gold = new Gold(+dice.roll('1d1000'));
     GameState.world.moveItem(gold, entity.x, entity.y, entity.z);

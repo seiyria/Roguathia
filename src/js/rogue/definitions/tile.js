@@ -13,7 +13,7 @@ export default class Tile extends Entity {
     this.glyph.key = '.';
     this.glyph.fg = '';
     this.glyph.bg = '';
-    this.canInteract = () => false;
+    this.canInteract = undefined;
   }
 
   getRandomEffect(effects) {

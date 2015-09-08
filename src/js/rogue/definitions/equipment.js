@@ -1,6 +1,7 @@
 
 import { Item } from './item';
 import * as Fakes from '../constants/faketypes';
+import MessageQueue from '../display/message-handler';
 
 class Equipment extends Item {
   get name() {
@@ -145,8 +146,14 @@ export class Potion extends Equipment {
   constructor(opts = {}) {
     opts.symbol = '!';
     super(opts);
+    const fake = this.pickFakeName(Fakes.Potion);
+    this.color = fake;
     this.realName = `potion of ${this.getCanonName()}`;
-    this.fakeName = `${this.pickFakeName(Fakes.Potion)} potion`;
+    this.fakeName = `${fake} potion`;
+  }
+  use(entity, extra) {
+    super.use(entity, extra);
+    MessageQueue.add({ message: `${entity.name} drank ${this.color} liquid and ${extra.messageFinish}!` });
   }
 }
 

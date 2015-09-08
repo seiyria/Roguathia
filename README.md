@@ -43,7 +43,7 @@
     * Better items generated on the floor
     * Possibly unlock a dungeon editor (you can rearrange what floors are in what order, and how many of them spawn)
     * Better respawn time
-* Achievements
+* Achievements (worth VP, some worth recurring VP to a lesser extent)
   * Beat game with one party member @ level X (10, 25, 50, 100)
   * Beat game with one party member where dungeon size >= X (10, 25, 50, 100)
   * Unlock all Y (Y = party member slots, behaviors, traits, classes, races, colors, pets, dungeon floor types, dungeon features)
@@ -64,6 +64,7 @@
 * Better dungeon corners
 * Firebase: centrally track (important) statistics anonymously (allow people to login with reddit for less anonymous, leaderboards)
   * track deaths always, floor, race, name, and profession of the death (for headstone generation)
+  * always send full version as well, so certain data can be invalidated
 * Conventional changelog for bump/release
 
 # Idea Bucket (TBD)
@@ -80,6 +81,9 @@
 * Possibly allow people to use a slider to determine the relative generatability of room types
 * Allow fountains to also spurt out pools onto the floor
 * Themed rooms (Oracle room, Throne room, Bathroom, Graveyard)
+* Artifact Weapons
+* Forgetful trait - you can only know what you see, the rest you forget (ie, explored hash is useless)
+* Use known healing potions or use random potions when dying (also, allow people to manually use potions)
 * More dungeon types
   * Mines
   * Town (arena with shops in it, or a digger with empty spaces/corridor spaces replaced with basic tile)

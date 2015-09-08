@@ -3,6 +3,8 @@ import ROT from 'rot-js';
 import Tile from '../../definitions/tile';
 import GameState from '../../init/gamestate';
 import * as FountainEffects from '../../content/effects/fountain';
+import * as SinkDrinkEffects from '../../content/effects/sink-drink';
+import * as SinkKickEffects from '../../content/effects/sink-kick';
 
 export class Door extends Tile {
   constructor() {
@@ -64,10 +66,46 @@ export class Fountain extends Tile {
 
   interact(entity) {
     const effect = this.getRandomEffect(FountainEffects);
-    effect.use(entity);
-    if(ROT.RNG.getPercentage() > 66) {
+    effect.use(entity, this);
+    if(ROT.RNG.getPercentage() <= 33) {
       this.ceaseExisting();
       return `The fountain dried up!`;
+    }
+  }
+}
+
+export class Sink extends Tile {
+  constructor() {
+    super('#', '#d3d3ff');
+    this.density = 1;
+  }
+
+  canInteract(entity) {
+    return this.distBetween(entity) <= 1;
+  }
+
+  becomeFountain() {
+    GameState.world.placeNewTile(Fountain, this.x, this.y, this.z);
+  }
+
+  interact(entity) {
+    if(ROT.RNG.getPercentage() <= 0) {
+      this.getRandomEffect(SinkDrinkEffects).use(entity, this);
+    } else {
+      this.getRandomEffect(SinkKickEffects).use(entity, this);
+    }
+
+    // break chance
+    if(ROT.RNG.getPercentage() <= 0) {
+
+      // it might turn into a fountain, but probably not
+      if(ROT.RNG.getPercentage() <= 20) {
+        this.becomeFountain();
+        return `The pipes explode! Water spurts out!`;
+      }
+
+      this.ceaseExisting();
+      return `The sink stops providing water.`;
     }
   }
 }

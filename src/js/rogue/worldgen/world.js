@@ -100,6 +100,14 @@ export default class World {
 
     return this.tiles[z][x][y];
   }
+
+  placeNewTile(tileProto, x, y, z) {
+    const tile = new tileProto();
+    tile.x = x;
+    tile.y = y;
+    tile.z = z;
+    this.tiles  [z][x][y] = tile;
+  }
   
   isVoid(x, y, z) {
     const tile = this.getTile(x, y, z);

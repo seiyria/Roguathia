@@ -54,3 +54,16 @@ class StealsBehavior extends Behavior {
 }
 
 export const Steals = () => new StealsBehavior();
+
+class SplitsWhenHitBehavior extends Behavior {
+  constructor(percent = 100) {
+    super(Priority.ALWAYS);
+    this.percent = percent;
+  }
+  takeDamage(me) {
+    if(ROT.RNG.getPercentage() > this.percent) return;
+    GameState.world.placeEntityAtRandomLocation(me);
+  }
+}
+
+export const SplitsWhenHit = (percent) => new SplitsWhenHitBehavior(percent);

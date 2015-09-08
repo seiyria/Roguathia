@@ -60,3 +60,9 @@ class PoisonResistanceTrait extends Trait {
 }
 
 export const PoisonResistance = () => new PoisonResistanceTrait();
+
+class FireResistanceTrait extends Trait {
+  FireResistance() { return 1; }
+}
+
+export const FireResistance = () => new FireResistanceTrait();

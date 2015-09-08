@@ -13,6 +13,7 @@ import MessageQueue from '../display/message-handler';
 
 import loadValue from '../lib/value-assign';
 import calc from '../lib/directional-probability';
+import Log from '../lib/logger';
 
 import SkillThresholds, * as Thresholds from '../constants/skill-thresholds';
 import { SkilledAttack } from '../definitions/attack';
@@ -462,8 +463,7 @@ export default class Character extends Entity {
     return GameState.world.moveEntity(this, newTile.x, newTile.y, newTile.z);
   }
 
-  alertAllInRange() {
-    const soundRange = this.getSoundEmission();
+  alertAllInRange(soundRange = this.getSoundEmission()) {
     const entities = GameState.world.getValidEntitiesInRange(this.x, this.y, this.z, soundRange, (entity) => entity.canAttack(this));
     _.each(entities, (entity) => {
       entity.doBehavior('hear', [this]);
@@ -652,9 +652,10 @@ export default class Character extends Entity {
     return Math.max(1, Math.min(5, Math.floor((entity.level - this.level) / 2)));
   }
 
-  heal(roll, item) {
-    const value = +dice.roll(roll);
-    MessageQueue.add({ message: `${this.name} used ${item.name} and regained ${value} health!` });
+  heal(value) {
+    if(!value || !_.isNumber(value) || _.isNaN(value)) {
+      Log('Character', `Value given to heal was not well formed: ${value}`);
+    }
     this.hp.add(value);
   }
 
