@@ -4,6 +4,7 @@ import ROT from 'rot-js';
 import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
 import MessageQueue from '../../display/message-handler';
+import MonsterSpawner from '../../worldgen/monster-spawner';
 
 /* monsters can attack with this */
 class AttacksBehavior extends Behavior {
@@ -61,8 +62,14 @@ class SplitsWhenHitBehavior extends Behavior {
     this.percent = percent;
   }
   takeDamage(me) {
-    if(ROT.RNG.getPercentage() > this.percent) return;
-    GameState.world.placeEntityAtRandomLocation(me);
+    if(ROT.RNG.getPercentage() > this.percent || me.hp.atMin()) return;
+    const validTiles = GameState.world.getValidTilesInRange(me.x, me.y, me.z, 1, (tile) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z));
+    const chosenTile = _.sample(validTiles);
+
+    const newSpawn = MonsterSpawner.spawnSingle(me._name, chosenTile);
+    const newHp = Math.floor(me.hp.cur / 2);
+    me.hp._set(newHp);
+    newSpawn.hp._set(newHp);
   }
 }
 

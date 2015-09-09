@@ -26,23 +26,23 @@ export default class MonsterSpawner {
     
     for(let i = 0; i < numMonsters; i++) {
       const tile = _.sample(GameState.world.getValidTilesInRange(basedOn.x, basedOn.y, basedOn.z, 50, (tile) => basedOn.distBetween(tile) > basedOn.getSight()));
-      this.spawnSingle(Monsters[chosenName], tile);
+      this.spawnSingle(chosenName, tile);
     }
   }
 
-  static spawnSingle(monster, tile) {
+  static spawnSingle(monsterName, tile) {
 
-    // allow for string loading of a monster
-    if(_.isString(monster)) {
-      monster = Monsters[monster];
-    }
+    const monster = Monsters[monsterName];
 
     if(!monster) {
-      Log('MonsterSpawner', `Bad monster ${monster}: ${new Error().stack}`);
+      Log('MonsterSpawner', `Bad monster ${monsterName}: ${new Error().stack}`);
     }
 
     const monsterOpts = monster.init();
     monsterOpts.difficulty = monster.difficulty;
-    new Monster(tile.x, tile.y, tile.z, monsterOpts);
+    const monsterInstance = new Monster(tile.x, tile.y, tile.z, monsterOpts);
+    monsterInstance._name = monsterName;
+
+    return monsterInstance;
   }
 }

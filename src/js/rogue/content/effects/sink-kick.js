@@ -1,12 +1,10 @@
-/* eslint no-unused-vars:0 */
 
-// import _ from 'lodash';
+import _ from 'lodash';
 import dice from 'dice.js';
 import Effect from '../../definitions/effect';
 import { Ring as RandomRing } from '../../constants/random';
 import GameState from '../../init/gamestate';
-// import MonsterSpawner from '../../worldgen/monster-spawner';
-// import { sewerRat } from '../monsters/rats';
+import MonsterSpawner from '../../worldgen/monster-spawner';
 
 class SinkKickEffect extends Effect {}
 
@@ -43,6 +41,17 @@ export class BadKick extends SinkKickEffect {
     entity.abuse('wis');
     const damage = +dice.roll('1d5');
     entity.takeDamage(damage);
+  }
+}
+
+export class SpawnsPudding extends SinkKickEffect {
+  static get probability() { return 1; }
+  static use(entity, sink) {
+    const validTile = _.sample(this.getEmptyTilesInRange(sink));
+
+    if(!validTile) return;
+    this.msg(entity, `${entity.name} caused black ooze to rise out of the sink!`);
+    MonsterSpawner.spawnSingle('blackPudding', validTile);
   }
 }
 
