@@ -3,7 +3,6 @@
 # TODO
 * Dungeon features
   * Throne
-  * Sink
   * Gravestone
 * More focus on lighting, and make player sight more limited
 * Content (all types of items)
