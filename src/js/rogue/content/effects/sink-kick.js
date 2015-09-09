@@ -54,5 +54,3 @@ export class SpawnsPudding extends SinkKickEffect {
     MonsterSpawner.spawnSingle('blackPudding', validTile);
   }
 }
-
-// TODO pudding spawn (puddings should have a behavior for splitting that watches takeDamage)

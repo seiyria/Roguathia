@@ -4,8 +4,6 @@ import dice from 'dice.js';
 import Effect from '../../definitions/effect';
 import GameState from '../../init/gamestate';
 import MonsterSpawner from '../../worldgen/monster-spawner';
-import { sewerRat } from '../monsters/rats';
-import { waterElemental } from '../monsters/elementals';
 import { Ring as RandomRing, Potion as RandomPotion } from '../../constants/random';
 
 class SinkDrinkEffect extends Effect {}
@@ -49,7 +47,7 @@ export class SpawnRat extends SinkDrinkEffect {
 
     if(!validTile) return;
     this.msg(entity, `${entity.name} found a rat in the sink. Ewww!`);
-    MonsterSpawner.spawnSingle(sewerRat, validTile);
+    MonsterSpawner.spawnSingle('sewerRat', validTile);
   }
 }
 
@@ -61,7 +59,7 @@ export class SpawnElemental extends SinkDrinkEffect {
 
     if(!validTile) return;
     this.msg(entity, `${entity.name} caused the water to think for itself!`);
-    MonsterSpawner.spawnSingle(waterElemental, validTile);
+    MonsterSpawner.spawnSingle('waterElemental', validTile);
   }
 }
 

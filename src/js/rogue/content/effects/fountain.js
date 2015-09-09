@@ -7,8 +7,6 @@ import * as Traits from '../traits/_all';
 import GameState from '../../init/gamestate';
 import Effect from '../../definitions/effect';
 import MonsterSpawner from '../../worldgen/monster-spawner';
-import { waterMoccasin, waterDemon } from '../monsters/_summoned';
-import { waterNymph } from '../monsters/nymphs';
 
 class FountainEffect extends Effect {}
 
@@ -65,7 +63,7 @@ export class SpawnSnakes extends FountainEffect {
 
     for(let i = 0; i < spawned; i++) {
       if(!validTiles[i]) continue;
-      MonsterSpawner.spawnSingle(waterMoccasin, validTiles[i]);
+      MonsterSpawner.spawnSingle('waterMoccasin', validTiles[i]);
     }
   }
 }
@@ -97,7 +95,7 @@ export class SpawnDemon extends FountainEffect {
 
     if(!validTile) return;
     this.msg(entity, `${entity.name} summons a demon from the water plane!`);
-    MonsterSpawner.spawnSingle(waterDemon, validTile);
+    MonsterSpawner.spawnSingle('waterDemon', validTile);
   }
 }
 
@@ -109,6 +107,6 @@ export class SpawnNymph extends FountainEffect {
     if(!validTile) return;
 
     this.msg(entity, `${entity.name} attracts a water nymph!`);
-    MonsterSpawner.spawnSingle(waterNymph, validTile);
+    MonsterSpawner.spawnSingle('waterNymph', validTile);
   }
 }
