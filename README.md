@@ -66,6 +66,7 @@
   * always send full version as well, so certain data can be invalidated
 * Conventional changelog for bump/release
 * Import/export savefile
+* Move away from `setTimeout`
 
 # Idea Bucket (TBD)
 * Chests and other containers
