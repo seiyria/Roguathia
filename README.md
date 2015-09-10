@@ -65,6 +65,7 @@
   * track deaths always, floor, race, name, and profession of the death (for headstone generation)
   * always send full version as well, so certain data can be invalidated
 * Conventional changelog for bump/release
+* Import/export savefile
 
 # Idea Bucket (TBD)
 * Chests and other containers
