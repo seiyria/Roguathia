@@ -1,9 +1,6 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
 # TODO
-* Dungeon features
-  * Throne
-  * Gravestone
 * More focus on lighting, and make player sight more limited
 * Content (all types of items)
 * Meta-currency (and benefits)
@@ -67,6 +64,7 @@
 * Conventional changelog for bump/release
 
 # Idea Bucket (TBD)
+* Gravestones should use deaths from other players to spawn occasionally. also, they should get a death message. maybe also store deaths in the firebase
 * Chests and other containers
 * More intricate death messages ("while asleep" "while stunned")
 * Catchable ammo, recoverable ammo
@@ -80,6 +78,7 @@
 * Possibly allow people to use a slider to determine the relative generatability of room types
 * Allow fountains to also spurt out pools onto the floor
 * Themed rooms (Oracle room, Throne room, Bathroom, Graveyard)
+  * More [here](https://nethackwiki.com/wiki/Special_room)
 * Artifact Weapons
 * Forgetful trait - you can only know what you see, the rest you forget (ie, explored hash is useless)
 * Use known healing potions or use random potions when dying (also, allow people to manually use potions)
