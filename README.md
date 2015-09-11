@@ -84,6 +84,7 @@
 * Forgetful trait - you can only know what you see, the rest you forget (ie, explored hash is useless)
 * Use known healing potions or use random potions when dying (also, allow people to manually use potions)
 * heavy weapons (maces, greatmaces) that have knockback on their attacks (or bonus damage if the target is against a wall)
+* Random colored stars on the respawn screen
 * More dungeon types
   * Mines
   * Town (arena with shops in it, or a digger with empty spaces/corridor spaces replaced with basic tile)
