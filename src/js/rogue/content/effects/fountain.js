@@ -13,7 +13,7 @@ class FountainEffect extends Effect {}
 export class NoEffect extends FountainEffect {
   static get probability() { return 19; }
   static use(entity) {
-    this.msg(`${entity.name} drinks from the fountain, but the tepid water is tasteless.`);
+    this.msg(entity, `${entity.name} drinks from the fountain, but the tepid water is tasteless.`);
   }
 }
 
@@ -22,7 +22,7 @@ export class DropGold extends FountainEffect {
   static use(entity) {
     const gold = new Gold(+dice.roll('1d1000'));
     GameState.world.moveItem(gold, entity.x, entity.y, entity.z);
-    this.msg(`${entity.name} hears the sound of gold dropping to the ground.`);
+    this.msg(entity, `${entity.name} hears the sound of gold dropping to the ground.`);
   }
 }
 
