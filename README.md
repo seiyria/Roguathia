@@ -63,6 +63,8 @@
   * track deaths always, floor, race, name, and profession of the death (for headstone generation)
   * always send full version as well, so certain data can be invalidated
 * Conventional changelog for bump/release
+* Import/export savefile
+* Move away from `setTimeout`
 
 # Idea Bucket (TBD)
 * Gravestones should use deaths from other players to spawn occasionally. also, they should get a death message. maybe also store deaths in the firebase
