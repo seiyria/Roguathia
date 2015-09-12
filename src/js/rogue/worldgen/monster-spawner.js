@@ -1,6 +1,6 @@
 
 import _ from 'lodash';
-import dice from 'dice.js';
+import Roll from '../lib/dice-roller';
 import Monsters from '../content/monsters/_all';
 import Monster from '../definitions/monster';
 import GameState from '../init/gamestate';
@@ -22,7 +22,7 @@ export default class MonsterSpawner {
       return;
     }
 
-    const numMonsters = +dice.roll(Monsters[chosenName].spawnPattern);
+    const numMonsters = Roll(Monsters[chosenName].spawnPattern);
     
     for(let i = 0; i < numMonsters; i++) {
       const tile = _.sample(GameState.world.getValidTilesInRange(basedOn.x, basedOn.y, basedOn.z, 50, (tile) => basedOn.distBetween(tile) > basedOn.getSight()));

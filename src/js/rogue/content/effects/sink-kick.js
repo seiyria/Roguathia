@@ -1,6 +1,6 @@
 
 import _ from 'lodash';
-import dice from 'dice.js';
+import Roll from '../../lib/dice-roller';
 import Effect from '../../definitions/effect';
 import { Ring as RandomRing } from '../../constants/random';
 import GameState from '../../init/gamestate';
@@ -39,7 +39,7 @@ export class BadKick extends SinkKickEffect {
     entity.alertAllInRange(50);
     entity.abuse('dex');
     entity.abuse('wis');
-    const damage = +dice.roll('1d5');
+    const damage = Roll('1d5');
     entity.takeDamage(damage);
   }
 }

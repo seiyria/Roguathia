@@ -1,7 +1,7 @@
 
 import _ from 'lodash';
 import ROT from 'rot-js';
-import dice from 'dice.js';
+import Roll from '../../lib/dice-roller';
 import { Gold } from '../items/_special';
 import * as Traits from '../traits/_all';
 import GameState from '../../init/gamestate';
@@ -20,7 +20,7 @@ export class NoEffect extends FountainEffect {
 export class DropGold extends FountainEffect {
   static get probability() { return 8; }
   static use(entity) {
-    const gold = new Gold(+dice.roll('1d1000'));
+    const gold = new Gold(Roll('1d1000'));
     GameState.world.moveItem(gold, entity.x, entity.y, entity.z);
     this.msg(entity, `${entity.name} hears the sound of gold dropping to the ground.`);
   }
@@ -38,7 +38,7 @@ export class Contaminated extends FountainEffect {
       entity.abuse('con', '1d2');
     }
 
-    entity.takeDamage(+dice.roll(damageRoll));
+    entity.takeDamage(Roll(damageRoll));
     this.msg(entity, msg);
   }
 }
@@ -57,7 +57,7 @@ export class SpawnSnakes extends FountainEffect {
   static use(entity) {
     this.msg(entity, `${entity.name} drinks from the fountain.`);
     this.msg(entity, `An endless stream of snakes pours out!`);
-    const spawned = +dice.roll('1d5 + 1');
+    const spawned = Roll('1d5 + 1');
 
     const validTiles = _.sample(this.getEmptyTilesInRange(entity), spawned);
 

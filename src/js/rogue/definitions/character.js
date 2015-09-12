@@ -1,7 +1,7 @@
 
 import _ from 'lodash';
 import ROT from 'rot-js';
-import dice from 'dice.js';
+import Roll from '../lib/dice-roller';
 import Entity from './entity';
 import NumberRange from '../lib/number-range';
 import Professions from '../content/professions/_all';
@@ -112,7 +112,7 @@ export default class Character extends Entity {
   }
 
   rollOrAdd(val) {
-    val = _.isString(val) ? +dice.roll(val) : val;
+    val = _.isString(val) ? Roll(val) : val;
     return !val || _.isNaN(val) ? 0 : val;
   }
   // endregion
@@ -518,11 +518,11 @@ export default class Character extends Entity {
 
   // region Levelup/XP functions
   calcLevelHpBonus() {
-    return +dice.roll(this.professionInst.config.hp) + this.calcStatBonus('con');
+    return Roll(this.professionInst.config.hp) + this.calcStatBonus('con');
   }
 
   calcLevelMpBonus() {
-    return +dice.roll(this.professionInst.config.mp) + this.calcStatBonus('int');
+    return Roll(this.professionInst.config.mp) + this.calcStatBonus('int');
   }
 
   gainXp(number) {
@@ -556,11 +556,11 @@ export default class Character extends Entity {
 
   // region Stat manipulation
   abuse(stat, loss = '1d1') {
-    this[stat] = Math.max(this[stat]-(+dice.roll(loss)), 3);
+    this[stat] = Math.max(this[stat]-(Roll(loss)), 3);
   }
 
   exercise(stat, gain = '1d1') {
-    this[stat] += (+dice.roll(gain));
+    this[stat] += (Roll(gain));
   }
   // endregion
 

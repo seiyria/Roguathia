@@ -1,6 +1,6 @@
 
 import _ from 'lodash';
-import dice from 'dice.js';
+import Roll from '../../lib/dice-roller';
 import Effect from '../../definitions/effect';
 import GameState from '../../init/gamestate';
 import MonsterSpawner from '../../worldgen/monster-spawner';
@@ -31,7 +31,7 @@ export class HotWater extends SinkDrinkEffect {
     if(hasFireRst) {
       msg += ' It was quite tasty.';
     } else {
-      const damage = +dice.roll('1d6');
+      const damage = Roll('1d6');
       entity.takeDamage(damage);
     }
 

@@ -1,10 +1,10 @@
 
 import _ from 'lodash';
-import dice from 'dice.js';
+import Roll from './dice-roller';
 
 export default (value, other) => {
   if(_.isString(other) && _.contains(other, 'd')) {
-    return +dice.roll(other);
+    return Roll(other);
   }
   return other;
 };

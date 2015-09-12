@@ -1,7 +1,7 @@
 
 import _ from 'lodash';
 import ROT from 'rot-js';
-import dice from 'dice.js';
+import Roll from '../../lib/dice-roller';
 import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
 import MessageQueue from '../../display/message-handler';
@@ -42,7 +42,7 @@ class DropsGoldBehavior extends Behavior {
     this.goldDrop = gold;
   }
   die(me) {
-    const droppedGold = +dice.roll(this.goldDrop);
+    const droppedGold = Roll(this.goldDrop);
     const goldItem = new Gold(droppedGold + me.gold);
     GameState.world.moveItem(goldItem, me.x, me.y, me.z);
   }
@@ -66,7 +66,7 @@ class ExplodesBehavior extends Behavior {
     MessageQueue.add({ message: `${me.name} violently explodes!` });
     _.each(GameState.world.getValidEntitiesInRange(me.x, me.y, me.z, 1), (entity) => {
       if(me === entity || entity.hp.atMin()) return; // infinite loop prevention
-      entity.takeDamage(+dice.roll(this.roll), me);
+      entity.takeDamage(Roll(this.roll), me);
     });
   }
 }

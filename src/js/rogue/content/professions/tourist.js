@@ -1,7 +1,7 @@
 
 import Profession from '../../definitions/profession';
 
-import dice from 'dice.js';
+import Roll from '../../lib/dice-roller';
 import { Gold } from '../items/_special';
 import * as Foods from '../items/foods';
 import * as Potions from '../items/potions';
@@ -19,7 +19,7 @@ const touristCfg = {
   luk : '1d3 - 1',
   titles: ['Rambler',, 'Sightseer',,, 'Excursionist',,, 'Perigrinator',,, 'Traveler',,, 'Journeyer',,, 'Voyager',,, 'Explorer',,, 'Adventurer'],
   startingItems: [
-    { init: () => new Gold(+dice.roll('1d1000')) },
+    { init: () => new Gold(Roll('1d1000')) },
     { choices: { less: 5, more: 1 },
       choicesInit: {
         less: () => new Projectiles.Dart({ charges: '1d5 + 5', bucName: 'uncursed' }),

@@ -2,6 +2,7 @@
 import _ from 'lodash';
 import ROT from 'rot-js';
 import dice from 'dice.js';
+import Roll from '../lib/dice-roller';
 import GameState from '../init/gamestate';
 import MessageQueue from '../display/message-handler';
 import Abstract from './abstract';
@@ -55,9 +56,9 @@ export class Attack extends Abstract {
   
   canHit(owner, target, attackNum) {
     if(owner.hp.atMin()) return false;
-    const hitRoll = +dice.roll(`1d${20 + attackNum}`); // subsequent attacks are less likely to hit
+    const hitRoll = Roll(`1d${20 + attackNum}`); // subsequent attacks are less likely to hit
     const targetAC = target.getAC();
-    const myToHitBonus = (+dice.roll(this.toHit) - owner.getToHit() - owner.getSkillLevel(this.getType()) - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
+    const myToHitBonus = (Roll(this.toHit) - owner.getToHit() - owner.getSkillLevel(this.getType()) - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
     let targetACRoll = 0;
 
     if(targetAC >= 0) {
@@ -139,9 +140,9 @@ export class Attack extends Abstract {
     let damageBoost = 0;
     if(this._itemRef) {
       damageBoost += this._itemRef.enchantment;
-      if(this._itemRef._tempAttackBoost) damageBoost += +dice.roll(this._itemRef._tempAttackBoost);
+      if(this._itemRef._tempAttackBoost) damageBoost += Roll(this._itemRef._tempAttackBoost);
     }
-    return +dice.roll(this.roll) + owner.calcStatBonus('str') + damageBoost;
+    return Roll(this.roll) + owner.calcStatBonus('str') + damageBoost;
   }
   
   hit(owner, target) {

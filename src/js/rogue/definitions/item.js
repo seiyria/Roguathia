@@ -1,7 +1,7 @@
 
 import _ from 'lodash';
 import ROT from 'rot-js';
-import dice from 'dice.js';
+import Roll from '../lib/dice-roller';
 import Glyph from './glyph';
 import { GetColor } from '../lib/valid-colors';
 import GameState from '../init/gamestate';
@@ -20,7 +20,7 @@ export class Item extends Abstract {
     if(this.range) {
       this.range = _.extend({ numShots: 1, damageBoost: '0d0', ammo: [] }, this.range);
     }
-    if(this.charges) this.charges = +dice.roll(this.charges);
+    if(this.charges) this.charges = Roll(this.charges);
     if(this.startIdentified) this.identify();
     this.glyph = new Glyph(opts.glyph.key, opts.glyph.fg);
     this.generateBUC(opts.bucProb);

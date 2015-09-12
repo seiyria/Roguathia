@@ -1,7 +1,7 @@
-/* eslint no-unused-vars:0 */
+
 import _ from 'lodash';
 import ROT from 'rot-js';
-import dice from 'dice.js';
+import Roll from '../../lib/dice-roller';
 import * as Traits from '../traits/_all';
 import GameState from '../../init/gamestate';
 import Effect from '../../definitions/effect';
@@ -23,7 +23,7 @@ export class Identify extends ThroneEffect {
 export class HealthGainBonus extends ThroneEffect {
   static get probability() { return 1; }
   static use(entity) {
-    const hpGained = +dice.roll('1d10');
+    const hpGained = Roll('1d10');
     this.msg(entity, `${entity.name} feels much, much better!`);
     entity.hp.max += hpGained;
     entity.hp.toMax();
@@ -33,8 +33,8 @@ export class HealthGainBonus extends ThroneEffect {
 export class Ouch extends ThroneEffect {
   static get probability() { return 1; }
   static use(entity) {
-    const hpLost = +dice.roll('1d10');
-    const statLost = +dice.roll('1d4 + 2');
+    const hpLost = Roll('1d10');
+    const statLost = Roll('1d4 + 2');
     const stat = _.sample(['con', 'dex', 'int', 'wis', 'str', 'cha', 'luk']);
     this.msg(entity, `${entity.name} feels a painful surge!`);
     entity.hp.sub(hpLost);
@@ -49,7 +49,7 @@ export class Shocking extends ThroneEffect {
     const damageRoll = hasShkRst ? '1d6' : '1d30';
 
     entity.abuse('con', '1d1');
-    entity.takeDamage(+dice.roll(damageRoll));
+    entity.takeDamage(Roll(damageRoll));
     this.msg(entity, `${entity.name} was viciously shocked!`);
   }
 }
@@ -94,7 +94,7 @@ export class SpawnCreatures extends ThroneEffect {
     const monsters = ['kobold', 'gnome', 'goblin', 'hobgoblin', 'orc'];
 
     this.msg(entity, `${entity.name} summoned a throne room audience!`);
-    const spawned = +dice.roll('1d10');
+    const spawned = Roll('1d10');
 
     const validTiles = _.sample(this.getEmptyTilesInRange(entity, 5), spawned);
 

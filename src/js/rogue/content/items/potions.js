@@ -1,6 +1,6 @@
 
 import _ from 'lodash';
-import dice from 'dice.js';
+import Roll from '../../lib/dice-roller';
 import { Potion } from '../../definitions/equipment';
 
 export class Healing extends Potion {
@@ -10,7 +10,7 @@ export class Healing extends Potion {
     super(opts);
   }
   use(entity) {
-    const healVal = +dice.roll(this.healRoll);
+    const healVal = Roll(this.healRoll);
     super.use(entity, { healVal, messageFinish: `regained ${healVal} health` });
   }
 }

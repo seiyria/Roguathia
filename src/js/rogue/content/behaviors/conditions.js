@@ -1,6 +1,6 @@
 
 import _ from 'lodash';
-import dice from 'dice.js';
+import Roll from '../../lib/dice-roller';
 import Behavior, { Priority } from '../../definitions/behavior';
 import MessageQueue from '../../display/message-handler';
 
@@ -38,7 +38,7 @@ class PoisonedBehavior extends Behavior {
       return;
     }
 
-    const damage = +dice.roll('1d4');
+    const damage = Roll('1d4');
     MessageQueue.add({ message: `${me.name} takes ${damage} poison damage!` });
     this.poisonTurns--;
   }
