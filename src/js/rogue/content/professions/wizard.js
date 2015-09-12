@@ -4,7 +4,7 @@ import Profession from '../../definitions/profession';
 import Factions from '../../constants/factions';
 
 import * as Foods from '../items/foods';
-import * as Weapons from '../items/weapons';
+import * as Weapons from '../items/_weapons';
 import * as Potions from '../items/potions';
 import * as Spellbooks from '../items/spellbooks';
 import * as Random from '../../constants/random';

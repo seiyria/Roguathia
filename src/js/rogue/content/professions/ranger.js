@@ -2,7 +2,7 @@
 import Profession from '../../definitions/profession';
 
 import * as Foods from '../items/foods';
-import * as Weapons from '../items/weapons';
+import * as Weapons from '../items/_weapons';
 import * as Potions from '../items/potions';
 import * as Projectiles from '../items/projectiles';
 import * as Thresholds from '../../constants/skill-thresholds';

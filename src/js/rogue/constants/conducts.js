@@ -23,6 +23,7 @@ const conducts = [
   { check: (player) => player.getSpeed() < Settings.game.baseSpeed, affirmMessage: 'You %were slow.' },
 
   { check: (player) => player.hasTrait('PoisonResistance'), affirmMessage: 'You %were poison resistant.' },
+  { check: (player) => player.hasTrait('ShockResistance'), affirmMessage: 'You %were shock resistant.' },
   { check: (player) => player.hasTrait('FireResistance'), affirmMessage: 'You %were fire resistant.' },
 
   // statuses

@@ -1,5 +1,6 @@
 
 import { Feet } from '../../definitions/equipment';
+import { AC } from '../../lib/default-calculations';
 
 export class Ordinary extends Feet {
   static get rarity() { return 100; }
@@ -12,6 +13,6 @@ export class Ordinary extends Feet {
 export class Protective extends Feet {
   static get rarity() { return 5; }
   ac() {
-    return this.buc * -1;
+    return AC(this);
   }
 }

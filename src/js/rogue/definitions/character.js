@@ -193,7 +193,11 @@ export default class Character extends Entity {
         inst = item.init();
       }
 
-      this.addToInventory(inst);
+      if(!_.isArray(inst)) {
+        inst = [inst];
+      }
+
+      _.each(inst, item => this.addToInventory(item));
     });
   }
   // endregion

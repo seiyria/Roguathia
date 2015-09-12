@@ -5,10 +5,10 @@ import * as Tiles from './tiles/_all';
 import GameState from '../init/gamestate';
 
 const featureTypes = [
+  { name: 'throne', proto: Tiles.Throne },
   { name: 'sink', proto: Tiles.Sink },
   { name: 'fountain', proto: Tiles.Fountain }/* ,
-  { name: 'grave' },
-  { name: 'throne' } */
+  { name: 'grave' },*/
 ];
 
 export default class Generator {

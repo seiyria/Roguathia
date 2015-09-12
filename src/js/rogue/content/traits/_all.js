@@ -66,3 +66,9 @@ class FireResistanceTrait extends Trait {
 }
 
 export const FireResistance = () => new FireResistanceTrait();
+
+class ShockResistanceTrait extends Trait {
+  ShockResistance() { return 1; }
+}
+
+export const ShockResistance = () => new ShockResistanceTrait();

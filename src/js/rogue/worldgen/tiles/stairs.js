@@ -12,7 +12,7 @@ export class StairsDown extends Stairs {
   constructor() { super('>'); }
 
   canInteract(entity) {
-    return super.canInteract(entity) && this.z !== GameState.world.depth - 1;
+    return super.canInteract(entity) && entity.descend && this.z !== GameState.world.depth - 1;
   }
 
   interact(entity) {
@@ -24,7 +24,7 @@ export class SelykStairsDown extends Stairs {
   constructor() { super('>', '#f0f'); }
 
   canInteract(entity) {
-    return entity.hasInInventory(SelykCellarKey);
+    return entity.hasInInventory(SelykCellarKey) && entity.descend;
   }
 
   interact(entity) {

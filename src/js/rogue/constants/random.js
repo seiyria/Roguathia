@@ -9,7 +9,7 @@ import * as Necks from '../content/items/necks';
 import * as Wands from '../content/items/wands';
 import * as Wrists from '../content/items/wrists';
 import * as Cloaks from '../content/items/cloaks';
-import * as Weapons from '../content/items/weapons';
+import * as Weapons from '../content/items/_weapons';
 import * as Potions from '../content/items/potions';
 import * as Spellbooks from '../content/items/spellbooks';
 import * as Projectiles from '../content/items/projectiles';

@@ -3,6 +3,7 @@ import ROT from 'rot-js';
 import Tile from '../../definitions/tile';
 import GameState from '../../init/gamestate';
 import * as FountainEffects from '../../content/effects/fountain';
+import * as ThroneEffects from '../../content/effects/throne';
 import * as SinkDrinkEffects from '../../content/effects/sink-drink';
 import * as SinkKickEffects from '../../content/effects/sink-kick';
 
@@ -70,6 +71,25 @@ export class Fountain extends Tile {
     if(ROT.RNG.getPercentage() <= 33) {
       this.ceaseExisting();
       return `The fountain dried up!`;
+    }
+  }
+}
+
+export class Throne extends Tile {
+  constructor() {
+    super('\\', 'yellow');
+  }
+
+  canInteract(entity) {
+    return this.distBetween(entity) === 0;
+  }
+
+  interact(entity) {
+    const effect = this.getRandomEffect(ThroneEffects);
+    effect.use(entity, this);
+    if(ROT.RNG.getPercentage() <= 33) {
+      this.ceaseExisting();
+      return `The throne vanishes in a puff of logic!`;
     }
   }
 }

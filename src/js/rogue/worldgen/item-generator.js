@@ -13,7 +13,7 @@ import * as Neck from '../content/items/necks';
 import * as Wand from '../content/items/wands';
 import * as Wrist from '../content/items/wrists';
 import * as Cloak from '../content/items/cloaks';
-import * as Weapon from '../content/items/weapons';
+import * as Weapon from '../content/items/_weapons';
 import * as Potion from '../content/items/potions';
 import * as Spellbook from '../content/items/spellbooks';
 import * as Projectile from '../content/items/projectiles';

@@ -38,11 +38,15 @@ export default class MonsterSpawner {
       Log('MonsterSpawner', `Bad monster ${monsterName}: ${new Error().stack}`);
     }
 
-    const monsterOpts = monster.init();
-    monsterOpts.difficulty = monster.difficulty;
-    const monsterInstance = new Monster(tile.x, tile.y, tile.z, monsterOpts);
-    monsterInstance._name = monsterName;
+    try {
+      const monsterOpts = monster.init();
+      monsterOpts.difficulty = monster.difficulty;
+      const monsterInstance = new Monster(tile.x, tile.y, tile.z, monsterOpts);
+      monsterInstance._name = monsterName;
 
-    return monsterInstance;
+      return monsterInstance;
+    } catch (e) {
+      Log('MonsterSpawner', `Could not spawn monster ${monsterName}: ${e.stack}`);
+    }
   }
 }

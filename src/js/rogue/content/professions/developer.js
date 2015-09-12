@@ -2,7 +2,7 @@
 import Profession from '../../definitions/profession';
 
 import * as Foods from '../items/foods';
-import * as Weapons from '../items/weapons';
+import * as Weapons from '../items/_weapons';
 import * as Heads from '../items/heads';
 import * as Necks from '../items/necks';
 import * as Potions from '../items/potions';
