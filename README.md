@@ -62,7 +62,6 @@
   * always send full version as well, so certain data can be invalidated
 * Conventional changelog for bump/release
 * Import/export savefile
-* Update the title to reflect stages of the game (Respawning, Died, Crawling, etc - show number of players alive too)
 
 # Idea Bucket (TBD)
 * Gravestones should use deaths from other players to spawn occasionally. also, they should get a death message. maybe also store deaths in the firebase
