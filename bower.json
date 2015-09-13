@@ -10,6 +10,7 @@
     "bootstra.386": "*",
     "bootstrap": "~3.3.5",
     "dice.js": "~0.7.0",
+    "HackTimer": "https://github.com/turuslan/HackTimer.git",
     "ngstorage": "~0.3.7"
   }
 }

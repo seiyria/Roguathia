@@ -58,13 +58,10 @@
   "gulp": {
     "sass": "src/scss/*.scss",
     "libjs": [
-      "./bower_components/lodash/lodash.min.js",
+      "./bower_components/HackTimer/HackTimer.min.js",
       "./bower_components/angular/angular.min.js",
       "./bower_components/angular-ui-bootstrap-bower/ui-bootstrap.min.js",
-      "./bower_components/ngstorage/ngStorage.min.js",
-      "./bower_components/dice.js/build/dice.min.js",
-      "./bower_components/bragi-browser/dist/bragi.min.js",
-      "./bower_components/rot.js/rot.js"
+      "./bower_components/ngstorage/ngStorage.min.js"
     ],
     "libcss": [
       "./bower_components/bootstrap/dist/css/bootstrap.min.css",

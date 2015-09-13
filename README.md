@@ -57,13 +57,12 @@
 * IRC bot (Selyk) to announce major events (deaths, etc) / scrollback to chat
 * Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
 * Refactor / reorg / unit tests for classes
-* Better dungeon corners
 * Firebase: centrally track (important) statistics anonymously (allow people to login with reddit for less anonymous, leaderboards)
   * track deaths always, floor, race, name, and profession of the death (for headstone generation)
   * always send full version as well, so certain data can be invalidated
 * Conventional changelog for bump/release
 * Import/export savefile
-* Move away from `setTimeout`
+* Update the title to reflect stages of the game (Respawning, Died, Crawling, etc - show number of players alive too)
 
 # Idea Bucket (TBD)
 * Gravestones should use deaths from other players to spawn occasionally. also, they should get a death message. maybe also store deaths in the firebase
