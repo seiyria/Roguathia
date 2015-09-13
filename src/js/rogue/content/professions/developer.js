@@ -10,7 +10,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const devCfg = {
-  hp  : '100d1',
+  hp  : '1d10',
   mp  : '9d5',
   str : '1d1',
   con : '1d1',

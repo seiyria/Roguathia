@@ -3,11 +3,12 @@ import _ from 'lodash';
 import { Screen } from '../screen';
 import MessageQueue from '../message-handler';
 import GameState from '../../init/gamestate';
-import SETTINGS from '../../constants/settings';
+import Settings from '../../constants/settings';
+import ChangeTitle from '../../lib/page-title';
 
 export class GameScreen extends Screen {
 
-  static getScreenOffsets(centerPoint = GameState.players[0], width = SETTINGS.screen.width, height = SETTINGS.screen.height) {
+  static getScreenOffsets(centerPoint = GameState.players[0], width = Settings.screen.width, height = Settings.screen.height) {
     let topLeftX = Math.max(0, centerPoint.x - Math.round(width/2));
     topLeftX = Math.min(topLeftX, GameState.world.width - width);
 
@@ -20,7 +21,7 @@ export class GameScreen extends Screen {
     };
   }
 
-  static drawTiles(display, centerPoint, options = { width: SETTINGS.screen.width, height: SETTINGS.screen.height, offset: this.getScreenOffsets(), gameOffset: { x: 0, y: 0 } }) {
+  static drawTiles(display, centerPoint, options = { width: Settings.screen.width, height: Settings.screen.height, offset: this.getScreenOffsets(), gameOffset: { x: 0, y: 0 } }) {
 
     const { width, height, offset, gameOffset } = options;
 
@@ -117,7 +118,13 @@ export class GameScreen extends Screen {
     }
   }
 
-  static redrawHp(display, foreground, player, string, x = 0, y = SETTINGS.screen.height - 1) {
+  static render() {
+    const livingPlayers = _.reject(GameState.players, (player) => player.hp.atMin());
+    const playerString = GameState.players.length > 1 ? ` (${livingPlayers.length}/${GameState.players.length})` : '';
+    ChangeTitle(`Dungeoneering${playerString}`);
+  }
+
+  static redrawHp(display, foreground, player, string, x = 0, y = Settings.screen.height - 1) {
     const str = (''+player.hp.cur);
     const index = string.indexOf(`HP:${player.hp.cur}`)+3;
     const length = str.length;
@@ -136,7 +143,7 @@ export class SingleGameScreen extends GameScreen {
 
     for(let y = 0; y < 3; y++) {
 
-      for(let x = 0; x < SETTINGS.screen.width; x++) {
+      for(let x = 0; x < Settings.screen.width; x++) {
         display.drawText(x, y, ' ');
       }
     }
@@ -156,14 +163,14 @@ export class SingleGameScreen extends GameScreen {
     const miscInfo = `Floor:${1+GameState.currentFloor} (${GameState.world.tiles[GameState.currentFloor].shortMapName}) $:${player.gold} HP:${player.hp.cur}/${player.hp.max} MP:${player.mp.cur}/${player.mp.max} Turn:${player.currentTurn}`;
 
     for(let y = 1; y <= 3; y++) {
-      for(let x = 0; x < SETTINGS.screen.width; x++) {
-        display.drawText(x, SETTINGS.screen.height - y, ' ');
+      for(let x = 0; x < Settings.screen.width; x++) {
+        display.drawText(x, Settings.screen.height - y, ' ');
       }
     }
 
-    display.drawText(0, SETTINGS.screen.height - 3, tag);
-    display.drawText(0, SETTINGS.screen.height - 2, stats);
-    display.drawText(0, SETTINGS.screen.height - 1, miscInfo);
+    display.drawText(0, Settings.screen.height - 3, tag);
+    display.drawText(0, Settings.screen.height - 2, stats);
+    display.drawText(0, Settings.screen.height - 1, miscInfo);
 
     if(player.hp.ltePercent(20)) {
       this.redrawHp(display, '#7f0000', player, miscInfo);
@@ -173,6 +180,7 @@ export class SingleGameScreen extends GameScreen {
   }
 
   static render(display) {
+    super.render(display);
     const player = GameState.players[0];
     this.drawTiles(display, player);
     this.drawHUD(display, player);
@@ -185,8 +193,8 @@ export class SingleGameScreen extends GameScreen {
 export class SplitGameScreen extends GameScreen {
 
   static enter() {
-    this.width = GameState.players.length > 2 ? (SETTINGS.screen.width / 2) : SETTINGS.screen.width;
-    this.height = SETTINGS.screen.height / 2;
+    this.width = GameState.players.length > 2 ? (Settings.screen.width / 2) : Settings.screen.width;
+    this.height = Settings.screen.height / 2;
 
     this.tlCoords = [
       { x: 0, y: 0 },
@@ -204,6 +212,7 @@ export class SplitGameScreen extends GameScreen {
   }
 
   static render(display) {
+    super.render(display);
 
     _.each(GameState.players, (player, i) => {
       this.drawTiles(display, player, { width: this.width, height: this.height, offset: this.getScreenOffsets(player, this.width, this.height), gameOffset: this.tlCoords[i] });
@@ -215,14 +224,14 @@ export class SplitGameScreen extends GameScreen {
 
   static drawBorder(display) {
 
-    const middleY = SETTINGS.screen.height / 2;
-    for(let i = 0; i < SETTINGS.screen.width; i++) {
+    const middleY = Settings.screen.height / 2;
+    for(let i = 0; i < Settings.screen.width; i++) {
       display.draw(i, middleY, '=');
     }
 
     if(GameState.players.length > 2) {
-      const middleX = SETTINGS.screen.width / 2;
-      for(let i = 0; i < SETTINGS.screen.height; i++) {
+      const middleX = Settings.screen.width / 2;
+      for(let i = 0; i < Settings.screen.height; i++) {
         display.draw(middleX, i, '‖');
       }
     }

@@ -68,7 +68,7 @@ export default class Player extends Character {
     if(this.currentTurn % this.getSpawnSteps() === 0) {
       this.spawnMonster();
     }
-    
+
     this.game.refresh();
   }
   

@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { Screen } from '../screen';
 import { SingleVanquishedScreen, SplitVanquishedScreen } from './vanquished';
 import GameState from '../../init/gamestate';
+import ChangeTitle from '../../lib/page-title';
 
 export default class DeadScreen extends Screen {
   static enter() {
@@ -46,5 +47,7 @@ export default class DeadScreen extends Screen {
     this.drawLeftText(display, i++,     `You died in ${mapName} on dungeon level ${floor}.`);
     this.drawLeftText(display, i++,     `You scored ${score} points and ${latestDeath.gold} gold over ${latestDeath.currentTurn} steps.`);
     this.drawLeftText(display, i++,     `You earned ${GameState.spEarned} SP and ${GameState.kpEarned} KP.`);
+
+    ChangeTitle('Dead');
   }
 }

@@ -5,6 +5,7 @@ import SETTINGS from '../../constants/settings';
 import { Screen } from '../screen';
 import NewGameScreen from './newgame';
 import GameState from '../../init/gamestate';
+import ChangeTitle from '../../lib/page-title';
 
 export default class RespawnScreen extends Screen {
   static enter() {
@@ -64,6 +65,8 @@ export default class RespawnScreen extends Screen {
     display.clear();
     const text = `Respawning in ${this.timer} seconds...`;
     const { x, y } = this.drawCenterText(display,  11, text);
+
+    ChangeTitle(`Respawning (${this.timer}s)`);
 
     if(this.ticks % this.phases.length === 0) {
       this.addStar(x, y, text.length);
