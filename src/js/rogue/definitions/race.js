@@ -6,7 +6,7 @@ import Settings from '../constants/settings';
 export default class Race {
   constructor(opts = {}) {
     this.slots = _.extend({}, Settings.game.defaultStats.equipmentSlots, opts.slots);
-    _.extend(this, Settings.game.defaultStats.race, opts.stats, loadValue);
+    _.extend(this, _.cloneDeep(Settings.game.defaultStats.race), _.cloneDeep(opts.stats), loadValue);
     this.addFactions.push(this.constructor.name);
   }
   canEquip(owner, item) {

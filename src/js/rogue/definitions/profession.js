@@ -5,7 +5,7 @@ import Settings from '../constants/settings';
 
 export default class Profession {
   constructor(config = {}) {
-    config = _.extend({}, Settings.game.defaultStats.profession, config);
+    config = _.extend({}, _.cloneDeep(Settings.game.defaultStats.profession), _.cloneDeep(config));
     this.config = config;
     _.extend(this, config, loadValue);
     config.addFactions.push(this.constructor.name);
