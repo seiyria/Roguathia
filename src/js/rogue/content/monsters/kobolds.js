@@ -2,9 +2,11 @@
 import * as Behaviors from '../behaviors/_all';
 import * as Weapons from '../items/_weapons';
 import * as Projectiles from '../items/projectiles';
+import { Entities as Glyphs } from '../../constants/glyphs';
+import { Entities as GlyphColors } from '../../constants/glyphColors';
 
 export const kobold = { difficulty: 1, spawnPattern: '1d1', frequency: 3, init: () =>
-  ({ glyph: { key: 'k', fg: 'brown' },
+  ({ glyph: { key: Glyphs.Kobold, fg: GlyphColors.Tiers.Weak },
     startingEquipment: [
       { choices: { dagger: 2, spear: 1, shortsword: 1 },
         choicesInit: {

@@ -2,6 +2,8 @@
 import Tile from '../../definitions/tile';
 import GameState from '../../init/gamestate';
 import { SelykCellarKey } from '../../content/items/_special';
+import { Tiles as Glyphs } from '../../constants/glyphs';
+import { Special as SpecialGlyphColors } from '../../constants/glyphColors';
 
 class Stairs extends Tile {
   canInteract(entity) {
@@ -9,7 +11,7 @@ class Stairs extends Tile {
   }
 }
 export class StairsDown extends Stairs {
-  constructor() { super('>'); }
+  constructor() { super(Glyphs.StairsDown); }
 
   canInteract(entity) {
     return super.canInteract(entity) && entity.descend && this.z !== GameState.world.depth - 1;
@@ -21,7 +23,7 @@ export class StairsDown extends Stairs {
   }
 }
 export class SelykStairsDown extends Stairs {
-  constructor() { super('>', '#f0f'); }
+  constructor() { super(Glyphs.StairsDown, SpecialGlyphColors.Selyk); }
 
   canInteract(entity) {
     return entity.hasInInventory(SelykCellarKey) && entity.descend;
@@ -33,7 +35,7 @@ export class SelykStairsDown extends Stairs {
   }
 }
 export class StairsUp extends Stairs {
-  constructor() { super('<'); }
+  constructor() { super(Glyphs.StairsUp); }
 
   canInteract() {
     return false;

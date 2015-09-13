@@ -7,6 +7,7 @@ import GameState from '../init/gamestate';
 import MonsterSpawner from '../worldgen/monster-spawner';
 import * as Behaviors from '../content/behaviors/_all';
 import Factions from '../constants/factions';
+import { Entities as Glyphs } from '../constants/glyphs';
 
 export default class Player extends Character {
   
@@ -16,7 +17,7 @@ export default class Player extends Character {
       Behaviors.DropsGold('0d0'), Behaviors.HealsBelowPercent(50),
       Behaviors.Wanders(), Behaviors.AlertsOnStep()
     ] };
-    super({ key: '@' }, x, y, z, opts);
+    super({ key: Glyphs.Player }, x, y, z, opts);
     this.factions.push(Factions.PLAYER);
     this.antiFactions.push(Factions.MONSTER);
     this.spawnSteps = 100; // spawn creatures every 100 steps

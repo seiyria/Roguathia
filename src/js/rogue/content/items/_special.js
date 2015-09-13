@@ -1,10 +1,12 @@
 
 import { Special, Comestible, Gem, Tool } from '../../definitions/equipment';
+import { Items as Glyphs } from '../../constants/glyphs';
+import { Items as GlyphColors, Special as SpecialGlyphColors } from '../../constants/glyphColors';
 
 export class Gold extends Special {
   constructor(num) {
     const opts = {
-      glyph: { key: '$', fg: 'yellow' }
+      glyph: { key: Glyphs.Gold, fg: GlyphColors.Gold }
     };
     super(opts);
     this.goldValue = num;
@@ -21,14 +23,14 @@ export class Corpse extends Comestible {
 
 export class StoneOfSelyk extends Gem {
   constructor() {
-    super({ glyph: { fg: '#f0f' } });
+    super({ glyph: { fg: SpecialGlyphColors.Selyk } });
     this.name = `Stone of Selyk`;
   }
 }
 
 export class SelykCellarKey extends Tool {
   constructor() {
-    super({ glyph: { fg: '#f0f' } });
+    super({ glyph: { fg: SpecialGlyphColors.Selyk } });
     this.name = `Selyk's Cellar Key`;
   }
 }

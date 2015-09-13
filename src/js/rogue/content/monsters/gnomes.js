@@ -2,9 +2,11 @@
 import * as Behaviors from '../behaviors/_all';
 import * as Weapons from '../items/_weapons';
 import * as Projectiles from '../items/projectiles';
+import { Entities as Glyphs } from '../../constants/glyphs';
+import { Entities as GlyphColors } from '../../constants/glyphColors';
 
 export const gnome = { difficulty: 3, spawnPattern: '1d2', frequency: 3, init: () =>
-  ({ glyph: { key: 'G', fg: 'brown' },
+  ({ glyph: { key: Glyphs.Gnome, fg: GlyphColors.Tiers.Weak },
     startingEquipment: [
       { choices: { bow: 1, crossbow: 1, darts: 1 },
         choicesInit: {

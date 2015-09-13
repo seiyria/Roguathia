@@ -6,21 +6,24 @@ import * as FountainEffects from '../../content/effects/fountain';
 import * as ThroneEffects from '../../content/effects/throne';
 import * as SinkDrinkEffects from '../../content/effects/sink-drink';
 import * as SinkKickEffects from '../../content/effects/sink-kick';
+import { Tiles as Glyphs } from '../../constants/glyphs';
+import { Special as SpecialGlyphColors, Tiles as GlyphColors } from '../../constants/glyphColors';
 
 export class Door extends Tile {
   constructor() {
     const isClosed = !!Math.round(ROT.RNG.getUniform());
-    const openChar = isClosed ? '-' : '+';
-    super(openChar, 'gold');
+    const openChar = isClosed ? Glyphs.DoorOpenHorizontal : Glyphs.DoorClosed;
+    super(openChar, GlyphColors.Door);
     this._isAIPassable = true;
 
     this.opacity = !~~isClosed;
     this.density = !~~isClosed;
   }
 
+  // the door should look different than the walls next to it
   getOpenChar(basedOn) {
     const leftTileGlyph = basedOn.glyph.key;
-    return leftTileGlyph === '-' ? '|' : '-';
+    return leftTileGlyph === Glyphs.DoorOpenHorizontal ? Glyphs.DoorOpenVertical : Glyphs.DoorOpenHorizontal;
   }
 
   canInteract() {
@@ -29,7 +32,7 @@ export class Door extends Tile {
 
   setProperCharacter(basedOn = GameState.world.getTile(this.x - 1, this.y, this.z)) {
     const isOpen = this.density;
-    const toggleChar = isOpen ? '+' : this.getOpenChar(basedOn);
+    const toggleChar = isOpen ? Glyphs.DoorClosed : this.getOpenChar(basedOn);
     this.glyph.key = toggleChar;
   }
 
@@ -43,7 +46,7 @@ export class Door extends Tile {
 }
 
 export class SelykAltar extends Tile {
-  constructor() { super('_', '#f0f'); }
+  constructor() { super(Glyphs.Altar, SpecialGlyphColors.Selyk); }
 
   canInteract(entity) {
     return this.distBetween(entity) <= 1;
@@ -57,7 +60,7 @@ export class SelykAltar extends Tile {
 
 export class Fountain extends Tile {
   constructor() {
-    super('{', '#00f');
+    super(Glyphs.Fountain, GlyphColors.Fountain);
     this.density = 1;
   }
 
@@ -77,7 +80,7 @@ export class Fountain extends Tile {
 
 export class Throne extends Tile {
   constructor() {
-    super('\\', 'yellow');
+    super(Glyphs.Throne, GlyphColors.Throne);
   }
 
   canInteract(entity) {
@@ -96,7 +99,7 @@ export class Throne extends Tile {
 
 export class Sink extends Tile {
   constructor() {
-    super('#', '#d3d3ff');
+    super(Glyphs.Sink, GlyphColors.Sink);
     this.density = 1;
   }
 

@@ -4,9 +4,11 @@ import * as Weapons from '../items/_weapons';
 import * as Heads from '../items/heads';
 import * as Bodys from '../items/bodys';
 import * as Projectiles from '../items/projectiles';
+import { Entities as Glyphs } from '../../constants/glyphs';
+import { Entities as GlyphColors } from '../../constants/glyphColors';
 
 export const goblin = { difficulty: 1, spawnPattern: '1d1', frequency: 6, init: () =>
-  ({ glyph: { key: 'o', fg: 'gray' },
+  ({ glyph: { key: Glyphs.Orc, fg: GlyphColors.Tiers.Basic },
     startingEquipment: [
       { probability: 50, init: () => new Weapons.OrcishDagger() },
       { probability: 50, init: () => new Heads.OrcishHelm() }
@@ -17,7 +19,7 @@ export const goblin = { difficulty: 1, spawnPattern: '1d1', frequency: 6, init: 
     } }) };
 
 export const hobgoblin = { difficulty: 3, spawnPattern: '1d1', frequency: 6, init: () =>
-  ({ glyph: { key: 'o', fg: 'brown' },
+  ({ glyph: { key: Glyphs.Orc, fg: GlyphColors.Tiers.Weak },
     startingEquipment: [
       { choices: { dagger: 1, shortsword: 1 },
         choicesInit: {
@@ -33,7 +35,7 @@ export const hobgoblin = { difficulty: 3, spawnPattern: '1d1', frequency: 6, ini
     } }) };
 
 export const orc = { difficulty: 3, spawnPattern: '1d1', frequency: 0, init: () =>
-  ({ glyph: { key: 'o', fg: 'brown' },
+  ({ glyph: { key: Glyphs.Orc, fg: GlyphColors.Tiers.Inadequate },
     startingEquipment: [
       { choices: { sword: 1, bow: 1 },
         choicesInit: {

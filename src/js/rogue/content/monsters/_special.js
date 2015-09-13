@@ -2,9 +2,11 @@
 import { Wand as RandomWand } from '../../constants/random';
 import * as Behaviors from '../behaviors/_all';
 import Attacks from '../attacks/_all';
+import { Entities as Glyphs } from '../../constants/glyphs';
+import { Special as SpecialGlyphColors } from '../../constants/glyphColors';
 
 export const Selyk = { difficulty: 10, spawnPattern: '1d1', frequency: 0, init: () =>
-  ({ glyph: { key: 'h', fg: '#f0f' },
+  ({ glyph: { key: Glyphs.Humanoid, fg: SpecialGlyphColors.Selyk },
   attributes: { ac: -10, speed: 200, level: 20, str: '2d10', con: '2d10', int: '3d10', mp: '5d10', killXp: '50d10', spawnHp: '5d10 + 25' },
   stats: { name: 'Selyk', race: 'Human', profession: 'Wizard',
     startingEquipment: [
