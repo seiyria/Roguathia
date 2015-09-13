@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import ROT from 'rot-js';
 import Character from './character';
-import SETTINGS from '../constants/settings';
+import Settings from '../constants/settings';
 import GameState from '../init/gamestate';
 import MonsterSpawner from '../worldgen/monster-spawner';
 import * as Behaviors from '../content/behaviors/_all';
@@ -20,12 +20,12 @@ export default class Player extends Character {
     super({ key: Glyphs.Player }, x, y, z, opts);
     this.factions.push(Factions.PLAYER);
     this.antiFactions.push(Factions.MONSTER);
-    this.spawnSteps = 100; // spawn creatures every 100 steps
+    this.spawnSteps = Settings.game.spawnSteps; // spawn creatures every 100 steps
     this.totalXpEarned = 0;
     this.kpEarned = 0;
     this.conquest = {};
     
-    this.name = _.trunc(this.name, { length: 15, omission: '' });
+    this.name = _.trunc(this.name, { length: Settings.game.nameLength, omission: '' });
     this.brokenConduct.stubborn = false;
   }
   
@@ -60,7 +60,7 @@ export default class Player extends Character {
 
     if(!GameState.manualMove) {
       super.act();
-      setTimeout(() => engine.unlock(), SETTINGS.game.turnDelay/livingPlayers.length);
+      setTimeout(() => engine.unlock(), Settings.game.turnDelay/livingPlayers.length);
     }
     
     this.rebuildPathingMap();

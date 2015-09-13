@@ -10,6 +10,8 @@ import Glyph from './glyph';
 import { WeightedExtension } from '../lib/rot-extensions';
 import MonsterSpawner from '../worldgen/monster-spawner';
 
+import Settings from '../constants/settings';
+
 export class Projectile {
   constructor(glyph) {
     this.glyph = glyph;
@@ -64,7 +66,7 @@ export class Attack extends Abstract {
     if(targetAC >= 0) {
       targetACRoll = targetAC + owner.level - myToHitBonus;
     } else {
-      targetACRoll = 10 + ROT.RNG.getUniformInt(targetAC, -1) + owner.level - myToHitBonus;
+      targetACRoll = Settings.game.baseAC + ROT.RNG.getUniformInt(targetAC, -1) + owner.level - myToHitBonus;
     }
     return hitRoll < targetACRoll;
   }

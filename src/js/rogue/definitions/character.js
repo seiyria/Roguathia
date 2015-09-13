@@ -20,37 +20,6 @@ import { SkilledAttack } from '../definitions/attack';
 
 import Settings from '../constants/settings';
 
-const defaultAttributes = {
-  ac:  0,
-  str: 8,
-  con: 8,
-  dex: 8,
-  int: 8,
-  wis: 8,
-  cha: 8,
-  luk: 0,
-  gold: 0,
-  level: 1,
-  align: 0, 
-  speed: Settings.game.baseSpeed,
-  sight: Settings.game.baseSight,
-  sound: Settings.game.baseSound,
-  killXp: '0d0',
-  spawnHp: '15d1',
-  spawnMp: '0d0',
-  regenHp: 20,
-  regenMp: 10
-};
-
-const defaultStats = {
-  gender: 'Male',
-  name: 'Dudley',
-  race: 'Human',
-  attacks: [],
-  behaviors: [],
-  profession: 'Developer'
-};
-
 const defaultBehaviors = [Behaviors.RegeneratesHp(), Behaviors.RegeneratesMp()];
 
 export default class Character extends Entity {
@@ -67,8 +36,8 @@ export default class Character extends Entity {
 
     this.currentTurn = 0;
 
-    _.extend(this, defaultAttributes, opts.attributes, loadValue);
-    _.extend(this, defaultStats, opts.stats);
+    _.extend(this, Settings.game.defaultStats.attributes, opts.attributes, loadValue);
+    _.extend(this, Settings.game.defaultStats.stats, opts.stats);
 
     this.behaviors.push(...defaultBehaviors);
 
@@ -556,7 +525,7 @@ export default class Character extends Entity {
 
   // region Stat manipulation
   abuse(stat, loss = '1d1') {
-    this[stat] = Math.max(this[stat]-(Roll(loss)), 3);
+    this[stat] = Math.max(this[stat]-(Roll(loss)), Settings.game.minStatValue);
   }
 
   exercise(stat, gain = '1d1') {
@@ -566,8 +535,8 @@ export default class Character extends Entity {
 
   // region Getters (Stats, etc)
   getAlign() {
-    if(this.align <= -100) return 'Evil';
-    if(this.align >= 100) return 'Good';
+    if(this.align <= -Settings.game.alignThreshold) return 'Evil';
+    if(this.align >= Settings.game.alignThreshold) return 'Good';
     return 'Neutral';
   }
 
@@ -608,7 +577,7 @@ export default class Character extends Entity {
   }
 
   getAC() {
-    return 10 + this.getStat('ac') - this.calcStatBonus('dex') - this.getTraitValue('Protection');
+    return Settings.game.baseAC + this.getStat('ac') - this.calcStatBonus('dex') - this.getTraitValue('Protection');
   }
 
   getStr() {

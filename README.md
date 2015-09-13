@@ -1,6 +1,7 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
 # TODO
+* Salamanders -> Lizards
 * Content (all types of items)
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
@@ -55,7 +56,7 @@
 * Assertions, unit tests, logging, general code refactoring / cleanup
 * IRC bot (Selyk) to announce major events (deaths, etc) / scrollback to chat
 * Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
-* Refactor / reorg / unit tests for classes, remove magic numbers
+* Refactor / reorg / unit tests for classes
 * Better dungeon corners
 * Firebase: centrally track (important) statistics anonymously (allow people to login with reddit for less anonymous, leaderboards)
   * track deaths always, floor, race, name, and profession of the death (for headstone generation)

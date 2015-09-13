@@ -1,6 +1,7 @@
 
 import _ from 'lodash';
 import GameState from '../init/gamestate';
+import Settings from '../constants/settings';
 
 export default class MessageQueue {
   static add(messageObj) {
@@ -13,8 +14,8 @@ export default class MessageQueue {
       });
       if(!isInRange) return;
     }
-    GameState.messages.unshift({ turnsLeft: 4, message: messageObj.message });
-    GameState.messages.length = 50; // cap the messages off at the last 50
+    GameState.messages.unshift({ turnsLeft: Settings.game.display.turns, message: messageObj.message });
+    GameState.messages.length = Settings.game.display.log; // cap the messages off at the last 50
   }
   
   static viewAllMessages() {
