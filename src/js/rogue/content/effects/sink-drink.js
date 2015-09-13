@@ -32,7 +32,7 @@ export class HotWater extends SinkDrinkEffect {
       msg += ' It was quite tasty.';
     } else {
       const damage = Roll('1d6');
-      entity.takeDamage(damage);
+      entity.takeDamage(damage, { name: 'sink' });
     }
 
     this.msg(entity, msg);

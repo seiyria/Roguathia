@@ -107,7 +107,7 @@ export default class Game {
 
     GameState.currentFloor = 0;
 
-    for(let i = 0; i < 1; i++) {
+    for(let i = 0; i < 4; i++) {
       const startTile = playerLocations.shift();
       const player = new Player(0, 0, 0);
 

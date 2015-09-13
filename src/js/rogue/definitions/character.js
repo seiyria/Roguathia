@@ -309,7 +309,7 @@ export default class Character extends Entity {
   die(killer) {
     this.doBehavior('die');
     MessageQueue.add({ message: `${this.name} was killed by ${killer.name}!` });
-    killer.kill(this);
+    if(killer.kill) killer.kill(this);
 
     this.killerName = killer.name;
     this.removeSelf();

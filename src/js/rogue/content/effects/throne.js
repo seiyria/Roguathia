@@ -49,7 +49,7 @@ export class Shocking extends ThroneEffect {
     const damageRoll = hasShkRst ? '1d6' : '1d30';
 
     entity.abuse('con', '1d1');
-    entity.takeDamage(Roll(damageRoll));
+    entity.takeDamage(Roll(damageRoll), { name: 'throne' });
     this.msg(entity, `${entity.name} was viciously shocked!`);
   }
 }

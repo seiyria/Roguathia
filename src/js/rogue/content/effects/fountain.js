@@ -38,7 +38,7 @@ export class Contaminated extends FountainEffect {
       entity.abuse('con', '1d2');
     }
 
-    entity.takeDamage(Roll(damageRoll));
+    entity.takeDamage(Roll(damageRoll), { name: 'fountain' });
     this.msg(entity, msg);
   }
 }

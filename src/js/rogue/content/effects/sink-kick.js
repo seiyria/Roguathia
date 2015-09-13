@@ -40,7 +40,7 @@ export class BadKick extends SinkKickEffect {
     entity.abuse('dex');
     entity.abuse('wis');
     const damage = Roll('1d5');
-    entity.takeDamage(damage);
+    entity.takeDamage(damage, { name: 'sink' });
   }
 }
 
