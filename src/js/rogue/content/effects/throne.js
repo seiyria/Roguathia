@@ -37,7 +37,7 @@ export class Ouch extends ThroneEffect {
     const statLost = Roll('1d4 + 2');
     const stat = _.sample(['con', 'dex', 'int', 'wis', 'str', 'cha', 'luk']);
     this.msg(entity, `${entity.name} feels a painful surge!`);
-    entity.hp.sub(hpLost);
+    entity.takeDamage(hpLost, { name: 'throne' });
     entity[stat] -= statLost;
   }
 }
