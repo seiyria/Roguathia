@@ -58,7 +58,7 @@
   "gulp": {
     "sass": "src/scss/*.scss",
     "libjs": [
-      "./bower_components/HackTimer/HackTimer.min.js",
+      "./bower_components/HackTimer/HackTimer.silent.min.js",
       "./bower_components/angular/angular.min.js",
       "./bower_components/angular-ui-bootstrap-bower/ui-bootstrap.min.js",
       "./bower_components/ngstorage/ngStorage.min.js"
