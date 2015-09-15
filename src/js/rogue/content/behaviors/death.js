@@ -44,6 +44,7 @@ class DropsGoldBehavior extends Behavior {
   die(me) {
     const droppedGold = Roll(this.goldDrop);
     const goldItem = new Gold(droppedGold + me.gold);
+    if(goldItem.goldValue === 0) return;
     GameState.world.moveItem(goldItem, me.x, me.y, me.z);
   }
 }
