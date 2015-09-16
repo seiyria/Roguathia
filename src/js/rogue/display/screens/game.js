@@ -44,6 +44,9 @@ export class GameScreen extends Screen {
     const cache = {};
     _.each(['Telepathy', 'Clairvoyance', 'Warning'], (trait) => cache[trait] = centerPoint.getTraitValue(trait));
 
+    const projectileCache = {};
+    _.each(GameState.projectiles, (proj) => projectileCache[`${proj.x},${proj.y}`] = proj);
+
     const isVisible = (x, y) => {
       return visible[x] && visible[x][y];
     };
@@ -100,6 +103,12 @@ export class GameScreen extends Screen {
               foreground = warningColors[difficulty];
             }
           }
+        }
+
+        const projectile = projectileCache[`${x},${y}`];
+        if(baseIsVisible && projectile) {
+          glyph = projectile.glyph;
+          foreground = glyph.fg;
         }
 
         // visible things have a black background

@@ -12,6 +12,7 @@ class GameState {
     this.identification = {};
     this._idMap = {};
     this.messages = [];
+    this.projectiles = [];
     this.splitScreen = false;
     this.loadExternalOptions();
   }

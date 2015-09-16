@@ -11,8 +11,9 @@ import { Gold, Corpse } from '../items/_special';
 class DropsItemsBehavior extends Behavior {
   constructor() { super(Priority.DEFER); }
   die(me) {
-    const items = me.inventory.concat(_(me.equipment).values().flatten().value());
-    _.each(items, (item) => {
+    const equipped = _(me.equipment).values().flatten().value();
+    _.each(equipped, item => me.unequip(item));
+    _.each(me.inventory, (item) => {
       me.dropItem(item);
     });
   }

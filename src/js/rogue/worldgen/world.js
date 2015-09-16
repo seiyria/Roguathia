@@ -5,6 +5,7 @@ import * as Tiles from './tiles/_all';
 import Dungeon from './maptypes/dungeon';
 import GameState from '../init/gamestate';
 import ItemGenerator from './item-generator';
+import Log from '../lib/logger';
 
 export default class World {
   constructor() {
@@ -188,8 +189,13 @@ export default class World {
   getItemsAt(x, y, z) {
     return this.getWithoutInits(x, y, z, 'items');
   }
-  
+
   removeItem(item) {
+    const myItems = this.getItemsAt(item.x, item.y, item.z);
+    if(!_.contains(myItems, item)) {
+      Log('World', `Invalid item removal attempt. ${item.name} not found in list: ${_.pluck(myItems, 'name').join(', ')}`);
+      return false;
+    }
     this.items[item.z][item.x][item.y] = _.without(this.items[item.z][item.x][item.y], item);
     item.x = item.y = item.z = undefined;
   }
@@ -228,8 +234,13 @@ export default class World {
     this.entities[z][x][y] = entity;
     return true;
   }
-  
+
   removeEntity(entity) {
+    const myEntity = this.getEntity(entity.x, entity.y, entity.z);
+    if(myEntity !== entity) {
+      Log('World', `Invalid entity removal attempt. ${entity.name} tried to remove ${myEntity.name}`);
+      return false;
+    }
     this.entities[entity.z][entity.x][entity.y] = null;
   }
   

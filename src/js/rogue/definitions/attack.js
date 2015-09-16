@@ -85,7 +85,7 @@ export class Attack extends Abstract {
     };
     const astar = new ROT.Path.AStar(target.x, target.y, canPass, { topology: 8 });
 
-    const path = [];
+    let path = [];
     const pathCallback = function(x, y) {
       path.push({ x, y });
     };
@@ -94,20 +94,26 @@ export class Attack extends Abstract {
 
     path.shift();
 
+    if(!path.length) path = [{ x: owner.x, y: owner.y }];
+
     const projectile = new Projectile(this.glyph);
+
     projectile.z = owner.z;
     projectile.x = path[0].x;
     projectile.y = path[0].y;
 
+    GameState.projectiles.push(projectile);
+
     const moveTo = (x, y) => {
-      GameState.world.moveEntity(projectile, x, y, projectile.z);
+      projectile.x = x;
+      projectile.y = y;
       GameState.game.refresh();
     };
 
     const finalize = () => {
-      GameState.world.removeEntity(projectile);
-      callback();
+      GameState.projectiles = _.without(GameState.projectiles, projectile);
       GameState.game.refresh();
+      callback(); // this has to be called first to prevent race conditions with unlocking the engine and double-dying
       engine.unlock();
     };
     

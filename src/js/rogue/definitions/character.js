@@ -14,6 +14,7 @@ import MessageQueue from '../display/message-handler';
 import loadValue from '../lib/value-assign';
 import calc from '../lib/directional-probability';
 import Log from '../lib/logger';
+import Id from '../lib/gen-id';
 
 import SkillThresholds, * as Thresholds from '../constants/skill-thresholds';
 import { SkilledAttack } from '../definitions/attack';
@@ -26,6 +27,8 @@ export default class Character extends Entity {
 
   constructor(glyph, x, y, z, opts = { stats: {}, attributes: {} }) {
     super(glyph, x, y, z);
+
+    this.__id = Id();
 
     this.factions = [];
     this.antiFactions = [];
@@ -189,7 +192,7 @@ export default class Character extends Entity {
   }
 
   dropItem(item) {
-    this.inventory = _.without(this.inventory, item);
+    this.removeFromInventory(item);
     GameState.world.moveItem(item, this.x, this.y, this.z);
   }
 
@@ -307,17 +310,22 @@ export default class Character extends Entity {
   }
 
   die(killer) {
+    if(this.killerName) {
+      Log('Player', `Error: Attempting to die twice. Previous killer: ${this.killerName} (${this.__killerId}), Usurper: ${killer.name} (${killer.__id})`, true);
+      return;
+    }
     this.doBehavior('die');
     MessageQueue.add({ message: `${this.name} was killed by ${killer.name}!` });
     if(killer.kill) killer.kill(this);
 
+    this.__killerId = killer.__id;
     this.killerName = killer.name;
     this.removeSelf();
   }
 
   removeSelf() {
-    GameState.game.scheduler.remove(this);
     GameState.world.removeEntity(this);
+    GameState.game.scheduler.remove(this);
   }
 
   kill(dead) {
@@ -463,6 +471,7 @@ export default class Character extends Entity {
   }
 
   canAttack(entity) {
+    if(entity.hp.atMin()) return false;
     // they have a faction that you are against
     return _.intersection(entity.factions, this.antiFactions).length > 0 ||
 
@@ -480,7 +489,7 @@ export default class Character extends Entity {
     const attacks = this.getAttacks();
     if(attacks.length === 0) return false;
 
-    _.each(attacks, this.doAttack, this);
+    _.each(attacks, (atk, i) => this.doAttack(atk, i));
     return true;
   }
   // endregion
@@ -639,7 +648,7 @@ export default class Character extends Entity {
   }
 
   toJSON() {
-    const me = _.omit(this, ['game', '_path', 'traitHash', '_attackedBy']);
+    const me = _.omit(this, ['game', '_path', 'traitHash', '_attackedBy', '__id', '__killerId']);
     return JSON.stringify(me);
   }
 }

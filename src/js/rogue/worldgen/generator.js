@@ -84,8 +84,7 @@ export default class Generator {
     const validRooms = _.reject(rooms, room => room._noMoreFeatures);
     _.each(validRooms, room => {
       _.each(featureTypes, type => {
-        // if(ROT.RNG.getUniformInt(1, 10000) <= GameState.upgrades[`${type.name}SpawnChance`])
-        if(true) {
+        if(ROT.RNG.getUniformInt(1, 10000) <= GameState.upgrades[`${type.name}SpawnChance`]) {
           const [x, y] = this.getRandomCoordsInRoom(room);
           this.placeTile(map, type.proto, x, y, z);
           this.markRoomInelligible(room);

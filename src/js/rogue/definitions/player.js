@@ -22,6 +22,7 @@ export default class Player extends Character {
     this.antiFactions.push(Factions.MONSTER);
     this.spawnSteps = Settings.game.spawnSteps; // spawn creatures every 100 steps
     this.totalXpEarned = 0;
+    this.totalKpEarned = 0;
     this.kpEarned = 0;
     this.conquest = {};
     
