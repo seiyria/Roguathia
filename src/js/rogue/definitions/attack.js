@@ -144,7 +144,13 @@ export class Attack extends Abstract {
     this.animate(owner, target, () => this.hit(owner, target));
   }
 
-  calcDamage(owner) {
+  calcDamage(owner, target) {
+
+    // you can resist some elemental damage!
+    if(this.element && target.hasTrait(`${this.element}Resistance`)) {
+      return 0;
+    }
+
     let damageBoost = 0;
     if(this._itemRef) {
       damageBoost += this._itemRef.enchantment;
@@ -156,8 +162,8 @@ export class Attack extends Abstract {
   hit(owner, target) {
     const damage = this.calcDamage(owner, target);
     if(damage <= 0) {
-      const extra = this.blockCallback(owner, target);
-      MessageQueue.add({ message: this.blockString(owner, target, extra) });
+      const extraBlockData = this.blockCallback(owner, target);
+      MessageQueue.add({ message: this.blockString(owner, target, extraBlockData) });
       return false;
     }
     const extra = this.hitCallback(owner, target, damage);
