@@ -15,10 +15,11 @@ export const Entities = {
     Nightmarish: ''
   },
   Colors: {
-    Black: 'gray' // it would be impossible to see if it were really black
-  },
-  Other: {
-    Newt: 'yellow'
+    Black: 'gray', // it would be impossible to see if it were really black
+    Yellow: 'yellow',
+    Green: 'green',
+    Brown: 'brown',
+    Red: 'red'
   }
 };
 

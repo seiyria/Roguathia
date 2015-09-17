@@ -16,6 +16,19 @@ export class Dart extends Weapon {
   }
 }
 
+export class Stiletto extends Weapon {
+  static get rarity() { return 5; }
+  constructor(opts = {}) {
+    _.extend(opts, {
+      autoRemove: true,
+      charges: '4d4',
+      glyph: { key: ')', fg: '#00f' },
+      attacks: [Attacks.Shot({ roll: '1d4', toHit: '0d0', range: 4 })]
+    });
+    super(opts);
+  }
+}
+
 export class OrcishArrow extends Weapon {
   static get rarity() { return 25; }
   constructor(opts = {}) {

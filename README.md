@@ -1,7 +1,6 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
 # TODO
-* Salamanders -> Lizards
 * Content (all types of items)
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
@@ -85,6 +84,12 @@
 * heavy weapons (maces, greatmaces) that have knockback on their attacks (or bonus damage if the target is against a wall)
 * Random colored stars on the respawn screen
 * Random dungeon afflictions/bonuses (+120% SP gain, -3 con, etc)
+* Polymorph self
+  * Chameleons can do this
+* Corrision
+  * -1 enchantLevel hit with a corrosionPercent chance of happening, adds "corroded" to name if < 0
+  * add CorrodesWhenHit and a corrosion attribute to the attack that both do the same thing. Or maybe a CorrodeOnHit behavior?
+  * Black Pudding
 * More dungeon types
   * Mines
   * Town (arena with shops in it, or a digger with empty spaces/corridor spaces replaced with basic tile)

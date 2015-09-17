@@ -24,3 +24,17 @@ export class Spear extends Hands {
     super(opts);
   }
 }
+
+export class Trident extends Hands {
+  static get rarity() { return 1; }
+  constructor(opts = {}) {
+    _.extend(opts, {
+      glyph: { fg: 'teal' },
+      attacks: [Attacks.Stab({ roll: '2d6 + 1' })]
+    });
+    super(opts);
+  }
+
+  LizardBane() { return 2; }
+  LizardFury() { return 1; }
+}

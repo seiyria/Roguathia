@@ -9,12 +9,12 @@ export const Entities = {
   Gnome: 'G',
   Humanoid: 'h',
   Kobold: 'k',
+  Lizard: ':',
   Mystical: 'x',
   Nymph: 'n',
   Orc: 'o',
   Pudding: 'P',
   Rat: 'r',
-  Salamander: ':',
   Snake: 'S',
   Spore: 'e'
 };

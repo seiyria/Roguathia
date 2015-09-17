@@ -543,6 +543,11 @@ export default class Character extends Entity {
   // endregion
 
   // region Getters (Stats, etc)
+  getTraitVsOpponent(target, trait) {
+    if(!target) return 0;
+    return _.reduce(target.factions, (prev, cur) => prev + this.getTraitValue(`${cur}${trait}`), 0);
+  }
+
   getAlign() {
     if(this.align <= -Settings.game.alignThreshold) return 'Evil';
     if(this.align >= Settings.game.alignThreshold) return 'Good';
@@ -565,12 +570,12 @@ export default class Character extends Entity {
     return this.getStatWithMin('regenMp');
   }
 
-  getBonusDamage() {
-    return this.getStat('bonusDamage');
+  getBonusDamage(target = null) {
+    return this.getStat('bonusDamage') + this.getTraitVsOpponent(target, 'Fury');
   }
 
-  getToHit() {
-    return this.getStat('toHit');
+  getToHit(target = null) {
+    return this.getStat('toHit') + this.getTraitVsOpponent(target, 'Bane');
   }
 
   getSight() {
