@@ -4,6 +4,8 @@ import { Attack } from '../../definitions/attack';
 
 export class Bite extends Attack {}
 export class Claw extends Attack {}
+export class Touch extends Attack {}
+export class Bearhug extends Attack {}
 
 export class PoisonBite extends Attack {
   hitString(owner, target, damage, extra) {
