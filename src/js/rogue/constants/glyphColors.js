@@ -1,7 +1,8 @@
 
 export const Entities = {
   Elements: {
-    Water: 'blue'
+    Water: 'blue',
+    Fire: 'red'
   },
   Tiers: {
     Basic: 'gray',

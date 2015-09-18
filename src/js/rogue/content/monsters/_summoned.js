@@ -11,7 +11,7 @@ export const waterMoccasin = { difficulty: 7, spawnPattern: '1d1', frequency: 0,
     attributes: { ac: -7, speed: 200, level: 4, killXp: '6d10', spawnHp: '2d4' },
     stats: { name: 'water moccasin', race: 'Snake',
       behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
-      attacks: [Attacks.PoisonBite({ roll: '1d6' })]
+      attacks: [Attacks.Poison({ roll: '1d6' })]
     } }) };
 
 export const waterDemon = { difficulty: 11, spawnPattern: '1d1', frequency: 0, init: () =>

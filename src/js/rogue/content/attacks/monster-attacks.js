@@ -7,7 +7,7 @@ export class Claw extends Attack {}
 export class Touch extends Attack {}
 export class Bearhug extends Attack {}
 
-export class PoisonBite extends Attack {
+export class Poison extends Attack {
   hitString(owner, target, damage, extra) {
     let psn = ``;
     if(extra && !target.hasTrait('PoisonResistance')) {

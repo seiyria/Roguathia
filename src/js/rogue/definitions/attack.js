@@ -181,6 +181,8 @@ export class Attack extends Abstract {
       if(!validTile) return;
       MonsterSpawner.spawnSingle(spawnMe, validTile);
     }
+
+    return ROT.RNG.getPercentage() <= this.percent;
   }
   
   blockString(owner, target) { return `${target.name} blocked ${owner.name}'s attack!`; }
