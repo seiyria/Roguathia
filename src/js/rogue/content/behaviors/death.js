@@ -54,10 +54,11 @@ export const DropsGold = (gold) => new DropsGoldBehavior(gold);
 
 /* explodes upon death. can be pretty dangerous */
 class ExplodesBehavior extends Behavior {
-  constructor(roll = '1d4', percent = 100) {
+  constructor(roll = '1d4', range = 1, percent = 100) {
     super(Priority.DEFER);
     this.roll = roll;
     this.percent = percent;
+    this.range = range;
   }
 
   die(me) {
@@ -66,11 +67,11 @@ class ExplodesBehavior extends Behavior {
       return;
     }
     MessageQueue.add({ message: `${me.name} violently explodes!` });
-    _.each(GameState.world.getValidEntitiesInRange(me.x, me.y, me.z, 1), (entity) => {
+    _.each(GameState.world.getValidEntitiesInRange(me.x, me.y, me.z, this.range), (entity) => {
       if(me === entity || entity.hp.atMin()) return; // infinite loop prevention
       entity.takeDamage(Roll(this.roll), me);
     });
   }
 }
 
-export const Explodes = (roll, percent) => new ExplodesBehavior(roll, percent);
+export const Explodes = (roll, range, percent) => new ExplodesBehavior(roll, range, percent);
