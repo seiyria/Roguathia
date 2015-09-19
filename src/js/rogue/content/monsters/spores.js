@@ -12,6 +12,13 @@ export const gasSpore = { difficulty: 2, spawnPattern: '1d1', frequency: 50, ini
     behaviors: [Behaviors.Explodes('4d8', 3), Behaviors.Wanders()]
   } }) };
 
+export const floatingEye = { difficulty: 3, spawnPattern: '1d1', frequency: 50000, init: () =>
+  ({ glyph: { key: Glyphs.Spore, fg: GlyphColors.Tiers.Weak },
+    attributes: { ac: -1, speed: 10, level: 2, killXp: '2d10', spawnHp: '1d5' },
+    stats: { name: 'floating eye', race: 'Spore',
+      behaviors: [Behaviors.ParalyzesWhenHit(50), Behaviors.Wanders()]
+    } }) };
+
 export const electricSphere = { difficulty: 8, spawnPattern: '1d1', frequency: 3, init: () =>
   ({ glyph: { key: Glyphs.Spore, fg: GlyphColors.Elements.Shock },
     attributes: { ac: -6, speed: 110, level: 6, killXp: '15d10', spawnHp: '5d4' },

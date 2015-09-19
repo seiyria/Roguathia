@@ -305,7 +305,7 @@ export default class Character extends Entity {
   // region Damage / dying / targetting
   takeDamage(damage, attacker) {
     this.hp.sub(damage);
-    this.doBehavior('takeDamage');
+    this.doBehavior('takeDamage', [attacker]);
     if(this.hp.atMin()) {
       this.die(attacker);
     }

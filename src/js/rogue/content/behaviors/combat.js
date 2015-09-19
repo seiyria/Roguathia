@@ -5,6 +5,8 @@ import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
 import MessageQueue from '../../display/message-handler';
 import MonsterSpawner from '../../worldgen/monster-spawner';
+import { Stunned } from './conditions';
+import Roll from '../../lib/dice-roller';
 
 /* monsters can attack with this */
 class AttacksBehavior extends Behavior {
@@ -28,6 +30,22 @@ class TeleportsWhenHitBehavior extends Behavior {
 }
 
 export const TeleportsWhenHit = (percent) => new TeleportsWhenHitBehavior(percent);
+
+/* hitting in melee range will stun you */
+class ParalyzesWhenHitBehavior extends Behavior {
+  constructor(percent = 100, range = 2) {
+    super(Priority.DEFER);
+    this.percent = percent;
+    this.range = range;
+  }
+  takeDamage(me, attacker) {
+    if(ROT.RNG.getPercentage() > this.percent || me.distBetween(attacker) > this.range) return;
+    const turns = Roll('1d50 + 50');
+    attacker.addUniqueBehavior(Stunned(turns));
+  }
+}
+
+export const ParalyzesWhenHit = (percent, range) => new ParalyzesWhenHitBehavior(percent, range);
 
 class StealsBehavior extends Behavior {
   constructor(percent = 100) {
