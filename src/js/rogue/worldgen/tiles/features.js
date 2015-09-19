@@ -112,14 +112,14 @@ export class Sink extends Tile {
   }
 
   interact(entity) {
-    if(ROT.RNG.getPercentage() <= 0) {
+    if(ROT.RNG.getPercentage() <= 60) {
       this.getRandomEffect(SinkDrinkEffects).use(entity, this);
     } else {
       this.getRandomEffect(SinkKickEffects).use(entity, this);
     }
 
     // break chance
-    if(ROT.RNG.getPercentage() <= 0) {
+    if(ROT.RNG.getPercentage() <= 30) {
 
       // it might turn into a fountain, but probably not
       if(ROT.RNG.getPercentage() <= 20) {
