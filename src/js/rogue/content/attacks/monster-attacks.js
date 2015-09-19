@@ -35,6 +35,16 @@ export class ElectricTouch extends Attack {
   }
 }
 
+export class Explode extends Attack {
+  hitString(owner, target, damage) {
+    return `${owner.name} explodes! ${target.name} took ${damage} damage.`;
+  }
+
+  afterHitCallback(owner) {
+    owner.die(owner);
+  }
+}
+
 export class SeductiveTouch extends Attack {
   hitString(owner, target, damage, extra) {
     let sed = ``;
