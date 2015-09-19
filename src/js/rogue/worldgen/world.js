@@ -17,6 +17,7 @@ export default class World {
     this.items = [];
     
     this.fov = [];
+    this.lighting = [];
     this.explored = [];
   }
 
@@ -270,6 +271,17 @@ export default class World {
     }
 
     return _.filter(entities, filter);
+  }
+  // endregion
+
+  // region Lighting functions
+  addLighting(lightSource) {
+    if(!this.lighting[lightSource.z]) this.lighting[lightSource.z] = [];
+    this.lighting[lightSource.z].push(lightSource);
+  }
+
+  removeLighting(lightSource) {
+    this.lighting[lightSource.z] = _.without(this.lighting[lightSource.z], lightSource);
   }
   // endregion
 

@@ -40,6 +40,8 @@ export class Explode extends Attack {
     return `${owner.name} explodes! ${target.name} took ${damage} damage.`;
   }
 
+  canHit() { return true; }
+
   afterHitCallback(owner) {
     owner.die(owner);
   }

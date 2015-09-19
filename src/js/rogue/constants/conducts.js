@@ -25,6 +25,7 @@ const conducts = [
   { check: (player) => player.hasTrait('PoisonResistance'), affirmMessage: 'You %were poison resistant.' },
   { check: (player) => player.hasTrait('ShockResistance'), affirmMessage: 'You %were shock resistant.' },
   { check: (player) => player.hasTrait('FireResistance'), affirmMessage: 'You %were fire resistant.' },
+  { check: (player) => player.hasTrait('IceResistance'), affirmMessage: 'You %were ice resistant.' },
 
   // statuses
   { check: (player) => player.hasBehavior('Stunned'), affirmMessage: 'You %were stunned.' },

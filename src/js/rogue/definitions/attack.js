@@ -169,6 +169,7 @@ export class Attack extends Abstract {
     const extra = this.hitCallback(owner, target, damage);
     MessageQueue.add({ message: this.hitString(owner, target, damage, extra) });
     target.takeDamage(damage, owner);
+    this.afterHitCallback(owner, target);
   }
   
   hitString(owner, target, damage) { return `${owner.name} hit ${target.name} for ${damage} damage!`; }
@@ -190,6 +191,8 @@ export class Attack extends Abstract {
   
   missString(owner, target) { return `${owner.name} missed ${target.name}!`; }
   missCallback() {}
+
+  afterHitCallback() {}
   
   toJSON() {
     const me = _.omit(this, ['_itemRef']);

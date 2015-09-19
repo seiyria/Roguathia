@@ -7,6 +7,7 @@ export default class Tile extends Entity {
     super({ key: key, fg: fg, bg: bg });
     this.density = 0;
     this.opacity = 0;
+    this.reflect = 0.3;
   }
 
   ceaseExisting() {

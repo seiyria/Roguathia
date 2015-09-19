@@ -1,5 +1,6 @@
 
 import _ from 'lodash';
+import ROT from 'rot-js';
 import { Screen } from '../screen';
 import MessageQueue from '../message-handler';
 import GameState from '../../init/gamestate';
@@ -32,7 +33,8 @@ export class GameScreen extends Screen {
 
     const isDead = centerPoint.hp.atMin();
 
-    world.fov[zLevel].compute(
+    const fov = world.fov[zLevel];
+    fov.compute(
       centerPoint.x, centerPoint.y, isDead ? 1 : centerPoint.getSight(),
       (x, y) => {
         if(!visible[x]) visible[x] = [];
@@ -47,6 +49,20 @@ export class GameScreen extends Screen {
     const projectileCache = {};
     _.each(GameState.projectiles, (proj) => projectileCache[`${proj.x},${proj.y}`] = proj);
 
+    const lightingCache = {};
+
+    const lights = GameState.world.lighting[zLevel];
+    if(lights && lights.length > 0) {
+      const reflectivity = (x, y) => GameState.world.getTile(x, y, zLevel).reflect;
+      const lighting = new ROT.Lighting(reflectivity, { range: 5, passes: 2 });
+      lighting.setFOV(fov);
+
+      _.each(lights, light => lighting.setLight(light.x, light.y, light._lightColor));
+
+      const lightCallback = (x, y, color) => lightingCache[`${x},${y}`] = color;
+      lighting.compute(lightCallback);
+    }
+
     const isVisible = (x, y) => {
       return visible[x] && visible[x][y];
     };
@@ -57,6 +73,7 @@ export class GameScreen extends Screen {
 
     // white (doesn't count), green, yellow, orange, red, purple
     const warningColors = ['#fff', '#0f0', '#ff0', '#ffa500', '#f00', '#ff0'];
+    const ambientLight = [30, 30, 30];
 
     for(let x = offset.x; x < offset.x + width; x++) {
       for(let y = offset.y; y < offset.y + height; y++) {
@@ -71,14 +88,14 @@ export class GameScreen extends Screen {
 
         let glyph = { key: null };
         let foreground = null;
-        let background = null;
+        let background = ROT.Color.fromString('#000');
 
         const baseIsVisible = isVisible(x, y) || hasClairvoyance;
 
         if(baseIsVisible || hasSeen) {
           glyph = tile.glyph;
           foreground = glyph.fg;
-          background = glyph.bg;
+          if(glyph.bg) background = ROT.Color.fromString(glyph.bg);
         }
 
         if(baseIsVisible) {
@@ -113,7 +130,12 @@ export class GameScreen extends Screen {
 
         // visible things have a black background
         if(baseIsVisible) {
-          background = '#333';
+          background = ROT.Color.fromString('#333');
+        }
+
+        const light = lightingCache[`${x},${y}`];
+        if(baseIsVisible && light) {
+          background = ROT.Color.add(light, ambientLight);
         }
 
         // prevent taking color away from things that have it
@@ -121,7 +143,7 @@ export class GameScreen extends Screen {
           foreground = '#555';
         }
 
-        display.draw(gameOffset.x + x - offset.x, gameOffset.y + y - offset.y, glyph.key, foreground, background);
+        display.draw(gameOffset.x + x - offset.x, gameOffset.y + y - offset.y, glyph.key, foreground, ROT.Color.toRGB(background));
 
       }
     }

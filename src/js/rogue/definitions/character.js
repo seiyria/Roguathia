@@ -76,6 +76,8 @@ export default class Character extends Entity {
 
     this.game = GameState.game;
     this.game.scheduler.add(this, true);
+
+    this.doBehavior('spawn');
   }
 
   // region Static functions
