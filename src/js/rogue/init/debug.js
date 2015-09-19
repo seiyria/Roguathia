@@ -2,6 +2,8 @@
 import ROT from 'rot-js';
 import GameState from './gamestate';
 
+window.GameState = GameState;
+
 export default () => {
   document.body.addEventListener('keydown', (e) => {
     if(e.keyCode !== ROT.VK_SPACE) return;
