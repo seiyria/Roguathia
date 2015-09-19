@@ -1,5 +1,6 @@
 
 import * as Behaviors from '../behaviors/_all';
+import * as Traits from '../traits/_all';
 import Attacks from '../attacks/_all';
 import * as Weapons from '../items/_weapons';
 import { Entities as Glyphs } from '../../constants/glyphs';
@@ -68,6 +69,7 @@ export const salamander = { difficulty: 17, spawnPattern: '1d1', frequency: 1, i
     attributes: { ac: -11, speed: 100, level: 10, killXp: '20d10', spawnHp: '4d20' },
     stats: { name: 'salamander', race: 'Lizardman',
       behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
+      traits: [Traits.FireResistance()],
       attacks: [
         Attacks.Bearhug({ roll: '2d6' }),
         Attacks.Bearhug({ roll: '3d6', element: 'Fire' }),
