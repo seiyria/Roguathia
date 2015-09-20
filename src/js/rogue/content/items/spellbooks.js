@@ -13,3 +13,14 @@ export class ForceBolt extends Spellbook {
     super(opts);
   }
 }
+
+export class CureSelf extends Spellbook {
+  static get rarity() { return 0; }
+  constructor(opts = {}) {
+    _.extend(opts, {
+      manaCost: 10,
+      healRoll: '3d6'
+    });
+    super(opts);
+  }
+}
