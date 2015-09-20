@@ -6,7 +6,7 @@ import * as Weapons from '../items/_weapons';
 import { Entities as Glyphs } from '../../constants/glyphs';
 import { Entities as GlyphColors } from '../../constants/glyphColors';
 
-export const newt = { difficulty: 1, spawnPattern: '1d1', frequency: 150, init: () =>
+export const newt = { difficulty: 1, spawnPattern: '1d1', frequency: 50, init: () =>
   ({ glyph: { key: Glyphs.Lizard, fg: GlyphColors.Colors.Yellow },
   attributes: { ac: -2, speed: 50, level: 1, killXp: '1d1', spawnHp: '1d4' },
   stats: { name: 'newt', race: 'Lizard',
@@ -14,7 +14,7 @@ export const newt = { difficulty: 1, spawnPattern: '1d1', frequency: 150, init: 
     attacks: [Attacks.Bite({ roll: '1d2' })]
   } }) };
 
-export const gecko = { difficulty: 2, spawnPattern: '1d1', frequency: 125, init: () =>
+export const gecko = { difficulty: 2, spawnPattern: '1d1', frequency: 35, init: () =>
   ({ glyph: { key: Glyphs.Lizard, fg: GlyphColors.Colors.Green },
     attributes: { ac: -2, speed: 50, level: 2, killXp: '1d8', spawnHp: '2d4' },
     stats: { name: 'gecko', race: 'Lizard',
@@ -22,7 +22,7 @@ export const gecko = { difficulty: 2, spawnPattern: '1d1', frequency: 125, init:
       attacks: [Attacks.Bite({ roll: '1d3' })]
     } }) };
 
-export const iguana = { difficulty: 3, spawnPattern: '1d1', frequency: 100, init: () =>
+export const iguana = { difficulty: 3, spawnPattern: '1d1', frequency: 25, init: () =>
   ({ glyph: { key: Glyphs.Lizard, fg: GlyphColors.Colors.Brown },
     attributes: { ac: -3, speed: 50, level: 3, killXp: '3d8', spawnHp: '4d4' },
     stats: { name: 'iguana', race: 'Lizard',
