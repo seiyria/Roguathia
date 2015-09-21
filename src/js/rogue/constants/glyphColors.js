@@ -11,7 +11,7 @@ export const Entities = {
     Weak: 'brown',
     Inadequate: 'orange',
     Moderate: 'yellow',
-    Adequate: '',
+    Adequate: 'red',
     Strong: '',
     Powerful: '',
     Difficult: '',
@@ -22,7 +22,8 @@ export const Entities = {
     Yellow: 'yellow',
     Green: 'green',
     Brown: 'brown',
-    Red: 'red'
+    Red: 'red',
+    Blue: 'blue'
   }
 };
 

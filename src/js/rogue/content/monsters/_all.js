@@ -4,6 +4,7 @@ import * as Canines from './canines';
 import * as Elementals from './elementals';
 import * as Gnomes from './gnomes';
 import * as Insects from './insects';
+import * as Jellies from './jellies';
 import * as Kobolds from './kobolds';
 import * as Nymphs from './nymphs';
 import * as Orcs from './orcs';
@@ -14,5 +15,5 @@ import * as Spores from './spores';
 import * as Summoned from './_summoned';
 
 export default _.extend({}, Canines, Elementals, Gnomes,
-  Insects, Kobolds, Lizards, Nymphs, Orcs, Puddings, Rats,
+  Insects, Jellies, Kobolds, Lizards, Nymphs, Orcs, Puddings, Rats,
   Spores, Summoned);

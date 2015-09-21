@@ -8,6 +8,7 @@ export const Entities = {
   Elemental: 'E',
   Gnome: 'G',
   Humanoid: 'h',
+  Jelly: 'j',
   Kobold: 'k',
   Lizard: ':',
   Mystical: 'x',
