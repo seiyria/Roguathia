@@ -6,6 +6,7 @@ import Glyph from './glyph';
 import { GetColor } from '../lib/valid-colors';
 import GameState from '../init/gamestate';
 import Abstract from './abstract';
+import Log from '../lib/logger';
 
 export class Item extends Abstract {
   constructor(opts) {
@@ -24,6 +25,9 @@ export class Item extends Abstract {
     if(this.startIdentified) this.identify();
     this.glyph = new Glyph(opts.glyph.key, opts.glyph.fg);
     this.generateBUC(opts.bucProb);
+    if(!this.material) {
+      Log('Item', `${this.getType()} has no material set.`);
+    }
   }
   
   isIdentified() {

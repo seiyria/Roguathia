@@ -3,6 +3,7 @@ import { Item } from './item';
 import * as Fakes from '../constants/faketypes';
 import MessageQueue from '../display/message-handler';
 import { Items as Glyphs } from '../constants/glyphs';
+import Materials from '../constants/materials';
 
 class Equipment extends Item {
   get name() {
@@ -16,6 +17,7 @@ class Equipment extends Item {
 export class Special extends Item {}
 
 export class Comestible extends Item {
+  get material() { return Materials.Food; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Comestible;
     super(opts);
@@ -93,7 +95,7 @@ export class Cloak extends Armor {
   constructor(opts = {}) {
     opts.symbol = Glyphs.Cloak;
     super(opts);
-    this.realName = this.fakeName = `ring of ${this.getCanonName()}`;
+    this.realName = this.fakeName = `${this.getCanonName()}`;
   }
 }
 
@@ -107,6 +109,7 @@ export class Neck extends Armor {
 }
 
 export class Gem extends Item {
+  get material() { return Materials.Glass; }
   static get rarity() { return 0; } // actually a value of 8 but they're not implemented yet
   constructor(opts = {}) {
     opts.symbol = Glyphs.Gem;
@@ -116,6 +119,7 @@ export class Gem extends Item {
 }
 
 export class Scroll extends Item {
+  get material() { return Materials.Cloth; }
   static get rarity() { return 0; } // actually a value of 15 but not yet implemented
   constructor(opts = {}) {
     opts.symbol = Glyphs.Scroll;
@@ -125,6 +129,7 @@ export class Scroll extends Item {
 }
 
 export class Wand extends Item {
+  get material() { return Materials.Wood; }
   static get rarity() { return 2; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Wand;
@@ -134,6 +139,7 @@ export class Wand extends Item {
 }
 
 export class Spellbook extends Weapon {
+  get material() { return Materials.Cloth; }
   static get rarity() { return 1; }
   constructor(opts = {}) {
     opts.manaCost = opts.manaCost || 3;
@@ -143,6 +149,7 @@ export class Spellbook extends Weapon {
 }
 
 export class Potion extends Equipment {
+  get material() { return Materials.Cloth; }
   static get rarity() { return 20; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Potion;
