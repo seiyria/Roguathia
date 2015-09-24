@@ -236,6 +236,7 @@ export default class Character extends Entity {
     if(this.getType() !== 'Hands') {
       this.breakConduct('nudist');
     }
+    if(item.equip) item.equip(this);
     this.flushTraits();
   }
 
@@ -269,6 +270,7 @@ export default class Character extends Entity {
     const slot = item.getParentType();
     this.equipment[slot] = _.without(this.equipment[slot], item);
     this.inventory.push(item);
+    if(item.unequip) item.unequip(this);
   }
   // endregion
 
