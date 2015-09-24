@@ -7,7 +7,7 @@ import Materials from '../constants/materials';
 
 class Equipment extends Item {
   get name() {
-    const name = this.isIdentified() ? this.realName : this.fakeName;
+    const name = !this.isIdentified() && this.fakeName ? this.fakeName : this.realName;
     const enchant = this.enchantment ? `+${this.enchantment} ${name}` : name;
     const buc = this.bucName !== 'uncursed' ? `${this.bucName} ${enchant}` : enchant;
     return buc;
