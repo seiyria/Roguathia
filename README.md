@@ -80,6 +80,8 @@
 * Themed rooms (Oracle room, Throne room, Bathroom, Graveyard)
   * More [here](https://nethackwiki.com/wiki/Special_room)
 * Artifact Weapons
+* Reflection (and an amulet, cloak)
+* Magic resistance (for some monsters, and a cloak)
 * Forgetful trait - you can only know what you see, the rest you forget (ie, explored hash is useless)
 * Use known healing potions or use random potions when dying (also, allow people to manually use potions)
 * heavy weapons (maces, greatmaces) that have knockback on their attacks (or bonus damage if the target is against a wall)
