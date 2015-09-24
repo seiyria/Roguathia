@@ -3,9 +3,8 @@ import { Cloak } from '../../definitions/equipment';
 import { AC } from '../../lib/default-calculations';
 import Materials from '../../constants/materials';
 
-export class Ordinary extends Cloak {
+export class OrdinaryCloak extends Cloak {
   get material() { return Materials.Cloth; }
-  get realName() { return 'ordinary cloak'; }
   static get rarity() { return 50; }
 }
 
@@ -63,10 +62,9 @@ export class Robe extends Cloak {
   }
 }
 
-export class Protection extends Cloak {
+export class CloakOfProtection extends Cloak {
   get material() { return Materials.Cloth; }
   static get rarity() { return 5; }
-  get realName() { return 'cloak of protection'; }
   get fakeName() { return 'rigid cloak'; }
   Protection() {
     return this.buc * -2;
