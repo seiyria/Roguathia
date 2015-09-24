@@ -9,5 +9,6 @@ export default {
   Glass: 6,     // can burn (melt), explode (if potion)
   Dragon: 7,
   Wood: 8,      // can burn, rot,
-  Food: 9
+  Food: 9,
+  Silver: 10
 };
