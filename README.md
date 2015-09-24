@@ -38,6 +38,7 @@
     * Better items generated on the floor
     * Possibly unlock a dungeon editor (you can rearrange what floors are in what order, and how many of them spawn)
     * Better respawn time
+    * Guaranteed N artifact generations
 * Achievements (worth VP, some worth recurring VP to a lesser extent)
   * Beat game with one party member @ level X (10, 25, 50, 100)
   * Beat game with one party member where dungeon size >= X (10, 25, 50, 100)
