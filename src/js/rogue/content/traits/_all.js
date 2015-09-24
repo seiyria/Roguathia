@@ -78,3 +78,9 @@ class IceResistanceTrait extends Trait {
 }
 
 export const IceResistance = () => new IceResistanceTrait();
+
+class AcidResistanceTrait extends Trait {
+  AcidResistance() { return 1; }
+}
+
+export const AcidResistance = () => new AcidResistanceTrait();
