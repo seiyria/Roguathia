@@ -30,7 +30,6 @@ export class AmuletOfStrangulation extends Neck {
   }
 }
 
-// TODO this needs to disintegrate when used -- disintegrated items should be unequipped first, then crumble to dust (msg)
 export class AmuletOfLifeSaving extends Neck {
   static get rarity() { return 1; }
   get material() { return Materials.Iron; }
