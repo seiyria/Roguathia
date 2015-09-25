@@ -31,6 +31,32 @@ export class Spear extends Hands {
   }
 }
 
+@rarity(15)
+@material(Materials.Iron)
+@twoHanded
+export class DwarvenSpear extends Hands {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      glyph: { fg: 'teal' },
+      attacks: [Attacks.Stab({ roll: '1d7' })]
+    });
+    super(opts);
+  }
+}
+
+@rarity(5)
+@material(Materials.Wood)
+@twoHanded
+export class ElvishSpear extends Hands {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      glyph: { fg: 'teal' },
+      attacks: [Attacks.Stab({ roll: '1d8' })]
+    });
+    super(opts);
+  }
+}
+
 @rarity(1)
 @material(Materials.Wood)
 @twoHanded

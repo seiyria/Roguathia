@@ -19,6 +19,34 @@ export class Dart extends Weapon {
   }
 }
 
+@rarity(10)
+@material(Materials.Iron)
+export class Javelin extends Weapon {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      autoRemove: true,
+      charges: '1d4',
+      glyph: { key: ')', fg: '#00f' },
+      attacks: [Attacks.Shot({ roll: '1d6', range: 9 })]
+    });
+    super(opts);
+  }
+}
+
+@rarity(5)
+@material(Materials.Iron)
+export class Shuriken extends Weapon {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      autoRemove: true,
+      charges: '5d4',
+      glyph: { key: ')', fg: '#00f' },
+      attacks: [Attacks.Shot({ roll: '1d8', range: 15 })]
+    });
+    super(opts);
+  }
+}
+
 @rarity(5)
 @material(Materials.Iron)
 export class Stiletto extends Weapon {

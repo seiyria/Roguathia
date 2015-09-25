@@ -42,7 +42,7 @@ export class SilverDagger extends Hands {
 }
 
 @rarity(15)
-@material(Materials.Mithril)
+@material(Materials.Wood)
 export class ElvenDagger extends Hands {
   constructor(opts = {}) {
     _.extend(opts, {

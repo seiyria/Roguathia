@@ -14,12 +14,13 @@ const materials = {
   Food: 9,
   Silver: 10,
   Gold: 11,
-  Mineral: 12
+  Mineral: 12,
+  Plastic: 13   // can burn
 };
 
 export default materials;
 
-export const AffectedByFire   = (item) => _.contains([materials.Cloth, materials.Leather, materials.Glass, materials.Wood], item.material);
+export const AffectedByFire   = (item) => _.contains([materials.Cloth, materials.Leather, materials.Glass, materials.Wood, materials.Plastic], item.material);
 export const AffectedByAcid   = (item) => _.contains([materials.Iron, materials.Copper], item.material);
 export const AffectedByPoison = (item) => _.contains([materials.Wood, materials.Cloth, materials.Leather], item.material);
 export const AffectedByIce    = (item) => _.contains([materials.Glass], item.material);

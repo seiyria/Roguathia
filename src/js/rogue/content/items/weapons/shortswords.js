@@ -28,3 +28,27 @@ export class Shortsword extends Hands {
     super(opts);
   }
 }
+
+@rarity(15)
+@material(Materials.Iron)
+export class DwarvenShortsword extends Hands {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      glyph: { fg: 'teal' },
+      attacks: [Attacks.Slash({ roll: '1d7' })]
+    });
+    super(opts);
+  }
+}
+
+@rarity(5)
+@material(Materials.Wood)
+export class ElvishShortsword extends Hands {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      glyph: { fg: 'teal' },
+      attacks: [Attacks.Slash({ roll: '1d8' })]
+    });
+    super(opts);
+  }
+}
