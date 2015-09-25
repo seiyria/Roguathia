@@ -13,7 +13,8 @@ const materials = {
   Wood: 8,      // can burn, rot,
   Food: 9,
   Silver: 10,
-  Gold: 11
+  Gold: 11,
+  Mineral: 12
 };
 
 export default materials;

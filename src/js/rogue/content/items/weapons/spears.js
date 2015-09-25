@@ -2,8 +2,10 @@
 import _ from 'lodash';
 import { Hands } from '../../../definitions/equipment';
 import Attacks from '../../attacks/_all';
+import Materials from '../../../constants/materials';
 
 export class OrcishSpear extends Hands {
+  get material() { return Materials.Wood; }
   static get rarity() { return 35; }
   constructor(opts = {}) {
     _.extend(opts, {
@@ -15,6 +17,7 @@ export class OrcishSpear extends Hands {
 }
 
 export class Spear extends Hands {
+  get material() { return Materials.Wood; }
   static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
@@ -26,6 +29,7 @@ export class Spear extends Hands {
 }
 
 export class Trident extends Hands {
+  get material() { return Materials.Wood; }
   static get rarity() { return 1; }
   constructor(opts = {}) {
     _.extend(opts, {

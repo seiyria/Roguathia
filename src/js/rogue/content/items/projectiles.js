@@ -60,6 +60,20 @@ export class Arrow extends Weapon {
   }
 }
 
+export class ElvenArrow extends Weapon {
+  get material() { return Materials.Iron; }
+  static get rarity() { return 15; }
+  constructor(opts = {}) {
+    _.extend(opts, {
+      autoRemove: true,
+      charges: '2d4',
+      glyph: { key: ')', fg: '#f0f' },
+      attacks: [Attacks.Shot({ roll: '1d8', toHit: '1d1', range: 7 })]
+    });
+    super(opts);
+  }
+}
+
 export class Bolt extends Weapon {
   get material() { return Materials.Wood; }
   static get rarity() { return 25; }
