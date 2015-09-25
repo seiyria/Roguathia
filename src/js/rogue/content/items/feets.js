@@ -18,7 +18,7 @@ export class ElvenBoots extends Feet {
     return AC(this);
   }
   Stealth() {
-    return 30;
+    return this.buc * 15;
   }
 }
 
@@ -26,7 +26,7 @@ export class HermesSandals extends Feet {
   static get rarity() { return 3; }
   get material() { return Materials.Leather; }
   Haste() {
-    return 50;
+    return this.buc * 50;
   }
 }
 
