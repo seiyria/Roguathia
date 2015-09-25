@@ -10,5 +10,6 @@ export default {
   Dragon: 7,
   Wood: 8,      // can burn, rot,
   Food: 9,
-  Silver: 10
+  Silver: 10,
+  Gold: 11
 };
