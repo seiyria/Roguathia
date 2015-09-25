@@ -3,10 +3,11 @@ import _ from 'lodash';
 import { Hands } from '../../../definitions/equipment';
 import Attacks from '../../attacks/_all';
 import Materials from '../../../constants/materials';
+import { rarity } from '../../../constants/decorators';
 
+@rarity(10)
 export class Axe extends Hands {
   get material() { return Materials.Wood; }
-  static get rarity() { return 10; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#ccc' },
@@ -16,9 +17,9 @@ export class Axe extends Hands {
   }
 }
 
+@rarity(3)
 export class BattleAxe extends Hands {
   get material() { return Materials.Wood; }
-  static get rarity() { return 3; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#ccc' },

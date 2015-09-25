@@ -3,10 +3,11 @@ import _ from 'lodash';
 import { Weapon } from '../../definitions/equipment';
 import Attacks from '../attacks/_all';
 import Materials from '../../constants/materials';
+import { rarity } from '../../constants/decorators';
 
+@rarity(50)
 export class Dart extends Weapon {
   get material() { return Materials.Iron; }
-  static get rarity() { return 50; }
   constructor(opts = {}) {
     _.extend(opts, {
       autoRemove: true,
@@ -18,9 +19,9 @@ export class Dart extends Weapon {
   }
 }
 
+@rarity(5)
 export class Stiletto extends Weapon {
   get material() { return Materials.Iron; }
-  static get rarity() { return 5; }
   constructor(opts = {}) {
     _.extend(opts, {
       autoRemove: true,
@@ -32,9 +33,9 @@ export class Stiletto extends Weapon {
   }
 }
 
+@rarity(25)
 export class OrcishArrow extends Weapon {
   get material() { return Materials.Wood; }
-  static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
       autoRemove: true,
@@ -46,9 +47,9 @@ export class OrcishArrow extends Weapon {
   }
 }
 
+@rarity(20)
 export class Arrow extends Weapon {
   get material() { return Materials.Wood; }
-  static get rarity() { return 20; }
   constructor(opts = {}) {
     _.extend(opts, {
       autoRemove: true,
@@ -60,9 +61,9 @@ export class Arrow extends Weapon {
   }
 }
 
+@rarity(15)
 export class ElvenArrow extends Weapon {
   get material() { return Materials.Iron; }
-  static get rarity() { return 15; }
   constructor(opts = {}) {
     _.extend(opts, {
       autoRemove: true,
@@ -74,9 +75,9 @@ export class ElvenArrow extends Weapon {
   }
 }
 
+@rarity(25)
 export class Bolt extends Weapon {
   get material() { return Materials.Wood; }
-  static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
       autoRemove: true,

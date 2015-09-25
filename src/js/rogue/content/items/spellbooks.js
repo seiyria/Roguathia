@@ -2,9 +2,10 @@
 import _ from 'lodash';
 import { Spellbook } from '../../definitions/equipment';
 import Attacks from '../attacks/_all';
+import { rarity } from '../../constants/decorators';
 
+@rarity(25)
 export class ForceBolt extends Spellbook {
-  static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
       manaCost: 2,
@@ -14,8 +15,8 @@ export class ForceBolt extends Spellbook {
   }
 }
 
+@rarity(0)
 export class CureSelf extends Spellbook {
-  static get rarity() { return 0; }
   constructor(opts = {}) {
     _.extend(opts, {
       manaCost: 10,

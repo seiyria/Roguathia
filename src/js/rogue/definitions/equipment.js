@@ -4,6 +4,7 @@ import * as Fakes from '../constants/faketypes';
 import MessageQueue from '../display/message-handler';
 import { Items as Glyphs } from '../constants/glyphs';
 import Materials from '../constants/materials';
+import { rarity } from '../constants/decorators';
 
 class Equipment extends Item {
   get name() {
@@ -30,21 +31,21 @@ export class Armor extends Equipment {}
 export class Weapon extends Equipment {
   constructor(opts) {
     super(opts);
-    this.realName = this.fakeName = this.getType();
+    this.realName = this.fakeName = this.getCanonName();
   }
 }
 
+@rarity(25)
 export class Body extends Armor {
-  static get rarity() { return 25; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Body;
     super(opts);
-    this.realName = this.fakeName = `${this.getCanonName()}`;
+    this.realName = this.fakeName = this.getCanonName();
   }
 }
 
+@rarity(3)
 export class Ring extends Armor {
-  static get rarity() { return 3; }
   constructor(opts = {}) {
     opts.bucProb = { cursed: 7, blessed: 2, uncursed: 91 };
     opts.symbol = Glyphs.Ring;
@@ -54,64 +55,64 @@ export class Ring extends Armor {
   }
 }
 
+@rarity(25)
 export class Hands extends Weapon {
-  static get rarity() { return 25; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Hands;
     super(opts);
-    this.realName = this.fakeName = `${this.getCanonName()}`;
+    this.realName = this.fakeName = this.getCanonName();
   }
 }
 
+@rarity(5)
 export class Wrist extends Armor {
-  static get rarity() { return 5; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Wrist;
     super(opts);
-    this.realName = this.fakeName = `${this.getCanonName()} gloves`;
+    this.realName = this.fakeName = this.getCanonName();
   }
 }
 
+@rarity(5)
 export class Feet extends Armor {
-  static get rarity() { return 5; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Feet;
     super(opts);
-    this.realName = this.fakeName = `${this.getCanonName()} boots`;
+    this.realName = this.fakeName = this.getCanonName();
     this.slotsTaken = 2;
   }
 }
 
+@rarity(5)
 export class Head extends Armor {
-  static get rarity() { return 5; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Head;
     super(opts);
-    this.realName = this.fakeName = `${this.getCanonName()} helm`;
+    this.realName = this.fakeName = this.getCanonName();
   }
 }
 
+@rarity(3)
 export class Cloak extends Armor {
-  static get rarity() { return 3; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Cloak;
     super(opts);
-    this.realName = this.fakeName = `${this.getCanonName()}`;
+    this.realName = this.fakeName = this.getCanonName();
   }
 }
 
+@rarity(1)
 export class Neck extends Armor {
-  static get rarity() { return 1; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Neck;
     super(opts);
-    this.realName = this.fakeName = `amulet of ${this.getCanonName()}`;
+    this.realName = this.fakeName = this.getCanonName();
   }
 }
 
+@rarity(0) // actually a value of 8 but they're not implemented yet
 export class Gem extends Item {
   get material() { return Materials.Glass; }
-  static get rarity() { return 0; } // actually a value of 8 but they're not implemented yet
   constructor(opts = {}) {
     opts.symbol = Glyphs.Gem;
     super(opts);
@@ -119,9 +120,9 @@ export class Gem extends Item {
   }
 }
 
+@rarity(0) // actually a value of 15 but they're not implemented yet
 export class Scroll extends Item {
   get material() { return Materials.Cloth; }
-  static get rarity() { return 0; } // actually a value of 15 but not yet implemented
   constructor(opts = {}) {
     opts.symbol = Glyphs.Scroll;
     super(opts);
@@ -129,9 +130,9 @@ export class Scroll extends Item {
   }
 }
 
+@rarity(2)
 export class Wand extends Item {
   get material() { return Materials.Wood; }
-  static get rarity() { return 2; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Wand;
     super(opts);
@@ -139,9 +140,9 @@ export class Wand extends Item {
   }
 }
 
+@rarity(1)
 export class Spellbook extends Weapon {
   get material() { return Materials.Cloth; }
-  static get rarity() { return 1; }
   constructor(opts = {}) {
     opts.manaCost = opts.manaCost || 3;
     opts.symbol = Glyphs.Spellbook;
@@ -149,9 +150,9 @@ export class Spellbook extends Weapon {
   }
 }
 
+@rarity(20)
 export class Potion extends Equipment {
   get material() { return Materials.Cloth; }
-  static get rarity() { return 20; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Potion;
     super(opts);
@@ -166,8 +167,8 @@ export class Potion extends Equipment {
   }
 }
 
+@rarity(0)
 export class Tool extends Item {
-  static get rarity() { return 0; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Tool;
     super(opts);
