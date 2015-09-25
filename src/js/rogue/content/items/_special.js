@@ -2,10 +2,11 @@
 import { Special, Comestible, Gem, Tool } from '../../definitions/equipment';
 import { Items as Glyphs } from '../../constants/glyphs';
 import { Items as GlyphColors, Special as SpecialGlyphColors } from '../../constants/glyphColors';
+import { material } from '../../constants/decorators';
 import Materials from '../../constants/materials';
 
+@material(Materials.Gold)
 export class Gold extends Special {
-  get material() { return Materials.Gold; }
   constructor(num) {
     const opts = {
       glyph: { key: Glyphs.Gold, fg: GlyphColors.Gold }

@@ -2,29 +2,27 @@
 import { Head } from '../../definitions/equipment';
 import { AC } from '../../lib/default-calculations';
 import Materials from '../../constants/materials';
-import { rarity } from '../../constants/decorators';
+import { material, rarity } from '../../constants/decorators';
 
 @rarity(50)
-export class OrdinaryHat extends Head {
-  get material() { return Materials.Cloth; }
-}
+@material(Materials.Cloth)
+export class OrdinaryHat extends Head {}
 
 @rarity(1) // so hipster
-export class Fedora extends Head {
-  get material() { return Materials.Cloth; }
-}
+@material(Materials.Cloth)
+export class Fedora extends Head {}
 
 @rarity(2)
+@material(Materials.Leather)
 export class NightGoggles extends Head {
-  get material() { return Materials.Leather; }
   Infravision() {
     return this.buc;
   }
 }
 
 @rarity(2)
+@material(Materials.Cloth)
 export class DunceCap extends Head {
-  get material() { return Materials.Cloth; }
   int() { return -5; }
   wis() { return -5; }
   constructor(opts) {
@@ -34,40 +32,40 @@ export class DunceCap extends Head {
 }
 
 @rarity(2)
+@material(Materials.Cloth)
 export class Cornuthaum extends Head {
-  get material() { return Materials.Cloth; }
   Clairvoyance() {
     return 5;
   }
 }
 
 @rarity(15)
+@material(Materials.Iron)
 export class OrcishHelm extends Head {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this);
   }
 }
 
 @rarity(35)
+@material(Materials.Iron)
 export class DentedPot extends Head {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this);
   }
 }
 
 @rarity(15)
+@material(Materials.Leather)
 export class ElvenLeatherHelm extends Head {
-  get material() { return Materials.Leather; }
   ac() {
     return AC(this);
   }
 }
 
 @rarity(3)
+@material(Materials.Iron)
 export class HelmOfBrilliance extends Head {
-  get material() { return Materials.Iron; }
   int() { return 3; }
   wis() { return 3; }
   ac() {
@@ -76,24 +74,24 @@ export class HelmOfBrilliance extends Head {
 }
 
 @rarity(2)
+@material(Materials.Iron)
 export class HelmOfTelepathy extends Head {
-  get material() { return Materials.Iron; }
   Telepathy() {
     return 20;
   }
 }
 
 @rarity(10)
+@material(Materials.Iron)
 export class DwarvenIronHelm extends Head {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 2);
   }
 }
 
 @rarity(5)
+@material(Materials.Iron)
 export class HelmOfProtection extends Head {
-  get material() { return Materials.Iron; }
   Protection() {
     return this.buc * -2;
   }

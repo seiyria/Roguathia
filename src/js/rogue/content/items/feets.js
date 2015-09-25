@@ -2,19 +2,19 @@
 import { Feet } from '../../definitions/equipment';
 import { AC } from '../../lib/default-calculations';
 import Materials from '../../constants/materials';
-import { rarity } from '../../constants/decorators';
+import { material, rarity } from '../../constants/decorators';
 
 @rarity(50)
+@material(Materials.Leather)
 export class SimpleBoots extends Feet {
-  get material() { return Materials.Leather; }
   ac() {
     return AC(this);
   }
 }
 
 @rarity(2)
+@material(Materials.Leather)
 export class ElvenBoots extends Feet {
-  get material() { return Materials.Leather; }
   ac() {
     return AC(this);
   }
@@ -24,32 +24,32 @@ export class ElvenBoots extends Feet {
 }
 
 @rarity(3)
+@material(Materials.Leather)
 export class HermesSandals extends Feet {
-  get material() { return Materials.Leather; }
   Haste() {
     return this.buc * 50;
   }
 }
 
 @rarity(10)
+@material(Materials.Leather)
 export class HighBoots extends Feet {
-  get material() { return Materials.Leather; }
   ac() {
     return AC(this, 2);
   }
 }
 
 @rarity(5)
+@material(Materials.Iron)
 export class IronBoots extends Feet {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 2);
   }
 }
 
 @rarity(5)
+@material(Materials.Iron)
 export class BootsOfProtection extends Feet {
-  get material() { return Materials.Iron; }
   Protection() {
     return this.buc * -2;
   }

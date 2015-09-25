@@ -2,40 +2,38 @@
 import { Cloak } from '../../definitions/equipment';
 import { AC } from '../../lib/default-calculations';
 import Materials from '../../constants/materials';
-import { rarity } from '../../constants/decorators';
+import { material, rarity } from '../../../constants/decorators';
 
 @rarity(50)
-export class OrdinaryCloak extends Cloak {
-  get material() { return Materials.Cloth; }
-}
+@material(Materials.Cloth)
+export class OrdinaryCloak extends Cloak {}
 
 @rarity(10)
+@material(Materials.Cloth)
 export class MummyWrapping extends Cloak {
-  get material() { return Materials.Cloth; }
   Invisible() { return -1; }
 }
 
 @rarity(20)
-export class OrcishCloak extends Cloak {
-  get material() { return Materials.Cloth; }
-}
+@material(Materials.Cloth)
+export class OrcishCloak extends Cloak {}
 
 @rarity(20)
-export class DwarvenCloak extends Cloak {
-  get material() { return Materials.Cloth; }
-}
+@material(Materials.Cloth)
+export class DwarvenCloak extends Cloak {}
 
 @rarity(2)
+@material(Materials.Cloth)
+@material(Materials.Leather)
 export class LeatherCloak extends Cloak {
-  get material() { return Materials.Leather; }
   ac() {
     return AC(this, 1);
   }
 }
 
 @rarity(1)
+@material(Materials.Cloth)
 export class AlchemySmock extends Cloak {
-  get material() { return Materials.Cloth; }
   ac() {
     return AC(this, 1);
   }
@@ -44,28 +42,28 @@ export class AlchemySmock extends Cloak {
 }
 
 @rarity(1)
+@material(Materials.Cloth)
 export class InvisibilityCloak extends Cloak {
-  get material() { return Materials.Cloth; }
   Invisible() { return 1; }
 }
 
 @rarity(1)
+@material(Materials.Cloth)
 export class ElvenCloak extends Cloak {
-  get material() { return Materials.Cloth; }
   Stealth() { return this.buc * 10; }
 }
 
 @rarity(1)
+@material(Materials.Cloth)
 export class Robe extends Cloak {
-  get material() { return Materials.Cloth; }
   ac() {
     return AC(this, 2);
   }
 }
 
 @rarity(5)
+@material(Materials.Cloth)
 export class CloakOfProtection extends Cloak {
-  get material() { return Materials.Cloth; }
   Protection() {
     return this.buc * -2;
   }

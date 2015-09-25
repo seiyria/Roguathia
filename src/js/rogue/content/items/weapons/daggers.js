@@ -3,11 +3,11 @@ import _ from 'lodash';
 import { Hands } from '../../../definitions/equipment';
 import Attacks from '../../attacks/_all';
 import Materials from '../../../constants/materials';
-import { rarity } from '../../../constants/decorators';
+import { material, rarity } from '../../../constants/decorators';
 
 @rarity(35)
+@material(Materials.Copper)
 export class OrcishDagger extends Hands {
-  get material() { return Materials.Copper; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#ccc' },
@@ -18,8 +18,8 @@ export class OrcishDagger extends Hands {
 }
 
 @rarity(25)
+@material(Materials.Iron)
 export class Dagger extends Hands {
-  get material() { return Materials.Iron; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: 'teal' },
@@ -30,8 +30,8 @@ export class Dagger extends Hands {
 }
 
 @rarity(15)
+@material(Materials.Silver)
 export class SilverDagger extends Hands {
-  get material() { return Materials.Silver; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: 'teal' },
@@ -42,8 +42,8 @@ export class SilverDagger extends Hands {
 }
 
 @rarity(15)
+@material(Materials.Mithril)
 export class ElvenDagger extends Hands {
-  get material() { return Materials.Mithril; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: 'teal' },
@@ -54,8 +54,8 @@ export class ElvenDagger extends Hands {
 }
 
 @rarity(5)
+@material(Materials.Mineral)
 export class Crysknife extends Hands {
-  get material() { return Materials.Mineral; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: 'teal' },

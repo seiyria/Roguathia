@@ -2,136 +2,135 @@
 import { Body } from '../../definitions/equipment';
 import { AC } from '../../lib/default-calculations';
 import Materials from '../../constants/materials';
-import { rarity } from '../../constants/decorators';
+import { material, rarity } from '../../constants/decorators';
 
 @rarity(100)
-export class TShirt extends Body {
-  get material() { return Materials.Cloth; }
-}
+@material(Materials.Cloth)
+export class TShirt extends Body {}
 
 @rarity(75)
+@material(Materials.Leather)
 export class LeatherJacket extends Body {
-  get material() { return Materials.Leather; }
   ac() {
     return AC(this);
   }
 }
 
 @rarity(65)
+@material(Materials.Iron)
 export class OrcishRingMail extends Body {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 2);
   }
 }
 
 @rarity(55)
+@material(Materials.Leather)
 export class StuddedLeatherArmor extends Body {
-  get material() { return Materials.Leather; }
   ac() {
     return AC(this, 3);
   }
 }
 
 @rarity(55)
+@material(Materials.Iron)
 export class RingMail extends Body {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 3);
   }
 }
 
 @rarity(1)
+@material(Materials.Dragon)
 export class DragonScales extends Body {
-  get material() { return Materials.Dragon; }
   ac() {
     return AC(this, 3);
   }
 }
 
 @rarity(45)
+@material(Materials.Iron)
 export class OrcishChainMail extends Body {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 4);
   }
 }
 
 @rarity(45)
+@material(Materials.Iron)
 export class ScaleMail extends Body {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 4);
   }
 }
 
 @rarity(25)
+@material(Materials.Iron)
 export class ChainMail extends Body {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 5);
   }
 }
 
 @rarity(25)
+@material(Materials.Mithril)
 export class ElvenMithrilCoat extends Body {
-  get material() { return Materials.Mithril; }
   ac() {
     return AC(this, 5);
   }
 }
 
 @rarity(15)
+@material(Materials.Iron)
 export class SplintMail extends Body {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 6);
   }
 }
 
 @rarity(15)
+@material(Materials.Iron)
 export class BandedMail extends Body {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 6);
   }
 }
 
 @rarity(15)
+@material(Materials.Mithril)
 export class DwarvenMithrilCoat extends Body {
-  get material() { return Materials.Mithril; }
   ac() {
     return AC(this, 6);
   }
 }
 
 @rarity(15)
+@material(Materials.Copper)
 export class BronzePlateMail extends Body {
-  get material() { return Materials.Copper; }
   ac() {
     return AC(this, 6);
   }
 }
 
 @rarity(5)
+@material(Materials.Iron)
 export class PlateMail extends Body {
-  get material() { return Materials.Iron; }
   ac() {
     return AC(this, 7);
   }
 }
 
 @rarity(5)
+@material(Materials.Glass)
 export class CrystalPlateMail extends Body {
-  get material() { return Materials.Glass; }
   ac() {
     return AC(this, 7);
   }
 }
 
 @rarity(1)
+@material(Materials.Dragon)
 export class DragonScaleMail extends Body {
-  get material() { return Materials.Dragon; }
   ac() {
     return AC(this, 9);
   }

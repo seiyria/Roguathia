@@ -3,11 +3,12 @@ import _ from 'lodash';
 import { Hands } from '../../../definitions/equipment';
 import Attacks from '../../attacks/_all';
 import Materials from '../../../constants/materials';
-import { rarity } from '../../../constants/decorators';
+import { material, rarity, twoHanded } from '../../../constants/decorators';
 
 @rarity(35)
+@material(Materials.Wood)
+@twoHanded
 export class OrcishSpear extends Hands {
-  get material() { return Materials.Wood; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#ccc' },
@@ -18,8 +19,9 @@ export class OrcishSpear extends Hands {
 }
 
 @rarity(25)
+@material(Materials.Wood)
+@twoHanded
 export class Spear extends Hands {
-  get material() { return Materials.Wood; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: 'teal' },
@@ -30,8 +32,9 @@ export class Spear extends Hands {
 }
 
 @rarity(1)
+@material(Materials.Wood)
+@twoHanded
 export class Trident extends Hands {
-  get material() { return Materials.Wood; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: 'teal' },

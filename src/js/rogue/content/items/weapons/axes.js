@@ -3,11 +3,11 @@ import _ from 'lodash';
 import { Hands } from '../../../definitions/equipment';
 import Attacks from '../../attacks/_all';
 import Materials from '../../../constants/materials';
-import { rarity } from '../../../constants/decorators';
+import { material, rarity, twoHanded } from '../../../constants/decorators';
 
 @rarity(10)
+@material(Materials.Wood)
 export class Axe extends Hands {
-  get material() { return Materials.Wood; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#ccc' },
@@ -18,13 +18,13 @@ export class Axe extends Hands {
 }
 
 @rarity(3)
+@material(Materials.Wood)
+@twoHanded
 export class BattleAxe extends Hands {
-  get material() { return Materials.Wood; }
   constructor(opts = {}) {
     _.extend(opts, {
       glyph: { fg: '#ccc' },
-      attacks: [Attacks.Stab({ roll: '1d8 + 1d4' })],
-      slotsTaken: 2
+      attacks: [Attacks.Stab({ roll: '1d8 + 1d4' })]
     });
     super(opts);
   }

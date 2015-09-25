@@ -4,7 +4,7 @@ import * as Fakes from '../constants/faketypes';
 import MessageQueue from '../display/message-handler';
 import { Items as Glyphs } from '../constants/glyphs';
 import Materials from '../constants/materials';
-import { rarity } from '../constants/decorators';
+import { rarity, material } from '../constants/decorators';
 
 class Equipment extends Item {
   get name() {
@@ -18,8 +18,8 @@ class Equipment extends Item {
 
 export class Special extends Item {}
 
+@material(Materials.Food)
 export class Comestible extends Item {
-  get material() { return Materials.Food; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Comestible;
     super(opts);
@@ -111,8 +111,8 @@ export class Neck extends Armor {
 }
 
 @rarity(0) // actually a value of 8 but they're not implemented yet
+@material(Materials.Glass)
 export class Gem extends Item {
-  get material() { return Materials.Glass; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Gem;
     super(opts);
@@ -121,8 +121,8 @@ export class Gem extends Item {
 }
 
 @rarity(0) // actually a value of 15 but they're not implemented yet
+@material(Materials.Cloth)
 export class Scroll extends Item {
-  get material() { return Materials.Cloth; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Scroll;
     super(opts);
@@ -131,8 +131,8 @@ export class Scroll extends Item {
 }
 
 @rarity(2)
+@material(Materials.Wood)
 export class Wand extends Item {
-  get material() { return Materials.Wood; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Wand;
     super(opts);
@@ -141,8 +141,8 @@ export class Wand extends Item {
 }
 
 @rarity(1)
+@material(Materials.Cloth)
 export class Spellbook extends Weapon {
-  get material() { return Materials.Cloth; }
   constructor(opts = {}) {
     opts.manaCost = opts.manaCost || 3;
     opts.symbol = Glyphs.Spellbook;
@@ -151,8 +151,8 @@ export class Spellbook extends Weapon {
 }
 
 @rarity(20)
+@material(Materials.Glass)
 export class Potion extends Equipment {
-  get material() { return Materials.Cloth; }
   constructor(opts = {}) {
     opts.symbol = Glyphs.Potion;
     super(opts);
