@@ -2,8 +2,10 @@
 import _ from 'lodash';
 import { Weapon } from '../../definitions/equipment';
 import Attacks from '../attacks/_all';
+import Materials from '../../constants/materials';
 
 export class Dart extends Weapon {
+  get material() { return Materials.Iron; }
   static get rarity() { return 50; }
   constructor(opts = {}) {
     _.extend(opts, {
@@ -17,6 +19,7 @@ export class Dart extends Weapon {
 }
 
 export class Stiletto extends Weapon {
+  get material() { return Materials.Iron; }
   static get rarity() { return 5; }
   constructor(opts = {}) {
     _.extend(opts, {
@@ -30,6 +33,7 @@ export class Stiletto extends Weapon {
 }
 
 export class OrcishArrow extends Weapon {
+  get material() { return Materials.Wood; }
   static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
@@ -43,6 +47,7 @@ export class OrcishArrow extends Weapon {
 }
 
 export class Arrow extends Weapon {
+  get material() { return Materials.Wood; }
   static get rarity() { return 20; }
   constructor(opts = {}) {
     _.extend(opts, {
@@ -56,6 +61,7 @@ export class Arrow extends Weapon {
 }
 
 export class Bolt extends Weapon {
+  get material() { return Materials.Wood; }
   static get rarity() { return 25; }
   constructor(opts = {}) {
     _.extend(opts, {
