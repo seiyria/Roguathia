@@ -87,7 +87,9 @@
 * heavy weapons (maces, greatmaces) that have knockback on their attacks (or bonus damage if the target is against a wall)
 * Random colored stars on the respawn screen
 * Random dungeon afflictions/bonuses (+120% SP gain, -3 con, etc)
-* Pick better spells randomly, don't always pick healing potions -- random potions if healing is not identified -- maybe some kind of weighting for situations to try new things? "danger sense"?
+* Pick better spells randomly
+  * don't always pick healing potions -- random potions if healing is not identified -- maybe some kind of weighting for situations to try new things? "danger sense"?
+  * implement more spellbooks and wands that incorporate buffs (possibly if you're not in combat, attempt to buff yourself, based on the buffs you have)
 * Polymorph self
   * Chameleons can do this
 * Corrision
