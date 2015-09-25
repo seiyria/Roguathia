@@ -562,7 +562,10 @@ export default class Character extends Entity {
   }
 
   getStat(stat) {
-    return this.rollOrAdd(this[stat]) + this.rollOrAdd(this.professionInst[stat]) + this.rollOrAdd(this.raceInst[stat]);
+    return this.rollOrAdd(this[stat]) +
+           this.rollOrAdd(this.professionInst[stat]) +
+           this.rollOrAdd(this.raceInst[stat]) +
+           this.getTraitValue(stat);
   }
 
   getStatWithMin(stat, min = 0) {
@@ -570,11 +573,11 @@ export default class Character extends Entity {
   }
 
   getRegenHp() {
-    return this.getStatWithMin('regenHp');
+    return this.getStatWithMin('regenHp', 1);
   }
 
   getRegenMp() {
-    return this.getStatWithMin('regenMp');
+    return this.getStatWithMin('regenMp', 1);
   }
 
   getBonusDamage(target = null) {

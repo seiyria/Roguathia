@@ -88,6 +88,7 @@
 * Random colored stars on the respawn screen
 * Random dungeon afflictions/bonuses (+120% SP gain, -3 con, etc)
 * Pick better spells randomly
+  * Potions as well (possibly, players interact with these things)
   * don't always pick healing potions -- random potions if healing is not identified -- maybe some kind of weighting for situations to try new things? "danger sense"?
   * implement more spellbooks and wands that incorporate buffs (possibly if you're not in combat, attempt to buff yourself, based on the buffs you have)
 * Polymorph self
@@ -96,6 +97,9 @@
   * -1 enchantLevel hit with a corrosionPercent chance of happening, adds "corroded" to name if < 0
   * add CorrodesWhenHit and a corrosion attribute to the attack that both do the same thing. Or maybe a CorrodeOnHit behavior?
   * Black Pudding
+  * only affects corrodable items
+* Burning
+  * on a burn attack, everything has a chance of burning (if burnable), or explode (if explodable)
 * More dungeon types
   * Mines
   * Town (arena with shops in it, or a digger with empty spaces/corridor spaces replaced with basic tile)
