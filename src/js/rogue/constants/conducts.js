@@ -9,6 +9,7 @@ const conducts = [
   { check: (player) => !player.brokenConduct.pacifist, affirmMessage: 'You %were a pacifist.' },
   { check: (player) => !player.brokenConduct.nudist, affirmMessage: 'You never equipped armor.' },
   { check: (player) => !player.brokenConduct.celibate, affirmMessage: 'You %were celibate.' },
+  { check: (player) => player.brokenConduct.lifeSave, affirmMessage: 'Your life %was saved.' },
 
   // traits
   { check: (player) => player.hasTrait('Infravision'), affirmMessage: 'You %had infravision.' },
@@ -48,6 +49,7 @@ export default (player) => {
   const tenses = [
     { split: '%could', past: 'could', now: 'can' },
     { split: '%were',  past: 'were',  now: 'are' },
+    { split: '%was',   past: 'was',   now: 'will be' },
     { split: '%had',   past: 'had',   now: 'have' }
   ];
 

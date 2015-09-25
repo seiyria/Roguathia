@@ -66,9 +66,6 @@ export default class Character extends Entity {
 
     GameState.world.moveEntity(this, this.x, this.y, this.z);
 
-    this.loadStartingEquipment();
-    this.loadStartingSkills();
-
     // calculate levelup bonuses
     for(let i=1; i<this.level; i++) {
       this.levelupStatBoost();
@@ -78,6 +75,11 @@ export default class Character extends Entity {
     this.game.scheduler.add(this, true);
 
     this.doBehavior('spawn');
+
+    setTimeout(() => {
+      this.loadStartingEquipment();
+      this.loadStartingSkills();
+    }, 0);
   }
 
   // region Static functions
@@ -314,6 +316,7 @@ export default class Character extends Entity {
   }
 
   die(killer) {
+    this.hp.toMin();
     if(this.killerName) {
       Log('Player', `Error: Attempting to die twice. Previous killer: ${this.killerName} (${this.__killerId}), Usurper: ${killer.name} (${killer.__id})`, true);
       return;

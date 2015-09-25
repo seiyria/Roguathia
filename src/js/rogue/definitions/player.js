@@ -87,7 +87,7 @@ export default class Player extends Character {
   die(killer) {
     super.die(killer);
 
-    if(_.every(GameState.players, (player) => player.hp.atMin())) { // this should check hp.atMin(), but, bugs.
+    if(_.every(GameState.players, (player) => player.hp.atMin())) {
       GameState.game.gameOver();
       GameState.game.engine.lock();
     }

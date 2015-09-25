@@ -7,6 +7,7 @@ import { GetColor } from '../lib/valid-colors';
 import GameState from '../init/gamestate';
 import Abstract from './abstract';
 import Log from '../lib/logger';
+import MessageQueue from '../display/message-handler';
 
 export class Item extends Abstract {
   constructor(opts) {
@@ -86,6 +87,13 @@ export class Item extends Abstract {
       owner.doAttack(attack, i);
       delete chosenAmmo._tempAttackBoost;
     }
+  }
+
+  disintegrate(owner) {
+    owner.unequip(this);
+    owner.dropItem(this);
+    GameState.world.removeItem(this);
+    MessageQueue.add({ message: `${this.name} crumbled to dust.` });
   }
 
   curse() {

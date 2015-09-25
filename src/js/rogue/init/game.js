@@ -117,6 +117,7 @@ export default class Game {
     this.engine.start();
     
     setTimeout(() => {
+      if(this.currentScreen.name === 'DeadScreen') return; // turn 1 death (you spawned with an amulet of strangulation, etc)
       this.switchScreen(SingleGameScreen);
       if(GameState.players.length > 1) this.changeSplitScreen();
     }, 100);

@@ -75,3 +75,23 @@ class ExplodesBehavior extends Behavior {
 }
 
 export const Explodes = (roll, range, percent) => new ExplodesBehavior(roll, range, percent);
+
+/* drop contents on death */
+class LifeSaveBehavior extends Behavior {
+  constructor(numUses) { super(Priority.ALWAYS); this.numUses = numUses; }
+  takeDamage(me) {
+    if(me.hp.atMin()) {
+      me.hp.toMax();
+      MessageQueue.add({ message: `${me.name}'s life was saved!` });
+      me.breakConduct('lifeSave');
+
+      if(this.numUses-- <= 0) me.removeBehavior(this);
+
+      if(this._itemRef) {
+        this._itemRef.disintegrate(me);
+      }
+    }
+  }
+}
+
+export const LifeSave = (numUses = 1) => new LifeSaveBehavior(numUses);
