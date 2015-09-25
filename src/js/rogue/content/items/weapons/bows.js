@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { Hands } from '../../../definitions/equipment';
 import Attacks from '../../attacks/_all';
 import Materials from '../../../constants/materials';
-import { rarity } from '../../../constants/decorators';
 import { material, rarity, twoHanded, ranged } from '../../../constants/decorators';
 
 const allArrows = ['orcisharrow', 'arrow', 'elvenarrow'];

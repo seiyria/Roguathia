@@ -2,7 +2,7 @@
 import { Cloak } from '../../definitions/equipment';
 import { AC } from '../../lib/default-calculations';
 import Materials from '../../constants/materials';
-import { material, rarity } from '../../../constants/decorators';
+import { material, rarity } from '../../constants/decorators';
 
 @rarity(50)
 @material(Materials.Cloth)
