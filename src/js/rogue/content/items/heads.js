@@ -25,7 +25,7 @@ export class NightGoggles extends Head {
 export class DunceCap extends Head {
   int() { return -5; }
   wis() { return -5; }
-  constructor(opts) {
+  constructor(opts = {}) {
     opts.bucName = 'cursed'; // always starts cursed
     super(opts);
   }
