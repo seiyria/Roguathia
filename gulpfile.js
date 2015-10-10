@@ -11,6 +11,7 @@ var errorify = require('errorify');
 var watchify = require('watchify');
 var fs = require('fs');
 
+var git = require('gulp-git');
 var util = require('gulp-util');
 var open = require('gulp-open');
 var concat = require('gulp-concat');
@@ -63,15 +64,23 @@ gulp.task('copy:favicon', ['clean'], function() {
     .on('error', util.log);
 });
 
+gulp.task('copy:fonts', ['clean'], function() {
+  var paths = getPaths();
+
+  return gulp.src(paths.font)
+    .pipe(gulp.dest(paths.dist+'/fonts'))
+    .on('error', util.log);
+});
+
 gulp.task('build:libcss', ['clean', 'compile:jade', 'compile:sass'], function() {
   var paths = getPaths();
 
   return gulp.src(paths.libcss)
     .pipe(changed(paths.dist))
     .pipe(concat('lib.min.css'))
-    .pipe(uncss({
+    /* .pipe(uncss({
       html: paths.dist + 'index.html'
-    }))
+    })) */
     .pipe(minifyCss({
       keepSpecialComments: false,
       removeEmpty: true
@@ -95,7 +104,7 @@ gulp.task('compile:js', ['eslint', 'clean'], function() {
   var paths = getPaths();
 
   var bundler = browserify({
-    cache: {}, packageCache: {}, fullPaths: true,
+    cache: {}, packageCache: {}, fullPaths: watching,
     entries: [paths.entry],
     debug: watching
   })
@@ -140,9 +149,9 @@ gulp.task('compile:sass', ['clean', 'compile:jade'], function() {
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('css/main.css'))
-    .pipe(uncss({
+    /* .pipe(uncss({
       html: paths.dist + 'index.html'
-    }))
+    })) */
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false
@@ -197,28 +206,52 @@ gulp.task('watch', function() {
   return gulp.watch([paths.sass, paths.jade, paths.js, 'package.json'], ['reload']);
 });
 
-gulp.task('bump:patch', function() {
-  gulp.src(['./bower.json', './package.json'])
-    .pipe(bump({ type: 'patch' }))
+
+var versionSources = ['./bower.json', './package.json'];
+
+var versionStream = function(type) {
+  return gulp.src(versionSources)
+    .pipe(bump({ type: type }))
     .pipe(gulp.dest('./'))
     .pipe(filter('package.json'))
     .pipe(tagVersion({ prefix: '' }));
+};
+
+var commitStream = function(type) {
+  return gulp.src(versionSources)
+    .pipe(git.commit(type + ' version bump', function() {
+      git.push();
+      git.push('origin', 'master', { args: '--tags' });
+    }));
+};
+
+var pushStream = function() {
+  git.push();
+  git.push('origin', 'master', { args: '--tags' });
+};
+
+gulp.task('bump:patch:tag', function() {
+  return versionStream('patch');
 });
 
-gulp.task('bump:minor', function() {
-  gulp.src(['./bower.json', './package.json'])
-    .pipe(bump({ type: 'minor' }))
-    .pipe(gulp.dest('./'))
-    .pipe(filter('package.json'))
-    .pipe(tagVersion({ prefix: '' }));
+gulp.task('bump:minor:tag', function() {
+  return versionStream('minor');
 });
 
-gulp.task('bump:major', function() {
-  gulp.src(['./bower.json', './package.json'])
-    .pipe(bump({ type: 'major' }))
-    .pipe(gulp.dest('./'))
-    .pipe(filter('package.json'))
-    .pipe(tagVersion({ prefix: '' }));
+gulp.task('bump:major:tag', function() {
+  return versionStream('major');
+});
+
+gulp.task('bump:patch:commit', ['bump:patch:tag'], function() {
+  return commitStream('patch') && pushStream();
+});
+
+gulp.task('bump:minor:commit', ['bump:minor:tag'],function() {
+  return commitStream('minor') && pushStream();
+});
+
+gulp.task('bump:major:commit', ['bump:major:tag'],function() {
+  return commitStream('major') && pushStream();
 });
 
 gulp.task('test', function() {
@@ -229,6 +262,6 @@ gulp.task('test', function() {
 });
 
 gulp.task('default', ['build', 'connect', 'open', 'watch']);
-gulp.task('build', ['clean', 'copy:favicon', 'build:libjs', 'build:libcss', 'compile']);
+gulp.task('build', ['clean', 'copy:favicon', 'copy:fonts', 'build:libjs', 'build:libcss', 'compile']);
 gulp.task('compile', ['compile:js', 'compile:sass', 'compile:jade']);
 gulp.task('check', ['test', 'build']);

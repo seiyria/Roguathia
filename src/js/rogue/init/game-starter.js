@@ -13,7 +13,7 @@ export default () => {
   
   GameState.reset();
   const game = GameState.game = new Game();
-  document.body.appendChild(game.display.getContainer());
+  document.getElementById('game-area').appendChild(game.display.getContainer());
   game.switchScreen(LoadScreen);
 
   setTimeout(() => {

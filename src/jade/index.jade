@@ -1,10 +1,43 @@
 doctype html
-html
-   head
-      title Roguathia
-      link(rel="stylesheet", href="css/lib.min.css")
-      link(rel="stylesheet", href="css/main.min.css")
+html(ng-app="Roguathia", ng-controller="Root")
+  head
+    title Roguathia
+    link(rel="stylesheet", href="css/lib.min.css")
+    link(rel="stylesheet", href="css/main.min.css")
 
-   body
-      script(src="js/lib.min.js")
-      script(src="js/main.min.js")
+  body
+    header.navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          a.navbar-brand Roguathia
+
+    .container-fluid
+      .row.margin-left--30
+        .col-md-7
+          .row
+            .col-md-12#game-area
+
+          .row
+            .col-md-12
+              div upgrades
+
+        .col-md-5
+          uib-tabset(justified="true")
+            uib-tab(heading="Party")
+              div(ng-controller="Party")
+                div {{GameState.players}}
+                div(ng-repeat="player in GameState.players")
+                  div {{player.name}}
+            uib-tab(heading="Dungeon")
+              div dungeon
+            uib-tab(heading="Builds")
+              div member tmpls
+            uib-tab(heading="Achievements")
+              div achievements
+            uib-tab(heading="Log")
+              div log
+            uib-tab(heading="Options")
+              div options
+
+    script(src="js/lib.min.js")
+    script(src="js/main.min.js")

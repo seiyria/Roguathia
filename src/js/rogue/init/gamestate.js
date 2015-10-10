@@ -11,6 +11,7 @@ class GameState {
   reset() {
     this.identification = {};
     this._idMap = {};
+    this.players = [];
     this.messages = [];
     this.projectiles = [];
     this.splitScreen = false;

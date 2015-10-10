@@ -27,6 +27,7 @@
     "gulp-eslint": "^1.0.0",
     "gulp-filter": "~3.0.1",
     "gulp-gh-pages": "~0.5.2",
+    "gulp-git": "^1.5.0",
     "gulp-if": "~1.2.5",
     "gulp-jade": "~1.1.0",
     "gulp-load-plugins": "^0.10.0",
@@ -60,12 +61,14 @@
     "libjs": [
       "./bower_components/HackTimer/HackTimer.silent.min.js",
       "./bower_components/angular/angular.min.js",
-      "./bower_components/angular-ui-bootstrap-bower/ui-bootstrap.min.js",
+      "./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
       "./bower_components/ngstorage/ngStorage.min.js"
     ],
     "libcss": [
-      "./bower_components/bootstrap/dist/css/bootstrap.min.css",
-      "./bower_components/bootstra.386/v3.3.2/dist/css/bootstrap-theme.css"
+      "./bower_components/dos-strap/dist/css/bootstrap.min.css"
+    ],
+    "font": [
+      "./src/fonts/Fixedsys500c.woff"
     ],
     "favicon": [
       "favicon.ico"
