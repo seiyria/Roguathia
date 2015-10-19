@@ -1,6 +1,7 @@
 {
   "extends": "kellyirc",
   "parser": "babel-eslint",
+  "cache": true,
   "env": {
     "node": true,
     "es6": true,
