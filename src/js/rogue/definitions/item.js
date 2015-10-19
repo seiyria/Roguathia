@@ -67,7 +67,7 @@ export class Item extends Abstract {
     return _.filter(owner.inventory, (item) => item.canUse(owner) && _.contains(this.range.ammo, item.getType()));
   }
   
-  use(owner, extra = { healVal: 0 }) {
+  use(owner, extra = { healVal: 1 }) {
     if(this.manaCost) owner.mp.sub(this.manaCost);
     if(this.healRoll) owner.heal(extra.healVal);
     if(this.charges) {
