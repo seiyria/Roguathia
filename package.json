@@ -81,6 +81,7 @@
   "dependencies": {
     "bragi-browser": "0.0.12",
     "dice.js": "^0.8.0",
+    "eventemitter2": "^0.4.14",
     "lodash": "^3.10.1",
     "rot-js": "^0.6.0"
   }
