@@ -2,9 +2,11 @@
 import _ from 'lodash';
 import Settings from '../constants/settings';
 import GameUpgrades from './gameupgrades';
+import { EventEmitter2 } from 'eventemitter2';
 
-class GameState {
+class GameState extends EventEmitter2 {
   constructor() {
+    super();
     this.reset();
   }
 
@@ -15,6 +17,8 @@ class GameState {
     this.messages = [];
     this.projectiles = [];
     this.splitScreen = false;
+    this.currentFloor = 0;
+
     this.loadExternalOptions();
   }
 

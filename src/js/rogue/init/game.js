@@ -94,18 +94,16 @@ export default class Game {
   loadOldData() {}
   
   startNewGame() {
+    GameState.reset();
     GameState.winCondition = _(Victories).values().sample();
 
     GameState.world = new World();
     GameState.world.generateWorld();
     const zeroStartStairs = GameState.world.stairs[0].up;
     
-    GameState.players = [];
     const playerLocations = GameState.world.getValidTilesInRange(
       zeroStartStairs[0], zeroStartStairs[1], 0, 2, (tile) => tile.glyph.key === '.'
     );
-
-    GameState.currentFloor = 0;
 
     for(let i = 0; i < 1; i++) {
       const startTile = playerLocations.shift();

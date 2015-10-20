@@ -71,6 +71,7 @@ export default class Player extends Character {
     }
 
     this.game.refresh();
+    GameState.emit('redraw');
   }
   
   rebuildPathingMap() {
