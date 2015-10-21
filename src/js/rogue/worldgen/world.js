@@ -289,4 +289,16 @@ export default class World {
     if(!GameState.winCondition.shouldTrigger()) return;
     GameState.winCondition.trigger();
   }
+
+  cleanUp() {
+    _.each(_.compact(_.flattenDeep(this.entities)), e => e.cleanUp());
+    _.each(_.flattenDeep(this.tiles), t => t = null);
+    this.tiles = null;
+    this.stairs = null;
+    this.entities = null;
+    this.items = null;
+    this.fov = null;
+    this.lighting = null;
+    this.explored = null;
+  }
 }

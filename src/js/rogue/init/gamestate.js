@@ -11,6 +11,9 @@ class GameState extends EventEmitter2 {
   }
 
   reset() {
+    if(this.world) {
+      this.world.cleanUp();
+    }
     this.identification = {};
     this._idMap = {};
     this.players = [];

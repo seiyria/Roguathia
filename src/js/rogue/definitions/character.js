@@ -335,6 +335,14 @@ export default class Character extends Entity {
     GameState.game.scheduler.remove(this);
   }
 
+  cleanUp() {
+    _.each(this.attacks, a => a.cleanUp());
+    this.behaviors = null;
+    this.inventory = null;
+    this.equipment = null;
+    this.attacks = null;
+  }
+
   kill(dead) {
     this.gainXp(dead.killXp);
     this.doBehavior('kill');

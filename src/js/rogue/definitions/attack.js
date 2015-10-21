@@ -193,6 +193,10 @@ export class Attack extends Abstract {
   missCallback() {}
 
   afterHitCallback() {}
+
+  cleanUp() {
+    this._itemRef = null;
+  }
   
   toJSON() {
     const me = _.omit(this, ['_itemRef']);

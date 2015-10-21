@@ -28,6 +28,13 @@ export default class Monster extends Character {
     }
     super.act();
   }
+
+  removeSelf() {
+    super.removeSelf();
+    this._attackedBy = null;
+    this.target = null;
+    this._current = null;
+  }
   
   toJSON() {
     const base = JSON.parse(super.toJSON());
