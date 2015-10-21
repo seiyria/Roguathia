@@ -291,8 +291,7 @@ export default class World {
   }
 
   cleanUp() {
-    _.each(_.compact(_.flattenDeep(this.entities)), e => e.cleanUp());
-    _.each(_.flattenDeep(this.tiles), t => t = null);
+    _.each(_.compact(_.flattenDeep(this.entities)), e => e.removeSelf() && e.cleanUp());
     this.tiles = null;
     this.stairs = null;
     this.entities = null;

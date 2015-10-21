@@ -13,7 +13,14 @@ class GameState extends EventEmitter2 {
   reset() {
     if(this.world) {
       this.world.cleanUp();
+      this.world = null;
     }
+
+    if(this.game) {
+      this.game.scheduler = null;
+      this.game.engine = null;
+    }
+
     this.identification = {};
     this._idMap = {};
     this.players = [];

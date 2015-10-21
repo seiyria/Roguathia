@@ -341,6 +341,7 @@ export default class Character extends Entity {
     this.inventory = null;
     this.equipment = null;
     this.attacks = null;
+    this._path = null;
   }
 
   kill(dead) {

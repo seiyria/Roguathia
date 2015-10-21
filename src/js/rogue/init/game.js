@@ -94,7 +94,6 @@ export default class Game {
   loadOldData() {}
   
   startNewGame() {
-    GameState.reset();
     GameState.winCondition = _(Victories).values().sample();
 
     GameState.world = new World();
