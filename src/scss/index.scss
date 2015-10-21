@@ -2,6 +2,20 @@
   margin-bottom: 0;
 }
 
+.msg {
+  display: flex;
+  flex: 1;
+}
+
+.msg-container {
+  flex-direction: column;
+}
+
+.restrict-height {
+  display: flex;
+  min-height: 100%;
+}
+
 $paddings: top bottom left right;
 
 @for $size from -11 to 11 {

@@ -2,6 +2,9 @@
 import { Screen } from '../screen';
 
 export class LoadScreen extends Screen {
+
+  // also try deploying and seeing if extended browsersync time is the reason for the memory leak
+
   static enter(/* display */) {
     // this.flicker = 0;
 
