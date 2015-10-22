@@ -7,6 +7,6 @@ script(type="text/ng-template", id="dungeon-tab")
     .row.margin-bottom-20
       .col-xs-12 {{world.depth}} floors, each {{world.width}}x{{world.height}} tiles
 
-    .row(ng-repeat="floor in world.tiles")
-      .col-xs-3 [Floor {{$index+1}}]
+    .row(ng-repeat="floor in world.tiles", ng-class="{'current-floor': currentFloor === $index}")
+      .col-xs-3.floor-number [Floor {{$index+1}}]
       .col-xs-9 {{floor.mapName}}

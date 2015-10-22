@@ -20,6 +20,10 @@
   }
 }
 
+.current-floor .floor-number::before {
+  content: '> ';
+}
+
 $paddings: top bottom left right;
 
 @for $size from -11 to 11 {
