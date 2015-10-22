@@ -25,6 +25,7 @@ gulp.task('reload', () => {
 gulp.task('connect', ['build:all'], () => {
   browserSync.init({
     port: 8000,
+    notify: false,
     server: {
       baseDir: './dist'
     }
