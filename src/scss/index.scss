@@ -2,18 +2,8 @@
   margin-bottom: 0;
 }
 
-.msg {
-  display: flex;
-  flex: 1;
-}
-
-.msg-container {
-  flex-direction: column;
-}
-
-.restrict-height {
-  display: flex;
-  min-height: 100%;
+[fill-height] {
+  overflow: auto;
 }
 
 $paddings: top bottom left right;

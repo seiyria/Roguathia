@@ -8,8 +8,7 @@ module.directive('fillHeight', ($window) => {
     },
     link: (scope, element) => {
       const setSize = () => {
-        element[0].style.height = $window.innerHeight - scope.offset;
-        // angular.element(element).height($window.innerHeight);
+        element[0].style.height = `${$window.innerHeight - scope.offset}px`;
       };
 
       setSize();
