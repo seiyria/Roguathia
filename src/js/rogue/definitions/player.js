@@ -88,9 +88,13 @@ export default class Player extends Character {
   die(killer) {
     super.die(killer);
 
+    GameState.emit('redraw');
+    GameState.emit('die');
+
     if(_.every(GameState.players, (player) => player.hp.atMin())) {
       GameState.game.gameOver();
       GameState.game.engine.lock();
+      GameState.emit('gameover');
     }
   }
 
