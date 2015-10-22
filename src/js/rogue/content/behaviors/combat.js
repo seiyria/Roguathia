@@ -84,6 +84,8 @@ class SplitsWhenHitBehavior extends Behavior {
     const validTiles = GameState.world.getValidTilesInRange(me.x, me.y, me.z, 1, (tile) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z));
     const chosenTile = _.sample(validTiles);
 
+    if(!chosenTile) return;
+
     const newSpawn = MonsterSpawner.spawnSingle(me._name, chosenTile);
     const newHp = Math.floor(me.hp.cur / 2);
     me.hp._set(newHp);
