@@ -6,6 +6,19 @@
   overflow: auto;
 }
 
+.msg {
+
+  display: table;
+
+  .timestamp {
+    width: 100px;
+    display: table-cell;
+  }
+  .string {
+    display: table-cell;
+  }
+}
+
 $paddings: top bottom left right;
 
 @for $size from -11 to 11 {
