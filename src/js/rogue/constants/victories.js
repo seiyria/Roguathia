@@ -11,6 +11,7 @@ class Victory {
   static vp() { return 5; }
   static check() { return true; }
   static get message() { return 'You survived!'; }
+  static get description() { return 'Survive!'; }
   static shouldTrigger() { return false; }
   static trigger() {}
   static mapAdditions() {}
@@ -22,6 +23,7 @@ export class Survival extends Victory {
   static requiredTurns() { return GameState.world.depth*1000; }
   static check() { return _.max(GameState.players, 'currentTurn').currentTurn >= this.requiredTurns(); }
   static get message() { return `You survived ${this.requiredTurns()} turns.`; }
+  static get description() { return `Survive for ${this.requiredTurns()} turns.`; }
 }
 
 export class StoneOfSelykFind extends Victory {
@@ -38,6 +40,7 @@ export class StoneOfSelykFind extends Victory {
     GameState.world.placeItemAtRandomLocation(new StoneOfSelyk(), GameState.currentFloor);
   }
   static get message() { return `You found the Stone of Selyk.`; }
+  static get description() { return `Find the Stone of Selyk.`; }
 }
 
 export class SelykAltar extends Victory {
@@ -59,6 +62,7 @@ export class SelykAltar extends Victory {
     GameState.world.placeItemAtRandomLocation(new SelykCellarKey(), GameState.currentFloor);
   }
   static get message() { return `You sacrificed yourself at the altar of Selyk.`; }
+  static get description() { return `Reach the altar of Selyk.`; }
   static mapStairs(i) { return [Tiles.StairsUp, i !== GameState.world.depth-1 ? Tiles.StairsDown : Tiles.SelykStairsDown]; }
 }
 
@@ -76,4 +80,5 @@ export class KillSelyk extends Victory {
     GameState.world.placeEntityAtRandomLocation(new Monster(0, 0, 0, Selyk), GameState.currentFloor);
   }
   static get message() { return `You killed Selyk.`; }
+  static get description() { return `Kill Selyk.`; }
 }

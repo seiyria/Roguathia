@@ -24,17 +24,20 @@ html(ng-app="Roguathia", ng-controller="Root")
         .col-md-5
           uib-tabset(justified="true")
             uib-tab(heading="Party")
-              div(ng-controller="Party")
-                div(ng-repeat="player in players")
-                  div {{player.name}} {{player.xp}}
+              div(ng-controller="Party", ng-include="'party-tab'")
+
             uib-tab(heading="Dungeon")
-              div dungeon
-            uib-tab(heading="Builds")
+              div(ng-controller="Dungeon", ng-include="'dungeon-tab'")
+
+            uib-tab(heading="Builds", ng-if="false")
               div member tmpls
-            uib-tab(heading="Achievements")
+
+            uib-tab(heading="Achievements", ng-if="false")
               div achievements
+
             uib-tab(heading="Log")
               log
+
             uib-tab(heading="Options")
               div options
 

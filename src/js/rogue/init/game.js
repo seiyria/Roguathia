@@ -112,6 +112,7 @@ export default class Game {
       GameState.players.push(player);
     }
     this.engine.start();
+    GameState.emit('start');
     
     setTimeout(() => {
       if(this.currentScreen.name === 'DeadScreen') return; // turn 1 death (you spawned with an amulet of strangulation, etc)
