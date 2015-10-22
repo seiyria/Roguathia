@@ -43,13 +43,13 @@ export class GameScreen extends Screen {
       }
     );
 
-    const cache = {};
+    let cache = {};
     _.each(['Telepathy', 'Clairvoyance', 'Warning'], (trait) => cache[trait] = centerPoint.getTraitValue(trait));
 
-    const projectileCache = {};
+    let projectileCache = {};
     _.each(GameState.projectiles, (proj) => projectileCache[`${proj.x},${proj.y}`] = proj);
 
-    const lightingCache = {};
+    let lightingCache = {};
 
     const lights = GameState.world.lighting[zLevel];
     if(lights && lights.length > 0) {
@@ -147,6 +147,10 @@ export class GameScreen extends Screen {
 
       }
     }
+
+    cache = null;
+    projectileCache = null;
+    lightingCache = null;
   }
 
   static render() {

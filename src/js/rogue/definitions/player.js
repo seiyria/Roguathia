@@ -61,7 +61,7 @@ export default class Player extends Character {
 
     if(!GameState.manualMove) {
       super.act();
-      setTimeout(() => engine.unlock(), Settings.game.turnDelay/livingPlayers.length);
+      setTimeout(function() { engine.unlock(); }, Settings.game.turnDelay/livingPlayers.length);
     }
     
     this.rebuildPathingMap();
@@ -92,6 +92,11 @@ export default class Player extends Character {
       GameState.game.gameOver();
       GameState.game.engine.lock();
     }
+  }
+
+  cleanUp() {
+    super.cleanUp();
+    this._path = null;
   }
   
   spawnMonster() {

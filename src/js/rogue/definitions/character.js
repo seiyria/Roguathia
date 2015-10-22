@@ -76,10 +76,8 @@ export default class Character extends Entity {
 
     this.doBehavior('spawn');
 
-    setTimeout(() => {
-      this.loadStartingEquipment();
-      this.loadStartingSkills();
-    }, 0);
+    this.loadStartingEquipment();
+    this.loadStartingSkills();
   }
 
   // region Static functions
@@ -342,6 +340,15 @@ export default class Character extends Entity {
     this.equipment = null;
     this.attacks = null;
     this._path = null;
+    this._attackedBy = null;
+
+    this.professionInst = null;
+    this.raceInst = null;
+
+    this.conquest = null;
+    this.traits = null;
+    this.traitHash = null;
+    this.skills = null;
   }
 
   kill(dead) {

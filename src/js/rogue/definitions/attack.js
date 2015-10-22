@@ -119,9 +119,9 @@ export class Attack extends Abstract {
     
     moveTo(projectile.x, projectile.y);
     
-    _.each(path, (step, i) => {
+    _.each(path, function(step, i) {
       const curStep = step;
-      setTimeout(() => {
+      setTimeout(function() {
         moveTo(curStep.x, curStep.y);
         if(i === path.length - 1) finalize();
       }, i*50);

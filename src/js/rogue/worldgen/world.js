@@ -292,6 +292,17 @@ export default class World {
 
   cleanUp() {
     _.each(_.compact(_.flattenDeep(this.entities)), e => e.removeSelf() && e.cleanUp());
+
+    for(let z = 0; z < this.tiles.length; z++) {
+      for(let x = 0; x < this.tiles[z].length; x++) {
+        for(let y = 0; y < this.tiles[z][x].length; y++) {
+          this.tiles[z][x][y] = null;
+        }
+        this.tiles[z][x] = null;
+      }
+      this.tiles[z] = null;
+    }
+
     this.tiles = null;
     this.stairs = null;
     this.entities = null;
