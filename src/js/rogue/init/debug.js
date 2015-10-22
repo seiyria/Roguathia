@@ -9,7 +9,7 @@ let debugInitialized = false;
 export default () => {
   if(debugInitialized) return;
   debugInitialized = true;
-  
+
   document.body.addEventListener('keydown', (e) => {
     if(e.keyCode !== ROT.VK_SPACE) return;
     

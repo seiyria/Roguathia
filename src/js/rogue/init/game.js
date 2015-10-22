@@ -39,6 +39,7 @@ export default class Game {
   }
   
   refresh() {
+    if(!this.display) return;
     this.display.clear();
     this.currentScreen.render(this.display);
   }
