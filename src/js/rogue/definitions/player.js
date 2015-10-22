@@ -70,8 +70,14 @@ export default class Player extends Character {
       this.spawnMonster();
     }
 
-    GameState.game.refresh();
-    GameState.emit('redraw');
+    GameState.playerTurnsTaken++;
+
+    if(GameState.playerTurnsTaken >= GameState.livingPlayers) {
+      GameState.game.refresh();
+      GameState.emit('redraw');
+
+      GameState.playerTurnsTaken = 0;
+    }
   }
   
   rebuildPathingMap() {
@@ -90,6 +96,7 @@ export default class Player extends Character {
 
     GameState.emit('redraw');
     GameState.emit('die');
+    GameState.livingPlayers--;
 
     if(_.every(GameState.players, (player) => player.hp.atMin())) {
       GameState.emit('gameover');

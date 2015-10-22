@@ -115,6 +115,10 @@ export default class Game {
       GameState.world.moveEntity(player, startTile.x, startTile.y, 0);
       GameState.players.push(player);
     }
+
+    GameState.livingPlayers = GameState.players.length;
+    GameState.playerTurnsTaken = 0;
+
     this.engine.start();
     GameState.emit('start');
     
