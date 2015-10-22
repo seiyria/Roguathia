@@ -1,5 +1,5 @@
 script(type="text/ng-template", id="log-tab")
-  .msg-container(fill-height, offset="40")
+  .msg-container(fill-height, offset="40", scroll-bottom="log")
     .msg(ng-repeat="msg in log")
       span {{msg.time | date:'h:mm a'}}
       span &nbsp;

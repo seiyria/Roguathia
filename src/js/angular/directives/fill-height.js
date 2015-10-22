@@ -4,7 +4,8 @@ import module from '../module';
 module.directive('fillHeight', ($window) => {
   return {
     scope: {
-      offset: '='
+      offset: '=',
+      scrollBottom: '='
     },
     link: (scope, element) => {
       const setSize = () => {
@@ -14,6 +15,13 @@ module.directive('fillHeight', ($window) => {
       setSize();
 
       angular.element($window).bind('resize', setSize);
+
+      if(scope.scrollBottom) {
+        scope.$watchCollection('scrollBottom', (newValue) => {
+          if(!newValue) return;
+          element[0].scrollTop = element[0].scrollHeight;
+        });
+      }
     }
   };
 });
