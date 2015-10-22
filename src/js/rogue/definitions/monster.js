@@ -24,13 +24,13 @@ export default class Monster extends Character {
 
   act() {
     if(!this.arePlayersAPossibility()) {
-      return this.removeSelf();
+      return this.removeSelf() && this.cleanUp();
     }
     super.act();
   }
 
-  removeSelf() {
-    super.removeSelf();
+  cleanUp() {
+    super.cleanUp();
     this._attackedBy = null;
     this.target = null;
     this._current = null;

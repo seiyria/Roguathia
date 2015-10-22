@@ -20,16 +20,19 @@ export default class Game {
       font: 'Courier New',
       width: SETTINGS.screen.width,
       height: SETTINGS.screen.height
-      
     });
     this.currentScreen = null;
 
+    this.listeners = {};
+
     const bindToScreen = (event) => {
-      window.addEventListener(event, (e) => {
+      const listener = window.addEventListener(event, (e) => {
         if(this.currentScreen === null) return;
         
         this.currentScreen.handleInput(event, e);
       });
+
+      this.listeners[event] = listener;
     };
     
     _.each(['keydown', 'keypress'], (event) => bindToScreen(event));
@@ -119,5 +122,15 @@ export default class Game {
       this.switchScreen(SingleGameScreen);
       if(GameState.players.length > 1) this.changeSplitScreen();
     }, 100);
+  }
+
+  cleanUp() {
+    this.display = null;
+    this.currentScreen = null;
+    this.scheduler = null;
+    this.engine = null;
+
+    _.each(['keydown', 'keypress'], event => window.removeEventListener(event, this.listeners[event]));
+    this.listeners = null;
   }
 }

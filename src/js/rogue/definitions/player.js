@@ -54,7 +54,7 @@ export default class Player extends Character {
   act() {
     if(GameState.game.checkWin()) return;
 
-    const engine = this.game.engine;
+    const engine = GameState.game.engine;
     engine.lock();
 
     const livingPlayers = _.reject(GameState.players, (player) => player.hp.atMin());
@@ -70,7 +70,7 @@ export default class Player extends Character {
       this.spawnMonster();
     }
 
-    this.game.refresh();
+    GameState.game.refresh();
     GameState.emit('redraw');
   }
   

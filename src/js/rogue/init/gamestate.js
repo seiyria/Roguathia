@@ -17,8 +17,8 @@ class GameState extends EventEmitter2 {
     }
 
     if(this.game) {
-      this.game.scheduler = null;
-      this.game.engine = null;
+      this.game.cleanUp();
+      this.game = null;
     }
 
     this.identification = {};

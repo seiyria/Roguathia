@@ -71,8 +71,7 @@ export default class Character extends Entity {
       this.levelupStatBoost();
     }
 
-    this.game = GameState.game;
-    this.game.scheduler.add(this, true);
+    GameState.game.scheduler.add(this, true);
 
     this.doBehavior('spawn');
 
