@@ -35,6 +35,11 @@ export default class Monster extends Character {
     this.target = null;
     this._current = null;
   }
+
+  removeSelf() {
+    super.removeSelf();
+    this.cleanUp();
+  }
   
   toJSON() {
     const base = JSON.parse(super.toJSON());
