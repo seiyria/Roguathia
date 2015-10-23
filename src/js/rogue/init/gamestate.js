@@ -11,6 +11,10 @@ class GameState extends EventEmitter2 {
   }
 
   reset() {
+    if(this.players) {
+      _.each(this.players, p => p.removeSelf() && p.cleanUp());
+    }
+
     if(this.world) {
       this.world.cleanUp();
       this.world = null;
