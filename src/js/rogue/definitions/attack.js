@@ -4,7 +4,7 @@ import ROT from 'rot-js';
 import dice from 'dice.js';
 import Roll from '../lib/dice-roller';
 import GameState from '../init/gamestate';
-import MessageQueue from '../display/message-handler';
+import MessageQueue, { MessageTypes } from '../display/message-handler';
 import Abstract from './abstract';
 import Glyph from './glyph';
 import { WeightedExtension } from '../lib/rot-extensions';
@@ -138,7 +138,7 @@ export class Attack extends Abstract {
     if(this._itemRef) this._itemRef.use(owner, target);
     if(!this.canHit(owner, target, attackNum)) {
       const extra = this.missCallback(owner, target);
-      MessageQueue.add({ message: this.missString(owner, target, extra) });
+      MessageQueue.add({ message: this.missString(owner, target, extra), type: MessageTypes.COMBAT });
       return false;
     }
     this.animate(owner, target, () => this.hit(owner, target));
@@ -163,11 +163,11 @@ export class Attack extends Abstract {
     const damage = this.calcDamage(owner, target);
     if(damage <= 0) {
       const extraBlockData = this.blockCallback(owner, target);
-      MessageQueue.add({ message: this.blockString(owner, target, extraBlockData) });
+      MessageQueue.add({ message: this.blockString(owner, target, extraBlockData), type: MessageTypes.COMBAT });
       return false;
     }
     const extra = this.hitCallback(owner, target, damage);
-    MessageQueue.add({ message: this.hitString(owner, target, damage, extra) });
+    MessageQueue.add({ message: this.hitString(owner, target, damage, extra), type: MessageTypes.COMBAT });
     target.takeDamage(damage, owner);
     this.afterHitCallback(owner, target);
   }

@@ -27,3 +27,11 @@ export default class MessageQueue {
       .value();
   }
 }
+
+export const MessageTypes = {
+  COMBAT: 'Combat',
+  CHARACTER: 'Character',
+  DUNGEON: 'Dungeon',
+  META: 'Meta',
+  ITEM: 'Item'
+};

@@ -4,7 +4,7 @@ import ROT from 'rot-js';
 import Roll from '../../lib/dice-roller';
 import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
-import MessageQueue from '../../display/message-handler';
+import MessageQueue, { MessageTypes } from '../../display/message-handler';
 import { Gold, Corpse } from '../items/_special';
 
 /* drop contents on death */
@@ -63,10 +63,10 @@ class ExplodesBehavior extends Behavior {
 
   die(me) {
     if(ROT.RNG.getPercentage() > this.percent) {
-      MessageQueue.add({ message: `${me.name} explodes a little bit.` });
+      MessageQueue.add({ message: `${me.name} explodes a little bit.`, type: MessageTypes.COMBAT });
       return;
     }
-    MessageQueue.add({ message: `${me.name} violently explodes!` });
+    MessageQueue.add({ message: `${me.name} violently explodes!`, type: MessageTypes.COMBAT });
     _.each(GameState.world.getValidEntitiesInRange(me.x, me.y, me.z, this.range), (entity) => {
       if(me === entity || entity.hp.atMin()) return; // infinite loop prevention
       entity.takeDamage(Roll(this.roll), me);
@@ -82,7 +82,7 @@ class LifeSaveBehavior extends Behavior {
   takeDamage(me) {
     if(me.hp.atMin()) {
       me.hp.toMax();
-      MessageQueue.add({ message: `${me.name}'s life was saved!` });
+      MessageQueue.add({ message: `${me.name}'s life was saved!`, type: MessageTypes.COMBAT });
       me.breakConduct('lifeSave');
 
       if(this.numUses-- <= 0) me.removeBehavior(this);

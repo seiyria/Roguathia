@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
-import MessageQueue from '../../display/message-handler';
+import MessageQueue, { MessageTypes } from '../../display/message-handler';
 
 /* retrieve items from the ground */
 class PickUpItemsBehavior extends Behavior {
@@ -18,7 +18,7 @@ class PickUpItemsBehavior extends Behavior {
       if(this.blacklist.length && _.contains(this.blacklist, item.getType())) return;
       GameState.world.removeItem(item);
       me.addToInventory(item);
-      MessageQueue.add({ message: `${me.name} picked up ${item.name}.` });
+      MessageQueue.add({ message: `${me.name} picked up ${item.name}.`, type: MessageTypes.ITEM });
     });
   }
 }
@@ -36,7 +36,7 @@ class InteractsBehavior extends Behavior {
 
       if(tile.canInteract && tile.interact && tile.canInteract(me)) {
         const msg = tile.interact(me);
-        if(msg) MessageQueue.add({ message: msg });
+        if(msg) MessageQueue.add({ message: msg, type: MessageTypes.DUNGEON });
         return false;
       }
     }

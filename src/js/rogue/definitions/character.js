@@ -9,7 +9,7 @@ import Races from '../content/races/_all';
 import * as Behaviors from '../content/behaviors/_all';
 import GameState from '../init/gamestate';
 import Attacks from '../content/attacks/_all';
-import MessageQueue from '../display/message-handler';
+import MessageQueue, { MessageTypes } from '../display/message-handler';
 
 import loadValue from '../lib/value-assign';
 import calc from '../lib/directional-probability';
@@ -319,7 +319,7 @@ export default class Character extends Entity {
       return;
     }
     this.doBehavior('die');
-    MessageQueue.add({ message: `${this.name} was killed by ${killer.name}!` });
+    MessageQueue.add({ message: `${this.name} was killed by ${killer.name}!`, type: MessageTypes.COMBAT });
     if(killer.kill) killer.kill(this);
 
     this.__killerId = killer.__id;
@@ -544,7 +544,7 @@ export default class Character extends Entity {
     this.mp.toMax();
 
     this.flushTraits();
-    MessageQueue.add({ message: `${this.name} has reached experience level ${this.level}!` });
+    MessageQueue.add({ message: `${this.name} has reached experience level ${this.level}!`, type: MessageTypes.CHARACTER });
   }
 
   levelupStatBoost() {

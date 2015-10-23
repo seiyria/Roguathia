@@ -1,7 +1,7 @@
 
 import { Item } from './item';
 import * as Fakes from '../constants/faketypes';
-import MessageQueue from '../display/message-handler';
+import MessageQueue, { MessageTypes } from '../display/message-handler';
 import { Items as Glyphs } from '../constants/glyphs';
 import Materials from '../constants/materials';
 import { rarity, material } from '../constants/decorators';
@@ -163,7 +163,7 @@ export class Potion extends Equipment {
   }
   use(entity, extra) {
     super.use(entity, extra);
-    MessageQueue.add({ message: `${entity.name} drank ${this.color} liquid and ${extra.messageFinish}!` });
+    MessageQueue.add({ message: `${entity.name} drank ${this.color} liquid and ${extra.messageFinish}!`, type: MessageTypes.DUNGEON });
   }
 }
 
