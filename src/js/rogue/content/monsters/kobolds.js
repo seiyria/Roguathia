@@ -15,7 +15,7 @@ const koboldStartingEquipment = [
       shortsword: () => new Weapons.OrcishShortSword()
     }
   },
-  { probability: 100, init: () => new Projectiles.Dart({ charges: '1d14 + 3' }) }
+  { probability: 25, init: () => new Projectiles.Dart({ charges: '1d14 + 3' }) }
 ];
 
 export const kobold = { difficulty: 1, spawnPattern: '1d1', frequency: 3, init: () =>
@@ -34,7 +34,7 @@ export const largeKobold = { difficulty: 2, spawnPattern: '1d1', frequency: 3, i
       behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
     } }) };
 
-export const koboldLord = { difficulty: 3, spawnPattern: '1d1', frequency: 3000, init: () =>
+export const koboldLord = { difficulty: 3, spawnPattern: '1d1', frequency: 3, init: () =>
   ({ glyph: { key: Glyphs.Kobold, fg: GlyphColors.Tiers.Moderate },
     startingEquipment: koboldStartingEquipment,
     attributes: { speed: 50, level: 3, killXp: '3d10', spawnHp: '12d2' },
