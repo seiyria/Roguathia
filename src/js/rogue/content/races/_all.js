@@ -7,6 +7,7 @@ import Gnome from './gnome';
 import Human from './human';
 import Insect from './insect';
 import Jelly from './jelly';
+import Kobold from './kobold';
 import Manticore from './manticore';
 import Orc from './orc';
 import Psionic from './psionic';
@@ -19,5 +20,5 @@ import Spider from './spider';
 import Spore from './spore';
 
 export default { Canine, Demon, Elemental, Elf, Gnome,
-  Human, Insect, Jelly, Lizard, Lizardman, Manticore, Orc, Pudding, Psionic, Rat,
+  Human, Insect, Jelly, Kobold, Lizard, Lizardman, Manticore, Orc, Pudding, Psionic, Rat,
   Snake, Spider, Spore };
