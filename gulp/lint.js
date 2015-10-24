@@ -8,20 +8,18 @@ const through2 = require('through2');
 const getPaths = require('./_common').getPaths;
 
 const isLinty = (file) => {
-  // check if a file has any errors or warnings
   return file.eslint != null
     && (file.eslint.warningCount > 0 || file.eslint.errorCount > 0);
 };
 
 const uncache =(cacheName) => {
-  // create a stream that removes files from cache
   return through2.obj((file, enc, done) => {
     if (cache.caches[cacheName]) {
       delete cache.caches[cacheName][file.path];
     }
     done(null, file);
   });
-}
+};
 
 gulp.task('eslint', () => {
   return gulp.src(getPaths().js)
