@@ -168,7 +168,7 @@ export class Potion extends Equipment {
 }
 
 @rarity(0)
-@material(Materials.Iron);
+@material(Materials.Iron)
 export class Tool extends Item {
   constructor(opts = {}) {
     opts.symbol = Glyphs.Tool;
