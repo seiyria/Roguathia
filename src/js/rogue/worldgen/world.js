@@ -7,6 +7,8 @@ import GameState from '../init/gamestate';
 import ItemGenerator from './item-generator';
 import Log from '../lib/logger';
 
+const badTile = new Tiles.Void();
+
 export default class World {
   constructor() {
     this.tiles = [];
@@ -97,7 +99,7 @@ export default class World {
     if(z < 0 || z > this.tiles.length ||
       x < 0 || x >= this.tiles[z].length ||
       y < 0 || y >= this.tiles[z][x].length) {
-      return new Tiles.Void();
+      return badTile;
     }
 
     return this.tiles[z][x][y];
