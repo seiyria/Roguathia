@@ -23,7 +23,6 @@ export default class Player extends Character {
     this.spawnSteps = Settings.game.spawnSteps; // spawn creatures every 100 steps
     this.totalXpEarned = 0;
     this.totalKpEarned = 0;
-    this.kpEarned = 0;
     this.conquest = {};
     
     this.name = _.trunc(this.name, { length: Settings.game.nameLength, omission: '' });

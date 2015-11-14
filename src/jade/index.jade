@@ -17,9 +17,16 @@ html(ng-app="Roguathia", ng-controller="Root")
           .row
             .col-md-12#game-area
 
-          .row
+          .row(ng-controller="Upgrades")
             .col-md-12
-              div upgrades
+              .row
+                .col-md-12
+                  div upgrades
+
+              .row
+                .col-md-4 SP {{currency.sp}}
+                .col-md-4 KP {{currency.kp}}
+                .col-md-4 VP {{currency.vp}}
 
         .col-md-5
           uib-tabset(justified="true")

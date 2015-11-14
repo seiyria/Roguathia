@@ -47,8 +47,8 @@ class GameState extends EventEmitter2 {
       });
   }
 
-  get vpEarned() { return this.winCondition.vp(); }
-  get kpEarned() { return _.reduce(this.players, ((prev, cur) => prev + cur.kpEarned), 0); }
+  get vpEarned() { return this.winCondition.check() ? this.winCondition.vp() : 0; }
+  get kpEarned() { return _.reduce(this.players, ((prev, cur) => prev + cur.totalKpEarned), 0); }
   get spEarned() { return _.reduce(this.players, ((prev, cur) => prev + cur.getScore()), 0); }
 
   toJSON() {
