@@ -59,7 +59,8 @@
       "./bower_components/HackTimer/HackTimer.silent.min.js",
       "./bower_components/angular/angular.min.js",
       "./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
-      "./bower_components/ngstorage/ngStorage.min.js"
+      "./bower_components/ngstorage/ngStorage.min.js",
+      "./bower_components/angular-once/once.js"
     ],
     "libcss": [
       "./bower_components/dos-strap/dist/css/bootstrap.min.css"

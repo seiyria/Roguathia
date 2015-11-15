@@ -1,5 +1,5 @@
 script(type="text/ng-template", id="log-tab")
   .msg-container(fill-height, offset="40", scroll-bottom="log")
-    .msg(ng-repeat="msg in log")
-      .timestamp [{{msg.time | date:'h:mm a'}}]
-      .string {{msg.msg}}
+    .msg(ng-repeat="msg in log track by $index")
+      .timestamp(once-text="msg.time | date:'h:mm a'")
+      .string(once-text="msg.msg")

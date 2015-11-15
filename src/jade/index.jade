@@ -24,9 +24,9 @@ html(ng-app="Roguathia", ng-controller="Root")
                   div upgrades
 
               .row
-                .col-md-4 SP {{currency.sp}}
-                .col-md-4 KP {{currency.kp}}
-                .col-md-4 VP {{currency.vp}}
+                .col-md-4 SP {{currency.sp | number:0}}
+                .col-md-4 KP {{currency.kp | number:0}}
+                .col-md-4 VP {{currency.vp | number:0}}
 
         .col-md-5
           uib-tabset(justified="true")

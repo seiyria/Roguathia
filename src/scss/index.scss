@@ -13,6 +13,12 @@
   .timestamp {
     width: 100px;
     display: table-cell;
+    &::before {
+      content: '[';
+    }
+    &::after {
+      content: ']';
+    }
   }
   .string {
     padding-left: 10px;

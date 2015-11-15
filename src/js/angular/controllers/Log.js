@@ -1,6 +1,4 @@
 
-import _ from 'lodash';
-
 import Log from '../../rogue/lib/logger';
 
 import module from '../module';
@@ -23,16 +21,12 @@ module.controller('Log', ($scope) => {
     addMessage('Game over! Everyone died.', MessageTypes.META);
   });
 
-  GameState.on('log', (logRef) => {
-
-    const logObj = _.cloneDeep(logRef);
+  GameState.on('log', (logObj) => {
 
     addMessage(logObj.message, logObj.type);
 
-    while($scope.log.length > 1000) {
+    while($scope.log.length > 500) {
       $scope.log.shift();
     }
-
-    logRef = null;
   });
 });

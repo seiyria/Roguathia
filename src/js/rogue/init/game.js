@@ -130,6 +130,7 @@ export default class Game {
   }
 
   cleanUp() {
+    this.display._data = null;
     this.display = null;
     this.currentScreen = null;
     this.scheduler = null;
