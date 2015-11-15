@@ -14,6 +14,9 @@ module.controller('Log', ($scope) => {
     if(!type) {
       Log('GameLog', `Message "${msg}" has no type`);
     }
+    if($scope.log.length > 500) {
+      $scope.log.shift();
+    }
     $scope.log.push({ time: new Date(), msg, type });
   };
 
@@ -22,11 +25,6 @@ module.controller('Log', ($scope) => {
   });
 
   GameState.on('log', (logObj) => {
-
     addMessage(logObj.message, logObj.type);
-
-    while($scope.log.length > 500) {
-      $scope.log.shift();
-    }
   });
 });
