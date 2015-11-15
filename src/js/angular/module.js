@@ -1,2 +1,2 @@
 
-export default angular.module('Roguathia', ['ui.bootstrap', 'ngStorage', 'once']);
+export default angular.module('Roguathia', ['ui.bootstrap', 'ngStorage']);

@@ -10,7 +10,6 @@
     "dice.js": "~0.7.0",
     "dos-strap": "seiyria/dos-strap",
     "HackTimer": "https://github.com/turuslan/HackTimer.git",
-    "ngstorage": "~0.3.7",
-    "angular-once": "~0.1.9"
+    "ngstorage": "~0.3.7"
   }
 }
