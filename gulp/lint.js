@@ -26,6 +26,6 @@ gulp.task('eslint', () => {
     .pipe(cache('lint-cache'))
     .pipe(eslint({ useEslintrc: true, cache: true }))
     .pipe(eslint.format())
-    .pipe(eslint.failOnError())
+    .pipe(eslint.failAfterError())
     .pipe(gulpIf(isLinty, uncache('lint-cache')));
 });
