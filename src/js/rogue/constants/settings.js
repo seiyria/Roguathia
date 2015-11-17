@@ -6,6 +6,7 @@ export default {
   },
   game: {
     turnDelay: 50,
+    killXpDivisor: 5,
     minStatValue: 3,
     alignThreshold: 100,
     baseAC: 10,

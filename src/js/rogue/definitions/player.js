@@ -40,7 +40,7 @@ export default class Player extends Character {
   
   kill(dead) {
     super.kill(dead);
-    this.totalKpEarned += dead.difficulty * dead.killXp;
+    this.totalKpEarned += ~~(dead.difficulty * Math.min(dead.killXp/Settings.game.killXpDivisor, 1));
     if(!this.conquest[dead.name]) this.conquest[dead.name] = 0;
     this.conquest[dead.name]++;
     
@@ -69,6 +69,7 @@ export default class Player extends Character {
       this.spawnMonster();
     }
 
+    // redraw counter, so we don't redraw once per player turn, just once for every player turn
     GameState.playerTurnsTaken++;
 
     if(GameState.playerTurnsTaken >= GameState.livingPlayers) {
