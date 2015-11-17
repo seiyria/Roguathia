@@ -30,6 +30,7 @@ class GameState extends EventEmitter2 {
     this.players = [];
     this.messages = [];
     this.projectiles = [];
+    this.monsters = [];
     this.splitScreen = false;
     this.currentFloor = 0;
 

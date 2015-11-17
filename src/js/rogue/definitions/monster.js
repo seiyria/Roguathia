@@ -15,6 +15,8 @@ export default class Monster extends Character {
     this.antiFactions.push(Factions.PLAYER);
     if(opts.addFactions) this.factions.push(...opts.addFactions);
     if(opts.startingEquipment) this.loadStartingEquipment(opts.startingEquipment);
+
+    GameState.monsters.push(this);
   }
 
   arePlayersAPossibility() {
@@ -38,6 +40,7 @@ export default class Monster extends Character {
 
   removeSelf() {
     super.removeSelf();
+    GameState.monsters = _.without(GameState.monsters, this);
     this.cleanUp();
   }
   

@@ -176,6 +176,7 @@ export class Attack extends Abstract {
   hitCallback(owner) {
     owner.breakConduct('pacifist');
 
+    // TODO this should probably be a behavior
     if(this.spawn && ROT.RNG.getPercentage() <= this.spawnChance) {
       const spawnMe = WeightedExtension(this.spawn).key;
       const validTile = _.sample(GameState.world.getValidTilesInRange(owner.x, owner.y, owner.z, 1, (tile) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z)));
