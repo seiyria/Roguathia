@@ -1,6 +1,6 @@
 
 import Game from './game';
-import GameState from './gamestate';
+import GameState, { FreshGame } from './gamestate';
 import { LoadScreen } from '../display/screens/load';
 import InitDebug from './debug';
 
@@ -11,7 +11,7 @@ export default () => {
     }
   );
   
-  GameState.reset();
+  FreshGame();
   const game = GameState.game = new Game();
   document.getElementById('game-area').appendChild(game.display.getContainer());
   game.switchScreen(LoadScreen);

@@ -56,4 +56,15 @@ class GameState extends EventEmitter2 {
   }
 }
 
-export default new GameState();
+const exportedState = window.GameState = new GameState();
+
+export const FreshGame = () => {
+  for(const key in exportedState) {
+    if(!exportedState.hasOwnProperty(key) || _.contains(['_events', 'newListener'], key)) continue;
+    delete exportedState[key];
+  }
+
+  exportedState.reset();
+};
+
+export default exportedState;
