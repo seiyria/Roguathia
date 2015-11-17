@@ -124,7 +124,7 @@ export class Attack extends Abstract {
       setTimeout(function() {
         moveTo(curStep.x, curStep.y);
         if(i === path.length - 1) finalize();
-      }, i*50);
+      }, i*(Settings.game.turnDelay/5));
     });
   }
   
