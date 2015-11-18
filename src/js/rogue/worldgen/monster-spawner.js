@@ -18,8 +18,8 @@ export default class MonsterSpawner {
     let chosenName = WeightedExtension(Monsters, 'frequency', monsterName => Monsters[monsterName].difficulty >= lowestDifficulty && Monsters[monsterName].difficulty < highestDifficulty).key;
 
     if(!chosenName || !Monsters[chosenName]) {
-      Log('MonsterSpawner', `Monster (${chosenName}) could not be spawned: DLvl ${dungeonLevel} TargetLevel ${targetLevel} | difficulty range ${lowestDifficulty}-${highestDifficulty} -- picking random monster to spawn...`);
-      chosenName = WeightedExtension(Monsters, 'frequency', monsterName => Monsters[monsterName].difficulty > 0);
+      Log('MonsterSpawner', `Monster (${chosenName}) could not be spawned: DLvl ${dungeonLevel} TargetLevel ${targetLevel} | difficulty range ${lowestDifficulty}-${highestDifficulty} -- picking random monster to spawn...`, false);
+      chosenName = WeightedExtension(Monsters, 'frequency', monsterName => Monsters[monsterName].difficulty > 0).key;
     }
 
     const numMonsters = Roll(Monsters[chosenName].spawnPattern);
