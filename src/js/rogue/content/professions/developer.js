@@ -24,7 +24,7 @@ const devCfg = {
   skillCaps: { shot: Thresholds.Expert, stab: Thresholds.Skilled },
   startingItems: [
     { init: () => new Weapons.Bow({ bucName: 'uncursed' }) },
-    { init: () => new Projectiles.Arrow({ charges: '100d1', bucName: 'uncursed' }) },
+    { init: () => new Projectiles.Arrow({ charges: '1d1', bucName: 'uncursed' }) },
     { init: () => new Heads.NightGoggles({ bucName: 'uncursed' }) },
     { init: () => new Necks.AmuletOfLifeSaving({ bucName: 'uncursed' }) },
     { init: () => new Foods.Ration({ charges: '1d3', bucName: 'uncursed' }) },
