@@ -31,6 +31,7 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * Expand item drop variety (ie, their starting equipment is better)
     * Tameable monster variety
     * More pet choices
+    * Higher monster limit
   * VP (you get points for surviving the dungeon, your conduct is worth lots of points)
     * More dungeon features (fountains, thrones, decorations, sinks, torches, etc)
     * Deeper dungeons (+2 floors / lvl)

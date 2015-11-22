@@ -32,6 +32,8 @@ export default class MonsterSpawner {
 
   static spawnSingle(monsterName, tile) {
 
+    if(GameState.monsters.length >= GameState.upgrades.monsterLimit) return false;
+
     const monster = Monsters[monsterName];
 
     if(!monster) {

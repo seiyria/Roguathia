@@ -87,6 +87,7 @@ class SplitsWhenHitBehavior extends Behavior {
     if(!chosenTile) return;
 
     const newSpawn = MonsterSpawner.spawnSingle(me._name, chosenTile);
+    if(!newSpawn) return;
     const newHp = Math.floor(me.hp.cur / 2);
     me.hp._set(newHp);
     newSpawn.hp._set(newHp);
