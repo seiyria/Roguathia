@@ -7,6 +7,7 @@ import GameState from '../init/gamestate';
 import MessageQueue, { MessageTypes } from '../display/message-handler';
 import Abstract from './abstract';
 import Glyph from './glyph';
+import Log from '../lib/logger';
 import { WeightedExtension } from '../lib/rot-extensions';
 import MonsterSpawner from '../worldgen/monster-spawner';
 
@@ -156,7 +157,13 @@ export class Attack extends Abstract {
       damageBoost += this._itemRef.enchantment;
       if(this._itemRef._tempAttackBoost) damageBoost += Roll(this._itemRef._tempAttackBoost);
     }
-    return Roll(this.roll) + owner.calcStatBonus('str') + damageBoost + owner.getBonusDamage(target);
+    const val = Roll(this.roll) + owner.calcStatBonus('str') + damageBoost + owner.getBonusDamage(target);
+
+    if(!_.isNumber(val)) {
+      Log('Attack', `Invalid attack roll - Roll: ${this.roll}, STR: ${owner.calcStatBonus('str')}, Boost: ${damageBoost}, Ref: ${this._itemRef}, RefBoost: ${this._itemRef ? this.itemRef._tempAttackBoost : 'none'}, Bonus: ${owner.getBonusDamage(target)}`);
+    }
+
+    return val;
   }
   
   hit(owner, target) {
