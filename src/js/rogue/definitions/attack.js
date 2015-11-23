@@ -160,7 +160,7 @@ export class Attack extends Abstract {
     const val = Roll(this.roll) + owner.calcStatBonus('str') + damageBoost + owner.getBonusDamage(target);
 
     if(!_.isNumber(val)) {
-      Log('Attack', `Invalid attack roll - Roll: ${this.roll}, STR: ${owner.calcStatBonus('str')}, Boost: ${damageBoost}, Ref: ${this._itemRef}, RefBoost: ${this._itemRef ? this.itemRef._tempAttackBoost : 'none'}, Bonus: ${owner.getBonusDamage(target)}`);
+      Log('Attack', `Invalid attack roll - Roll: ${this.roll}, STR: ${owner.calcStatBonus('str')}, Boost: ${damageBoost}, Ref: ${this._itemRef}, Bonus: ${owner.getBonusDamage(target)}`);
     }
 
     return val;
