@@ -160,7 +160,19 @@ export class Attack extends Abstract {
     const val = Roll(this.roll) + owner.calcStatBonus('str') + damageBoost + owner.getBonusDamage(target);
 
     if(!_.isNumber(val)) {
-      Log('Attack', `Invalid attack roll - Roll: ${this.roll}, STR: ${owner.calcStatBonus('str')}, Boost: ${damageBoost}, Ref: ${JSON.stringify(this._itemRef)}, Bonus: ${owner.getBonusDamage(target)}`);
+      Log('Attack', `Invalid attack roll
+      Roll: ${this.roll}
+      STR: ${owner.calcStatBonus('str')}
+      Boost: ${damageBoost}
+      Ref: ${JSON.stringify(this._itemRef)}
+      Bonus: ${owner.getBonusDamage(target)}
+      MyBonusDamage: ${owner.bonusDamage} (${typeof owner.bonusDamage}) ${owner.rollOrAdd(owner.bonusDamage)}
+      MyProfessionBonusDamage: ${owner.professionInst.bonusDamage} (${typeof owner.professionInst.bonusDamage}) ${owner.rollOrAdd(owner.professionInst.bonusDamage)}
+      MyRaceBonusDamage: ${owner.raceInst.bonusDamage} (${typeof owner.raceInst.bonusDamage}) ${owner.rollOrAdd(owner.raceInst.bonusDamage)}
+      MyTraitValue: ${owner.getTraitValue('bonusDamage')}
+      MyFury: ${owner.getTraitVsOpponent(target, 'Fury')} (${typeof owner.getTraitVsOpponent(target, 'Fury')})
+      `
+      );
     }
 
     return val;
