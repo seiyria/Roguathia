@@ -25,6 +25,8 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * Template slots (assignable to a character, but kept separate, these would allow you to store a configuration)
     * More color choices for players to be
     * More border style choices (style = character[s] + color)
+    * Higher SP multiplier
+    * Game speed slider
   * KP (monsters are worth different amounts of points)
     * More monster variety (ie, unlock certain difficulties for monsters. By default you only get up to difficulty 5 or so.)
     * Stronger monsters (ie, their stats are overall better)
@@ -32,6 +34,7 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * Tameable monster variety
     * More pet choices
     * Higher monster limit
+    * Higher KP multiplier
   * VP (you get points for surviving the dungeon, your conduct is worth lots of points)
     * More dungeon features (fountains, thrones, decorations, sinks, torches, etc)
     * Deeper dungeons (+2 floors / lvl)
@@ -42,6 +45,7 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * Possibly unlock a dungeon editor (you can rearrange what floors are in what order, and how many of them spawn)
     * Better respawn time
     * Guaranteed N artifact generations
+    * Higher VP multiplier
 * Achievements (worth VP, some worth recurring VP to a lesser extent)
   * Beat game with one party member @ level X (10, 25, 50, 100)
   * Beat game with one party member where dungeon size >= X (10, 25, 50, 100)

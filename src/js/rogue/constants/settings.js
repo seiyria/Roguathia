@@ -11,7 +11,7 @@ export default {
     alignThreshold: 100,
     baseAC: 10,
     spawnSteps: 100,
-    nameLength: 15,
+    nameLength: 12,
 
     display: {
       turns: 4,
@@ -52,7 +52,7 @@ export default {
 
       stats: {
         gender: 'Male',
-        name: 'Dudley',
+        name: 'Dudley123123123123123',
         race: 'Human',
         attacks: [],
         behaviors: [],
