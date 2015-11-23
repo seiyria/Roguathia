@@ -103,7 +103,7 @@ export default class Character extends Entity {
   getTraitValue(property, defaultVal = 0) {
     if(this.traitHash[property]) return this.traitHash[property];
     const properties = this.getTraits();
-    const value = _.reduce(properties, ((prev, prop) => prev + (prop[property] && prop.canUse(this) ? prop[property]() : defaultVal)), defaultVal);
+    const value = _.reduce(properties, ((prev, prop) => prev + (prop[property] && prop.canUse(this) ? this.rollOrAdd(prop[property]()) : defaultVal)), defaultVal);
     this.traitHash[property] = value;
     return value;
   }
