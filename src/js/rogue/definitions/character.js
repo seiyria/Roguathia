@@ -86,7 +86,7 @@ export default class Character extends Entity {
 
   rollOrAdd(val) {
     val = _.isString(val) ? Roll(val) : val;
-    return !val || _.isNaN(val) ? 0 : val;
+    return !val || _.isNaN(val) || !_.isNumber(val) ? 0 : val;
   }
   // endregion
 
