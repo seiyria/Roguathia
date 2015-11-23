@@ -52,7 +52,7 @@ export default {
 
       stats: {
         gender: 'Male',
-        name: 'Dudley123123123123123',
+        name: 'Dudley',
         race: 'Human',
         attacks: [],
         behaviors: [],
