@@ -4,9 +4,10 @@ import ROT from 'rot-js';
 import dice from 'dice.js';
 import Roll from '../lib/dice-roller';
 import GameState from '../init/gamestate';
-import MessageQueue from '../display/message-handler';
+import MessageQueue, { MessageTypes } from '../display/message-handler';
 import Abstract from './abstract';
 import Glyph from './glyph';
+import Log from '../lib/logger';
 import { WeightedExtension } from '../lib/rot-extensions';
 import MonsterSpawner from '../worldgen/monster-spawner';
 
@@ -119,12 +120,12 @@ export class Attack extends Abstract {
     
     moveTo(projectile.x, projectile.y);
     
-    _.each(path, (step, i) => {
+    _.each(path, function(step, i) {
       const curStep = step;
-      setTimeout(() => {
+      setTimeout(function() {
         moveTo(curStep.x, curStep.y);
         if(i === path.length - 1) finalize();
-      }, i*50);
+      }, i*(Settings.game.turnDelay/5));
     });
   }
   
@@ -138,7 +139,7 @@ export class Attack extends Abstract {
     if(this._itemRef) this._itemRef.use(owner, target);
     if(!this.canHit(owner, target, attackNum)) {
       const extra = this.missCallback(owner, target);
-      MessageQueue.add({ message: this.missString(owner, target, extra) });
+      MessageQueue.add({ message: this.missString(owner, target, extra), type: MessageTypes.COMBAT });
       return false;
     }
     this.animate(owner, target, () => this.hit(owner, target));
@@ -156,18 +157,24 @@ export class Attack extends Abstract {
       damageBoost += this._itemRef.enchantment;
       if(this._itemRef._tempAttackBoost) damageBoost += Roll(this._itemRef._tempAttackBoost);
     }
-    return Roll(this.roll) + owner.calcStatBonus('str') + damageBoost + owner.getBonusDamage(target);
+    const val = Roll(this.roll) + owner.calcStatBonus('str') + damageBoost + owner.getBonusDamage(target);
+
+    if(!_.isNumber(val)) {
+      Log('Attack', `Invalid attack roll - Roll: ${this.roll}, STR: ${owner.calcStatBonus('str')}, Boost: ${damageBoost}, Ref: ${this._itemRef}, Bonus: ${owner.getBonusDamage(target)}`);
+    }
+
+    return val;
   }
   
   hit(owner, target) {
     const damage = this.calcDamage(owner, target);
     if(damage <= 0) {
       const extraBlockData = this.blockCallback(owner, target);
-      MessageQueue.add({ message: this.blockString(owner, target, extraBlockData) });
+      MessageQueue.add({ message: this.blockString(owner, target, extraBlockData), type: MessageTypes.COMBAT });
       return false;
     }
     const extra = this.hitCallback(owner, target, damage);
-    MessageQueue.add({ message: this.hitString(owner, target, damage, extra) });
+    MessageQueue.add({ message: this.hitString(owner, target, damage, extra), type: MessageTypes.COMBAT });
     target.takeDamage(damage, owner);
     this.afterHitCallback(owner, target);
   }
@@ -176,6 +183,7 @@ export class Attack extends Abstract {
   hitCallback(owner) {
     owner.breakConduct('pacifist');
 
+    // TODO this should probably be a behavior
     if(this.spawn && ROT.RNG.getPercentage() <= this.spawnChance) {
       const spawnMe = WeightedExtension(this.spawn).key;
       const validTile = _.sample(GameState.world.getValidTilesInRange(owner.x, owner.y, owner.z, 1, (tile) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z)));
@@ -193,6 +201,10 @@ export class Attack extends Abstract {
   missCallback() {}
 
   afterHitCallback() {}
+
+  cleanUp() {
+    this._itemRef = null;
+  }
   
   toJSON() {
     const me = _.omit(this, ['_itemRef']);

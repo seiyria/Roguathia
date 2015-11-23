@@ -77,6 +77,7 @@ export default class Generator {
   }
 
   static markRoomInelligible(room) {
+    if(!room) return;
     room._noMoreFeatures = false;
   }
 

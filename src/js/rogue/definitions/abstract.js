@@ -23,4 +23,6 @@ export default class Abstract {
   getParentType() {
     return Object.getPrototypeOf(Object.getPrototypeOf(this)).constructor.name.toLowerCase();
   }
+
+  cleanUp() {}
 }

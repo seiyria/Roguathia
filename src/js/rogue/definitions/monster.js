@@ -15,6 +15,8 @@ export default class Monster extends Character {
     this.antiFactions.push(Factions.PLAYER);
     if(opts.addFactions) this.factions.push(...opts.addFactions);
     if(opts.startingEquipment) this.loadStartingEquipment(opts.startingEquipment);
+
+    GameState.monsters.push(this);
   }
 
   arePlayersAPossibility() {
@@ -24,9 +26,22 @@ export default class Monster extends Character {
 
   act() {
     if(!this.arePlayersAPossibility()) {
-      return this.removeSelf();
+      return this.removeSelf() && this.cleanUp();
     }
     super.act();
+  }
+
+  cleanUp() {
+    super.cleanUp();
+    this._attackedBy = null;
+    this.target = null;
+    this._current = null;
+  }
+
+  removeSelf() {
+    super.removeSelf();
+    GameState.monsters = _.without(GameState.monsters, this);
+    this.cleanUp();
   }
   
   toJSON() {

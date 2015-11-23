@@ -9,7 +9,7 @@ import Races from '../content/races/_all';
 import * as Behaviors from '../content/behaviors/_all';
 import GameState from '../init/gamestate';
 import Attacks from '../content/attacks/_all';
-import MessageQueue from '../display/message-handler';
+import MessageQueue, { MessageTypes } from '../display/message-handler';
 
 import loadValue from '../lib/value-assign';
 import calc from '../lib/directional-probability';
@@ -71,15 +71,12 @@ export default class Character extends Entity {
       this.levelupStatBoost();
     }
 
-    this.game = GameState.game;
-    this.game.scheduler.add(this, true);
+    GameState.game.scheduler.add(this, true);
 
     this.doBehavior('spawn');
 
-    setTimeout(() => {
-      this.loadStartingEquipment();
-      this.loadStartingSkills();
-    }, 0);
+    this.loadStartingEquipment();
+    this.loadStartingSkills();
   }
 
   // region Static functions
@@ -322,7 +319,7 @@ export default class Character extends Entity {
       return;
     }
     this.doBehavior('die');
-    MessageQueue.add({ message: `${this.name} was killed by ${killer.name}!` });
+    MessageQueue.add({ message: `${this.name} was killed by ${killer.name}!`, type: MessageTypes.COMBAT });
     if(killer.kill) killer.kill(this);
 
     this.__killerId = killer.__id;
@@ -333,6 +330,24 @@ export default class Character extends Entity {
   removeSelf() {
     GameState.world.removeEntity(this);
     GameState.game.scheduler.remove(this);
+  }
+
+  cleanUp() {
+    _.each(this.attacks, a => a.cleanUp());
+    this.behaviors = null;
+    this.inventory = null;
+    this.equipment = null;
+    this.attacks = null;
+    this._path = null;
+    this._attackedBy = null;
+
+    this.professionInst = null;
+    this.raceInst = null;
+
+    this.conquest = null;
+    this.traits = null;
+    this.traitHash = null;
+    this.skills = null;
   }
 
   kill(dead) {
@@ -529,7 +544,7 @@ export default class Character extends Entity {
     this.mp.toMax();
 
     this.flushTraits();
-    MessageQueue.add({ message: `${this.name} has reached experience level ${this.level}!` });
+    MessageQueue.add({ message: `${this.name} has reached experience level ${this.level}!`, type: MessageTypes.CHARACTER });
   }
 
   levelupStatBoost() {

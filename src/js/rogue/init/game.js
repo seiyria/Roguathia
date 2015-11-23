@@ -20,22 +20,26 @@ export default class Game {
       font: 'Courier New',
       width: SETTINGS.screen.width,
       height: SETTINGS.screen.height
-      
     });
     this.currentScreen = null;
 
+    this.listeners = {};
+
     const bindToScreen = (event) => {
-      window.addEventListener(event, (e) => {
+      const listener = window.addEventListener(event, (e) => {
         if(this.currentScreen === null) return;
         
         this.currentScreen.handleInput(event, e);
       });
+
+      this.listeners[event] = listener;
     };
     
     _.each(['keydown', 'keypress'], (event) => bindToScreen(event));
   }
   
   refresh() {
+    if(!this.display) return;
     this.display.clear();
     this.currentScreen.render(this.display);
   }
@@ -100,12 +104,9 @@ export default class Game {
     GameState.world.generateWorld();
     const zeroStartStairs = GameState.world.stairs[0].up;
     
-    GameState.players = [];
     const playerLocations = GameState.world.getValidTilesInRange(
       zeroStartStairs[0], zeroStartStairs[1], 0, 2, (tile) => tile.glyph.key === '.'
     );
-
-    GameState.currentFloor = 0;
 
     for(let i = 0; i < 1; i++) {
       const startTile = playerLocations.shift();
@@ -114,12 +115,28 @@ export default class Game {
       GameState.world.moveEntity(player, startTile.x, startTile.y, 0);
       GameState.players.push(player);
     }
+
+    GameState.livingPlayers = GameState.players.length;
+    GameState.playerTurnsTaken = 0;
+
     this.engine.start();
+    GameState.emit('start');
     
     setTimeout(() => {
       if(this.currentScreen.name === 'DeadScreen') return; // turn 1 death (you spawned with an amulet of strangulation, etc)
       this.switchScreen(SingleGameScreen);
       if(GameState.players.length > 1) this.changeSplitScreen();
     }, 100);
+  }
+
+  cleanUp() {
+    this.display._data = null;
+    this.display = null;
+    this.currentScreen = null;
+    this.scheduler = null;
+    this.engine = null;
+
+    _.each(['keydown', 'keypress'], event => window.removeEventListener(event, this.listeners[event]));
+    this.listeners = null;
   }
 }

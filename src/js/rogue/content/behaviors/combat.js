@@ -3,7 +3,7 @@ import _ from 'lodash';
 import ROT from 'rot-js';
 import Behavior, { Priority } from '../../definitions/behavior';
 import GameState from '../../init/gamestate';
-import MessageQueue from '../../display/message-handler';
+import MessageQueue, { MessageTypes } from '../../display/message-handler';
 import MonsterSpawner from '../../worldgen/monster-spawner';
 import { Stunned } from './conditions';
 import Roll from '../../lib/dice-roller';
@@ -65,7 +65,7 @@ class StealsBehavior extends Behavior {
     });
 
     if(didSteal) {
-      MessageQueue.add({ message: `${me.name} stole ${item.name} from ${didSteal.name}!` });
+      MessageQueue.add({ message: `${me.name} stole ${item.name} from ${didSteal.name}!`, type: MessageTypes.COMBAT });
       didSteal.removeFromInventory(item);
       me.addToInventory(item);
     }
@@ -84,7 +84,10 @@ class SplitsWhenHitBehavior extends Behavior {
     const validTiles = GameState.world.getValidTilesInRange(me.x, me.y, me.z, 1, (tile) => GameState.world.isTileEmpty(tile.x, tile.y, tile.z));
     const chosenTile = _.sample(validTiles);
 
+    if(!chosenTile) return;
+
     const newSpawn = MonsterSpawner.spawnSingle(me._name, chosenTile);
+    if(!newSpawn) return;
     const newHp = Math.floor(me.hp.cur / 2);
     me.hp._set(newHp);
     newSpawn.hp._set(newHp);

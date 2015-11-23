@@ -1,4 +1,42 @@
-body {
-  margin: 0;
-  padding: 0;
+.navbar {
+  margin-bottom: 0;
+}
+
+[fill-height] {
+  overflow: auto;
+}
+
+.msg {
+
+  display: table;
+
+  .timestamp {
+    width: 100px;
+    display: table-cell;
+    &::before {
+      content: '[';
+    }
+    &::after {
+      content: ']';
+    }
+  }
+  .string {
+    padding-left: 10px;
+    display: table-cell;
+  }
+}
+
+.current-floor .floor-number::before {
+  content: '> ';
+}
+
+$paddings: top bottom left right;
+
+@for $size from -11 to 11 {
+  .padding-#{$size*5} { padding: #{$size*5}px }
+  .margin-#{$size*5} { margin: #{$size*5}px }
+  @each $padding in $paddings {
+    .padding-#{$padding}-#{$size*5} { padding-#{$padding}: #{$size*5}px }
+    .margin-#{$padding}-#{$size*5} { margin-#{$padding}: #{$size*5}px }
+  }
 }

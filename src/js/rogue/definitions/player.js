@@ -23,7 +23,6 @@ export default class Player extends Character {
     this.spawnSteps = Settings.game.spawnSteps; // spawn creatures every 100 steps
     this.totalXpEarned = 0;
     this.totalKpEarned = 0;
-    this.kpEarned = 0;
     this.conquest = {};
     
     this.name = _.trunc(this.name, { length: Settings.game.nameLength, omission: '' });
@@ -41,7 +40,7 @@ export default class Player extends Character {
   
   kill(dead) {
     super.kill(dead);
-    this.totalKpEarned += dead.difficulty * dead.killXp;
+    this.totalKpEarned += ~~(dead.difficulty * Math.min(dead.killXp/Settings.game.killXpDivisor, 1));
     if(!this.conquest[dead.name]) this.conquest[dead.name] = 0;
     this.conquest[dead.name]++;
     
@@ -54,14 +53,14 @@ export default class Player extends Character {
   act() {
     if(GameState.game.checkWin()) return;
 
-    const engine = this.game.engine;
+    const engine = GameState.game.engine;
     engine.lock();
 
     const livingPlayers = _.reject(GameState.players, (player) => player.hp.atMin());
 
     if(!GameState.manualMove) {
       super.act();
-      setTimeout(() => engine.unlock(), Settings.game.turnDelay/livingPlayers.length);
+      setTimeout(function() { engine.unlock(); }, Settings.game.turnDelay/livingPlayers.length);
     }
     
     this.rebuildPathingMap();
@@ -70,7 +69,15 @@ export default class Player extends Character {
       this.spawnMonster();
     }
 
-    this.game.refresh();
+    // redraw counter, so we don't redraw once per player turn, just once for every player turn
+    GameState.playerTurnsTaken++;
+
+    if(GameState.playerTurnsTaken >= GameState.livingPlayers) {
+      GameState.game.refresh();
+      GameState.emit('redraw');
+
+      GameState.playerTurnsTaken = 0;
+    }
   }
   
   rebuildPathingMap() {
@@ -87,10 +94,20 @@ export default class Player extends Character {
   die(killer) {
     super.die(killer);
 
+    GameState.emit('redraw');
+    GameState.emit('die');
+    GameState.livingPlayers--;
+
     if(_.every(GameState.players, (player) => player.hp.atMin())) {
+      GameState.emit('gameover');
       GameState.game.gameOver();
       GameState.game.engine.lock();
     }
+  }
+
+  cleanUp() {
+    super.cleanUp();
+    this._path = null;
   }
   
   spawnMonster() {
@@ -109,6 +126,7 @@ export default class Player extends Character {
     });
 
     GameState.world.descend();
+    GameState.emit('descend');
   }
   
   ascend() {

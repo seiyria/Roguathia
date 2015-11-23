@@ -1,0 +1,7 @@
+script(type="text/ng-template", id="log-tab")
+  .msg-container(fill-height, offset="40", scroll-bottom="log")
+    .msg(ng-if="log.length === 0")
+      .string No Log Messages
+    .msg(ng-repeat="msg in log")
+      .timestamp(ng-bind="::(msg.time | date:'h:mm a')")
+      .string(ng-bind="::msg.msg")

@@ -30,4 +30,7 @@ bower_components
 .idea
 .publish
 
+*.log*
+
 dist
+issues/

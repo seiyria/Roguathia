@@ -7,7 +7,7 @@ import { GetColor } from '../lib/valid-colors';
 import GameState from '../init/gamestate';
 import Abstract from './abstract';
 import Log from '../lib/logger';
-import MessageQueue from '../display/message-handler';
+import MessageQueue, { MessageTypes } from '../display/message-handler';
 
 export class Item extends Abstract {
   constructor(opts) {
@@ -67,7 +67,7 @@ export class Item extends Abstract {
     return _.filter(owner.inventory, (item) => item.canUse(owner) && _.contains(this.range.ammo, item.getType()));
   }
   
-  use(owner, extra = { healVal: 0 }) {
+  use(owner, extra = { healVal: 1 }) {
     if(this.manaCost) owner.mp.sub(this.manaCost);
     if(this.healRoll) owner.heal(extra.healVal);
     if(this.charges) {
@@ -93,7 +93,7 @@ export class Item extends Abstract {
     owner.unequip(this);
     owner.dropItem(this);
     GameState.world.removeItem(this);
-    MessageQueue.add({ message: `${this.name} crumbled to dust.` });
+    MessageQueue.add({ message: `${this.name} crumbled to dust.`, type: MessageTypes.ITEM });
   }
 
   curse() {

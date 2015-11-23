@@ -22,7 +22,7 @@ export const kobold = { difficulty: 1, spawnPattern: '1d1', frequency: 3, init: 
   ({ glyph: { key: Glyphs.Kobold, fg: GlyphColors.Tiers.Weak },
     startingEquipment: koboldStartingEquipment,
     attributes: { speed: 50, level: 1, killXp: '1d10', spawnHp: '3d2' },
-    stats: { name: 'kobold', race: 'Orc',
+    stats: { name: 'kobold', race: 'Kobold',
       behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
     } }) };
 
@@ -30,7 +30,7 @@ export const largeKobold = { difficulty: 2, spawnPattern: '1d1', frequency: 3, i
   ({ glyph: { key: Glyphs.Kobold, fg: GlyphColors.Tiers.Inadequate },
     startingEquipment: koboldStartingEquipment,
     attributes: { speed: 50, level: 2, killXp: '2d10', spawnHp: '6d2' },
-    stats: { name: 'large kobold', race: 'Orc',
+    stats: { name: 'large kobold', race: 'Kobold',
       behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
     } }) };
 
@@ -38,7 +38,7 @@ export const koboldLord = { difficulty: 3, spawnPattern: '1d1', frequency: 3, in
   ({ glyph: { key: Glyphs.Kobold, fg: GlyphColors.Tiers.Moderate },
     startingEquipment: koboldStartingEquipment,
     attributes: { speed: 50, level: 3, killXp: '3d10', spawnHp: '12d2' },
-    stats: { name: 'kobold lord', race: 'Orc',
+    stats: { name: 'kobold lord', race: 'Kobold',
       behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
       attacks: [Attacks.Bite({ roll: '1d4' })]
     } }) };
@@ -50,6 +50,6 @@ export const koboldShaman = { difficulty: 2, spawnPattern: '1d1', frequency: 3, 
       { init: () => new Spellbooks.ForceBolt() }
     ],
     attributes: { speed: 50, level: 2, ac: -4, int: 5, mp: '3d4', killXp: '3d10', spawnHp: '12d3' },
-    stats: { name: 'kobold shaman', race: 'Orc',
+    stats: { name: 'kobold shaman', race: 'Kobold',
       behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
     } }) };

@@ -13,7 +13,7 @@ import * as Traits from '../traits/_all';
 const devCfg = {
   hp  : '1d1',
   mp  : '9d5',
-  str : '1d1',
+  str : '10d1',
   con : '1d1',
   int : '4d5',
   dex : '1d1',
@@ -24,7 +24,7 @@ const devCfg = {
   skillCaps: { shot: Thresholds.Expert, stab: Thresholds.Skilled },
   startingItems: [
     { init: () => new Weapons.Bow({ bucName: 'uncursed' }) },
-    { init: () => new Projectiles.Arrow({ bucName: 'uncursed' }) },
+    { init: () => new Projectiles.Arrow({ charges: '1d1', bucName: 'uncursed' }) },
     { init: () => new Heads.NightGoggles({ bucName: 'uncursed' }) },
     { init: () => new Necks.AmuletOfLifeSaving({ bucName: 'uncursed' }) },
     { init: () => new Foods.Ration({ charges: '1d3', bucName: 'uncursed' }) },

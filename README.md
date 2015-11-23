@@ -1,5 +1,8 @@
 # Roguathia [![Code Climate](https://codeclimate.com/github/seiyria/Roguathia/badges/gpa.svg)](https://codeclimate.com/github/seiyria/Roguathia) [![Dependency Status](https://gemnasium.com/seiyria/Roguathia.svg)](https://gemnasium.com/seiyria/Roguathia) [![bitHound Score](https://www.bithound.io/github/seiyria/Roguathia/badges/score.svg)](https://www.bithound.io/github/seiyria/Roguathia) [![Build Status](https://travis-ci.org/seiyria/Roguathia.svg)](https://travis-ci.org/seiyria/Roguathia) [![Codacy Badge](https://www.codacy.com/project/badge/7d38b1b793bb4cec862debe3af85f851)](https://www.codacy.com/app/seiyria/Roguathia)
 
+# Notes
+If the game whitescreens for you (in Chrome), please disable hardware acceleration.
+
 # TODO
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
@@ -28,6 +31,7 @@
     * Expand item drop variety (ie, their starting equipment is better)
     * Tameable monster variety
     * More pet choices
+    * Higher monster limit
   * VP (you get points for surviving the dungeon, your conduct is worth lots of points)
     * More dungeon features (fountains, thrones, decorations, sinks, torches, etc)
     * Deeper dungeons (+2 floors / lvl)
@@ -47,20 +51,18 @@
   * Deck out a player (template slot, color, pet, tombstone)
   * Get an item enchanted to +5, +7, +9
 
-# Website
-* Ascii-styled theme for bootstrap [this maybe](https://kristopolous.github.io/BOOTSTRA.386/)
-
 # Pre-release
 * Analysis tool to make sure stats/etc are declared properly (they may need to be moved to the prototype so they can be imported)
 * Assertions, unit tests, logging, general code refactoring / cleanup
-* IRC bot (Selyk) to announce major events (deaths, etc) / scrollback to chat
+* IRC bot (Selyk) to announce major events (deaths, etc)
 * Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
 * Refactor / reorg / unit tests for classes
-* Firebase: centrally track (important) statistics anonymously (allow people to login with reddit for less anonymous, leaderboards)
-  * track deaths always, floor, race, name, and profession of the death (for headstone generation)
-  * always send full version as well, so certain data can be invalidated
 * Conventional changelog for bump/release
 * Import/export savefile
+* More messages! Make sure the messages line up with with the game better, ie, show:
+  * descend
+  * game over
+  * other special events (sitting on a throne, interacting with a fountain, etc)
 
 # Idea Bucket (TBD)
 * Gravestones should use deaths from other players to spawn occasionally. also, they should get a death message. maybe also store deaths in the firebase

@@ -6,10 +6,9 @@
   ],
   "dependencies": {
     "angular": "~1.4.3",
-    "angular-ui-bootstrap-bower": "~0.13.2",
-    "bootstra.386": "*",
-    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "angular-ui-bootstrap-bower#~0.14.0",
     "dice.js": "~0.7.0",
+    "dos-strap": "seiyria/dos-strap",
     "HackTimer": "https://github.com/turuslan/HackTimer.git",
     "ngstorage": "~0.3.7"
   }

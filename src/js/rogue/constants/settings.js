@@ -6,6 +6,7 @@ export default {
   },
   game: {
     turnDelay: 50,
+    killXpDivisor: 5,
     minStatValue: 3,
     alignThreshold: 100,
     baseAC: 10,
@@ -128,7 +129,8 @@ export default {
     fountainSpawnChance: 25,
     oracleRoomChance: 5,
     sinkSpawnChance: 25,
-    bathroomSpawnChance: 5
+    bathroomSpawnChance: 5,
+    monsterLimit: 5
   },
   upgrades: {
     itemsInDungeon: 1,
@@ -142,7 +144,8 @@ export default {
     fountainSpawnChance: 0,
     oracleRoomChance: 0,
     sinkSpawnChance: 0,
-    bathroomSpawnChance: 0
+    bathroomSpawnChance: 0,
+    monsterLimit: 10
   },
   upgradesMax: {
     itemDropChance: 75,
@@ -155,6 +158,7 @@ export default {
     fountainSpawnChance: 1000,
     oracleRoomChance: 100,
     sinkSpawnChance: 1000,
-    bathroomSpawnChance: 100
+    bathroomSpawnChance: 100,
+    monsterLimit: 100
   }
 };

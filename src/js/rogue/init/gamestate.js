@@ -2,18 +2,38 @@
 import _ from 'lodash';
 import Settings from '../constants/settings';
 import GameUpgrades from './gameupgrades';
+import { EventEmitter2 } from 'eventemitter2';
 
-class GameState {
+class GameState extends EventEmitter2 {
   constructor() {
+    super();
     this.reset();
   }
 
   reset() {
+    if(this.players) {
+      _.each(this.players, p => p.cleanUp());
+    }
+
+    if(this.world) {
+      this.world.cleanUp();
+      this.world = null;
+    }
+
+    if(this.game) {
+      this.game.cleanUp();
+      this.game = null;
+    }
+
     this.identification = {};
     this._idMap = {};
+    this.players = [];
     this.messages = [];
     this.projectiles = [];
+    this.monsters = [];
     this.splitScreen = false;
+    this.currentFloor = 0;
+
     this.loadExternalOptions();
   }
 
@@ -28,8 +48,8 @@ class GameState {
       });
   }
 
-  get vpEarned() { return this.winCondition.vp(); }
-  get kpEarned() { return _.reduce(this.players, ((prev, cur) => prev + cur.kpEarned), 0); }
+  get vpEarned() { return this.winCondition.check() ? this.winCondition.vp() : 0; }
+  get kpEarned() { return _.reduce(this.players, ((prev, cur) => prev + cur.totalKpEarned), 0); }
   get spEarned() { return _.reduce(this.players, ((prev, cur) => prev + cur.getScore()), 0); }
 
   toJSON() {
@@ -37,4 +57,15 @@ class GameState {
   }
 }
 
-export default new GameState();
+const exportedState = window.GameState = new GameState();
+
+export const FreshGame = () => {
+  for(const key in exportedState) {
+    if(!exportedState.hasOwnProperty(key) || _.contains(['_events', 'newListener'], key)) continue;
+    delete exportedState[key];
+  }
+
+  exportedState.reset();
+};
+
+export default exportedState;

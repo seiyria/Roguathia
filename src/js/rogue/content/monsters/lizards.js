@@ -3,6 +3,7 @@ import * as Behaviors from '../behaviors/_all';
 import * as Traits from '../traits/_all';
 import Attacks from '../attacks/_all';
 import * as Weapons from '../items/_weapons';
+import * as Projectiles from '../items/projectiles';
 import { Entities as Glyphs } from '../../constants/glyphs';
 import { Entities as GlyphColors } from '../../constants/glyphColors';
 
@@ -62,7 +63,7 @@ export const salamander = { difficulty: 17, spawnPattern: '1d1', frequency: 1, i
         choicesInit: {
           spear: () => new Weapons.Spear(),
           trident: () => new Weapons.Trident(),
-          stiletto: () => new Weapons.Stiletto()
+          stiletto: () => new Projectiles.Stiletto()
         }
       }
     ],

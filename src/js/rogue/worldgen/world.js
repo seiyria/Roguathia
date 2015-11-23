@@ -7,6 +7,8 @@ import GameState from '../init/gamestate';
 import ItemGenerator from './item-generator';
 import Log from '../lib/logger';
 
+const badTile = new Tiles.Void();
+
 export default class World {
   constructor() {
     this.tiles = [];
@@ -97,7 +99,7 @@ export default class World {
     if(z < 0 || z > this.tiles.length ||
       x < 0 || x >= this.tiles[z].length ||
       y < 0 || y >= this.tiles[z][x].length) {
-      return new Tiles.Void();
+      return badTile;
     }
 
     return this.tiles[z][x][y];
@@ -288,5 +290,27 @@ export default class World {
   descend() {
     if(!GameState.winCondition.shouldTrigger()) return;
     GameState.winCondition.trigger();
+  }
+
+  cleanUp() {
+    _.each(_.compact(_.flattenDeep(this.entities)), e => e.removeSelf() && e.cleanUp());
+
+    for(let z = 0; z < this.tiles.length; z++) {
+      for(let x = 0; x < this.tiles[z].length; x++) {
+        for(let y = 0; y < this.tiles[z][x].length; y++) {
+          this.tiles[z][x][y] = null;
+        }
+        this.tiles[z][x] = null;
+      }
+      this.tiles[z] = null;
+    }
+
+    this.tiles = null;
+    this.stairs = null;
+    this.entities = null;
+    this.items = null;
+    this.fov = null;
+    this.lighting = null;
+    this.explored = null;
   }
 }

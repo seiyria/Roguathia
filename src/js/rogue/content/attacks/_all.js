@@ -14,7 +14,5 @@ _.each(theseAttacks, (attack) => {
   attackFunc.real = attack;
   attacks[attack.name] = attackFunc;
 });
+
 export default attacks;
-
-
-

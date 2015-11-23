@@ -1,6 +1,7 @@
 {
   "extends": "kellyirc",
   "parser": "babel-eslint",
+  "cache": true,
   "env": {
     "node": true,
     "es6": true,
@@ -9,7 +10,8 @@
   "globals": {
     "describe": true,
     "beforeEach": true,
-    "it": true
+    "it": true,
+    "angular": true
   },
   "rules": {
     "no-var": 2,
