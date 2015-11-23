@@ -13,13 +13,13 @@ class PickUpItemsBehavior extends Behavior {
   }
   act(me) {
     const items = GameState.world.getItemsAt(me.x, me.y, me.z);
-    _.each(items, (item) => {
+    _(items).filter(item => !item._canPickUpTurn || item._canPickUpTurn <= me.currentTurn).each(item => {
       if(this.whitelist.length && !_.contains(this.whitelist, item.getType())) return;
       if(this.blacklist.length && _.contains(this.blacklist, item.getType())) return;
       GameState.world.removeItem(item);
       me.addToInventory(item);
       MessageQueue.add({ message: `${me.name} picked up ${item.name}.`, type: MessageTypes.ITEM });
-    });
+    }).value();
   }
 }
 

@@ -193,6 +193,7 @@ export default class Character extends Entity {
   }
 
   dropItem(item) {
+    item._canPickUpTurn = this.currentTurn + 5;
     this.removeFromInventory(item);
     GameState.world.moveItem(item, this.x, this.y, this.z);
   }

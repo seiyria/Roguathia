@@ -64,3 +64,14 @@ $paddings: top bottom left right;
     .margin-#{$padding}-#{$size*5} { margin-#{$padding}: #{$size*5}px }
   }
 }
+
+.item {
+  .btn {
+    margin: 0;
+    padding: 0;
+
+    &:active {
+      margin: 0;
+    }
+  }
+}
