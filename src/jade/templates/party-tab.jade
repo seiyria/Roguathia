@@ -1,23 +1,28 @@
 script(type="text/ng-template", id="party-tab")
-  .player-block.margin-bottom-20(ng-repeat="player in players")
-    .row
-      .col-xs-12 {{player.hp.atMin() ? '(DEAD)' : ''}} {{player.name}}
+  div(fill-height, offset="40")
+    .player-block
+      .text-center Members
+      .margin-bottom-20(ng-repeat="player in players")
+        .row
+          .col-xs-12 {{player.hp.atMin() ? '(DEAD)' : ''}} {{player.name}}
 
-    .row
-      .col-xs-12 Level {{player.level}} {{player.getAlign()}} {{player.race}} {{player.profession}} ({{player.professionInst.title}})
+        .row
+          .col-xs-12 Level {{player.level}} {{player.getAlign()}} {{player.race}} {{player.profession}} ({{player.professionInst.title}})
 
-    .row
-      .stat-block.col-xs-4 HP:{{player.hp.cur}}/{{player.hp.max}}
-      .stat-block.col-xs-4 MP:{{player.mp.cur}}/{{player.mp.max}}
-      .stat-block.col-xs-4 XP:{{player.xp.cur}}/{{player.xp.max}}
+        .row
+          .stat-block.col-xs-4 HP:{{player.hp.cur}}/{{player.hp.max}}
+          .stat-block.col-xs-4 MP:{{player.mp.cur}}/{{player.mp.max}}
+          .stat-block.col-xs-4 XP:{{player.xp.cur}}/{{player.xp.max}}
 
-    .row
-      .stat-block.col-xs-2 STR:{{player.getStat('str')}}
-      .stat-block.col-xs-2 DEX:{{player.getStat('dex')}}
-      .stat-block.col-xs-2 CON:{{player.getStat('con')}}
-      .stat-block.col-xs-2 INT:{{player.getStat('int')}}
-      .stat-block.col-xs-2 WIS:{{player.getStat('wis')}}
-      .stat-block.col-xs-2 CHA:{{player.getStat('cha')}}
+        .row
+          .stat-block.col-xs-2 STR:{{player.getStat('str')}}
+          .stat-block.col-xs-2 DEX:{{player.getStat('dex')}}
+          .stat-block.col-xs-2 CON:{{player.getStat('con')}}
+          .stat-block.col-xs-2 INT:{{player.getStat('int')}}
+          .stat-block.col-xs-2 WIS:{{player.getStat('wis')}}
+          .stat-block.col-xs-2 CHA:{{player.getStat('cha')}}
 
-     // name hp mp xp
-     // lvl X chaotic male human sorceror (title)
+    .inventory-block
+      .text-center Inventory
+      uib-tabset(justified="true")
+        uib-tab(ng-repeat="player in players", heading="{{player.name}}")

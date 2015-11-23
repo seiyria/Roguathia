@@ -7,6 +7,17 @@
   font-family: 'Fixedsys500c', 'Courier New', monospace;
 }
 
+body {
+  min-width: 1250px;
+}
+
+.player-block, .inventory-block {
+  height: 50%;
+  min-height: 50%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .navbar {
   margin-bottom: 0;
 }
