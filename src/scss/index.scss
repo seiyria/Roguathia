@@ -7,8 +7,11 @@
   font-family: 'Fixedsys500c', 'Courier New', monospace;
 }
 
-body {
-  min-width: 1250px;
+@media only screen and (min-width : 992px) {
+  body {
+    min-width: 1250px;
+    overflow-y: hidden;
+  }
 }
 
 .player-block, .inventory-block {
