@@ -17,7 +17,7 @@ export default class Game {
     this.display = new ROT.Display({
       fontSize: 14,
       fontStyle: 'bold',
-      font: 'Courier New',
+      font: 'Fixedsys500c',
       width: SETTINGS.screen.width,
       height: SETTINGS.screen.height
     });

@@ -1,9 +1,19 @@
+@font-face {
+  font-family: 'Fixedsys500c';
+  src: url(../fonts/Fixedsys500c.woff) format('woff');
+}
+
+* {
+  font-family: 'Fixedsys500c', 'Courier New', monospace;
+}
+
 .navbar {
   margin-bottom: 0;
 }
 
 [fill-height] {
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .msg {
