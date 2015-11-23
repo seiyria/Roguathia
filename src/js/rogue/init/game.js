@@ -45,6 +45,7 @@ export default class Game {
   }
   
   gameOver() {
+    GameState.emit('gameover');
     this.switchScreen(DeadScreen);
   }
 
@@ -55,6 +56,7 @@ export default class Game {
   }
 
   win() {
+    GameState.emit('gameover');
     this.switchScreen(WinScreen);
   }
   

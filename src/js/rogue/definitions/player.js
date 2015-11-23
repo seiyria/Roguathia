@@ -99,7 +99,6 @@ export default class Player extends Character {
     GameState.livingPlayers--;
 
     if(_.every(GameState.players, (player) => player.hp.atMin())) {
-      GameState.emit('gameover');
       GameState.game.gameOver();
       GameState.game.engine.lock();
     }
