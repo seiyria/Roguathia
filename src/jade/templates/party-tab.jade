@@ -26,10 +26,12 @@ script(type="text/ng-template", id="party-tab")
       .text-center Inventory
       uib-tabset(justified="true")
         uib-tab(ng-repeat="player in players", heading="{{player.name}}")
-          .row.item(ng-if="player.inventory.length === 0")
-            .col-xs-12.text-center Empty
-          .row.item(ng-repeat="item in player.inventory | orderBy:'name'")
-            .col-xs-1.item-glyph(ng-style="{'color': item.glyph.fg}") {{item.glyph.key}}
-            .col-xs-8.item-name {{item.name}}
-            .col-xs-3.item-actions
-              .btn.btn-link(ng-click="dropItem(player, item)") Drop
+          div(fill-height, offset="{{inventoryOffset()}}")
+            .row.item(ng-if="player.inventory.length === 0")
+              .col-xs-12.text-center Empty
+            .row.item(ng-repeat="item in player.inventory | orderBy:'name'")
+              .col-xs-1.item-glyph(ng-style="{'color': item.glyph.fg}") {{item.glyph.key}}
+              .col-xs-8.item-name {{item.name}}
+              .col-xs-3.item-actions
+                // .btn.btn-link
+                a.btn.btn-link(ng-click="dropItem(player, item)") Drop
