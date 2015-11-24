@@ -31,7 +31,9 @@ script(type="text/ng-template", id="party-tab")
               .col-xs-12.text-center Empty
             .row.item(ng-repeat="item in player.inventory | orderBy:'name'")
               .col-xs-1.item-glyph(ng-style="{'color': item.glyph.fg}") {{item.glyph.key}}
-              .col-xs-8.item-name {{item.name}}
+              .col-xs-8.item-name
+                | {{item.charges}}
+                | {{item.name}}
               .col-xs-3.item-actions
                 // .btn.btn-link
                 a.btn.btn-link(ng-click="dropItem(player, item)") Drop
