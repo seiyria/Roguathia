@@ -23,23 +23,41 @@ script(type="text/ng-template", id="party-tab")
           .stat-block.col-xs-2 CHA:{{player.getStat('cha')}}
 
     .inventory-block
-      .text-center Inventory
       uib-tabset(justified="true")
         uib-tab(ng-repeat="player in players", heading="{{player.name}}")
           div(fill-height, offset="{{inventoryOffset()}}")
-            .row.item(ng-if="player.inventory.length === 0")
-              .col-xs-12.text-center Empty
-            .row.item(ng-repeat="item in player.inventory | orderBy:'name'")
-              .col-xs-1.item-glyph(ng-style="{'color': item.glyph.fg}") {{item.glyph.key}}
-              .col-xs-8.item-name
-                | {{item.charges}}
-                | {{item.name}}
-              .col-xs-3.item-actions
-                .btn-group(uib-dropdown)
-                  button.btn.btn-link(uib-dropdown-toggle)
-                    | Act
-                    span.caret
+            .margin-bottom-20(ng-include="'player-equipment'")
+            div(ng-include="'player-inventory'")
 
-                  ul.uib-dropdown-menu.dropdown-menu-right
-                    li
-                      a.btn.btn-link(ng-click="dropItem(player, item)") Drop
+script(type="text/ng-template", id="player-item")
+  .col-xs-1.item-glyph(ng-style="{'color': item.glyph.fg}") {{item.glyph.key}}
+  .col-xs-8.item-name
+    | {{item.charges}}
+    | {{item.name || '(empty)'}}
+    span(ng-if="item.slotsTaken > 1") &nbsp;({{item.slotsTaken}} slots)
+  .col-xs-3.item-actions(ng-if="item")
+    .btn-group.dropup(uib-dropdown)
+      button.btn.btn-link(uib-dropdown-toggle)
+        | Act
+        span.caret
+      ul.uib-dropdown-menu.dropdown-menu-right
+        li
+          a.btn.btn-link(ng-if="player.canEquip(item) && !player.isEquipped(item)", ng-click="player.equip(item)") Equip
+          a.btn.btn-link(ng-if="player.isEquipped(item)", ng-click="player.unequip(item)", ng-disabled="item.isCursed()") Unequip
+          a.btn.btn-link(ng-if="item.canUse(player) && !player.isEquipped(item)", ng-click="item.use(player)") Use
+          a.btn.btn-link(ng-click="player.dropItem(item)") Drop
+
+script(type="text/ng-template", id="player-skills")
+  .row.text-center Skills
+
+script(type="text/ng-template", id="player-equipment")
+  .row.text-center Equipment
+  .row(ng-repeat="(slotName, count) in player.raceInst.slots")
+    .col-xs-12.slot-name > {{slotName}} ({{player.equipment[slotName].length || 0}}/{{count}} slots used)
+    .col-xs-12(ng-repeat="item in player.equipment[slotName]", ng-include="'player-item'")
+
+script(type="text/ng-template", id="player-inventory")
+  .row.text-center Inventory ({{player.inventory.length}} items)
+  .row.item(ng-if="player.inventory.length === 0")
+    .col-xs-12.text-center Empty
+  .row.item(ng-repeat="item in player.inventory | orderBy:'name'", ng-include="'player-item'")

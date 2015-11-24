@@ -136,7 +136,7 @@ export class Attack extends Abstract {
   
   tryHit(owner, target, attackNum) {
     if(!target) return;
-    if(this._itemRef) this._itemRef.use(owner, target);
+    if(this._itemRef) this._itemRef.use(owner);
     if(!this.canHit(owner, target, attackNum)) {
       const extra = this.missCallback(owner, target);
       MessageQueue.add({ message: this.missString(owner, target, extra), type: MessageTypes.COMBAT });

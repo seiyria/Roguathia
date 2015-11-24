@@ -193,6 +193,9 @@ export default class Character extends Entity {
   }
 
   dropItem(item) {
+    if(this.isEquipped(item)) {
+      this.unequip(item);
+    }
     item._canPickUpTurn = this.currentTurn + 5;
     this.removeFromInventory(item);
     GameState.world.moveItem(item, this.x, this.y, this.z);
@@ -267,6 +270,7 @@ export default class Character extends Entity {
   }
 
   unequip(item) {
+    if(item.isCursed()) return;
     const slot = item.getParentType();
     this.equipment[slot] = _.without(this.equipment[slot], item);
     this.inventory.push(item);

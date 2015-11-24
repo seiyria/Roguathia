@@ -72,7 +72,7 @@ export class Item extends Abstract {
     if(this.healRoll) owner.heal(extra.healVal);
     if(this.charges) {
       this.charges--;
-      if(this.charges <= 0 && this.autoRemove) owner.removeFromInventory(this);
+      if(this.charges <= 0 && this.autoRemove) this.disintegrate(owner);
     }
     if(this.range && this.hasValidAmmo(owner)) {
       this.pewpew(owner);  
@@ -95,6 +95,8 @@ export class Item extends Abstract {
     GameState.world.removeItem(this);
     MessageQueue.add({ message: `${this.name} crumbled to dust.`, type: MessageTypes.ITEM });
   }
+
+  isCursed() { return this.bucName === 'cursed'; }
 
   curse() {
     this.bucName = 'cursed';
