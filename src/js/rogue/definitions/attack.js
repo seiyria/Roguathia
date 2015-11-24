@@ -61,7 +61,7 @@ export class Attack extends Abstract {
     if(owner.hp.atMin()) return false;
     const hitRoll = Roll(`1d${20 + attackNum}`); // subsequent attacks are less likely to hit
     const targetAC = target.getAC();
-    const myToHitBonus = (Roll(this.toHit) - owner.getToHit(target) - owner.getSkillLevel(this.getType()) - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
+    const myToHitBonus = (Roll(this.toHit) - owner.getToHit(target) - owner.getSkillLevelValue(this.getType()) - (this._itemRef ? this._itemRef.buc-1 : 0)); // cursed: -2, uncursed: 0, blessed: +1
     let targetACRoll = 0;
 
     if(targetAC >= 0) {

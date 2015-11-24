@@ -26,6 +26,7 @@ script(type="text/ng-template", id="party-tab")
       uib-tabset(justified="true")
         uib-tab(ng-repeat="player in players", heading="{{player.name}}")
           div(fill-height, offset="{{inventoryOffset()}}")
+            .margin-bottom-20(ng-include="'player-skills'")
             .margin-bottom-20(ng-include="'player-equipment'")
             div(ng-include="'player-inventory'")
 
@@ -49,11 +50,15 @@ script(type="text/ng-template", id="player-item")
 
 script(type="text/ng-template", id="player-skills")
   .row.text-center Skills
+  .row(ng-repeat="(type, data) in player.skills | orderBy:'type'")
+    .col-xs-3.skill-name {{_.capitalize(type)}}
+    .col-xs-6.skill-value {{player.getSkillLevel(type).name}}
+    .col-xs-3.skill-current ({{data.cur}}/{{data.max}})
 
 script(type="text/ng-template", id="player-equipment")
   .row.text-center Equipment
   .row(ng-repeat="(slotName, count) in player.raceInst.slots")
-    .col-xs-12.slot-name > {{slotName}} ({{player.equipment[slotName].length || 0}}/{{count}} slots used)
+    .col-xs-12.slot-name > {{_.capitalize(slotName)}} ({{player.equipment[slotName].length || 0}}/{{count}} slots used)
     .col-xs-12(ng-repeat="item in player.equipment[slotName]", ng-include="'player-item'")
 
 script(type="text/ng-template", id="player-inventory")
