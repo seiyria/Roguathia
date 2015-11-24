@@ -241,7 +241,7 @@ export default class World {
   removeEntity(entity) {
     const myEntity = this.getEntity(entity.x, entity.y, entity.z);
     if(myEntity !== entity) {
-      Log('World', `Invalid entity removal attempt. ${entity.name} tried to remove ${myEntity.name}`);
+      Log('World', `Invalid entity removal attempt. ${entity ? entity.name : null} tried to remove ${myEntity ? myEntity.name : null}`);
       return false;
     }
     this.entities[entity.z][entity.x][entity.y] = null;
