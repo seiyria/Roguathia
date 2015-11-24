@@ -35,5 +35,11 @@ script(type="text/ng-template", id="party-tab")
                 | {{item.charges}}
                 | {{item.name}}
               .col-xs-3.item-actions
-                // .btn.btn-link
-                a.btn.btn-link(ng-click="dropItem(player, item)") Drop
+                .btn-group(uib-dropdown)
+                  button.btn.btn-link(uib-dropdown-toggle)
+                    | Act
+                    span.caret
+
+                  ul.uib-dropdown-menu.dropdown-menu-right
+                    li
+                      a.btn.btn-link(ng-click="dropItem(player, item)") Drop
