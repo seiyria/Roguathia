@@ -8,7 +8,6 @@ module.directive('fillHeight', ($window, $parse) => {
     },
     link: (scope, element, attrs) => {
       const setSize = () => {
-        console.log(typeof attrs.offset);
         element[0].style.height = `${$window.innerHeight - ($parse(attrs.offset)(scope) || 0)}px`;
       };
 
