@@ -6,6 +6,7 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
 # TODO
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
+    * Ability to rename character
     * More character classes
     * Permanent character benefits (+1 str, etc) - there has to be a way to limit this so people don't invest too heavily in it. Maybe high scaling cost and is allocalable to any stat, and caps off at a certain spot.
     * More party members

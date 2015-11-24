@@ -50,7 +50,7 @@ export class Ring extends Armor {
     opts.bucProb = { cursed: 7, blessed: 2, uncursed: 91 };
     opts.symbol = Glyphs.Ring;
     super(opts);
-    this.realName = `ring of ${this.getCanonName()}`;
+    this.realName = `${this.getCanonName()}`;
     this.fakeName = `${this.pickFakeName(Fakes.Ring)} ring`;
   }
 }
