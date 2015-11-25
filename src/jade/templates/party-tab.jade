@@ -4,10 +4,10 @@ script(type="text/ng-template", id="party-tab")
       .text-center Members
       .margin-bottom-20(ng-repeat="player in players")
         .row
-          .col-xs-12 {{player.hp.atMin() ? '(DEAD)' : ''}} {{player.name}}
+          .col-xs-12 {{player.hp.atMin() ? '(DEAD)' : ''}} {{player.name}} the {{player.professionInst.title}}
 
         .row
-          .col-xs-12 Level {{player.level}} {{player.getAlign()}} {{player.race}} {{player.profession}} ({{player.professionInst.title}})
+          .col-xs-12 Level {{player.level}} {{player.getAlign()}} {{player.race}} {{player.profession}}
 
         .row
           .stat-block.col-xs-4 HP:{{player.hp.cur}}/{{player.hp.max}}
