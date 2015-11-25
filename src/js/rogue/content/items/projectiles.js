@@ -19,6 +19,34 @@ export class Dart extends Weapon {
   }
 }
 
+@rarity(50)
+@material(Materials.Stone)
+export class Rock extends Weapon {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      autoRemove: true,
+      charges: '2d4',
+      glyph: { key: ')', fg: '#00f' },
+      attacks: [Attacks.Shot({ roll: '1d3', toHit: '0d0', range: 9 })]
+    });
+    super(opts);
+  }
+}
+
+@rarity(25)
+@material(Materials.Stone)
+export class FlintStone extends Weapon {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      autoRemove: true,
+      charges: '2d4',
+      glyph: { key: ')', fg: '#00f' },
+      attacks: [Attacks.Shot({ roll: '1d6', toHit: '0d0', range: 4 })]
+    });
+    super(opts);
+  }
+}
+
 @rarity(10)
 @material(Materials.Iron)
 export class Javelin extends Weapon {
