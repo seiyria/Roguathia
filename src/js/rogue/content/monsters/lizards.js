@@ -51,7 +51,7 @@ export const chameleon = { difficulty: 7, spawnPattern: '1d1', frequency: 5, ini
   ({ glyph: { key: Glyphs.Lizard, fg: GlyphColors.Colors.Brown },
     attributes: { ac: -5, speed: 75, level: 6, killXp: '7d12', spawnHp: '3d10' },
     stats: { name: 'chameleon', race: 'Lizard',
-      behaviors: [Behaviors.LeavesCorpse(25), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
+      behaviors: [Behaviors.LeavesCorpse(5), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
       attacks: [Attacks.Bite({ roll: '4d2' })]
     } }) };
 
@@ -69,7 +69,7 @@ export const salamander = { difficulty: 17, spawnPattern: '1d1', frequency: 1, i
     ],
     attributes: { ac: -11, speed: 100, level: 10, killXp: '20d10', spawnHp: '4d20' },
     stats: { name: 'salamander', race: 'Lizardman',
-      behaviors: [Behaviors.LeavesCorpse(25), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
+      behaviors: [Behaviors.LeavesCorpse(5), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
       traits: [Traits.FireResistance()],
       attacks: [
         Attacks.Bearhug({ roll: '2d6' }),

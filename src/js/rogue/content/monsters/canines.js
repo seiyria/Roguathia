@@ -12,7 +12,7 @@ export const jackal = { difficulty: 2, spawnPattern: '1d3 + 1', frequency: 25, i
   ],
   attributes: { ac: -3, speed: 125, level: 1, str: '1d4 + 2', dex: '2d3 + 4', con: 4, killXp: '2d3 + 3', spawnHp: '3d3 + 5' },
   stats: { name: 'jackal', race: 'Canine',
-    behaviors: [Behaviors.LeavesCorpse(40), Behaviors.DropsGold('1d10'), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks(), Behaviors.DropsItems()],
+    behaviors: [Behaviors.LeavesCorpse(5), Behaviors.DropsGold('1d10'), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks(), Behaviors.DropsItems()],
     attacks: [Attacks.Bite({ roll: '1d2 + 1', toHit: '1d2' })]
   } }) };
 

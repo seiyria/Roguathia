@@ -24,7 +24,7 @@ export const killerBee = { difficulty: 12, spawnPattern: '3d4', frequency: 2, in
   ({ glyph: { key: Glyphs.Ant, fg: GlyphColors.Tiers.Inadequate },
     attributes: { ac: -11, speed: 150, level: 7, killXp: '7d4 + 5', spawnHp: '3d4' },
     stats: { name: 'killer bee', race: 'Insect',
-      behaviors: [Behaviors.LeavesCorpse(5), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
+      behaviors: [Behaviors.LeavesCorpse(1), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
       attacks: [Attacks.Poison({ roll: '1d3', percent: 33 })]
     } }) };
 
@@ -32,7 +32,7 @@ export const soldierAnt = { difficulty: 13, spawnPattern: '2d4 + 3', frequency: 
   ({ glyph: { key: Glyphs.Ant, fg: GlyphColors.Tiers.Inadequate },
     attributes: { ac: -7, speed: 150, level: 6, killXp: '10d4', spawnHp: '4d4' },
     stats: { name: 'soldier ant', race: 'Insect',
-      behaviors: [Behaviors.LeavesCorpse(10), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
+      behaviors: [Behaviors.LeavesCorpse(5), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
       attacks: [Attacks.Bite({ roll: '2d4' }), Attacks.Poison({ roll: '3d4', percent: 33 })]
     } }) };
 
@@ -40,7 +40,7 @@ export const fireAnt = { difficulty: 11, spawnPattern: '2d4 + 3', frequency: 2, 
   ({ glyph: { key: Glyphs.Ant, fg: GlyphColors.Elements.Fire },
     attributes: { ac: -7, speed: 150, level: 5, killXp: '10d4', spawnHp: '3d6' },
     stats: { name: 'fire ant', race: 'Insect',
-      behaviors: [Behaviors.LeavesCorpse(10), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
+      behaviors: [Behaviors.LeavesCorpse(1), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
       attacks: [Attacks.Bite({ roll: '2d4' }), Attacks.Bite({ roll: '2d4', element: 'Fire' })]
     } }) };
 
@@ -48,6 +48,6 @@ export const giantBeetle = { difficulty: 7, spawnPattern: '1d3', frequency: 5, i
   ({ glyph: { key: Glyphs.Ant, fg: GlyphColors.Elements.Fire },
     attributes: { ac: -6, speed: 50, level: 5, killXp: '10d4', spawnHp: '3d6' },
     stats: { name: 'giant beetle', race: 'Insect',
-      behaviors: [Behaviors.LeavesCorpse(15), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
+      behaviors: [Behaviors.LeavesCorpse(5), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
       attacks: [Attacks.Bite({ roll: '3d6' })]
     } }) };
