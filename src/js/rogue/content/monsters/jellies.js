@@ -8,6 +8,6 @@ export const blueJelly = { difficulty: 9, spawnPattern: '1d1', frequency: 2, ini
   ({ glyph: { key: Glyphs.Jelly, fg: GlyphColors.Colors.Blue },
     attributes: { ac: -6, speed: 50, level: 4, killXp: '10d5', spawnHp: '5d5' },
     stats: { name: 'blue jelly', race: 'Jelly',
-      behaviors: [Behaviors.Attacks()],
+      behaviors: [Behaviors.Attacks(), Behaviors.KillsSelfAfterPeriodOfTime()],
       attacks: [Attacks.Bite({ roll: '4d6', element: 'Ice' })]
     } }) };

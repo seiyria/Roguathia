@@ -7,6 +7,20 @@ import GameState from '../../init/gamestate';
 import MessageQueue, { MessageTypes } from '../../display/message-handler';
 import { Gold, Corpse } from '../items/_special';
 
+/* die after a period of time */
+class KillsSelfAfterPeriodOfTimeBehavior extends Behavior {
+  constructor(turns = 50) {
+    super(Priority.DEFER);
+    this.turns = turns;
+  }
+  act(me) {
+    if(this.turns-- > 0) return;
+    me.die('time');
+  }
+}
+
+export const KillsSelfAfterPeriodOfTime = (turns) => new KillsSelfAfterPeriodOfTimeBehavior(turns);
+
 /* drop contents on death */
 class DropsItemsBehavior extends Behavior {
   constructor() { super(Priority.DEFER); }
