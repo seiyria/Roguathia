@@ -29,6 +29,18 @@ export class Dagger extends Hands {
   }
 }
 
+@rarity(25)
+@material(Materials.Iron)
+export class Scalpel extends Hands {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      glyph: { fg: 'teal' },
+      attacks: [Attacks.Stab({ roll: '1d3' })]
+    });
+    super(opts);
+  }
+}
+
 @rarity(15)
 @material(Materials.Silver)
 export class SilverDagger extends Hands {

@@ -9,3 +9,11 @@ export class Ration extends Comestible {
     this.name = 'ration';
   }
 }
+
+@rarity(75)
+export class Apple extends Comestible {
+  constructor(opts) {
+    super(opts);
+    this.name = 'apple';
+  }
+}

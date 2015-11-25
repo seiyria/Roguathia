@@ -15,3 +15,15 @@ export class Healing extends Potion {
     super.use(entity, { healVal, messageFinish: `regained ${healVal} health` });
   }
 }
+
+@rarity(5)
+export class ExtraHealing extends Potion {
+  constructor(opts = {}) {
+    _.extend(opts, { charges: '1d1', healRoll: '8d4', autoRemove: true });
+    super(opts);
+  }
+  use(entity) {
+    const healVal = Roll(this.healRoll);
+    super.use(entity, { healVal, messageFinish: `regained ${healVal} health` });
+  }
+}

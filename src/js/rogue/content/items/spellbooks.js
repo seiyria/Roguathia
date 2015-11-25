@@ -25,3 +25,14 @@ export class CureSelf extends Spellbook {
     super(opts);
   }
 }
+
+@rarity(0)
+export class ExtraCureSelf extends Spellbook {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      manaCost: 25,
+      healRoll: '6d6'
+    });
+    super(opts);
+  }
+}
