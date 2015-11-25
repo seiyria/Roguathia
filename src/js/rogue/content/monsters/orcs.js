@@ -15,7 +15,7 @@ export const goblin = { difficulty: 1, spawnPattern: '1d1', frequency: 6, init: 
     ],
     attributes: { speed: 75, level: 1, killXp: '1d15', spawnHp: '6d2' },
     stats: { name: 'goblin', race: 'Orc',
-      behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
+      behaviors: [Behaviors.LeavesCorpse(75), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
     } }) };
 
 export const hobgoblin = { difficulty: 3, spawnPattern: '1d1', frequency: 6, init: () =>
@@ -31,7 +31,7 @@ export const hobgoblin = { difficulty: 3, spawnPattern: '1d1', frequency: 6, ini
     ],
     attributes: { speed: 75, level: 1, killXp: '1d15', spawnHp: '6d2' },
     stats: { name: 'hobgoblin', race: 'Orc',
-      behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
+      behaviors: [Behaviors.LeavesCorpse(75), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
     } }) };
 
 export const orc = { difficulty: 3, spawnPattern: '1d1', frequency: 0, init: () =>
@@ -48,5 +48,5 @@ export const orc = { difficulty: 3, spawnPattern: '1d1', frequency: 0, init: () 
     ],
     attributes: { speed: 75, level: 1, killXp: '1d15', spawnHp: '6d2' },
     stats: { name: 'orc', race: 'Orc',
-      behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
+      behaviors: [Behaviors.LeavesCorpse(75), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
     } }) };

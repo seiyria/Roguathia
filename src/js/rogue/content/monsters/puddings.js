@@ -8,6 +8,6 @@ export const blackPudding = { difficulty: 12, spawnPattern: '1d1', frequency: 1,
   ({ glyph: { key: Glyphs.Pudding, fg: GlyphColors.Colors.Black },
   attributes: { ac: -4, speed: 30, level: 10, killXp: '20d10', spawnHp: '5d5' },
   stats: { name: 'black pudding', race: 'Pudding',
-    behaviors: [Behaviors.LeavesCorpse(), Behaviors.SplitsWhenHit(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
+    behaviors: [Behaviors.LeavesCorpse(5), Behaviors.SplitsWhenHit(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()],
     attacks: [Attacks.Claw({ roll: '3d8' })]
   } }) };

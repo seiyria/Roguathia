@@ -19,7 +19,7 @@ const touristCfg = {
   cha : '1d3 + 1',
   luk : '1d3',
   titles: ['Rambler',, 'Sightseer',,, 'Excursionist',,, 'Perigrinator',,, 'Traveler',,, 'Journeyer',,, 'Voyager',,, 'Explorer',,, 'Adventurer'],
-  skillCaps: { bash: Thresholds.Competent, slash: Thresholds.Competent, smash: Thresholds.Competent, stab: Thresholds.Competent, thrust: Thresholds.Competent },
+  skillCaps: { bash: Thresholds.Competent, slash: Thresholds.Competent, smash: Thresholds.Competent, stab: Thresholds.Competent, thrust: Thresholds.Competent, unarmed: Thresholds.Competent },
   startingItems: [
     { init: () => new Gold(Roll('1d1000')) },
     { choices: { less: 5, more: 1 },

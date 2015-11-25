@@ -18,5 +18,5 @@ export const gnome = { difficulty: 3, spawnPattern: '1d2', frequency: 3, init: (
     ],
     attributes: { speed: 50, level: 1, killXp: '2d10', spawnHp: '6d2' },
     stats: { name: 'gnome', race: 'Gnome',
-      behaviors: [Behaviors.LeavesCorpse(), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
+      behaviors: [Behaviors.LeavesCorpse(75), Behaviors.SeeksTargetViaHearing(), Behaviors.SeeksTargetInSight(), Behaviors.Attacks()]
     } }) };
