@@ -26,6 +26,7 @@ const wizardCfg = {
   addFactions: [Factions.MAGIC],
   startingItems: [
     { init: () => Random.Ring({ bucName: 'uncursed' }) },
+    { init: () => Random.Wand({ bucName: 'uncursed' }) },
     { init: () => new Spellbooks.ForceBolt({ bucName: 'blessed' }) },
     { init: () => new Weapons.Quarterstaff({ bucName: 'uncursed' }) },
     { init: () => new Foods.Ration({ charges: '1d2', bucName: 'uncursed' }) },
