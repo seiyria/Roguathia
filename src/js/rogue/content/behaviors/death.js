@@ -29,7 +29,7 @@ class LeavesCorpseBehavior extends Behavior {
   }
   die(me) {
     if(ROT.RNG.getPercentage() > this.dropPercent) return;
-    const corpse = new Corpse({ monsterName: me.name });
+    const corpse = new Corpse({ monsterName: me.name, glyph: { fg: me.glyph.fg } });
     GameState.world.moveItem(corpse, me.x, me.y, me.z);
   }
 }
