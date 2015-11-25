@@ -47,6 +47,14 @@ export class OrcishHelm extends Head {
   }
 }
 
+@rarity(15)
+@material(Materials.Iron)
+export class Helm extends Head {
+  ac() {
+    return AC(this, 2);
+  }
+}
+
 @rarity(35)
 @material(Materials.Iron)
 export class DentedPot extends Head {
