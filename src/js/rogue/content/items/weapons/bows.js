@@ -24,6 +24,20 @@ export class OrcishBow extends Hands {
 @rarity(25)
 @material(Materials.Wood)
 @twoHanded
+@ranged({ ammo: ['rock', 'flint stone'], damageBoost: '1d2' })
+export class Sling extends Hands {
+  constructor(opts = {}) {
+    _.extend(opts, {
+      glyph: { fg: '#f00' },
+      attacks: [Attacks.Ranged({ roll: '1d1' })] // if it can't shoot arrows, it'll bash for 1d2
+    });
+    super(opts);
+  }
+}
+
+@rarity(25)
+@material(Materials.Wood)
+@twoHanded
 @ranged({ ammo: allArrows, damageBoost: '1d2' })
 export class Bow extends Hands {
   constructor(opts = {}) {
