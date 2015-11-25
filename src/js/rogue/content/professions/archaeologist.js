@@ -19,7 +19,7 @@ const archaeologistConfig = {
   cha : '1d1',
   titles: ['Digger',, 'Field Worker',,, 'Investigator',,, 'Exhumer',,, 'Excavator',,, 'Spelunker',,, 'Speleologist',,, 'Collector',,, 'Curator'],
   traits: [Traits.Stealth({ level: 10 }), Traits.Haste({ level: 50 })],
-  skillCaps: { bash: Thresholds.Skilled },
+  skillCaps: { bash: Thresholds.Skilled, stab: Thresholds.Basic, slash: Thresholds.Skilled, unarmed: Thresholds.Expert },
   startingItems: [
     { init: () => new Weapons.Bullwhip({ bucName: 'uncursed', enchantment: 2 }) },
     { init: () => new Foods.Ration({ charges: '3d2', bucName: 'uncursed' }) },
