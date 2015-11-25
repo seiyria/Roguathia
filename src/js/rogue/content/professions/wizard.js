@@ -22,7 +22,7 @@ const wizardCfg = {
   regenHp: 20,
   regenMp: -3,
   titles: ['Evoker',, 'Conjurer',,, 'Thaumaturge',,, 'Magician',,, 'Enchantrex',,, 'Sorcerex',,, 'Necromancer',,, 'Wizard',,, 'Mage'],
-  skillCaps: { bash: Thresholds.Skilled, stab: Thresholds.Skilled },
+  skillCaps: { bash: Thresholds.Skilled, stab: Thresholds.Skilled, force: Thresholds.Expert },
   addFactions: [Factions.MAGIC],
   startingItems: [
     { init: () => Random.Ring({ bucName: 'uncursed' }) },

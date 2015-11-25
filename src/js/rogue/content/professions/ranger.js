@@ -17,7 +17,7 @@ const rangerCfg = {
   wis : '0d0',
   cha : '1d1',
   titles: ['Tenderfoot',, 'Lookout',,, 'Trailblazer',,, 'Reconnoiterex',,, 'Scout',,, 'Arbalester',,, 'Archer',,, 'Sharpshooter',,, 'Marksrex'],
-  skillCaps: { shot: Thresholds.Expert, stab: Thresholds.Skilled },
+  skillCaps: { ranged: Thresholds.Expert, shot: Thresholds.Expert, stab: Thresholds.Skilled },
   startingItems: [
     { choices: { less: 5, more: 1 },
       choicesInit: {
