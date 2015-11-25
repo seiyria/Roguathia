@@ -5,7 +5,7 @@ import Attacks from '../attacks/_all';
 import { rarity } from '../../constants/decorators';
 
 @rarity(25)
-export class Striking extends Wand {
+export class WandOfStriking extends Wand {
   constructor(opts = {}) {
     _.extend(opts, {
       charges: '2d5',

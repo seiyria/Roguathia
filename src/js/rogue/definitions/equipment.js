@@ -132,11 +132,11 @@ export class Scroll extends Item {
 
 @rarity(2)
 @material(Materials.Wood)
-export class Wand extends Item {
+export class Wand extends Weapon {
   constructor(opts = {}) {
     opts.symbol = Glyphs.Wand;
     super(opts);
-    this.realName = this.fakeName = `wand of ${this.getCanonName()}`;
+    this.realName = this.fakeName = this.getCanonName();
   }
 }
 
