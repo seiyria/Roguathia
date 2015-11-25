@@ -41,11 +41,14 @@ class GameState extends EventEmitter2 {
     this.upgrades = {};
     _.keys(Settings.upgrades)
       .forEach(key => {
-        this.upgrades[key] = Settings.upgrades[key] + ~~GameUpgrades[key];
+        this.upgrades[key] = Settings.upgrades[key] + ~~GameUpgrades.dungeon[key];
         if(Settings.upgradesMax[key]) {
           this.upgrades[key] = Math.min(Settings.upgradesMax[key], this.upgrades[key]);
         }
       });
+
+    this.templates = GameUpgrades.templates;
+    this.unlocked = GameUpgrades.unlocked;
   }
 
   get vpEarned() { return this.winCondition.check() ? this.winCondition.vp() : 0; }

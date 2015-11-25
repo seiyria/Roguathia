@@ -112,7 +112,7 @@ export default class Game {
 
     for(let i = 0; i < 4; i++) {
       const startTile = playerLocations.shift();
-      const player = new Player(0, 0, 0);
+      const player = new Player(0, 0, 0, { template: GameState.templates[i] || {} });
 
       GameState.world.moveEntity(player, startTile.x, startTile.y, 0);
       GameState.players.push(player);

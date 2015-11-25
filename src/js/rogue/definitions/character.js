@@ -20,12 +20,13 @@ import SkillThresholds, * as Thresholds from '../constants/skill-thresholds';
 import { SkilledAttack } from '../definitions/attack';
 
 import Settings from '../constants/settings';
+import Names from '../content/flavor/names';
 
 const defaultBehaviors = [Behaviors.RegeneratesHp(), Behaviors.RegeneratesMp()];
 
 export default class Character extends Entity {
 
-  constructor(glyph, x, y, z, opts = { stats: {}, attributes: {} }) {
+  constructor(glyph, x, y, z, opts = { stats: {}, attributes: {}, template: {} }) {
     super(glyph, x, y, z);
 
     this.__id = Id();
@@ -43,6 +44,8 @@ export default class Character extends Entity {
     _.extend(this, Settings.game.defaultStats.stats, opts.stats);
 
     this.behaviors.push(...defaultBehaviors);
+
+    this.loadFromTemplate(opts.template);
 
     this.professionInst = new Professions[this.profession]();
     const [profHp, profMp] = [this.professionInst.hp, this.professionInst.mp];
@@ -144,6 +147,15 @@ export default class Character extends Entity {
   // endregion
 
   // region Loading functions (skills, equipment)
+  loadFromTemplate(template) {
+    if(!template) return;
+    if(!template.profession) this.profession = _.sample(GameState.unlocked.profession) || 'Tourist';
+    if(!template.race) this.race = _.sample(GameState.unlocked.race) || 'Human';
+    if(!template.align) this.align = _.random(-200, 200);
+    if(!template.gender) this.gender = _.sample(['Male', 'Female']);
+    if(!template.name) this.name = _.sample(Names);
+  }
+
   loadStartingSkills() {
     const skillCaps = this.professionInst.skillCaps;
     const skillBonus = this.raceInst.skillBonus;
