@@ -4,7 +4,6 @@ import Profession from '../../definitions/profession';
 import * as Foods from '../items/foods';
 import * as Bodys from '../items/bodys';
 import * as Heads from '../items/heads';
-import * as Potions from '../items/potions';
 import * as Weapons from '../items/_weapons';
 import * as Wrists from '../items/wrists';
 import * as Thresholds from '../../constants/skill-thresholds';
