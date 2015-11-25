@@ -13,10 +13,10 @@ import * as Thresholds from '../../constants/skill-thresholds';
 const wizardCfg = {
   hp  : '1d4 + 1',
   mp  : '1d5 + 5',
-  str : '1d2 - 4',
-  con : '1d2 - 1',
+  str : '1d2',
+  con : '1d2',
   int : '2d3 + 1',
-  dex : '1d2 - 4',
+  dex : '1d2 - 1',
   wis : '1d2',
   cha : '1d3 - 1',
   regenHp: 20,
