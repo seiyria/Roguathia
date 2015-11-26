@@ -1,7 +1,8 @@
 language: node_js
 node_js:
-  - "0.12"
-  - "iojs"
+  - "5.1"
+  - "4.1"
+  - "stable"
 
 before_script:
   - npm install -g gulp
