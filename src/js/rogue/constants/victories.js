@@ -77,7 +77,7 @@ export class KillSelyk extends Victory {
   }
   static shouldTrigger() { return GameState.world.depth === GameState.currentFloor+1; }
   static trigger() {
-    GameState.world.placeEntityAtRandomLocation(new Monster(0, 0, 0, Selyk), GameState.currentFloor);
+    GameState.world.placeEntityAtRandomLocation(new Monster(0, 0, 0, Selyk.init()), GameState.currentFloor);
   }
   static get message() { return `You killed Selyk.`; }
   static get description() { return `Kill Selyk.`; }
