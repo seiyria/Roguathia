@@ -1,8 +1,14 @@
 
-export default {
+const baseState = {
   dungeon: {
-    itemsInDungeon: 10,
-    itemDropChance: 100,
+    itemsInDungeon: 0,
+    itemDropChance: 0,
+    altarSpawnChance: 0,
+    throneSpawnChance: 0,
+    graveSpawnChance: 0,
+    fountainSpawnChance: 0,
+    sinkSpawnChance: 0
+   /* itemDropChance: 100,
     altarSpawnChance: 1000,
     templeSpawnChance: 100,
     throneSpawnChance: 1000,
@@ -12,7 +18,8 @@ export default {
     fountainSpawnChance: 1000,
     oracleRoomChance: 100,
     sinkSpawnChance: 1000,
-    bathroomSpawnChance: 100
+    bathroomSpawnChance: 100*/
+
   },
 
   templates: [],
@@ -20,5 +27,18 @@ export default {
   unlocked: {
     race: ['Elf', 'Human', 'Gnome'],
     profession: ['Tourist']
+  },
+
+  selectable: {
+    race: [],
+    profession: []
   }
 };
+
+export const NewState = () => baseState;
+
+let curState = NewState();
+
+export const SetState = (newState) => curState = newState;
+
+export default curState;

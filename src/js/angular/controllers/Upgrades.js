@@ -3,24 +3,37 @@ import _ from 'lodash';
 
 import module from '../module';
 import GameState from '../../rogue/init/gamestate';
+import { StartGameCycle } from '../../rogue/init/init';
+import { NewState, SetState } from '../../rogue/init/gameupgrades';
+import Upgrades from '../../rogue/constants/upgrades';
 
-module.controller('Upgrades', ($scope, $localStorage) => {
+module.controller('Upgrades', ($scope, CurrencyDataManager, UpgradeDataManager) => {
 
-  if(!$localStorage.currency) {
-    $localStorage.currency = { sp: 0, kp: 0, vp: 0 };
-  }
-  $scope.currency = $localStorage.currency;
+  $scope.upgradeDataManager = UpgradeDataManager;
+  $scope.currencyDataManager = CurrencyDataManager;
 
-  const addCurrency = (key, val) => {
-    $scope.currency[key] += val;
-    $localStorage.currency = $scope.currency;
+  const rebuildUpgrades = () => {
+    const newState = NewState();
+
+    _.each(UpgradeDataManager.upgrades, name => {
+      const upgrade = _.findWhere(Upgrades, { name });
+      upgrade.operate(newState);
+    });
+
+    SetState(newState);
   };
+
+  rebuildUpgrades();
+  StartGameCycle();
 
   GameState.on('gameover', () => {
     _.each(['sp', 'kp', 'vp'], key => {
       const add = GameState[`${key}Earned`] || 0;
-      addCurrency(key, add);
+      UpgradeDataManager.addCurrency(key, add);
     });
+
+    rebuildUpgrades();
+
     $scope.$apply();
   });
 

@@ -5,6 +5,9 @@ import './controllers/Log';
 import './controllers/Dungeon';
 import './controllers/Upgrades';
 
+import './services/UpgradeDataManager';
+import './services/CurrencyDataManager';
+
 import './directives/tabs/log-tab';
 
 import './directives/fill-height';

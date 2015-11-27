@@ -3,10 +3,10 @@ script(type="text/ng-template", id="upgrades")
     .row.padding-left-15
       .col-md-4
         span SP
-        span.pull-right {{currency.sp | number:0}}
+        span.pull-right {{currencyDataManager.currency.sp | number:0}}
       .col-md-4
         span KP
-        span.pull-right {{currency.kp | number:0}}
+        span.pull-right {{currencyDataManager.currency.kp | number:0}}
       .col-md-4
         span VP
-        span.pull-right {{currency.vp | number:0}}
+        span.pull-right {{currencyDataManager.currency.vp | number:0}}
