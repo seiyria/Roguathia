@@ -11,9 +11,10 @@ import Priest from './priest';
 import Ranger from './ranger';
 import Rogue from './rogue';
 import Tourist from './tourist';
+import Valkyrie from './valkyrie';
 import Wizard from './wizard';
 
 export default {
   Archaeologist, Barbarian, Caveman, Developer, Healer, Knight,
-  Monk, Monster, Priest, Ranger, Rogue, Tourist, Wizard
+  Monk, Monster, Priest, Ranger, Rogue, Tourist, Valkyrie, Wizard
 };

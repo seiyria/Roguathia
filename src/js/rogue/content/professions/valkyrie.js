@@ -1,0 +1,32 @@
+
+import Profession from '../../definitions/profession';
+
+import * as Foods from '../items/foods';
+import * as Weapons from '../items/_weapons';
+import * as Thresholds from '../../constants/skill-thresholds';
+import * as Traits from '../traits/_all';
+
+const valkyrieConfig = {
+  hp  : '3d7',
+  mp  : '0d0',
+  str : '2d3',
+  con : '1d5',
+  int : '1d3',
+  dex : '3d2',
+  wis : '1d2',
+  cha : '1d2',
+  titles: ['Stripling',, 'Skirmisher',,, 'Fighter',,, 'Man-at-arms',,, 'Warrior',,, 'Swashbuckler',,, 'Hero',,, 'Champion',,, 'Lord'],
+  traits: [Traits.IceResistance(), Traits.Stealth({ level: 10 }), Traits.Haste({ level: 75, req: 7 })],
+  skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Skilled, ranged: Thresholds.Expert, smash: Thresholds.Expert, thrust: Thresholds.Expert, slash: Thresholds.Expert, unarmed: Thresholds.Expert },
+  startingItems: [
+    { init: () => new Weapons.Spear({ bucName: 'uncursed', enchantment: 3 }) },
+    { init: () => new Weapons.Dagger({ bucName: 'uncursed', enchantment: 1 }) },
+    { init: () => new Foods.Ration({ charges: '1d3', bucName: 'uncursed' }) }
+  ]
+};
+
+export default class Valkyrie extends Profession {
+  constructor() {
+    super(valkyrieConfig);
+  }
+}
