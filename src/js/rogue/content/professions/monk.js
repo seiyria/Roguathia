@@ -17,7 +17,7 @@ const monkConfig = {
   dex : '4d2',
   wis : '1d2',
   cha : '1d1',
-  titles: ['Candidate',, 'Novice',,, 'Initiate',,, 'Student of Stones',,, 'Student of Waters',,, 'Student of Metals',,, 'Student of Winds',,, 'Student of fire',,, 'Master'],
+  titles: ['Candidate',, 'Novice',,, 'Initiate',,, 'Student of Stones',,, 'Student of Waters',,, 'Student of Metals',,, 'Student of Winds',,, 'Student of Fire',,, 'Master'],
   traits: [
     Traits.PoisonResistance({ req: 3 }), Traits.Stealth({ level: 15, req: 5 }), Traits.Warning({ level: 10, req: 7 }),
     Traits.Haste({ level: 100, req: 9 }), Traits.FireResistance({ req: 11 }), Traits.IceResistance({ req: 13 }),
