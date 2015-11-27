@@ -16,7 +16,7 @@ const valkyrieConfig = {
   wis : '1d2',
   cha : '1d2',
   titles: ['Stripling',, 'Skirmisher',,, 'Fighter',,, 'Man-at-arms',,, 'Warrior',,, 'Swashbuckler',,, 'Hero',,, 'Champion',,, 'Lord'],
-  traits: [Traits.IceResistance(), Traits.Stealth({ level: 10 }), Traits.Haste({ level: 75, req: 7 })],
+  traits: [Traits.IceResistance(), Traits.Stealth({ level: 10 }), Traits.Haste({ level: 3, req: 7 })],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Skilled, ranged: Thresholds.Expert, smash: Thresholds.Expert, thrust: Thresholds.Expert, slash: Thresholds.Expert, unarmed: Thresholds.Expert },
   startingItems: [
     { init: () => new Weapons.Spear({ bucName: 'uncursed', enchantment: 3 }) },

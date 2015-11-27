@@ -17,7 +17,7 @@ const cavemanConfig = {
   wis : '1d1',
   cha : '1d1',
   titles: ['Troglodyte',, 'Aborigine',,, 'Wanderer',,, 'Vagrant',,, 'Wayfarer',,, 'Roamer',,, 'Nomad',,, 'Rover',,, 'Pioneer'],
-  traits: [Traits.Warning({ level: 15, req: 15 }), Traits.Haste({ level: 50, req: 7 })],
+  traits: [Traits.Warning({ level: 15, req: 15 }), Traits.Haste({ level: 2, req: 7 })],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Basic, ranged: Thresholds.Basic, shot: Thresholds.Basic, unarmed: Thresholds.Master },
   startingItems: [
     { init: () => new Weapons.Club({ bucName: 'uncursed', enchantment: 1 }) },

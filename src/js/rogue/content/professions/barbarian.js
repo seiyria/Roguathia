@@ -17,7 +17,7 @@ const barbarianConfig = {
   wis : '1d1',
   cha : '1d1',
   titles: ['Plunderex',, 'Pillager',,, 'Bandit',,, 'Brigand',,, 'Raider',,, 'Reaver',,, 'Slayer',,, 'Chiefterex',,, 'Conquerex'],
-  traits: [Traits.Stealth({ level: 15, req: 15 }), Traits.Haste({ level: 50, req: 7 }), Traits.PoisonResistance()],
+  traits: [Traits.Stealth({ level: 15, req: 15 }), Traits.Haste({ level: 2, req: 7 }), Traits.PoisonResistance()],
   skillCaps: { bash: Thresholds.Skilled, stab: Thresholds.Skilled, ranged: Thresholds.Basic, shot: Thresholds.Basic, slash: Thresholds.Skilled, unarmed: Thresholds.Master },
   startingItems: [
     { choices: { swordaxe: 1, axesword: 1 },

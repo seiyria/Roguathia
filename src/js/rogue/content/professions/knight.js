@@ -19,7 +19,7 @@ const knightConfig = {
   wis : '3d2',
   cha : '3d2',
   titles: ['Gallant',, 'Esquire',,, 'Bachelor',,, 'Sergeant',,, 'Knight',,, 'Banneret',,, 'Chevalierex',,, 'Seignieur',,, 'Paladin'],
-  traits: [Traits.Haste({ level: 50, req: 7 })],
+  traits: [Traits.Haste({ level: 2, req: 7 })],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Basic, ranged: Thresholds.Basic, slash: Thresholds.Expert, unarmed: Thresholds.Expert, force: Thresholds.Basic },
   startingItems: [
     { init: () => new Weapons.Longsword({ bucName: 'uncursed', enchantment: 1 }) },

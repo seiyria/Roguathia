@@ -20,7 +20,7 @@ const monkConfig = {
   titles: ['Candidate',, 'Novice',,, 'Initiate',,, 'Student of Stones',,, 'Student of Waters',,, 'Student of Metals',,, 'Student of Winds',,, 'Student of Fire',,, 'Master'],
   traits: [
     Traits.PoisonResistance({ req: 3 }), Traits.Stealth({ level: 15, req: 5 }), Traits.Warning({ level: 10, req: 7 }),
-    Traits.Haste({ level: 100, req: 9 }), Traits.FireResistance({ req: 11 }), Traits.IceResistance({ req: 13 }),
+    Traits.Haste({ level: 4, req: 9 }), Traits.FireResistance({ req: 11 }), Traits.IceResistance({ req: 13 }),
     Traits.ShockResistance({ req: 15 }), Traits.Infravision({ level: 3, req: 17 }), Traits.Protection({ level: 1, req: 19 })
   ],
   skillCaps: { bash: Thresholds.Basic, unarmed: Thresholds.Grandmaster, force: Thresholds.Basic },
