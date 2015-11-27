@@ -10,7 +10,7 @@ import * as Traits from '../traits/_all';
 
 const monkConfig = {
   hp  : '3d5',
-  mp  : '0d0',
+  mp  : '1d7',
   str : '4d2',
   con : '2d2',
   int : '1d2',

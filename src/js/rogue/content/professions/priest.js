@@ -9,7 +9,7 @@ import * as Traits from '../traits/_all';
 
 const priestConfig = {
   hp  : '2d5',
-  mp  : '0d0',
+  mp  : '3d5',
   str : '1d2',
   con : '1d2',
   int : '2d2',
