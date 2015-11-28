@@ -8,6 +8,10 @@ import { material, rarity } from '../../constants/decorators';
 @material(Materials.Cloth)
 export class TShirt extends Body {}
 
+@rarity(50)
+@material(Materials.Cloth)
+export class Robe extends Body {}
+
 @rarity(75)
 @material(Materials.Leather)
 export class LeatherJacket extends Body {
