@@ -2,13 +2,16 @@ script(type="text/ng-template", id="upgrades")
   .col-md-12.margin-bottom-15
     .row.padding-left-15
       .col-xs-4
-        span SP
+        span(uib-tooltip="SP is earned by taking steps and earning score. It is used to upgrade your adventurers.", tooltip-placement="right", tooltip-append-to-body="true") &#8505
+        span &nbsp;SP
         span.pull-right {{currencyDataManager.currency.sp | number:0}}
       .col-xs-4
-        span KP
+        span(uib-tooltip="KP is earned by killing monsters. It is used to upgrade your monsters.", tooltip-placement="right", tooltip-append-to-body="true") &#8505
+        span &nbsp;KP
         span.pull-right {{currencyDataManager.currency.kp | number:0}}
       .col-xs-4
-        span VP
+        span(uib-tooltip="VP is earned by winning the game. It is used to upgrade your dungeon.", tooltip-placement="right", tooltip-append-to-body="true") &#8505
+        span &nbsp;VP
         span.pull-right {{currencyDataManager.currency.vp | number:0}}
 
   .col-md-4(fill-height, offset="390")
