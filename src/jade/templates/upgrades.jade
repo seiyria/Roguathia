@@ -12,7 +12,9 @@ script(type="text/ng-template", id="upgrades")
         span.pull-right {{currencyDataManager.currency.vp | number:0}}
 
   .col-md-4(fill-height, offset="390")
-    .row.padding-left-15.margin-bottom-15(ng-repeat="upgrade in upgrades | orderBy:'name' | visibleUpgrades:'sp'", ng-include="'upgrade-block'")
+    .row.padding-left-15(ng-if="spUpgrades.length === 0")
+      .col-xs-12 No upgrades available
+    .row.padding-left-15.margin-bottom-15(ng-repeat="upgrade in spUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'sp')", ng-include="'upgrade-block'")
 
 script(type="text/ng-template", id="upgrade-block")
   .col-xs-12 {{upgrade.name}}
