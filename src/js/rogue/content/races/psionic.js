@@ -10,6 +10,6 @@ export default class Psionic extends Humanoid {
     super(opts);
   }
   canEquip(item) {
-    return item.getType() !== 'hands' && super.canEquip(item);
+    return item && item.getType() !== 'hands' && super.canEquip(item);
   }
 }
