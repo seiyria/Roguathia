@@ -84,6 +84,11 @@ script(type="text/ng-template", id="player-edit")
       .col-md-9
         select.form-control(ng-model="templateDataManager.templates[index].gender", ng-options="gender.val as gender.key for gender in genders")
 
+    .row
+      .col-md-3.data-field Alignment
+      .col-md-9
+        select.form-control(ng-model="templateDataManager.templates[index].align", ng-options="align.val as align.key for align in aligns")
+
   .modal-footer
     .pull-left *Changes reflected during future games only
     button.btn.btn-default(ng-click="close()") Close

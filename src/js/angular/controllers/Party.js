@@ -35,4 +35,13 @@ module.controller('PartyMemberEdit', ($scope, $uibModalInstance, TemplateDataMan
     { key: 'Male', val: 'Male' },
     { key: 'Female', val: 'Female' }
   ];
+
+  $scope.aligns = [
+    { key: 'Random', val: undefined },
+    { key: 'Eviler', val: -200 },
+    { key: 'Evil', val: -100 },
+    { key: 'Neutral', val: 0 },
+    { key: 'Good', val: 100 },
+    { key: 'Gooder', val: 200 }
+  ];
 });
