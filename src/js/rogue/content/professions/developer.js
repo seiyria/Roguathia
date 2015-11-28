@@ -13,7 +13,7 @@ import * as Traits from '../traits/_all';
 const devCfg = {
   hp  : '1d1',
   mp  : '9d5',
-  str : '10d1',
+  str : '1d1',
   con : '1d1',
   int : '4d5',
   dex : '1d1',
