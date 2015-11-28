@@ -99,6 +99,11 @@ script(type="text/ng-template", id="player-edit")
       .col-md-9
         select.form-control(ng-model="templateDataManager.templates[index].profession", ng-options="class.val as class.key for class in professions")
 
+    .row
+      .col-md-3.data-field Color
+      .col-md-9
+        select.form-control(ng-model="templateDataManager.templates[index].color", ng-options="color.val as color.key for color in colors", ng-disabled="!upgradeDataManager._hasUpgrade('Color Tag')")
+
   .modal-footer
     .pull-left *Changes reflected during future games only
     button.btn.btn-default(ng-click="close()") Close

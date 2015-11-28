@@ -58,4 +58,14 @@ module.controller('PartyMemberEdit', ($scope, $uibModalInstance, TemplateDataMan
     .map(u => u.split(' ')[1])
     .map(u => ({ key: u, val: u }))
     .value());
+
+  $scope.colors = [
+    { key: 'Default', val: undefined },
+    { key: 'Red', val: '#f00' },
+    { key: 'Blue', val: '#00f' },
+    { key: 'Green', val: '#0f0' },
+    { key: 'Yellow', val: '#ff0' },
+    { key: 'Cyan', val: '#0ff' },
+    { key: 'Magenta', val: '#f0f' }
+  ];
 });

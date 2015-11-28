@@ -7,6 +7,10 @@ const upgrades = [
   { name: 'Rename Tag',
     help: 'Allow for renaming of player characters.',
     cost: 100000,
+    currency: 'sp' },
+  { name: 'Color Tag',
+    help: 'Allow for changing of player characters color.',
+    cost: 100000,
     currency: 'sp' }
 ];
 
