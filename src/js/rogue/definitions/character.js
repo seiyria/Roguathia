@@ -149,6 +149,7 @@ export default class Character extends Entity {
   // region Loading functions (skills, equipment)
   loadFromTemplate(template) {
     if(!template) return;
+    template = _.clone(template);
     if(!template.profession) template.profession = _.sample(GameState.unlocked.profession) || 'Tourist';
     if(!template.race) template.race = _.sample(GameState.unlocked.race) || 'Human';
     if(!template.align) template.align = _.random(-200, 200);

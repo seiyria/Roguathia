@@ -80,4 +80,5 @@ script(type="text/ng-template", id="player-edit")
         input.form-control(ng-model="templateDataManager.templates[index].name", placeholder="Random", ng-disabled="!upgradeDataManager._hasUpgrade('Rename Tag')")
 
   .modal-footer
+    .pull-left *Changes reflected during future games only
     button.btn.btn-default(ng-click="close()") Close
