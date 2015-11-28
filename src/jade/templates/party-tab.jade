@@ -4,7 +4,9 @@ script(type="text/ng-template", id="party-tab")
       .text-center Members
       .margin-bottom-20(ng-repeat="player in players")
         .row
-          .col-xs-12 {{player.hp.atMin() ? '(DEAD)' : ''}} {{player.name}} the {{player.professionInst.title}}
+          .col-xs-12
+            | {{player.hp.atMin() ? '(DEAD)' : ''}} {{player.name}} the {{player.professionInst.title}}
+            a.btn.btn-link.pull-right(ng-click="openEditWindow(player, $index)") Edit
 
         .row
           .col-xs-12 Level {{player.level}} {{player.getAlign()}} {{player.gender}} {{player.race}} {{player.profession}}
@@ -66,3 +68,16 @@ script(type="text/ng-template", id="player-inventory")
   .row.item(ng-if="player.inventory.length === 0")
     .col-xs-12.text-center Empty
   .row.item(ng-repeat="item in player.inventory | orderBy:'name'", ng-include="'player-item'")
+
+script(type="text/ng-template", id="player-edit")
+  .modal-header
+    h3.modal-title Editing Player {{index+1}}
+
+  .modal-body.data-align
+    .row
+      .col-md-3.data-field Name
+      .col-md-9
+        input.form-control(ng-model="templateDataManager.templates[index].name", placeholder="Random", ng-disabled="!upgradeDataManager._hasUpgrade('Rename Tag')")
+
+  .modal-footer
+    button.btn.btn-default(ng-click="close()") Close

@@ -149,11 +149,13 @@ export default class Character extends Entity {
   // region Loading functions (skills, equipment)
   loadFromTemplate(template) {
     if(!template) return;
-    if(!template.profession) this.profession = _.sample(GameState.unlocked.profession) || 'Tourist';
-    if(!template.race) this.race = _.sample(GameState.unlocked.race) || 'Human';
-    if(!template.align) this.align = _.random(-200, 200);
-    if(!template.gender) this.gender = _.sample(['Male', 'Female']);
-    if(!template.name) this.name = _.sample(Names);
+    if(!template.profession) template.profession = _.sample(GameState.unlocked.profession) || 'Tourist';
+    if(!template.race) template.race = _.sample(GameState.unlocked.race) || 'Human';
+    if(!template.align) template.align = _.random(-200, 200);
+    if(!template.gender) template.gender = _.sample(['Male', 'Female']);
+    if(!template.name) template.name = _.sample(Names);
+
+    _.extend(this, template);
   }
 
   loadStartingSkills() {

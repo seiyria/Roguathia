@@ -67,10 +67,21 @@ $paddings: top bottom left right;
 .btn {
   margin: 0;
   padding: 0;
+  box-shadow: none!important;
 
   &:active {
     margin: 0;
   }
+}
+
+input, select {
+  color: #000!important;
+}
+
+.data-align .data-field {
+  text-align: right;
+  line-height: 30px;
+  vertical-align: middle;
 }
 
 

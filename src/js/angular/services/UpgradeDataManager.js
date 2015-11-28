@@ -28,6 +28,7 @@ module.service('UpgradeDataManager', (CurrencyDataManager, $localStorage) => {
   return {
     buyUpgrade,
     hasUpgrade,
+    _hasUpgrade,
     canSeeUpgrade,
     upgrades
   };

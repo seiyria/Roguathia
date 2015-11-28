@@ -16,7 +16,7 @@ module.filter('visibleUpgrades', (CurrencyDataManager, UpgradeDataManager) => {
   };
 });
 
-module.controller('Upgrades', ($scope, CurrencyDataManager, UpgradeDataManager) => {
+module.controller('Upgrades', ($scope, CurrencyDataManager, UpgradeDataManager, TemplateDataManager) => {
 
   $scope.upgrades = Upgrades;
   $scope.upgradeDataManager = UpgradeDataManager;
@@ -36,6 +36,8 @@ module.controller('Upgrades', ($scope, CurrencyDataManager, UpgradeDataManager) 
       const upgrade = _.findWhere(Upgrades, { name });
       if(upgrade.operate) upgrade.operate(newState);
     });
+
+    newState.templates = TemplateDataManager.templates;
 
     SetState(newState);
   };

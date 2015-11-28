@@ -7,6 +7,7 @@ import './controllers/Upgrades';
 
 import './services/UpgradeDataManager';
 import './services/CurrencyDataManager';
+import './services/TemplateDataManager';
 
 import './directives/tabs/log-tab';
 
