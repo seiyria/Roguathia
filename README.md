@@ -17,7 +17,6 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * Temporary enchantments, blessings, uncursings, etc (spent in the meta, apply to current game only)
     * Better tombstones (per character)
     * Better starting proficiencies
-    * More color choices for players to be
     * More border style choices (style = character[s] + color)
     * Higher SP multiplier
     * Game speed slider
