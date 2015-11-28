@@ -50,7 +50,7 @@ export class InvisibilityCloak extends Cloak {
 @rarity(1)
 @material(Materials.Cloth)
 export class ElvenCloak extends Cloak {
-  Stealth() { return this.buc * 10; }
+  Stealth() { return this.buc * 2; }
 }
 
 @rarity(1)

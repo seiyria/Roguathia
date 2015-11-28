@@ -19,7 +19,7 @@ export class ElvenBoots extends Feet {
     return AC(this);
   }
   Stealth() {
-    return this.buc * 15;
+    return this.buc * 3;
   }
 }
 
@@ -27,7 +27,7 @@ export class ElvenBoots extends Feet {
 @material(Materials.Leather)
 export class HermesSandals extends Feet {
   Haste() {
-    return this.buc * 50;
+    return this.buc * 2;
   }
 }
 

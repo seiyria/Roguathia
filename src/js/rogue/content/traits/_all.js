@@ -20,19 +20,19 @@ class HasteTrait extends Trait {
 export const Haste = (opts) => new HasteTrait(opts);
 
 class TelepathyTrait extends Trait {
-  Telepathy() { return this.level; }
+  Telepathy() { return this.level * 5; }
 }
 
 export const Telepathy = (opts) => new TelepathyTrait(opts);
 
 class ClairvoyanceTrait extends Trait {
-  Clairvoyance() { return this.level; }
+  Clairvoyance() { return this.level * 5; }
 }
 
 export const Clairvoyance = (opts) => new ClairvoyanceTrait(opts);
 
 class WarningTrait extends Trait {
-  Warning() { return this.level; }
+  Warning() { return this.level * 5; }
 }
 
 export const Warning = (opts) => new WarningTrait(opts);
@@ -50,7 +50,7 @@ class SeeInvisibleTrait extends Trait {
 export const SeeInvisible = (opts) => new SeeInvisibleTrait(opts);
 
 class StealthTrait extends Trait {
-  Stealth() { return this.level; }
+  Stealth() { return this.level * 5; }
 }
 
 export const Stealth = (opts) => new StealthTrait(opts);

@@ -156,9 +156,9 @@ export class Potion extends Equipment {
   constructor(opts = {}) {
     opts.symbol = Glyphs.Potion;
     super(opts);
+    this.realName = `potion of ${this.getCanonName()}`;
     const fake = this.pickFakeName(Fakes.Potion);
     this.color = fake;
-    this.realName = `potion of ${this.getCanonName()}`;
     this.fakeName = `${fake} potion`;
   }
   use(entity, extra) {

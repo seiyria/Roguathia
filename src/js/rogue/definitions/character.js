@@ -7,6 +7,7 @@ import NumberRange from '../lib/number-range';
 import Professions from '../content/professions/_all';
 import Races from '../content/races/_all';
 import * as Behaviors from '../content/behaviors/_all';
+import * as Traits from '../content/traits/_all';
 import GameState from '../init/gamestate';
 import Attacks from '../content/attacks/_all';
 import MessageQueue, { MessageTypes } from '../display/message-handler';
@@ -69,17 +70,18 @@ export default class Character extends Entity {
 
     GameState.world.moveEntity(this, this.x, this.y, this.z);
 
-    // calculate levelup bonuses
-    for(let i=1; i<this.level; i++) {
-      this.levelupStatBoost();
-    }
-
     GameState.game.scheduler.add(this, true);
 
     this.doBehavior('spawn');
 
     this.loadStartingEquipment();
+    this.loadStartingTraits(opts.template);
     this.loadStartingSkills();
+
+    // calculate levelup bonuses
+    for(let i=1; i<this.level; i++) {
+      this.levelupStatBoost();
+    }
   }
 
   // region Static functions
@@ -162,6 +164,28 @@ export default class Character extends Entity {
     _.extend(this, template);
   }
 
+  loadStartingTraits(template) {
+    if(!template || !template.trait) return;
+    const { utility, buff } = template.trait;
+    let { greater, lesser } = template.trait;
+    greater = greater.toLowerCase();
+    lesser = lesser.toLowerCase();
+
+    if(greater) this[greater] += 3;
+    if(lesser) this[lesser] += 1;
+    if(utility) this.addTrait(Traits[utility]({ level: 1 }));
+    if(buff) this.handleStartingBuff(buff);
+  }
+
+  handleStartingBuff(buff) {
+    const acts = {
+      'Charged Gear': () => _.each(this.inventory, item => item.charges ? item.charges += 3 : null),
+      'Enchanted Gear': () => _.each(_.flatten(_.values(this.equipment)), item => item.enchantment ? item.enchantment += 1 : item.enchantment = 1),
+      'Higher Level': () => this.level += 2
+    };
+    if(acts[buff]) acts[buff]();
+  }
+
   loadStartingSkills() {
     const skillCaps = this.professionInst.skillCaps;
     const skillBonus = this.raceInst.skillBonus;
@@ -171,7 +195,10 @@ export default class Character extends Entity {
       const atkName = atk.real.name.toLowerCase();
       let maxLevel = defaultLevel + (skillCaps[atkName] || 0);
       maxLevel = Math.min(maxLevel, Thresholds.Legendary);
-      const level = skillBonus[atkName] || 0;
+      let level = skillBonus[atkName] || 0;
+      if(this.trait && this.trait.buff === 'Proficient') {
+        level += 2;
+      }
       this.skills[atkName] = new NumberRange(0, SkillThresholds[level].max, SkillThresholds[maxLevel].max);
     });
   }
@@ -259,7 +286,7 @@ export default class Character extends Entity {
     if(!this.equipment[slot]) this.equipment[slot] = [];
     this.equipment[slot].push(item);
     this.breakConduct('stubborn');
-    if(this.getType() !== 'Hands') {
+    if(this.getParentType() !== 'hands') {
       this.breakConduct('nudist');
     }
     if(item.equip) item.equip(this);

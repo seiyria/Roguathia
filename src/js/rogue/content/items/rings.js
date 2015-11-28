@@ -82,7 +82,7 @@ export class RingOfBonusDamage extends Ring {
 @rarity(1)
 @material(Materials.Cloth)
 export class RingOfStealth extends Ring {
-  Stealth() { return this.buc * 10; }
+  Stealth() { return this.buc * 2; }
 }
 
 @rarity(1)
@@ -100,7 +100,7 @@ export class RingOfSeeInvisible extends Ring {
 @rarity(1)
 @material(Materials.Leather)
 export class RingOfWarning extends Ring {
-  Warning() { return this.buc * 10; }
+  Warning() { return this.buc * 2; }
 }
 
 @rarity(1)

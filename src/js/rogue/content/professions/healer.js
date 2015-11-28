@@ -21,7 +21,7 @@ const healerConfig = {
   wis : '2d3',
   cha : '1d1',
   titles: ['Rhizotomist',, 'Empiric',,, 'Embalmer',,, 'Dresser',,, 'Medicus ossium',,, 'Herbalist',,, 'Magisterex',,, 'Physician',,, 'Chirurgeon'],
-  traits: [Traits.Warning({ level: 15, req: 15 }), Traits.PoisonResistance()],
+  traits: [Traits.Warning({ level: 3, req: 15 }), Traits.PoisonResistance()],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Skilled, ranged: Thresholds.Basic, slash: Thresholds.Basic, unarmed: Thresholds.Basic },
   startingItems: [
     { init: () => new Gold(Roll('1d1000 + 1000')) },

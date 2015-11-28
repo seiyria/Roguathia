@@ -17,7 +17,7 @@ const rogueConfig = {
   wis : '1d2',
   cha : '1d2',
   titles: ['Footpad',, 'Cutpurse',,, 'Rogue',,, 'Pilferer',,, 'Robber',,, 'Burglar',,, 'Filcher',,, 'Magsrex',,, 'Thief'],
-  traits: [Traits.Stealth({ level: 20 })],
+  traits: [Traits.Stealth({ level: 4 })],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Basic, ranged: Thresholds.Basic, slash: Thresholds.Expert, unarmed: Thresholds.Expert, force: Thresholds.Basic },
   startingItems: [
     { init: () => new Weapons.Shortsword({ bucName: 'uncursed', enchantment: 1 }) },

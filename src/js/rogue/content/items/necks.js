@@ -17,7 +17,7 @@ export class AmuletOfProtection extends Neck {
 @rarity(1)
 @material(Materials.Iron)
 export class AmuletOfTelepathy extends Neck {
-  Telepathy() { return 20; }
+  Telepathy() { return 4; }
 }
 
 @rarity(1)

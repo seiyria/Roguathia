@@ -18,7 +18,7 @@ const priestConfig = {
   cha : '1d2',
   titles: ['Aspirant',, 'Acolyte',,, 'Adept',,, 'Priest',,, 'Curate',,, 'Canon',,, 'Lama',,, 'Patriarch',,, 'High Priest'],
   traits: [
-    Traits.Warning({ level: 15, req: 15 }), Traits.FireResistance({ req: 20 })
+    Traits.Warning({ level: 3, req: 15 }), Traits.FireResistance({ req: 20 })
   ],
   skillCaps: { bash: Thresholds.Expert, unarmed: Thresholds.Basic, stab: Thresholds.Skilled, ranged: Thresholds.Basic, smash: Thresholds.Skilled, thrust: Thresholds.Skilled },
   startingItems: [

@@ -35,7 +35,7 @@ export class DunceCap extends Head {
 @material(Materials.Cloth)
 export class Cornuthaum extends Head {
   Clairvoyance() {
-    return 5;
+    return 2;
   }
 }
 
@@ -85,7 +85,7 @@ export class HelmOfBrilliance extends Head {
 @material(Materials.Iron)
 export class HelmOfTelepathy extends Head {
   Telepathy() {
-    return 20;
+    return 4;
   }
 }
 
