@@ -11,7 +11,6 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * More behavior types
     * Higher starting level
     * Assignable behaviors
-    * Assignable classes
     * Assignable traits (permanent char stats, enchants, proficiencies, higher starting level, etc - these should have a cost and you can only allocate so much cost, but you can upgrade the cost, OR you can pick 3 traits, primary, secondary, tertiary - sort into these categories)
     * More starting equipment (unlock certain starting equipment tiers)
     * Better starting equipment (enchanted, more charges, etc)
