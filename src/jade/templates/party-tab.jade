@@ -79,6 +79,11 @@ script(type="text/ng-template", id="player-edit")
       .col-md-9
         input.form-control(ng-model="templateDataManager.templates[index].name", placeholder="Random", ng-disabled="!upgradeDataManager._hasUpgrade('Rename Tag')")
 
+    .row
+      .col-md-3.data-field Gender
+      .col-md-9
+        select.form-control(ng-model="templateDataManager.templates[index].gender", ng-options="gender.val as gender.key for gender in genders")
+
   .modal-footer
     .pull-left *Changes reflected during future games only
     button.btn.btn-default(ng-click="close()") Close

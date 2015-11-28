@@ -29,4 +29,10 @@ module.controller('PartyMemberEdit', ($scope, $uibModalInstance, TemplateDataMan
   $scope.upgradeDataManager = UpgradeDataManager;
   $scope.index = index;
   $scope.player = player;
+
+  $scope.genders = [
+    { key: 'Random', val: undefined },
+    { key: 'Male', val: 'Male' },
+    { key: 'Female', val: 'Female' }
+  ];
 });
