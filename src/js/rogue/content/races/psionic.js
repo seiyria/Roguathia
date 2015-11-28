@@ -1,4 +1,6 @@
 
+import _ from 'lodash';
+
 import Humanoid from './_humanoid';
 import * as Thresholds from '../../constants/skill-thresholds';
 
@@ -10,6 +12,6 @@ export default class Psionic extends Humanoid {
     super(opts);
   }
   canEquip(owner, item) {
-    return item && item.getType() !== 'hands' && super.canEquip(owner, item);
+    return item && !_.contains(['weapon', 'hands'], item.getParentType()) && super.canEquip(owner, item);
   }
 }
