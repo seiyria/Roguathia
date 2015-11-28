@@ -1,12 +1,24 @@
 script(type="text/ng-template", id="upgrades")
-  .col-md-12
+  .col-md-12.margin-bottom-15
     .row.padding-left-15
-      .col-md-4
+      .col-xs-4
         span SP
         span.pull-right {{currencyDataManager.currency.sp | number:0}}
-      .col-md-4
+      .col-xs-4
         span KP
         span.pull-right {{currencyDataManager.currency.kp | number:0}}
-      .col-md-4
+      .col-xs-4
         span VP
         span.pull-right {{currencyDataManager.currency.vp | number:0}}
+
+  .col-md-4(fill-height, offset="390")
+    .row.padding-left-15.margin-bottom-15(ng-repeat="upgrade in upgrades | orderBy:'name' | visibleUpgrades:'sp'", ng-include="'upgrade-block'")
+
+script(type="text/ng-template", id="upgrade-block")
+  .col-xs-12 {{upgrade.name}}
+  .col-xs-2
+    span(uib-tooltip="{{upgrade.help}}", tooltip-placement="right", tooltip-append-to-body="true") &#8505
+  .col-xs-4
+    span {{upgrade.cost | number:0}}
+  .col-xs-6
+    a.btn.btn-link.margin-0(ng-disabled="currencyDataManager[upgrade.currency] >= upgrade.cost", ng-click="buyUpgrade(upgrade)") Buy

@@ -8,15 +8,15 @@ const upgrades = [];
 _.each(_.keys(Professions), profession => {
   upgrades.push(
     { name: `Random: ${profession}`,
-      help: 'This profession will show up randomly.',
+      help: `This class (${profession}) will show up randomly.`,
       cost: 10000,
       currency: 'sp',
       operate: (upgradeData) => upgradeData.unlocked.profession.push(profession)
     });
 
   upgrades.push(
-    { name: `Profession: ${profession}`,
-      help: 'This profession can be selected for all party members.',
+    { name: `Class: ${profession}`,
+      help: `This class (${profession}) can be selected for all party members.`,
       req: `Random: ${profession}`,
       cost: 50000,
       currency: 'sp',
@@ -27,7 +27,7 @@ _.each(_.keys(Professions), profession => {
 _.each(_.keys(Races), race => {
   upgrades.push(
     { name: `Random: ${race}`,
-      help: 'This race will show up randomly.',
+      help: `This race (${race}) will show up randomly.`,
       cost: 30000,
       currency: 'sp',
       operate: (upgradeData) => upgradeData.unlocked.race.push(race)
@@ -35,7 +35,7 @@ _.each(_.keys(Races), race => {
 
   upgrades.push(
     { name: `Race: ${race}`,
-      help: 'This race can be selected for all party members.',
+      help: `This race (${race}) can be selected for all party members.`,
       req: `Random: ${race}`,
       cost: 80000,
       currency: 'sp',

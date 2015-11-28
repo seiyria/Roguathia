@@ -7,14 +7,13 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
     * Ability to rename character
-    * More character classes
     * Permanent character benefits (+1 str, etc) - there has to be a way to limit this so people don't invest too heavily in it. Maybe high scaling cost and is allocalable to any stat, and caps off at a certain spot.
     * More party members
     * More behavior types
-    * More races
     * Higher starting level
     * Assignable behaviors
     * Assignable classes
+    * Assignable traits (permanent char stats, proficiencies, higher starting level, etc - these should have a cost and you can only allocate so much cost, but you can upgrade the cost)
     * More starting equipment (unlock certain starting equipment tiers)
     * Better starting equipment (enchanted, more charges, etc)
     * More item variety (ie, unlock the 25%, 50%, 75% and 100% percentile of rarity in items)
