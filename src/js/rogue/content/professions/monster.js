@@ -10,6 +10,7 @@ const monsterCfg = {
   dex : '1d1',
   wis : '1d1',
   cha : '1d1',
+  titles: ['Monster'],
   traits: [Traits.Infravision({ level: 7 })]
 };
 
