@@ -51,7 +51,7 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
 * Track statistics (games played, monsters killed, killed by, total SP/KP/VP, features interacted with [doors opened, etc])
 * Refactor / reorg / unit tests for classes
 * Conventional changelog for bump/release
-* Import/export savefile
+* Import/export savefile and reset game
 * More messages! Make sure the messages line up with with the game better, ie, show:
   * descend
   * game over

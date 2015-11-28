@@ -9,7 +9,7 @@ import Upgrades from '../../rogue/constants/upgrades';
 
 module.filter('visibleUpgrades', (CurrencyDataManager, UpgradeDataManager) => {
   return (upgrades, type) => {
-    return _.filter(upgrades, upgrade => upgrade.cost < CurrencyDataManager.currency[type] / 2
+    return _.filter(upgrades, upgrade => upgrade.cost / 2 < CurrencyDataManager.currency[type]
       && upgrade.currency === type
       && UpgradeDataManager.canSeeUpgrade(upgrade)
     );
