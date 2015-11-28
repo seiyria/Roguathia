@@ -89,6 +89,16 @@ script(type="text/ng-template", id="player-edit")
       .col-md-9
         select.form-control(ng-model="templateDataManager.templates[index].align", ng-options="align.val as align.key for align in aligns")
 
+    .row
+      .col-md-3.data-field Race
+      .col-md-9
+        select.form-control(ng-model="templateDataManager.templates[index].race", ng-options="race.val as race.key for race in races")
+
+    .row
+      .col-md-3.data-field Class
+      .col-md-9
+        select.form-control(ng-model="templateDataManager.templates[index].profession", ng-options="class.val as class.key for class in professions")
+
   .modal-footer
     .pull-left *Changes reflected during future games only
     button.btn.btn-default(ng-click="close()") Close

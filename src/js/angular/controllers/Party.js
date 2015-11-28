@@ -1,4 +1,6 @@
 
+import _ from 'lodash';
+
 import module from '../module';
 import GameState from '../../rogue/init/gamestate';
 
@@ -44,4 +46,16 @@ module.controller('PartyMemberEdit', ($scope, $uibModalInstance, TemplateDataMan
     { key: 'Good', val: 100 },
     { key: 'Gooder', val: 200 }
   ];
+
+  $scope.professions = [{ key: 'Random', val: undefined }].concat(_(UpgradeDataManager.upgrades)
+    .filter(u => _.contains(u, 'Class:'))
+    .map(u => u.split(' ')[1])
+    .map(u => ({ key: u, val: u }))
+    .value());
+
+  $scope.races = [{ key: 'Random', val: undefined }].concat(_(UpgradeDataManager.upgrades)
+    .filter(u => _.contains(u, 'Race:'))
+    .map(u => u.split(' ')[1])
+    .map(u => ({ key: u, val: u }))
+    .value());
 });

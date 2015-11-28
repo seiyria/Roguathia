@@ -23,6 +23,7 @@ _.each(_.keys(Professions), profession => {
     { name: `Class: ${profession}`,
       help: `This class (${profession}) can be selected for all party members.`,
       req: `Random: ${profession}`,
+      unlockedProfession: profession,
       cost: 50000,
       currency: 'sp',
       operate: (upgradeData) => upgradeData.selectable.profession.push(profession)
@@ -42,6 +43,7 @@ _.each(_.keys(Races), race => {
     { name: `Race: ${race}`,
       help: `This race (${race}) can be selected for all party members.`,
       req: `Random: ${race}`,
+      unlockedRace: race,
       cost: 80000,
       currency: 'sp',
       operate: (upgradeData) => upgradeData.selectable.race.push(race)
