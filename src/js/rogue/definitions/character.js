@@ -84,7 +84,7 @@ export default class Character extends Entity {
 
   // region Static functions
   calcLevelXp(level) {
-    return 10 * Math.pow(2, level);
+    return 20 * Math.pow(2, level);
   }
 
   rollOrAdd(val) {
