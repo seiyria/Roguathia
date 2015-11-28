@@ -6,7 +6,6 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
 # TODO
 * Meta-currency (and benefits)
   * SP (every turn taken = 1 step)
-    * Ability to rename character
     * Permanent character benefits (+1 str, etc - maybe lesser and greater for +1 and +3) - there has to be a way to limit this so people don't invest too heavily in it. Maybe high scaling cost and is allocalable to any stat, and caps off at a certain spot.
     * More behavior types
     * Higher starting level
