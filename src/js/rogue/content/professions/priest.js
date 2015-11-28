@@ -8,7 +8,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const priestConfig = {
-  hp  : '2d5',
+  hp  : '1d5',
   mp  : '3d5',
   str : '1d2',
   con : '1d2',

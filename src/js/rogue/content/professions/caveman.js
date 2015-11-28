@@ -8,7 +8,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const cavemanConfig = {
-  hp  : '6d5',
+  hp  : '4d4',
   mp  : '0d0',
   str : '6d2',
   con : '1d2',

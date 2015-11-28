@@ -8,7 +8,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const rogueConfig = {
-  hp  : '2d10',
+  hp  : '2d6',
   mp  : '0d0',
   str : '3d3',
   con : '1d4',

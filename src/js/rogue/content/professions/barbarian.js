@@ -8,7 +8,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const barbarianConfig = {
-  hp  : '6d5',
+  hp  : '5d3',
   mp  : '0d0',
   str : '4d3',
   con : '3d2',

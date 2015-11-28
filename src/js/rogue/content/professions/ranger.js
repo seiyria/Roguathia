@@ -8,7 +8,7 @@ import * as Projectiles from '../items/projectiles';
 import * as Thresholds from '../../constants/skill-thresholds';
 
 const rangerCfg = {
-  hp  : '2d8 + 4',
+  hp  : '3d4',
   mp  : '0d0',
   str : '2d3',
   con : '1d5',

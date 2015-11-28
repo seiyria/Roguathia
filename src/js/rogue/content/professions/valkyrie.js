@@ -7,7 +7,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const valkyrieConfig = {
-  hp  : '3d7',
+  hp  : '2d5',
   mp  : '0d0',
   str : '2d3',
   con : '1d5',

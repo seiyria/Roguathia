@@ -12,7 +12,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const healerConfig = {
-  hp  : '10d5',
+  hp  : '2d5',
   mp  : '3d3',
   str : '1d2',
   con : '1d2',

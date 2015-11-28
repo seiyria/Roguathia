@@ -10,7 +10,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const knightConfig = {
-  hp  : '5d5',
+  hp  : '2d7',
   mp  : '0d0',
   str : '3d2',
   con : '3d2',

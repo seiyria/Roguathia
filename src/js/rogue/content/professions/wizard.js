@@ -11,7 +11,7 @@ import * as Random from '../../constants/random';
 import * as Thresholds from '../../constants/skill-thresholds';
 
 const wizardCfg = {
-  hp  : '1d4 + 1',
+  hp  : '1d2 + 1',
   mp  : '1d5 + 5',
   str : '1d2',
   con : '1d2',

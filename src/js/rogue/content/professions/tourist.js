@@ -9,7 +9,7 @@ import * as Projectiles from '../items/projectiles';
 import * as Thresholds from '../../constants/skill-thresholds';
 
 const touristCfg = {
-  hp  : '1d5 + 5',
+  hp  : '1d5',
   mp  : '1d2 + 1',
   str : '1d3',
   con : '1d2',

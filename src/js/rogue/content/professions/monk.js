@@ -9,7 +9,7 @@ import * as Thresholds from '../../constants/skill-thresholds';
 import * as Traits from '../traits/_all';
 
 const monkConfig = {
-  hp  : '3d5',
+  hp  : '2d5',
   mp  : '1d7',
   str : '4d2',
   con : '2d2',
