@@ -9,15 +9,15 @@
     "Kyle Kemp <kyle@seiyria.com>"
   ],
   "devDependencies": {
-    "babel": "^5.8.23",
-    "babel-eslint": "^4.1.0",
-    "babelify": "^6.2.0",
-    "bower": "~1.6.3",
+    "babel": "^5.8.34",
+    "babel-eslint": "^4.1.6",
+    "babelify": "^6.4.0",
+    "bower": "^1.6.8",
     "browser-sync": "^2.9.11",
-    "browserify": "~11.2.0",
+    "browserify": "^12.0.1",
     "chai": "^3.4.0",
     "conventional-changelog": "^0.5.0",
-    "del": "~2.0.2",
+    "del": "^2.1.0",
     "errorify": "^0.3.1",
     "eslint-config-kellyirc": "^3.1.0",
     "gulp": "~3.9.0",
@@ -25,7 +25,7 @@
     "gulp-bump": "^1.0.0",
     "gulp-cached": "^1.1.0",
     "gulp-concat": "~2.6.0",
-    "gulp-eslint": "^1.0.0",
+    "gulp-eslint": "^1.1.1",
     "gulp-filter": "~3.0.1",
     "gulp-folders": "^1.1.0",
     "gulp-gh-pages": "~0.5.2",
@@ -45,7 +45,7 @@
     "through2": "^2.0.0",
     "vinyl-paths": "^2.0.0",
     "vinyl-source-stream": "~1.1.0",
-    "watchify": "~3.4.0"
+    "watchify": "^3.6.1"
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",
@@ -86,6 +86,6 @@
     "dice.js": "^0.8.0",
     "eventemitter2": "^0.4.14",
     "lodash": "^3.10.1",
-    "rot-js": "^0.6.0"
+    "rot-js": "0.6.0"
   }
 }
