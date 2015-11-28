@@ -75,34 +75,54 @@ script(type="text/ng-template", id="player-edit")
 
   .modal-body.data-align
     .row
-      .col-md-3.data-field Name
-      .col-md-9
+      .col-md-4.data-field Name
+      .col-md-8
         input.form-control(ng-model="templateDataManager.templates[index].name", placeholder="Random", ng-disabled="!upgradeDataManager._hasUpgrade('Rename Tag')")
 
     .row
-      .col-md-3.data-field Gender
-      .col-md-9
+      .col-md-4.data-field Gender
+      .col-md-8
         select.form-control(ng-model="templateDataManager.templates[index].gender", ng-options="gender.val as gender.key for gender in genders")
 
     .row
-      .col-md-3.data-field Alignment
-      .col-md-9
+      .col-md-4.data-field Alignment
+      .col-md-8
         select.form-control(ng-model="templateDataManager.templates[index].align", ng-options="align.val as align.key for align in aligns")
 
     .row
-      .col-md-3.data-field Race
-      .col-md-9
+      .col-md-4.data-field Race
+      .col-md-8
         select.form-control(ng-model="templateDataManager.templates[index].race", ng-options="race.val as race.key for race in races")
 
     .row
-      .col-md-3.data-field Class
-      .col-md-9
+      .col-md-4.data-field Class
+      .col-md-8
         select.form-control(ng-model="templateDataManager.templates[index].profession", ng-options="class.val as class.key for class in professions")
 
     .row
-      .col-md-3.data-field Color
-      .col-md-9
+      .col-md-4.data-field Color
+      .col-md-8
         select.form-control(ng-model="templateDataManager.templates[index].color", ng-options="color.val as color.key for color in colors", ng-disabled="!upgradeDataManager._hasUpgrade('Color Tag')")
+
+    .row
+      .col-md-4.data-field Greater Trait
+      .col-md-8
+        select.form-control(ng-model="templateDataManager.templates[index].trait.greater", ng-options="trait.val as trait.key for trait in greater")
+
+    .row
+      .col-md-4.data-field Lesser Trait
+      .col-md-8
+        select.form-control(ng-model="templateDataManager.templates[index].trait.lesser", ng-options="trait.val as trait.key for trait in lesser")
+
+    .row
+      .col-md-4.data-field Utility Trait
+      .col-md-8
+        select.form-control(ng-model="templateDataManager.templates[index].trait.utility", ng-options="trait.val as trait.key for trait in utility")
+
+    .row
+      .col-md-4.data-field Buff
+      .col-md-8
+        select.form-control(ng-model="templateDataManager.templates[index].trait.buff", ng-options="trait.val as trait.key for trait in buff")
 
   .modal-footer
     .pull-left *Changes reflected during future games only

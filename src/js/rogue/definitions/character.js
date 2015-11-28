@@ -46,9 +46,6 @@ export default class Character extends Entity {
     this.behaviors.push(...defaultBehaviors);
 
     this.loadFromTemplate(opts.template);
-    if(opts.template) {
-      this.glyph.fg = opts.template.color;
-    }
 
     this.professionInst = new Professions[this.profession]();
     const [profHp, profMp] = [this.professionInst.hp, this.professionInst.mp];
@@ -159,6 +156,8 @@ export default class Character extends Entity {
     if(!template.gender) template.gender = _.sample(['Male', 'Female']);
     if(!template.name) template.name = _.sample(Names);
     if(!template.color) template.color = '#fff';
+
+    this.glyph.fg = template.color;
 
     _.extend(this, template);
   }

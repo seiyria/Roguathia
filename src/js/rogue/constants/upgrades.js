@@ -2,6 +2,7 @@
 import _ from 'lodash';
 import Professions from '../content/professions/_all';
 import Races from '../content/races/_all';
+import * as Traits from '../content/traits/_all';
 
 const upgrades = [
   { name: 'Rename Tag',
@@ -38,7 +39,7 @@ _.each(_.keys(Races), race => {
   upgrades.push(
     { name: `Random: ${race}`,
       help: `This race (${race}) will show up randomly.`,
-      cost: 30000,
+      cost: 20000,
       currency: 'sp',
       operate: (upgradeData) => upgradeData.unlocked.race.push(race)
     });
@@ -52,6 +53,59 @@ _.each(_.keys(Races), race => {
       currency: 'sp',
       operate: (upgradeData) => upgradeData.selectable.race.push(race)
     });
+});
+
+_.each(['STR', 'DEX', 'CON', 'INT', 'WIS', 'AGI', 'LUK'], stat => {
+  upgrades.push({
+    name: `Trait: L. ${stat}`,
+    help: `Lesser ${stat} grants +1 ${stat} when assigned to a character.`,
+    cost: 5000,
+    currency: 'sp'
+  });
+
+  upgrades.push({
+    name: `Trait: G. ${stat}`,
+    help: `Greater ${stat} grants +3 ${stat} when assigned to a character.`,
+    cost: 50000,
+    currency: 'sp'
+  });
+});
+
+_.each(_.keys(Traits), trait => {
+  upgrades.push({
+    name: `Trait: U. ${trait}`,
+    help: `Grants utility for a basic level of ${trait} when assigned to a character`,
+    cost: 100000,
+    currency: 'sp'
+  });
+});
+
+upgrades.push({
+  name: 'Buff: Proficient',
+  help: 'The assigned character is more proficient with every weapon.',
+  cost: 100000,
+  currency: 'sp'
+});
+
+upgrades.push({
+  name: 'Buff: Higher Level',
+  help: 'The assigned character starts at a higher level.',
+  cost: 150000,
+  currency: 'sp'
+});
+
+upgrades.push({
+  name: 'Buff: Enchanted Gear',
+  help: 'The assigned character gets an enchantment on all of their gear.',
+  cost: 200000,
+  currency: 'sp'
+});
+
+upgrades.push({
+  name: 'Buff: Charged Gear',
+  help: 'The assigned character gets more charges on all of their gear.',
+  cost: 250000,
+  currency: 'sp'
 });
 
 for(let i = 0; i < 3; i++) {

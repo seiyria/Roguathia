@@ -27,6 +27,14 @@ module.controller('Party', ($scope, $uibModal) => {
 module.controller('PartyMemberEdit', ($scope, $uibModalInstance, TemplateDataManager, UpgradeDataManager, player, index) => {
   $scope.close = $uibModalInstance.close;
 
+  const upgradesBySplit = (split, defaultVal = 'Random') => {
+    return [{ key: defaultVal, val: undefined }].concat(_(UpgradeDataManager.upgrades)
+      .filter(u => _.contains(u, split))
+      .map(u => u.split(split)[1].trim())
+      .map(u => ({ key: u, val: u }))
+      .value());
+  };
+
   $scope.templateDataManager = TemplateDataManager;
   $scope.upgradeDataManager = UpgradeDataManager;
   $scope.index = index;
@@ -47,17 +55,9 @@ module.controller('PartyMemberEdit', ($scope, $uibModalInstance, TemplateDataMan
     { key: 'Gooder', val: 200 }
   ];
 
-  $scope.professions = [{ key: 'Random', val: undefined }].concat(_(UpgradeDataManager.upgrades)
-    .filter(u => _.contains(u, 'Class:'))
-    .map(u => u.split(' ')[1])
-    .map(u => ({ key: u, val: u }))
-    .value());
+  $scope.professions = upgradesBySplit('Class:');
 
-  $scope.races = [{ key: 'Random', val: undefined }].concat(_(UpgradeDataManager.upgrades)
-    .filter(u => _.contains(u, 'Race:'))
-    .map(u => u.split(' ')[1])
-    .map(u => ({ key: u, val: u }))
-    .value());
+  $scope.races = upgradesBySplit('Race:');
 
   $scope.colors = [
     { key: 'Default', val: undefined },
@@ -68,4 +68,9 @@ module.controller('PartyMemberEdit', ($scope, $uibModalInstance, TemplateDataMan
     { key: 'Cyan', val: '#0ff' },
     { key: 'Magenta', val: '#f0f' }
   ];
+
+  $scope.greater = upgradesBySplit('Trait: G.', 'None');
+  $scope.lesser = upgradesBySplit('Trait: L.', 'None');
+  $scope.utility = upgradesBySplit('Trait: U.', 'None');
+  $scope.buff = upgradesBySplit('Buff:', 'None');
 });

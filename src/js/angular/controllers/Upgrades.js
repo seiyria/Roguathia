@@ -34,7 +34,7 @@ module.controller('Upgrades', ($scope, CurrencyDataManager, UpgradeDataManager, 
 
     _.each(UpgradeDataManager.upgrades, name => {
       const upgrade = _.findWhere(Upgrades, { name });
-      if(upgrade.operate) upgrade.operate(newState);
+      if(upgrade && upgrade.operate) upgrade.operate(newState);
     });
 
     newState.templates = TemplateDataManager.templates;
