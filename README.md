@@ -8,7 +8,6 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
   * SP (every turn taken = 1 step)
     * Assignable behaviors & more behavior types
     * More starting equipment (unlock certain starting equipment tiers)
-    * Better starting equipment (enchanted, more charges, etc)
     * More item variety (ie, unlock the 25%, 50%, 75% and 100% percentile of rarity in items)
     * Temporary enchantments, blessings, uncursings, etc (spent in the meta, apply to current game only)
     * Better tombstones (per character)
@@ -16,7 +15,7 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * Higher SP multiplier
     * Game speed slider
     * Greater and lesser benefits (+1/+3 to most stats incl. str, dex, con, int, wis, cha, luk, level)
-    * Utility benefit (+sight, haste, etc, enchanted gear, weapon proficiencies)
+    * Utility benefit (+sight, haste, etc, enchanted gear, more charges on gear, weapon proficiencies)
   * KP (monsters are worth different amounts of points)
     * More monster variety (ie, unlock certain difficulties for monsters. By default you only get up to difficulty 5 or so.)
     * Stronger monsters (ie, their stats are overall better)
