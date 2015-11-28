@@ -49,6 +49,7 @@ class GameState extends EventEmitter2 {
 
     this.templates = GameUpgrades.templates;
     this.unlocked = GameUpgrades.unlocked;
+    this.extra = GameUpgrades.extra;
   }
 
   get vpEarned() { return this.winCondition.check() ? this.winCondition.vp() : 0; }

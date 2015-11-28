@@ -32,6 +32,10 @@ const baseState = {
   selectable: {
     race: [],
     profession: []
+  },
+
+  extra: {
+    players: 1
   }
 };
 

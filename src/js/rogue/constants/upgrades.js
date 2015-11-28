@@ -3,7 +3,12 @@ import _ from 'lodash';
 import Professions from '../content/professions/_all';
 import Races from '../content/races/_all';
 
-const upgrades = [];
+const upgrades = [
+  { name: 'Rename Tag',
+    help: 'Allow for renaming of player characters.',
+    cost: 100000,
+    currency: 'sp' }
+];
 
 _.each(_.keys(Professions), profession => {
   upgrades.push(
@@ -42,5 +47,16 @@ _.each(_.keys(Races), race => {
       operate: (upgradeData) => upgradeData.selectable.race.push(race)
     });
 });
+
+for(let i = 0; i < 3; i++) {
+  upgrades.push({
+    name: `Bigger Party ${i+1}`,
+    help: `Add one member to your adventuring party.`,
+    req: i > 0 ? `Bigger Party ${i}` : null,
+    currency: 'sp',
+    cost: (i+2) * 150000,
+    operate: (upgradeData) => upgradeData.extra.players++
+  });
+}
 
 export default upgrades;

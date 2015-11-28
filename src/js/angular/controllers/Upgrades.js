@@ -26,7 +26,7 @@ module.controller('Upgrades', ($scope, CurrencyDataManager, UpgradeDataManager) 
 
   $scope.buyUpgrade = (upgrade) => {
     if(!UpgradeDataManager.buyUpgrade(upgrade)) return;
-    upgrade.operate(curState);
+    if(upgrade.operate) upgrade.operate(curState);
   };
 
   const rebuildUpgrades = () => {
@@ -34,7 +34,7 @@ module.controller('Upgrades', ($scope, CurrencyDataManager, UpgradeDataManager) 
 
     _.each(UpgradeDataManager.upgrades, name => {
       const upgrade = _.findWhere(Upgrades, { name });
-      upgrade.operate(newState);
+      if(upgrade.operate) upgrade.operate(newState);
     });
 
     SetState(newState);

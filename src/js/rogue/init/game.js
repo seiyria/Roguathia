@@ -110,7 +110,7 @@ export default class Game {
       zeroStartStairs[0], zeroStartStairs[1], 0, 2, (tile) => tile.glyph.key === '.'
     );
 
-    for(let i = 0; i < 4; i++) {
+    for(let i = 0; i < GameState.extra.players; i++) {
       const startTile = playerLocations.shift();
       const player = new Player(0, 0, 0, { template: GameState.templates[i] || {} });
 
