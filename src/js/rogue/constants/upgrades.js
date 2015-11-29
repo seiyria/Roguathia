@@ -132,6 +132,17 @@ for(let i = 0; i < 5; i++) {
     operate: (upgradeData) => upgradeData.extra.monsterLimit += 5
   });
 }
+
+for(let i = 0; i < 10; i++) {
+  upgrades.push({
+    name: `Darker Monsters ${i+1}`,
+    help: `More difficult monsters will be able to spawn in the dungeon.`,
+    req: i > 0 ? `Darker Monsters ${i}` : null,
+    currency: 'kp',
+    cost: (i+1) * 10000,
+    operate: (upgradeData) => upgradeData.extra.maxDifficulty += 5
+  });
+}
 // no more KP
 
 export default upgrades;

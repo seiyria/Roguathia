@@ -36,7 +36,8 @@ const baseState = {
 
   extra: {
     players: 1,
-    monsterLimit: 10
+    monsterLimit: 10,
+    maxDifficulty: 5
   }
 };
 

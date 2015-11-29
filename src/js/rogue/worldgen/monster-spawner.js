@@ -12,8 +12,8 @@ export default class MonsterSpawner {
     const dungeonLevel = basedOn.z + 1;
     const targetLevel = basedOn.level;
 
-    const lowestDifficulty = Math.floor((dungeonLevel+targetLevel)/2);
-    const highestDifficulty = 5 * dungeonLevel;
+    const highestDifficulty = Math.min(GameState.extra.maxDifficulty, 5 * dungeonLevel);
+    const lowestDifficulty = Math.min(highestDifficulty, Math.floor((dungeonLevel+targetLevel)/2));
 
     let chosenName = WeightedExtension(Monsters, 'frequency', monsterName => Monsters[monsterName].difficulty >= lowestDifficulty && Monsters[monsterName].difficulty < highestDifficulty).key;
 
