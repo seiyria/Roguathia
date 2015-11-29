@@ -117,20 +117,6 @@ export default {
   upgradeParameters: {
     MAX_FEATURE_SPAWN_CHANCE: 10000
   },
-  upgradeIncrement: {
-    itemsInDungeon: 1,
-    itemDropChance: 1,
-    altarSpawnChance: 25,
-    templeSpawnChance: 5,
-    throneSpawnChance: 25,
-    throneRoomSpawnChance: 5,
-    graveSpawnChance: 25,
-    graveyardSpawnChance: 5,
-    fountainSpawnChance: 25,
-    oracleRoomChance: 5,
-    sinkSpawnChance: 25,
-    bathroomSpawnChance: 5
-  },
   upgrades: {
     itemsInDungeon: 1,
     itemDropChance: 1,
@@ -143,7 +129,9 @@ export default {
     fountainSpawnChance: 0,
     oracleRoomChance: 0,
     sinkSpawnChance: 0,
-    bathroomSpawnChance: 0
+    bathroomSpawnChance: 0,
+    monsterLimit: 10,
+    maxDifficulty: 5
   },
   upgradesMax: {
     itemDropChance: 75,
@@ -156,6 +144,8 @@ export default {
     fountainSpawnChance: 1000,
     oracleRoomChance: 100,
     sinkSpawnChance: 1000,
-    bathroomSpawnChance: 100
+    bathroomSpawnChance: 100,
+    monsterLimit: 50,
+    maxDifficulty: 55
   }
 };

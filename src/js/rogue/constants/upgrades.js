@@ -145,4 +145,19 @@ for(let i = 0; i < 10; i++) {
 }
 // no more KP
 
+// VP
+_.each(['altar', 'throne', 'grave', 'fountain', 'sink'], feat => {
+  for(let i = 0; i < 5; i++) {
+    upgrades.push({
+      name: `Feature: ${_.capitalize(feat)} ${i+1}`,
+      help: `The dungeon will spawn ${feat}s more frequently.`,
+      req: i > 0 ? `Feature: ${_.capitalize(feat)} ${i}` : null,
+      currency: 'vp',
+      cost: (i+1) * 10,
+      operate: (upgradeData) => upgradeData.dungeon[`${feat}spawnChance`] += 200 // +2%
+    });
+  }
+});
+// no more VP
+
 export default upgrades;

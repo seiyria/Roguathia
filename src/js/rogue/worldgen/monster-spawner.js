@@ -12,7 +12,7 @@ export default class MonsterSpawner {
     const dungeonLevel = basedOn.z + 1;
     const targetLevel = basedOn.level;
 
-    const highestDifficulty = Math.min(GameState.dungeon.maxDifficulty, 5 * dungeonLevel);
+    const highestDifficulty = Math.min(GameState.upgrades.maxDifficulty, 5 * dungeonLevel);
     const lowestDifficulty = Math.min(highestDifficulty, Math.floor((dungeonLevel+targetLevel)/2));
 
     let chosenName = WeightedExtension(Monsters, 'frequency', monsterName => Monsters[monsterName].difficulty >= lowestDifficulty && Monsters[monsterName].difficulty < highestDifficulty).key;
@@ -32,7 +32,7 @@ export default class MonsterSpawner {
 
   static spawnSingle(monsterName, tile) {
 
-    while(GameState.monsters.length >= GameState.dungeon.monsterLimit) {
+    while(GameState.monsters.length >= GameState.upgrades.monsterLimit) {
 
       // some monsters can be marked important, like Selyk, so they will always spawn and never despawn
       const firstBadMonster = _.find(GameState.monsters, mon => !mon.important);
