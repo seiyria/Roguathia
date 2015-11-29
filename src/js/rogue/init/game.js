@@ -116,7 +116,7 @@ export default class Game {
       Log('Game', 'A second game started somehow.');
     }
 
-    const spawnedPlayers = Math.min(1, Math.max(GameState.extra.players, 4));
+    const spawnedPlayers = Math.min(4, Math.max(1, GameState.extra.players));
 
     for(let i = 0; i < spawnedPlayers; i++) {
       const startTile = playerLocations.shift();
