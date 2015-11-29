@@ -12,7 +12,7 @@ export default class RespawnScreen extends Screen {
     // would be nice if it redrew properly without needing duplicates in the list
     this.phases = ['/', '/', '|', '|', '\\', '\\', '-', '-'];
     this.stars = [];
-    this.timer = 15;
+    this.timer = 15 - GameState.extra.respawnTime;
 
     // one tick per star move, 4 ticks = new star and timer countdown
     this.ticks = this.timer * this.phases.length;

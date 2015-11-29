@@ -39,7 +39,8 @@ const baseState = {
   },
 
   extra: {
-    players: 1
+    players: 1,
+    respawnTime: 0
   }
 };
 

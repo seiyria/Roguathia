@@ -169,6 +169,39 @@ for(let i = 0; i < 9; i++) {
     operate: (upgradeData) => upgradeData.dungeon.depth += 10
   });
 }
+
+for(let i = 0; i < 5; i++) {
+  upgrades.push({
+    name: `Lost and Found ${i+1}`,
+    help: `More items got lost by previous adventurers, so you can find them!`,
+    req: i > 0 ? `Lost and Found ${i}` : null,
+    currency: 'vp',
+    cost: (i+1) * 15,
+    operate: (upgradeData) => upgradeData.dungeon.itemsInDungeon += 4
+  });
+}
+
+for(let i = 0; i < 5; i++) {
+  upgrades.push({
+    name: `Perception Boost ${i+1}`,
+    help: `Lost items are more likely to be out in the open.`,
+    req: i > 0 ? `Perception Boost ${i}` : null,
+    currency: 'vp',
+    cost: (i+1) * 25,
+    operate: (upgradeData) => upgradeData.dungeon.itemDropChance += 15
+  });
+}
+
+for(let i = 0; i < 10; i++) {
+  upgrades.push({
+    name: `Faster Respawn ${i+1}`,
+    help: `Respawn faster so the dungeon can eat you again faster.`,
+    req: i > 0 ? `Faster Respawn ${i}` : null,
+    currency: 'vp',
+    cost: (i+1) * 25,
+    operate: (upgradeData) => upgradeData.extra.respawnTime += 1
+  });
+}
 // no more VP
 
 export default upgrades;

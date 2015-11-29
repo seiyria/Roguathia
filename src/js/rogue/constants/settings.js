@@ -118,8 +118,8 @@ export default {
     MAX_FEATURE_SPAWN_CHANCE: 10000
   },
   upgrades: {
-    itemsInDungeon: 1,
-    itemDropChance: 1,
+    itemsInDungeon: 0,
+    itemDropChance: 0,
     altarSpawnChance: 0,
     templeSpawnChance: 0,
     throneSpawnChance: 0,
@@ -132,9 +132,11 @@ export default {
     bathroomSpawnChance: 0,
     monsterLimit: 10,
     maxDifficulty: 5,
-    depth: 0
+    depth: 0,
+    respawnTime: 0
   },
   upgradesMax: {
+    itemsInDungeon: 20,
     itemDropChance: 75,
     altarSpawnChance: 1000,
     templeSpawnChance: 100,
@@ -148,6 +150,7 @@ export default {
     bathroomSpawnChance: 100,
     monsterLimit: 50,
     maxDifficulty: 55,
-    depth: 100
+    depth: 100,
+    respawnTime: 10
   }
 };
