@@ -549,6 +549,7 @@ export default class Character extends Entity {
 
   canAttack(entity) {
     if(entity.hp.atMin()) return false;
+    if(_.contains(this.factions, 'Player') && _.contains(entity.factions, 'Player')) return false;
     // they have a faction that you are against
     return _.intersection(entity.factions, this.antiFactions).length > 0 ||
 
