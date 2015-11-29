@@ -19,6 +19,16 @@ script(type="text/ng-template", id="upgrades")
       .col-xs-12 No upgrades available
     .row.padding-left-15.margin-bottom-15(ng-repeat="upgrade in spUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'sp')", ng-include="'upgrade-block'")
 
+  .col-md-4(fill-height, offset="390")
+    .row.padding-left-15(ng-if="kpUpgrades.length === 0")
+      .col-xs-12 No upgrades available
+    .row.padding-left-15.margin-bottom-15(ng-repeat="upgrade in kpUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'kp')", ng-include="'upgrade-block'")
+
+  .col-md-4(fill-height, offset="390")
+    .row.padding-left-15(ng-if="vpUpgrades.length === 0")
+      .col-xs-12 No upgrades available
+    .row.padding-left-15.margin-bottom-15(ng-repeat="upgrade in vpUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'vp')", ng-include="'upgrade-block'")
+
 script(type="text/ng-template", id="upgrade-block")
   .col-xs-12 {{upgrade.name}}
   .col-xs-2
