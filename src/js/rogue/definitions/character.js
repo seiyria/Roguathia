@@ -168,11 +168,15 @@ export default class Character extends Entity {
     if(!template || !template.trait) return;
     const { utility, buff } = template.trait;
     let { greater, lesser } = template.trait;
-    greater = greater.toLowerCase();
-    lesser = lesser.toLowerCase();
 
-    if(greater) this[greater] += 3;
-    if(lesser) this[lesser] += 1;
+    if(greater) {
+      greater = greater.toLowerCase();
+      this[greater] += 3;
+    }
+    if(lesser) {
+      lesser = lesser.toLowerCase();
+      this[lesser] += 1;
+    }
     if(utility) this.addTrait(Traits[utility]({ level: 1 }));
     if(buff) this.handleStartingBuff(buff);
   }
