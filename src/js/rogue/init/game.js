@@ -12,6 +12,8 @@ import WinScreen from '../display/screens/win';
 import Player from '../definitions/player';
 import * as Victories from '../constants/victories';
 
+import Log from '../lib/logger';
+
 export default class Game {
   constructor() {
     this.display = new ROT.Display({
@@ -109,6 +111,10 @@ export default class Game {
     const playerLocations = GameState.world.getValidTilesInRange(
       zeroStartStairs[0], zeroStartStairs[1], 0, 2, (tile) => tile.glyph.key === '.'
     );
+
+    if(GameState.players.length > 0) {
+      Log('Game', 'A second game started somehow.');
+    }
 
     for(let i = 0; i < GameState.extra.players; i++) {
       const startTile = playerLocations.shift();
