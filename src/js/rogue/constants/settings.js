@@ -131,7 +131,8 @@ export default {
     sinkSpawnChance: 0,
     bathroomSpawnChance: 0,
     monsterLimit: 10,
-    maxDifficulty: 5
+    maxDifficulty: 5,
+    depth: 0
   },
   upgradesMax: {
     itemDropChance: 75,
@@ -146,6 +147,7 @@ export default {
     sinkSpawnChance: 1000,
     bathroomSpawnChance: 100,
     monsterLimit: 50,
-    maxDifficulty: 55
+    maxDifficulty: 55,
+    depth: 100
   }
 };

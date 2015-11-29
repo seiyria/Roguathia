@@ -18,8 +18,6 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * Expand item drop variety (ie, their starting equipment is better)
     * Higher KP multiplier
   * VP (you get points for surviving the dungeon, your conduct is worth lots of points)
-    * More dungeon features (fountains, thrones, decorations, sinks, torches, etc)
-    * Deeper dungeons (+5 floors / lvl)
     * More floor types (caves, mines, towns, etc) (see [here](http://crawl.chaosforge.org/Dungeon_branches) for possible branch types)
     * More chance of generating items on the floor (try to generate 1%, one tile, then try to generate another 1% for another item (keep going until max is reached, or failure occurs))
     * More items generated on the floor (say, increase the max by 1 per level - the min would always be 1)

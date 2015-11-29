@@ -37,7 +37,11 @@ export default class World {
     this.placeItemsOnMap(i);
   }
   
-  generateWorld(width = 70, height = 70, depth = 10) {
+  generateWorld(opts = {}) {
+    _.defaults(opts, { width: 70, height: 70, depth: 10 });
+
+    const { width, height, depth } = opts;
+
     this.width = width;
     this.height = height;
     this.depth = depth;

@@ -158,6 +158,17 @@ _.each(['altar', 'throne', 'grave', 'fountain', 'sink'], feat => {
     });
   }
 });
+
+for(let i = 0; i < 9; i++) {
+  upgrades.push({
+    name: `Deeper Dungeon ${i+1}`,
+    help: `The dungeon will get 10 floors deeper.`,
+    req: i > 0 ? `Deeper Dungeon ${i}` : null,
+    currency: 'vp',
+    cost: (i+1) * 20,
+    operate: (upgradeData) => upgradeData.dungeon.depth += 10
+  });
+}
 // no more VP
 
 export default upgrades;

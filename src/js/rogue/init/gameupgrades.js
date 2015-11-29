@@ -9,7 +9,8 @@ const baseState = {
     fountainSpawnChance: 0,
     sinkSpawnChance: 0,
     monsterLimit: 10,
-    maxDifficulty: 5
+    maxDifficulty: 5,
+    depth: 0
 
    /* itemDropChance: 100,
     altarSpawnChance: 1000,
