@@ -7,7 +7,10 @@ const baseState = {
     throneSpawnChance: 0,
     graveSpawnChance: 0,
     fountainSpawnChance: 0,
-    sinkSpawnChance: 0
+    sinkSpawnChance: 0,
+    monsterLimit: 10,
+    maxDifficulty: 5
+
    /* itemDropChance: 100,
     altarSpawnChance: 1000,
     templeSpawnChance: 100,
@@ -35,9 +38,7 @@ const baseState = {
   },
 
   extra: {
-    players: 1,
-    monsterLimit: 10,
-    maxDifficulty: 5
+    players: 1
   }
 };
 

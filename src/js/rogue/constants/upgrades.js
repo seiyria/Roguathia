@@ -129,7 +129,7 @@ for(let i = 0; i < 5; i++) {
     req: i > 0 ? `More Monsters ${i}` : null,
     currency: 'kp',
     cost: (i+1) * 20000,
-    operate: (upgradeData) => upgradeData.extra.monsterLimit += 5
+    operate: (upgradeData) => upgradeData.dungeon.monsterLimit += 5
   });
 }
 
@@ -140,7 +140,7 @@ for(let i = 0; i < 10; i++) {
     req: i > 0 ? `Darker Monsters ${i}` : null,
     currency: 'kp',
     cost: (i+1) * 10000,
-    operate: (upgradeData) => upgradeData.extra.maxDifficulty += 5
+    operate: (upgradeData) => upgradeData.dungeon.maxDifficulty += 5
   });
 }
 // no more KP
