@@ -32,7 +32,7 @@ export default class MonsterSpawner {
 
   static spawnSingle(monsterName, tile) {
 
-    while(GameState.monsters.length >= GameState.upgrades.monsterLimit) {
+    while(GameState.monsters.length >= GameState.extra.monsterLimit) {
 
       // some monsters can be marked important, like Selyk, so they will always spawn and never despawn
       const firstBadMonster = _.find(GameState.monsters, mon => !mon.important);

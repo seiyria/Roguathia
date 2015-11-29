@@ -15,6 +15,7 @@ const upgrades = [
     currency: 'sp' }
 ];
 
+// SP
 _.each(_.keys(Professions), profession => {
   upgrades.push(
     { name: `Random: ${profession}`,
@@ -118,5 +119,19 @@ for(let i = 0; i < 3; i++) {
     operate: (upgradeData) => upgradeData.extra.players++
   });
 }
+// no more SP
+
+// KP
+for(let i = 0; i < 5; i++) {
+  upgrades.push({
+    name: `More Monsters ${i+1}`,
+    help: `More monsters will be able to spawn in the dungeon.`,
+    req: i > 0 ? `More Monsters ${i}` : null,
+    currency: 'kp',
+    cost: (i+1) * 20000,
+    operate: (upgradeData) => upgradeData.extra.monsterLimit += 5
+  });
+}
+// no more KP
 
 export default upgrades;

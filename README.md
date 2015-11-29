@@ -17,7 +17,6 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * More monster variety (ie, unlock certain difficulties for monsters. By default you only get up to difficulty 5 or so.)
     * Stronger monsters (ie, their stats are overall better)
     * Expand item drop variety (ie, their starting equipment is better)
-    * Higher monster limit
     * Higher KP multiplier
   * VP (you get points for surviving the dungeon, your conduct is worth lots of points)
     * More dungeon features (fountains, thrones, decorations, sinks, torches, etc)

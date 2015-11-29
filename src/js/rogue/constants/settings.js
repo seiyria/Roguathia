@@ -129,8 +129,7 @@ export default {
     fountainSpawnChance: 25,
     oracleRoomChance: 5,
     sinkSpawnChance: 25,
-    bathroomSpawnChance: 5,
-    monsterLimit: 5
+    bathroomSpawnChance: 5
   },
   upgrades: {
     itemsInDungeon: 1,
@@ -144,8 +143,7 @@ export default {
     fountainSpawnChance: 0,
     oracleRoomChance: 0,
     sinkSpawnChance: 0,
-    bathroomSpawnChance: 0,
-    monsterLimit: 10
+    bathroomSpawnChance: 0
   },
   upgradesMax: {
     itemDropChance: 75,
@@ -158,7 +156,6 @@ export default {
     fountainSpawnChance: 1000,
     oracleRoomChance: 100,
     sinkSpawnChance: 1000,
-    bathroomSpawnChance: 100,
-    monsterLimit: 100
+    bathroomSpawnChance: 100
   }
 };
