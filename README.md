@@ -14,7 +14,6 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * Higher SP multiplier
     * Game speed slider
   * KP (monsters are worth different amounts of points)
-    * More monster variety (ie, unlock certain difficulties for monsters. By default you only get up to difficulty 5 or so.)
     * Stronger monsters (ie, their stats are overall better)
     * Expand item drop variety (ie, their starting equipment is better)
     * Higher KP multiplier
