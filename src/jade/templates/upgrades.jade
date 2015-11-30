@@ -36,4 +36,4 @@ script(type="text/ng-template", id="upgrade-block")
   .col-xs-4
     span {{upgrade.cost | number:0}}
   .col-xs-6
-    button.btn.btn-link.margin-0(ng-disabled="{{currencyDataManager.currency[upgrade.currency] < upgrade.cost}}", ng-click="buyUpgrade(upgrade)") Buy
+    button.btn.btn-link.margin-0(ng-disabled="currencyDataManager.currency[upgrade.currency] < upgrade.cost", ng-click="buyUpgrade(upgrade)") Buy
