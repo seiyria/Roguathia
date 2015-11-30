@@ -3,6 +3,7 @@ import _ from 'lodash';
 import ROT from 'rot-js';
 import * as Tiles from '../tiles/_all';
 import Generator from '../generator';
+import Log from '../../lib/logger';
 
 export default class Dungeon extends Generator {
 
@@ -11,7 +12,7 @@ export default class Dungeon extends Generator {
     const map = [];
     
     // -3 to adjust for the UI components at the bottom
-    const digger = new ROT.Map.Digger(w, h-3, { roomWidth: [4, 8], roomHeight: [4, 7], corridorLength: [5, 13] });
+    const digger = new ROT.Map.Digger(w, h-3, { roomWidth: [4, 8], roomHeight: [4, 7], corridorLength: [5, 13], dugPercentage: 0.3 });
     
     digger.create((x, y, value) => {
       if(!map[x]) map[x] = [];
@@ -26,6 +27,10 @@ export default class Dungeon extends Generator {
     _.each(digger.getCorridors(), (corridor) => {
       this.placeCorridorTiles(map, corridor, z);
     });
+
+    if(digger.getRooms().length < 2) {
+      Log('DungeonGenerator', 'Only one room was generated, this is probably a rare bug.');
+    }
 
     // handle room outlines and doors
     _.each(digger.getRooms(), (room) => {
