@@ -158,6 +158,7 @@ export default class Character extends Entity {
     if(!template.gender) template.gender = _.sample(['Male', 'Female']);
     if(!template.name) template.name = _.sample(Names);
     if(!template.color) template.color = '#fff';
+    if(!template.ai) template.ai = 'Wander';
 
     this.glyph.fg = template.color;
 

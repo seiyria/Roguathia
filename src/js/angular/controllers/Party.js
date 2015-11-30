@@ -73,4 +73,8 @@ module.controller('PartyMemberEdit', ($scope, $uibModalInstance, TemplateDataMan
   $scope.lesser = upgradesBySplit('Trait: L.', 'None');
   $scope.utility = upgradesBySplit('Trait: U.', 'None');
   $scope.buff = upgradesBySplit('Buff:', 'None');
+
+  $scope.ais = [
+    { key: 'Wander', val: undefined }
+  ];
 });

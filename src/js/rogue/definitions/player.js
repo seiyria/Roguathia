@@ -15,7 +15,7 @@ export default class Player extends Character {
     opts.stats = { behaviors: [
       Behaviors.Attacks(),
       Behaviors.DropsGold('0d0'), Behaviors.HealsBelowPercent(50),
-      Behaviors.Wanders(), Behaviors.AlertsOnStep()
+      Behaviors.AlertsOnStep()
     ] };
     super({ key: Glyphs.Player }, x, y, z, opts);
     this.factions.push(Factions.PLAYER);
@@ -27,6 +27,14 @@ export default class Player extends Character {
     
     this.name = _.trunc(this.name, { length: Settings.game.nameLength, omission: '' });
     this.brokenConduct.stubborn = false;
+    this.getDefaultExploreBehavior(opts.template);
+  }
+
+  getDefaultExploreBehavior(template) {
+    const behaviors = {
+      Wander: Behaviors.Wanders
+    };
+    this.behaviors.push(behaviors[template.ai || 'Wander']());
   }
   
   getSpawnSteps() {

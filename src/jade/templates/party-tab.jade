@@ -124,6 +124,11 @@ script(type="text/ng-template", id="player-edit")
       .col-md-8
         select.form-control(ng-model="templateDataManager.templates[index].trait.buff", ng-options="trait.val as trait.key for trait in buff")
 
+    .row
+      .col-md-4.data-field AI
+      .col-md-8
+        select.form-control(ng-model="templateDataManager.templates[index].ai", ng-options="ai.val as ai.key for ai in ais")
+
   .modal-footer
     .pull-left *Changes reflected during future games only
     button.btn.btn-default(ng-click="close()") Close
