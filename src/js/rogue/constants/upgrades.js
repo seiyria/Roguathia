@@ -56,7 +56,7 @@ _.each(_.keys(Races), race => {
     });
 });
 
-_.each(['STR', 'DEX', 'CON', 'INT', 'WIS', 'AGI', 'LUK'], stat => {
+_.each(['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA', 'LUK'], stat => {
   upgrades.push({
     name: `Trait: L. ${stat}`,
     help: `Lesser ${stat} grants +1 ${stat} when assigned to a character.`,
@@ -146,7 +146,7 @@ for(let i = 0; i < 10; i++) {
 // no more KP
 
 // VP
-_.each(['altar', 'throne', 'grave', 'fountain', 'sink'], feat => {
+_.each(['throne', 'fountain', 'sink'], feat => {
   for(let i = 0; i < 5; i++) {
     upgrades.push({
       name: `Feature: ${_.capitalize(feat)} ${i+1}`,
