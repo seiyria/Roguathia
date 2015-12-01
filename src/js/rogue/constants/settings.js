@@ -10,7 +10,7 @@ export default {
     minStatValue: 3,
     alignThreshold: 100,
     baseAC: 10,
-    spawnSteps: 100,
+    spawnSteps: 20,
     nameLength: 12,
 
     display: {

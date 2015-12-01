@@ -32,9 +32,10 @@ export default class Player extends Character {
 
   getDefaultExploreBehavior(template) {
     const behaviors = {
-      Wander: Behaviors.Wanders
+      Wander: Behaviors.Wanders,
+      Explore: Behaviors.ExploresDungeon
     };
-    this.behaviors.push(behaviors[template.ai || 'Wander']());
+    this.behaviors.push(behaviors[template.ai || 'Explore']());
   }
   
   getSpawnSteps() {
@@ -70,8 +71,8 @@ export default class Player extends Character {
       super.act();
       setTimeout(function() { engine.unlock(); }, Settings.game.turnDelay/livingPlayers.length);
     }
-    
-    this.rebuildPathingMap();
+
+    this._path = this.rebuildPathingMap();
     
     if(this.currentTurn % this.getSpawnSteps() === 0) {
       this.spawnMonster();
@@ -88,7 +89,7 @@ export default class Player extends Character {
     }
   }
   
-  rebuildPathingMap() {
+  rebuildPathingMap(targetX = this.x, targetY = this.y) {
     const canPass = (x, y) => {
       const entity = GameState.world.getEntity(x, y, this.z);
       const isAttackable = entity && this.canAttack(entity);
@@ -96,7 +97,7 @@ export default class Player extends Character {
       return GameState.world.isTilePassable(x, y, this.z) || isMe || isAttackable;
     };
     
-    this._path = new ROT.Path.Dijkstra(this.x, this.y, canPass, { topology: 8 });
+    return new ROT.Path.Dijkstra(targetX, targetY, canPass, { topology: 8 });
   }
   
   die(killer) {

@@ -24,10 +24,11 @@ export default class World {
   }
 
   setMapAt(floor, i) {
-    const { map, mapName, shortMapName, stairs } = floor;
+    const { map, mapName, rooms, shortMapName, stairs } = floor;
     this.tiles[i] = map;
     this.tiles[i].mapName = mapName;
     this.tiles[i].shortMapName = shortMapName;
+    this.tiles[i].rooms = rooms;
     const [upStairs, downStairs] = stairs;
 
     this.stairs[i] = {};
@@ -114,7 +115,7 @@ export default class World {
     tile.x = x;
     tile.y = y;
     tile.z = z;
-    this.tiles  [z][x][y] = tile;
+    this.tiles[z][x][y] = tile;
   }
   
   isVoid(x, y, z) {

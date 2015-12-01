@@ -28,12 +28,14 @@ export default class Dungeon extends Generator {
       this.placeCorridorTiles(map, corridor, z);
     });
 
-    if(digger.getRooms().length < 2) {
+    const rooms = digger.getRooms();
+
+    if(rooms.length < 2) {
       Log('DungeonGenerator', 'Only one room was generated, this is probably a rare bug.');
     }
 
     // handle room outlines and doors
-    _.each(digger.getRooms(), (room) => {
+    _.each(rooms, (room) => {
 
       // draw left and right walls
       this.drawVerticalWalls(map, room, z);
@@ -46,15 +48,15 @@ export default class Dungeon extends Generator {
     });
 
     const [stairsUp, stairsDown] = this.getStairs(z);
-    const rooms = _.sample(digger.getRooms(), 2);
+    const chosenRooms = _.sample(digger.getRooms(), 2);
     const stairs = [
-      this.placeStairsInRoom(map, rooms[0], z, stairsUp),
-      stairsDown ? this.placeStairsInRoom(map, rooms[1], z, stairsDown) : null
+      this.placeStairsInRoom(map, chosenRooms[0], z, stairsUp),
+      stairsDown ? this.placeStairsInRoom(map, chosenRooms[1], z, stairsDown) : null
     ];
 
-    this.attemptFeaturePlacement(map, z, digger.getRooms());
+    this.attemptFeaturePlacement(map, z, rooms);
     
-    return { map, stairs, mapName: 'The Dungeons of Doom', shortMapName: 'Dungeon' };
+    return { map, stairs, rooms, mapName: 'The Dungeons of Doom', shortMapName: 'Dungeon' };
   }
 
   static placeCorridorTiles(map, corridor, z) {

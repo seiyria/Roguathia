@@ -75,6 +75,7 @@ module.controller('PartyMemberEdit', ($scope, $uibModalInstance, TemplateDataMan
   $scope.buff = upgradesBySplit('Buff:', 'None');
 
   $scope.ais = [
-    { key: 'Wander', val: undefined }
+    { key: 'Explore Dungeon', val: undefined },
+    { key: 'Wander', val: 'Wander' }
   ];
 });

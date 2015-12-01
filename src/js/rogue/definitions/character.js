@@ -440,13 +440,16 @@ export default class Character extends Entity {
     this.doBehavior('step');
   }
 
-  stepTowards(target) {
-    if(!this.canSee(target)) {
+  stepTowards(target, basePath = target._path) {
+
+    // first check if it's just a coordinate pair
+    if(_.keys(target).length > 2 && !this.canSee(target)) {
       return this.stepRandomly();
     }
+
     const path = [];
     const addPath = (x, y) => path.push({ x, y });
-    target._path.compute(this.x, this.y, addPath);
+    basePath.compute(this.x, this.y, addPath);
 
     path.shift();
     const step = path.shift();

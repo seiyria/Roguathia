@@ -33,6 +33,6 @@ export default class Altar extends Generator {
     const altarTile = this.getRandomFloorTile(map);
     this.placeTile(map, Tiles.SelykAltar, altarTile.x, altarTile.y, z);
     
-    return { map, stairs, mapName: `Selyk's Altar`, shortMapName: 'Altar' };
+    return { map, stairs, rooms: [room], mapName: `Selyk's Altar`, shortMapName: 'Altar' };
   }
 }

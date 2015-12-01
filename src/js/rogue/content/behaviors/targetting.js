@@ -92,6 +92,72 @@ class WandersBehavior extends Behavior {
 }
 export const Wanders = () => new WandersBehavior();
 
+class ExploresDungeonBehavior extends Behavior {
+  constructor() { super(Priority.MOVE); }
+
+  getCentralCoords(room) {
+    return {
+      x: room._x1 + ~~((room._x2 - room._x1)/2),
+      y: room._y1 + ~~((room._y2 - room._y1)/2)
+    };
+  }
+
+  checkForRoomActivity(me) {
+    // mark the current room, if any, as explored
+    const currentRoom = _.find(GameState.world.tiles[me.z].rooms, room => {
+      return room._x1 < me.x && room._x2 > me.x &&
+        room._y1 < me.y && room._x2 > me.y;
+    });
+
+    if(!currentRoom) return;
+    currentRoom.isExplored = true;
+  }
+
+  act(me) {
+    if(!me._path) return;
+
+    const rooms = GameState.world.tiles[me.z].rooms;
+
+    // take a random step if you've explored all the rooms
+    if(_.all(rooms, room => room.isExplored)) {
+      me.stepRandomly();
+      return;
+    }
+
+    if(!this.target) {
+      this.nextRoom = _.reject(rooms, room => room.isExplored)[0];
+      this.target = this.getCentralCoords(this.nextRoom);
+    }
+
+    // check for stairs down but only if you're not on the last floor (because those stairs down don't do anything if they're there)
+    const stairsInRange = GameState.world.getValidTilesInRange(me.x, me.y, me.z, 10, tile => tile.constructor.name === 'StairsDown')[0];
+    if(stairsInRange && GameState.currentFloor !== GameState.world.depth-1) {
+      this.target = { x: stairsInRange.x, y: stairsInRange.y };
+    }
+
+    // if there is unexplored rooms or stairs in sight, go to the light
+    if(this.target) {
+      const pathToTarget = me.rebuildPathingMap(this.target.x, this.target.y);
+      me.stepTowards(this.target, pathToTarget);
+
+      if(this.target.x === me.x && this.target.y === me.y) {
+        this.checkForRoomActivity(me);
+        this.target = null;
+        this.nextRoom.isExplored = true;
+      }
+      return;
+    }
+
+    // there is nothing, all is vain, step randomly
+    me.stepRandomly();
+  }
+
+  step(me) {
+    this.checkForRoomActivity(me);
+  }
+}
+export const ExploresDungeon = () => new ExploresDungeonBehavior();
+
 /* has very loud footsteps. pretty much, only players have or need this */
 class AlertsOnStepBehavior extends Behavior {
   constructor() { super(Priority.ALWAYS); }
