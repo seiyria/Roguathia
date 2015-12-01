@@ -1,4 +1,6 @@
 
+import _ from 'lodash';
+
 const baseState = {
   dungeon: {
     itemsInDungeon: 0,
@@ -44,7 +46,7 @@ const baseState = {
   }
 };
 
-export const NewState = () => baseState;
+export const NewState = () => _.cloneDeep(baseState);
 
 let curState = NewState();
 
