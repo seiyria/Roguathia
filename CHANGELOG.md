@@ -1,6 +1,16 @@
-<a name="0.2.0"></a>
-# [0.2.0](https://github.com/seiyria/Roguathia/compare/0.2.0...v0.2.0) (2015-12-01)
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/seiyria/Roguathia/compare/0.2.1...v0.2.1) (2015-12-01)
 
+
+
+
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/seiyria/Roguathia/compare/0.2.0...0.2.1) (2015-12-01)
+
+
+### Bug Fixes
+
+* **ai:** the ai shouldn't get randomly stuck any longer ([d49fd3a](https://github.com/seiyria/Roguathia/commit/d49fd3a))
 
 
 
