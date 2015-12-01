@@ -5,7 +5,7 @@ export default {
     height: 24
   },
   game: {
-    turnDelay: 50,
+    turnDelay: 100,
     killXpDivisor: 5,
     minStatValue: 3,
     alignThreshold: 100,

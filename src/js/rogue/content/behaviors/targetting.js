@@ -113,6 +113,10 @@ class ExploresDungeonBehavior extends Behavior {
     currentRoom.isExplored = true;
   }
 
+  rebuildPathToTarget(me) {
+    this.pathToTarget = me.simplePathingMap(this.target.x, this.target.y);
+  }
+
   act(me) {
     if(!me._path) return;
 
@@ -124,30 +128,60 @@ class ExploresDungeonBehavior extends Behavior {
       return;
     }
 
-    if(!this.target || !this.nextRoom) {
+    let doRebuild = false;
+
+    // prioritize a new room last
+    if(!this.target && !this.nextRoom) {
       this.nextRoom = _.sample(_.reject(rooms, room => room.isExplored));
-      this.target = this.getCentralCoords(this.nextRoom);
     }
 
+    const meSight = me.getSight();
+
     // check for stairs down but only if you're not on the last floor (because those stairs down don't do anything if they're there)
-    const stairsInRange = GameState.world.getValidTilesInRange(me.x, me.y, me.z, 10, tile => tile.constructor.name === 'StairsDown')[0];
-    if(stairsInRange && GameState.currentFloor !== GameState.world.depth-1) {
-      this.target = { x: stairsInRange.x, y: stairsInRange.y };
+    this.stairsInRange = GameState.world.getValidTilesInRange(me.x, me.y, me.z, meSight, tile => tile.constructor.name === 'StairsDown')[0];
+
+    const tilesWithItems = GameState.world.getValidTilesInRange(me.x, me.y, me.z, meSight, tile => {
+      const items = GameState.world.getItemsAt(tile.x, tile.y, me.z);
+      return items && items.length > 0;
+    });
+
+    if(tilesWithItems.length > 0) {
+      this.targetTile = tilesWithItems[0];
+    }
+
+    if(this.targetTile) {
+      this.target = { x: this.targetTile.x, y: this.targetTile.y };
+      doRebuild = true;
+      console.log('targetting tile');
+
+    } else if(this.stairsInRange && GameState.currentFloor !== GameState.world.depth-1) {
+      this.target = { x: this.stairsInRange.x, y: this.stairsInRange.y };
+      doRebuild = true;
+      console.log('targetting stairs');
+
+    } else if(this.nextRoom) {
+      this.target = this.getCentralCoords(this.nextRoom);
+      doRebuild = true;
+      console.log('targetting room');
+
+    }
+
+    if(doRebuild) {
+      this.rebuildPathToTarget(me);
     }
 
     // if there is unexplored rooms or stairs in sight, go to the light
     if(this.target) {
-      const pathToTarget = me.simplePathingMap(this.target.x, this.target.y);
 
       // no valid path to target.. try wandering around?
-      if(!me.stepTowards(this.target, pathToTarget)) {
+      if(!me.stepTowards(this.target, this.pathToTarget)) {
         me.stepRandomly();
       }
 
       if(this.target.x === me.x && this.target.y === me.y) {
         this.checkForRoomActivity(me);
         this.nextRoom.isExplored = true;
-        this.target = this.nextRoom = null;
+        this.target = this.nextRoom = this.targetTile = this.pathToTarget = this.stairsInRange = null;
       }
       return;
     }

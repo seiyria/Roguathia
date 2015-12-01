@@ -102,10 +102,7 @@ export default class Player extends Character {
   }
 
   simplePathingMap(targetX = this.x, targetY = this.y) {
-    const canPass = (x, y) => {
-      return GameState.world.isTilePassable(x, y, this.z);
-    };
-
+    const canPass = (x, y) => GameState.world.isTilePassable(x, y, this.z);
     return new ROT.Path.Dijkstra(targetX, targetY, canPass, { topology: 8 });
   }
   
