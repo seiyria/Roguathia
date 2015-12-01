@@ -94,9 +94,18 @@ export default class Player extends Character {
       const entity = GameState.world.getEntity(x, y, this.z);
       const isAttackable = entity && this.canAttack(entity);
       const isMe = this.x === x && this.y === y;
-      return GameState.world.isTilePassable(x, y, this.z) || isMe || isAttackable;
+      const isPlayer = entity && entity.constructor.name === 'Player';
+      return GameState.world.isTilePassable(x, y, this.z) || isPlayer || isMe || isAttackable;
     };
     
+    return new ROT.Path.Dijkstra(targetX, targetY, canPass, { topology: 8 });
+  }
+
+  simplePathingMap(targetX = this.x, targetY = this.y) {
+    const canPass = (x, y) => {
+      return GameState.world.isTilePassable(x, y, this.z);
+    };
+
     return new ROT.Path.Dijkstra(targetX, targetY, canPass, { topology: 8 });
   }
   

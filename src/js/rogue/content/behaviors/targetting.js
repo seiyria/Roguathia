@@ -124,8 +124,8 @@ class ExploresDungeonBehavior extends Behavior {
       return;
     }
 
-    if(!this.target) {
-      this.nextRoom = _.reject(rooms, room => room.isExplored)[0];
+    if(!this.target || !this.nextRoom) {
+      this.nextRoom = _.sample(_.reject(rooms, room => room.isExplored));
       this.target = this.getCentralCoords(this.nextRoom);
     }
 
@@ -137,13 +137,17 @@ class ExploresDungeonBehavior extends Behavior {
 
     // if there is unexplored rooms or stairs in sight, go to the light
     if(this.target) {
-      const pathToTarget = me.rebuildPathingMap(this.target.x, this.target.y);
-      me.stepTowards(this.target, pathToTarget);
+      const pathToTarget = me.simplePathingMap(this.target.x, this.target.y);
+
+      // no valid path to target.. try wandering around?
+      if(!me.stepTowards(this.target, pathToTarget)) {
+        me.stepRandomly();
+      }
 
       if(this.target.x === me.x && this.target.y === me.y) {
         this.checkForRoomActivity(me);
-        this.target = null;
         this.nextRoom.isExplored = true;
+        this.target = this.nextRoom = null;
       }
       return;
     }
