@@ -2,16 +2,13 @@ script(type="text/ng-template", id="upgrades")
   .col-md-12.margin-bottom-15
     .row.padding-left-15
       .col-xs-4
-        span(uib-tooltip="SP is earned by taking steps and earning score. It is used to upgrade your adventurers.", tooltip-placement="right", tooltip-append-to-body="true") &#8505
-        span &nbsp;SP
+        span(uib-tooltip="SP is earned by taking steps and earning score. It is used to upgrade your adventurers.", tooltip-placement="right", tooltip-append-to-body="true") SP
         span.pull-right {{currencyDataManager.currency.sp | number:0}}
       .col-xs-4
-        span(uib-tooltip="KP is earned by killing monsters. It is used to upgrade your monsters.", tooltip-placement="right", tooltip-append-to-body="true") &#8505
-        span &nbsp;KP
+        span(uib-tooltip="KP is earned by killing monsters. It is used to upgrade your monsters.", tooltip-placement="right", tooltip-append-to-body="true") KP
         span.pull-right {{currencyDataManager.currency.kp | number:0}}
       .col-xs-4
-        span(uib-tooltip="VP is earned by winning the game. It is used to upgrade your dungeon.", tooltip-placement="right", tooltip-append-to-body="true") &#8505
-        span &nbsp;VP
+        span(uib-tooltip="VP is earned by winning the game. It is used to upgrade your dungeon.", tooltip-placement="right", tooltip-append-to-body="true") VP
         span.pull-right {{currencyDataManager.currency.vp | number:0}}
 
   .col-md-4(fill-height, offset="390")
@@ -30,10 +27,8 @@ script(type="text/ng-template", id="upgrades")
     .row.padding-left-15.margin-bottom-15(ng-repeat="upgrade in vpUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'vp')", ng-include="'upgrade-block'")
 
 script(type="text/ng-template", id="upgrade-block")
-  .col-xs-12 {{upgrade.name}}
-  .col-xs-2
-    span(uib-tooltip="{{upgrade.help}}", tooltip-placement="right", tooltip-append-to-body="true") &#8505
-  .col-xs-4
-    span {{upgrade.cost | number:0}}
+  .col-xs-12(uib-tooltip="{{upgrade.help}}", tooltip-placement="right", tooltip-append-to-body="true") {{upgrade.name}}
+  .col-xs-6
+    span {{upgrade.cost | number:0}} {{upgrade.currency}}
   .col-xs-6
     button.btn.btn-link.margin-0(ng-disabled="currencyDataManager.currency[upgrade.currency] < upgrade.cost", ng-click="buyUpgrade(upgrade)") Buy

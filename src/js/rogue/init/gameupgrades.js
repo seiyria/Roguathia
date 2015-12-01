@@ -52,4 +52,6 @@ let curState = NewState();
 
 export const SetState = (newState) => curState = newState;
 
+export const Current = () => curState;
+
 export default curState;

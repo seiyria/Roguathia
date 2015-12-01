@@ -1,7 +1,7 @@
 
 import _ from 'lodash';
 import Settings from '../constants/settings';
-import GameUpgrades from './gameupgrades';
+import { Current } from './gameupgrades';
 import { EventEmitter2 } from 'eventemitter2';
 
 class GameState extends EventEmitter2 {
@@ -38,6 +38,8 @@ class GameState extends EventEmitter2 {
   }
 
   loadExternalOptions() {
+    const GameUpgrades = Current();
+
     this.upgrades = {};
     _.keys(Settings.upgrades)
       .forEach(key => {

@@ -1,6 +1,27 @@
-<a name="0.2.1"></a>
-## [0.2.1](https://github.com/seiyria/Roguathia/compare/0.2.1...v0.2.1) (2015-12-01)
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/seiyria/Roguathia/compare/0.2.3...v0.2.3) (2015-12-01)
 
+
+
+
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/seiyria/Roguathia/compare/0.2.2...0.2.3) (2015-12-01)
+
+
+### Bug Fixes
+
+* **game:** loading save data was broken and now it's not. ([ab4beb4](https://github.com/seiyria/Roguathia/commit/ab4beb4)), closes [#33](https://github.com/seiyria/Roguathia/issues/33)
+
+
+
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/seiyria/Roguathia/compare/0.2.1...0.2.2) (2015-12-01)
+
+
+### Bug Fixes
+
+* **gamestate:** the game state should now be cloned completely, preventing strange errors from h ([351b345](https://github.com/seiyria/Roguathia/commit/351b345))
+* **ui:** the tooltips are now associated with the item name block instead of a unicode ch ([acc2799](https://github.com/seiyria/Roguathia/commit/acc2799)), closes [#22](https://github.com/seiyria/Roguathia/issues/22)
 
 
 
