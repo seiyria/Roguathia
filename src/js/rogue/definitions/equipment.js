@@ -21,6 +21,7 @@ export class Special extends Item {}
 @material(Materials.Food)
 export class Comestible extends Item {
   constructor(opts = {}) {
+    opts.autoRemove = true;
     opts.symbol = Glyphs.Comestible;
     super(opts);
   }
