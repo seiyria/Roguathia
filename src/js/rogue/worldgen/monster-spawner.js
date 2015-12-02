@@ -38,7 +38,7 @@ export default class MonsterSpawner {
       const firstBadMonster = _.find(GameState.monsters, mon => !mon.important);
 
       // clean up old monsters
-      firstBadMonster.die(`Selyk's Divine Hand`);
+      firstBadMonster.die({ name: `Selyk's Divine Hand` });
     }
 
     const monster = Monsters[monsterName];

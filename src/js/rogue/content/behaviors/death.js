@@ -15,7 +15,7 @@ class KillsSelfAfterPeriodOfTimeBehavior extends Behavior {
   }
   act(me) {
     if(this.turns-- > 0) return;
-    me.die('time');
+    me.die({ name: 'time' });
   }
 }
 
