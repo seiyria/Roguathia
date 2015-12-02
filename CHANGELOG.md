@@ -1,6 +1,16 @@
-<a name="0.2.4"></a>
-## [0.2.4](https://github.com/seiyria/Roguathia/compare/0.2.4...v0.2.4) (2015-12-02)
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/seiyria/Roguathia/compare/0.2.5...v0.2.5) (2015-12-02)
 
+
+
+
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/seiyria/Roguathia/compare/0.2.4...0.2.5) (2015-12-02)
+
+
+### Features
+
+* **game:** sp/kp are cached while the game runs now and will be added upon restart if the g ([e0559d5](https://github.com/seiyria/Roguathia/commit/e0559d5)), closes [#37](https://github.com/seiyria/Roguathia/issues/37)
 
 
 
