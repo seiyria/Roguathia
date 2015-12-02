@@ -10,12 +10,12 @@ module.controller('Log', ($scope) => {
 
   $scope.log = [];
 
-  const addMessage = (msg, type) => {
-    if(!type) {
-      Log('GameLog', `Message "${msg}" has no type`);
+  const addMessage = (msgObj) => {
+    if(!msgObj.type) {
+      Log('GameLog', `Message "${msgObj.message}" has no type`);
     }
 
-    $scope.log.push({ time: new Date(), msg, type });
+    $scope.log.push(msgObj);
 
     if($scope.log.length > 100) {
       $scope.log.shift();
@@ -27,6 +27,6 @@ module.controller('Log', ($scope) => {
   });
 
   GameState.on('log', (logObj) => {
-    addMessage(logObj.message, logObj.type);
+    addMessage(logObj);
   });
 });

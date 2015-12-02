@@ -3,5 +3,5 @@ script(type="text/ng-template", id="log-tab")
     .msg(ng-if="log.length === 0")
       .string No Log Messages
     .msg(ng-repeat="msg in log")
-      .timestamp(ng-bind="::(msg.time | date:'h:mm a')")
-      .string(ng-bind="::msg.msg")
+      .timestamp Turn {{::msg.turn}}
+      .string {{::msg.message}}

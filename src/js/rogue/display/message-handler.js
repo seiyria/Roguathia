@@ -16,6 +16,7 @@ export default class MessageQueue {
     }
     GameState.messages.unshift({ turnsLeft: Settings.game.display.turns, message: messageObj.message });
     GameState.messages.length = Settings.game.display.log; // cap the messages off at the last 50
+    messageObj.turn = _.max(_.pluck(GameState.players, 'currentTurn'));
     GameState.emit('log', messageObj);
   }
   
