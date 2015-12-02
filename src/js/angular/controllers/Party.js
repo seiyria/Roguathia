@@ -8,6 +8,8 @@ module.controller('Party', ($scope, $uibModal) => {
 
   $scope.inventoryOffset = () => 60 + document.getElementsByClassName('player-block')[0].offsetHeight;
 
+  $scope.countSlotsTaken = (equipment) => _.reduce(equipment, (prev, item) => prev + item.slotsTaken, 0);
+
   $scope.openEditWindow = (player, index) => {
     $uibModal.open({
       templateUrl: 'player-edit',

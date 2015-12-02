@@ -1,6 +1,29 @@
-<a name="0.2.4"></a>
-## [0.2.4](https://github.com/seiyria/Roguathia/compare/0.2.4...v0.2.4) (2015-12-02)
+<a name="0.2.6"></a>
+## [0.2.6](https://github.com/seiyria/Roguathia/compare/0.2.6...v0.2.6) (2015-12-02)
 
+
+
+
+<a name="0.2.6"></a>
+## [0.2.6](https://github.com/seiyria/Roguathia/compare/0.2.5...0.2.6) (2015-12-02)
+
+
+### Bug Fixes
+
+* **death:** monsters that previously could have died to undefined will have an appropriate k ([412345f](https://github.com/seiyria/Roguathia/commit/412345f)), closes [#25](https://github.com/seiyria/Roguathia/issues/25)
+* **game:** default unlocked data is also unlocked by default and does not require repurchas ([7d712f6](https://github.com/seiyria/Roguathia/commit/7d712f6)), closes [#23](https://github.com/seiyria/Roguathia/issues/23)
+* **ui:** the correct number of slots taken is now displayed ([4ec8ba2](https://github.com/seiyria/Roguathia/commit/4ec8ba2)), closes [#21](https://github.com/seiyria/Roguathia/issues/21)
+* **ui:** upgrade currency is now entirely uppercase to match convention of the rest of th ([a675209](https://github.com/seiyria/Roguathia/commit/a675209)), closes [#34](https://github.com/seiyria/Roguathia/issues/34)
+
+
+
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/seiyria/Roguathia/compare/0.2.4...0.2.5) (2015-12-02)
+
+
+### Features
+
+* **game:** sp/kp are cached while the game runs now and will be added upon restart if the g ([e0559d5](https://github.com/seiyria/Roguathia/commit/e0559d5)), closes [#37](https://github.com/seiyria/Roguathia/issues/37)
 
 
 

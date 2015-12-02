@@ -29,6 +29,6 @@ script(type="text/ng-template", id="upgrades")
 script(type="text/ng-template", id="upgrade-block")
   .col-xs-12(uib-tooltip="{{upgrade.help}}", tooltip-placement="right", tooltip-append-to-body="true") {{upgrade.name}}
   .col-xs-6
-    span {{upgrade.cost | number:0}} {{upgrade.currency}}
+    span {{upgrade.cost | number:0}} {{upgrade.currency | uppercase}}
   .col-xs-6
     button.btn.btn-link.margin-0(ng-disabled="currencyDataManager.currency[upgrade.currency] < upgrade.cost", ng-click="buyUpgrade(upgrade)") Buy
