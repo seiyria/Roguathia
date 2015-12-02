@@ -16,7 +16,7 @@ module.filter('visibleUpgrades', (CurrencyDataManager, UpgradeDataManager) => {
   };
 });
 
-module.controller('Upgrades', ($scope, CurrencyDataManager, UpgradeDataManager, TemplateDataManager) => {
+module.controller('Upgrades', ($scope, $localStorage, CurrencyDataManager, UpgradeDataManager, TemplateDataManager) => {
 
   $scope.upgrades = Upgrades;
   $scope.upgradeDataManager = UpgradeDataManager;
@@ -42,14 +42,32 @@ module.controller('Upgrades', ($scope, CurrencyDataManager, UpgradeDataManager, 
     SetState(newState);
   };
 
+  const getCurrencyFrom = (store) => {
+    _.each(['sp', 'kp', 'vp'], key => {
+      const add = store[`${key}Earned`] || 0;
+      CurrencyDataManager.addCurrency(key, add);
+    });
+  };
+
+  if($localStorage.saveStateCache) {
+    getCurrencyFrom($localStorage.saveStateCache);
+    $localStorage.saveStateCache = null;
+  }
+
   rebuildUpgrades();
   StartGameCycle();
 
+  GameState.on('redraw', () => {
+    $localStorage.saveStateCache = {
+      spEarned: GameState.spEarned,
+      kpEarned: GameState.kpEarned
+    };
+  });
+
   GameState.on('gameover', () => {
-    _.each(['sp', 'kp', 'vp'], key => {
-      const add = GameState[`${key}Earned`] || 0;
-      CurrencyDataManager.addCurrency(key, add);
-    });
+    getCurrencyFrom(GameState);
+
+    $localStorage.saveStateCache = null;
 
     rebuildUpgrades();
 
