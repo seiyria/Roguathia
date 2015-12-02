@@ -1,6 +1,16 @@
-<a name="0.2.3"></a>
-## [0.2.3](https://github.com/seiyria/Roguathia/compare/0.2.3...v0.2.3) (2015-12-01)
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/seiyria/Roguathia/compare/0.2.4...v0.2.4) (2015-12-02)
 
+
+
+
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/seiyria/Roguathia/compare/0.2.3...0.2.4) (2015-12-02)
+
+
+### Bug Fixes
+
+* **ai:** the AI should no longer jitter ([49ccadd](https://github.com/seiyria/Roguathia/commit/49ccadd))
 
 
 
