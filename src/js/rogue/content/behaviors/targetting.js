@@ -93,7 +93,10 @@ class WandersBehavior extends Behavior {
 export const Wanders = () => new WandersBehavior();
 
 class ExploresDungeonBehavior extends Behavior {
-  constructor() { super(Priority.MOVE); }
+  constructor() {
+    super(Priority.MOVE);
+    this.targets = [];
+  }
 
   getCentralCoords(room) {
     return {
@@ -102,14 +105,14 @@ class ExploresDungeonBehavior extends Behavior {
     };
   }
 
-  checkForRoomActivity(me) {
+  checkForRoomActivity(me, ignoreCurrent = true) {
     // mark the current room, if any, as explored
     const currentRoom = _.find(GameState.world.tiles[me.z].rooms, room => {
       return room._x1 < me.x && room._x2 > me.x &&
-        room._y1 < me.y && room._x2 > me.y;
+        room._y1 < me.y && room._y2 > me.y;
     });
 
-    if(!currentRoom) return;
+    if(!currentRoom || (ignoreCurrent && _.isEqual(this.target, this.getCentralCoords(currentRoom)))) return;
     currentRoom.isExplored = true;
   }
 
@@ -117,81 +120,84 @@ class ExploresDungeonBehavior extends Behavior {
     this.pathToTarget = me.simplePathingMap(this.target.x, this.target.y);
   }
 
+  buildListOfTargets(me) {
+    this.targets = _.map(GameState.world.tiles[me.z].rooms, room => {
+      const { x, y } = this.getCentralCoords(room);
+      room.x = x;
+      room.y = y;
+      room.isRoom = true;
+      return room;
+    });
+  }
+
+  findMatchingTarget() {
+    return _.findWhere(this.targets, this.target);
+  }
+
+  addTarget(targets) {
+    this.targets.unshift(...targets);
+    this.targets = _.uniq(this.targets);
+  }
+
+  removeTarget(target) {
+    this.targets = _.without(this.targets, target);
+  }
+
   act(me) {
+
     if(!me._path) return;
 
-    const rooms = GameState.world.tiles[me.z].rooms;
-
-    // take a random step if you've explored all the rooms
-    if(_.all(rooms, room => room.isExplored)) {
-      me.stepRandomly();
-      return;
+    if(!this.targets.length) {
+      this.buildListOfTargets(me);
     }
 
-    let doRebuild = false;
-
-    // prioritize a new room last
-    if(!this.target && !this.nextRoom) {
-      this.nextRoom = _.sample(_.reject(rooms, room => room.isExplored));
+    // take a random step if you've explored everything
+    if(_.all(this.targets, room => room.isExplored)) {
+      me.stepRandomly();
+      return;
     }
 
     const meSight = me.getSight();
 
     // check for stairs down but only if you're not on the last floor (because those stairs down don't do anything if they're there)
     this.stairsInRange = GameState.world.getValidTilesInRange(me.x, me.y, me.z, meSight, tile => tile.constructor.name === 'StairsDown')[0];
+    if(this.stairsInRange && GameState.currentFloor !== GameState.world.depth-1) this.addTarget([this.stairsInRange]);
 
     const tilesWithItems = GameState.world.getValidTilesInRange(me.x, me.y, me.z, meSight, tile => {
       const items = GameState.world.getItemsAt(tile.x, tile.y, me.z);
       return items && items.length > 0;
     });
 
-    if(tilesWithItems.length > 0) {
-      this.targetTile = tilesWithItems[0];
-    }
+    this.addTarget(tilesWithItems);
 
-    if(this.targetTile) {
-      this.target = { x: this.targetTile.x, y: this.targetTile.y };
-      doRebuild = true;
-      console.log('targetting tile');
+    const nextTarget = _.find(this.targets, t => !t.isExplored);
+    this.target = { x: nextTarget.x, y: nextTarget.y };
 
-    } else if(this.stairsInRange && GameState.currentFloor !== GameState.world.depth-1) {
-      this.target = { x: this.stairsInRange.x, y: this.stairsInRange.y };
-      doRebuild = true;
-      console.log('targetting stairs');
-
-    } else if(this.nextRoom) {
-      this.target = this.getCentralCoords(this.nextRoom);
-      doRebuild = true;
-      console.log('targetting room');
-
-    }
-
-    if(doRebuild) {
+    if(!this.lastTarget || this.lastTarget && !_.isEqual(this.target, this.lastTarget)) {
       this.rebuildPathToTarget(me);
     }
 
-    // if there is unexplored rooms or stairs in sight, go to the light
-    if(this.target) {
+    this.lastTarget = this.target;
 
-      // no valid path to target.. try wandering around?
-      if(!me.stepTowards(this.target, this.pathToTarget)) {
-        me.stepRandomly();
-      }
-
-      if(this.target.x === me.x && this.target.y === me.y) {
-        this.checkForRoomActivity(me);
-        this.nextRoom.isExplored = true;
-        this.target = this.nextRoom = this.targetTile = this.pathToTarget = this.stairsInRange = null;
-      }
-      return;
+    // no valid path to target.. try wandering around?
+    if(!me.stepTowards(this.target, this.pathToTarget)) {
+      me.stepRandomly();
     }
 
-    // there is nothing, all is vain, step randomly
-    me.stepRandomly();
+    // if we hit the spot we're supposed to hit, clear some stuff up.
+    if(this.target.x === me.x && this.target.y === me.y) {
+      this.checkForRoomActivity(me);
+      const targetItem = this.findMatchingTarget();
+      if(!targetItem.isRoom) this.removeTarget(targetItem);
+    }
   }
 
   step(me) {
-    this.checkForRoomActivity(me);
+    this.checkForRoomActivity(me, false);
+  }
+
+  descend(me) {
+    this.buildListOfTargets(me);
   }
 }
 export const ExploresDungeon = () => new ExploresDungeonBehavior();

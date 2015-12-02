@@ -139,6 +139,7 @@ export default class Player extends Character {
       player.stepRandomly();
     });
 
+    this.doBehavior('descend');
     GameState.world.descend();
     GameState.emit('descend');
   }

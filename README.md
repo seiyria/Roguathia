@@ -46,7 +46,7 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
   * other special events (sitting on a throne, interacting with a fountain, etc)
 
 # Idea Bucket (TBD)
-* Should the number of floors and what each floor was factor into VP? Probably.
+* Should the number of floors and what each floor was factor into VP? Probably. Same with player level.
 * Gravestones should use deaths from other players to spawn occasionally. also, they should get a death message. maybe also store deaths in the firebase
 * Chests and other containers
 * More intricate death messages ("while asleep" "while stunned")
