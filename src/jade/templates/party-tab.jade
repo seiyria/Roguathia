@@ -60,7 +60,7 @@ script(type="text/ng-template", id="player-skills")
 script(type="text/ng-template", id="player-equipment")
   .row.text-center Equipment
   .row(ng-repeat="(slotName, count) in player.raceInst.slots")
-    .col-xs-12.slot-name > {{_.capitalize(slotName)}} ({{player.equipment[slotName].length || 0}}/{{count}} slots used)
+    .col-xs-12.slot-name > {{_.capitalize(slotName)}} ({{ countSlotsTaken(player.equipment[slotName]) }}/{{count}} slots used)
     .col-xs-12(ng-repeat="item in player.equipment[slotName]", ng-include="'player-item'")
 
 script(type="text/ng-template", id="player-inventory")
