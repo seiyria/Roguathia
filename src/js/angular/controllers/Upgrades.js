@@ -32,6 +32,11 @@ module.controller('Upgrades', ($scope, $localStorage, CurrencyDataManager, Upgra
   const rebuildUpgrades = () => {
     const newState = curState = NewState();
 
+    _.each(newState.unlocked.race.concat(newState.unlocked.profession), random => {
+      if(_.contains(UpgradeDataManager.upgrades, `Random: ${random}`)) return;
+      UpgradeDataManager.upgrades.push(`Random: ${random}`);
+    });
+
     _.each(UpgradeDataManager.upgrades, name => {
       const upgrade = _.findWhere(Upgrades, { name });
       if(upgrade && upgrade.operate) upgrade.operate(newState);
