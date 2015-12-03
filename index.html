@@ -8,7 +8,14 @@
   <body>
     <header class="navbar navbar-default">
       <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand">Roguathia</a></div>
+        <div class="navbar-header"><a class="navbar-brand"><span ng-bind="title()">Roguathia</span></a></div>
+        <div ng-if="updateAvailable &amp;&amp; latestTag" ng-cloak class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href>Update Available: v{{latestTag}}</a></li>
+            <li><a target="_blank" href="https://github.com/seiyria/Roguathia/blob/master/CHANGELOG.md" class="btn btn-link">Changelog</a></li>
+            <li><a href="." class="btn btn-link">Refresh</a></li>
+          </ul>
+        </div>
       </div>
     </header>
     <div ng-cloak class="container-fluid">
