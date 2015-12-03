@@ -9,6 +9,7 @@ module.controller('Dungeon', ($scope) => {
   GameState.on('start', () => {
     $scope.world = GameState.world;
     $scope.victory = GameState.winCondition;
+    $scope.currentFloor = GameState.currentFloor;
   });
 
   GameState.on('descend', () => {
