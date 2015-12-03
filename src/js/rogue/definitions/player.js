@@ -137,9 +137,9 @@ export default class Player extends Character {
       if(player.hp.atMin()) return;
       GameState.world.moveEntity(player, stairs[0], stairs[1], newFloor);
       player.stepRandomly();
+      player.doBehavior('descend');
     });
 
-    this.doBehavior('descend');
     GameState.world.descend();
     GameState.emit('descend');
   }
