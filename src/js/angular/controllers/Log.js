@@ -23,7 +23,7 @@ module.controller('Log', ($scope) => {
   };
 
   GameState.on('gameover', () => {
-    addMessage('Game over! Everyone died.', MessageTypes.META);
+    addMessage({ message: 'Game over! Everyone died.', type: MessageTypes.META, turn: $scope.log[$scope.log.length-1].turn+1 });
   });
 
   GameState.on('log', (logObj) => {
