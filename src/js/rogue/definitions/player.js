@@ -13,9 +13,9 @@ export default class Player extends Character {
   
   constructor(x, y, z, opts = {}) {
     opts.stats = { behaviors: [
-      Behaviors.Attacks(),
+      Behaviors.Attacks(), Behaviors.Interacts(), Behaviors.PickUpItems(),
       Behaviors.DropsGold('0d0'), Behaviors.HealsBelowPercent(50),
-      Behaviors.AlertsOnStep()
+      Behaviors.AlertsOnStep(), Behaviors.DropsItems()
     ] };
     super({ key: Glyphs.Player }, x, y, z, opts);
     this.factions.push(Factions.PLAYER);

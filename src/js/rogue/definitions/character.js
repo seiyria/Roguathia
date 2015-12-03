@@ -74,6 +74,8 @@ export default class Character extends Entity {
 
     this.doBehavior('spawn');
 
+    this.behaviors = _.uniq(this.behaviors, b => b.constructor.name);
+
     this.loadStartingEquipment();
     this.loadStartingTraits(opts.template);
     this.loadStartingSkills();
