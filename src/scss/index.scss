@@ -29,6 +29,10 @@
   overflow-x: hidden;
 }
 
+[ng-cloak] {
+  display: none!important;
+}
+
 .msg {
 
   display: table;

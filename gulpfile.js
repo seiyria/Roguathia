@@ -20,7 +20,7 @@ gulp.task('release:patch', ['bump:patch', 'deploy']);
 gulp.task('release:minor', ['bump:minor', 'deploy']);
 gulp.task('release:major', ['bump:major', 'deploy']);
 
-gulp.task('build:all', ['copy:dist', 'build:lib', 'compile:all']);
+gulp.task('build:all', ['copy:dist', 'build:lib', 'compile:all', 'generate:versionjson']);
 gulp.task('compile:all', ['compile:js', 'compile:sass', 'compile:jade']);
 gulp.task('check', ['test', 'build:all']);
 

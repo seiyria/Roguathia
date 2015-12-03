@@ -13,6 +13,8 @@ const currentTag = require('./_common').currentTag;
 
 const versionSources = ['./bower.json', './package.json'];
 
+const execSync = require('child_process').execSync;
+
 const versionStream = (type) => {
   return gulp.src(versionSources)
     .pipe(bump({ type: type }))
@@ -34,6 +36,15 @@ const pushStream = () => {
   git.push();
   git.push('origin', 'master', { args: '--tags' });
 };
+
+gulp.task('generate:versionjson', ['compile:all'], function() {
+  fs.writeFileSync('dist/version.json', JSON.stringify({
+    tag: execSync('git describe --abbrev=0').toString().trim(),
+    hash: execSync('git log --pretty=format:\'%H\' -1').toString().trim(),
+    date: execSync('git log --pretty=format:\'%ad\' --date=short -1').toString().trim(),
+    longDate: execSync('git log --pretty=format:\'%ad\' -1').toString().trim()
+  }));
+});
 
 gulp.task('generate:changelog', () => {
   return changelog({

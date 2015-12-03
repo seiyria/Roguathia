@@ -9,7 +9,18 @@ html(ng-app="Roguathia", ng-controller="Root")
     header.navbar.navbar-default
       .container-fluid
         .navbar-header
-          a.navbar-brand Roguathia
+          a.navbar-brand
+            span(ng-bind="title()") Roguathia
+
+        .navbar-collapse.collapse(ng-if="updateAvailable && latestTag", ng-cloak)
+          ul.nav.navbar-nav
+            li
+              a(href) Update Available: v{{latestTag}}
+            li
+              a.btn.btn-link(target="_blank", href="https://github.com/seiyria/Roguathia/blob/master/CHANGELOG.md") Changelog
+            li
+              a.btn.btn-link(href=".") Refresh
+
 
     .container-fluid(ng-cloak)
       .row.margin-left--30

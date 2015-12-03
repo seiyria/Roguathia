@@ -1,10 +1,27 @@
 
 import module from '../module';
 
-class Root {
+module.controller('Root', ($scope, $http, $interval) => {
 
-  /* ngInject */
-  constructor() {}
-}
+  // get the current version
+  $http.get('version.json').then(res => {
+    $scope.tag = res.data.tag;
+  });
 
-module.controller('Root', Root);
+  // title is either the game name or with the version tag if available
+  $scope.title = () => {
+    if($scope.tag) {
+      return `Roguathia v${$scope.tag}`;
+    }
+
+    return 'Roguathia';
+  };
+
+  // check for an update every 10 minutes
+  $interval(() => {
+    $http.get('https://api.github.com/repos/seiyria/Roguathia/tags').then(res => {
+      $scope.latestTag = res.data ? res.data[0].name : null;
+      $scope.updateAvailable = $scope.tag != $scope.latestTag;
+    });
+  }, 600000);
+});
