@@ -3,7 +3,9 @@ import './controllers/Root';
 import './controllers/Party';
 import './controllers/Log';
 import './controllers/Dungeon';
+import './controllers/Options';
 import './controllers/Upgrades';
+
 
 import './services/UpgradeDataManager';
 import './services/CurrencyDataManager';

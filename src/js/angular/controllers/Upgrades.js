@@ -16,7 +16,7 @@ module.filter('visibleUpgrades', (CurrencyDataManager, UpgradeDataManager) => {
   };
 });
 
-module.controller('Upgrades', ($scope, $localStorage, CurrencyDataManager, UpgradeDataManager, TemplateDataManager) => {
+module.controller('Upgrades', ($scope, $localStorage,$timeout, CurrencyDataManager, UpgradeDataManager, TemplateDataManager) => {
 
   $scope.upgrades = Upgrades;
   $scope.upgradeDataManager = UpgradeDataManager;
@@ -70,13 +70,15 @@ module.controller('Upgrades', ($scope, $localStorage, CurrencyDataManager, Upgra
   });
 
   GameState.on('gameover', () => {
-    getCurrencyFrom(GameState);
 
-    $localStorage.saveStateCache = null;
+    $timeout(function() {
+      getCurrencyFrom(GameState);
 
-    rebuildUpgrades();
+      $localStorage.saveStateCache = null;
 
-    $scope.$apply();
+      rebuildUpgrades();
+    });
+
   });
 
 });
