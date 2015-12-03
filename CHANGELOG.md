@@ -1,6 +1,20 @@
-<a name="0.2.7"></a>
-## [0.2.7](https://github.com/seiyria/Roguathia/compare/0.2.7...v0.2.7) (2015-12-03)
+<a name="0.2.8"></a>
+## [0.2.8](https://github.com/seiyria/Roguathia/compare/0.2.8...v0.2.8) (2015-12-03)
 
+
+
+
+<a name="0.2.8"></a>
+## [0.2.8](https://github.com/seiyria/Roguathia/compare/0.2.7...0.2.8) (2015-12-03)
+
+
+### Bug Fixes
+
+* **log:** the game over message now is generated correctly. ([4619dca](https://github.com/seiyria/Roguathia/commit/4619dca))
+
+### Features
+
+* **ui:** current version is now displayed. additionally, new versions will be looked for  ([4f25b9b](https://github.com/seiyria/Roguathia/commit/4f25b9b)), closes [#45](https://github.com/seiyria/Roguathia/issues/45)
 
 
 
