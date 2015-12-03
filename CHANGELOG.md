@@ -1,6 +1,17 @@
-<a name="0.2.8"></a>
-## [0.2.8](https://github.com/seiyria/Roguathia/compare/0.2.8...v0.2.8) (2015-12-03)
+<a name="0.2.9"></a>
+## [0.2.9](https://github.com/seiyria/Roguathia/compare/0.2.9...v0.2.9) (2015-12-03)
 
+
+
+
+<a name="0.2.9"></a>
+## [0.2.9](https://github.com/seiyria/Roguathia/compare/0.2.8...0.2.9) (2015-12-03)
+
+
+### Bug Fixes
+
+* **ai:** items will now be picked up by players always.. ([aea6e05](https://github.com/seiyria/Roguathia/commit/aea6e05)), closes [#39](https://github.com/seiyria/Roguathia/issues/39)
+* **ui:** refresh button actually works now ([670056a](https://github.com/seiyria/Roguathia/commit/670056a))
 
 
 
