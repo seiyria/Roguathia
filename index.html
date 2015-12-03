@@ -1,2 +1,259 @@
-<!DOCTYPE html><html ng-app="Roguathia" ng-controller="Root"><head><title>Roguathia</title><link rel="stylesheet" href="css/lib.min.css"><link rel="stylesheet" href="css/main.min.css"></head><body><header class="navbar navbar-default"><div class="container-fluid"><div class="navbar-header"><a class="navbar-brand">Roguathia</a></div></div></header><div ng-cloak class="container-fluid"><div class="row margin-left--30"><div class="col-md-7"><div class="row"><div id="game-area" class="col-md-12 text-center"></div></div><div ng-controller="Upgrades" ng-include="'upgrades'" class="row"></div></div><div class="col-md-5"><uib-tabset justified="true"><uib-tab heading="Party"><div ng-controller="Party" ng-include="'party-tab'"></div></uib-tab><uib-tab heading="Dungeon"><div ng-controller="Dungeon" ng-include="'dungeon-tab'"></div></uib-tab><uib-tab heading="Achievements" ng-if="false"><div>achievements</div></uib-tab><uib-tab heading="Log"><log></log></uib-tab><uib-tab heading="Options" ng-if="false"><div>options</div></uib-tab></uib-tabset></div></div></div><script src="js/lib.min.js"></script><script src="js/main.min.js"></script></body></html><script type="text/ng-template" id="dungeon-tab"><div fill-height offset="40" class="dungeon-container"><div class="row margin-bottom-20"><div class="col-xs-4">[Objective]</div><div class="col-xs-8">{{victory.description}}</div></div><div class="row margin-bottom-20"><div class="col-xs-12">{{world.depth}} floors, each {{world.width}}x{{world.height}} tiles</div></div><div ng-repeat="floor in world.tiles" ng-class="{'current-floor': currentFloor === $index}" class="row"><div class="col-xs-4 floor-number">[Floor {{$index+1}}]</div><div class="col-xs-8">{{floor.mapName}}</div></div></div></script><script type="text/ng-template" id="log-tab"><div fill-height offset="40" scroll-bottom="log" class="msg-container"><div ng-if="log.length === 0" class="msg"><div class="string">No Log Messages</div></div><div ng-repeat="msg in log" class="msg"><div ng-bind="::(msg.time | date:'h:mm a')" class="timestamp"></div><div ng-bind="::msg.msg" class="string"></div></div></div></script><script type="text/ng-template" id="party-tab"><div fill-height offset="40"><div class="player-block"><div class="text-center">Members</div><div ng-repeat="player in players" class="margin-bottom-20"><div class="row"><div class="col-xs-12">{{player.hp.atMin() ? '(DEAD)' : ''}} {{player.name}} the {{player.professionInst.title}}<a ng-click="openEditWindow(player, $index)" class="btn btn-link pull-right">Edit</a></div></div><div class="row"><div class="col-xs-12">Level {{player.level}} {{player.getAlign()}} {{player.gender}} {{player.race}} {{player.profession}}</div></div><div class="row"><div class="stat-block col-xs-4">HP:{{player.hp.cur}}/{{player.hp.max}}</div><div class="stat-block col-xs-4">MP:{{player.mp.cur}}/{{player.mp.max}}</div><div class="stat-block col-xs-4">XP:{{player.xp.cur}}/{{player.xp.max}}</div></div><div class="row"><div class="stat-block col-xs-2">STR:{{player.getStat('str')}}</div><div class="stat-block col-xs-2">DEX:{{player.getStat('dex')}}</div><div class="stat-block col-xs-2">CON:{{player.getStat('con')}}</div><div class="stat-block col-xs-2">INT:{{player.getStat('int')}}</div><div class="stat-block col-xs-2">WIS:{{player.getStat('wis')}}</div><div class="stat-block col-xs-2">CHA:{{player.getStat('cha')}}</div></div></div></div><div class="inventory-block"><uib-tabset justified="true"><uib-tab ng-repeat="player in players" heading="{{player.name}}"><div fill-height offset="{{inventoryOffset()}}"><div ng-include="'player-skills'" class="margin-bottom-20"></div><div ng-include="'player-equipment'" class="margin-bottom-20"></div><div ng-include="'player-inventory'"></div></div></uib-tab></uib-tabset></div></div></script><script type="text/ng-template" id="player-item"><div ng-style="{'color': item.glyph.fg}" class="col-xs-1 item-glyph">{{item.glyph.key}}</div><div class="col-xs-8 item-name">{{item.charges}}
-{{item.name || '(empty)'}}<span ng-if="item.slotsTaken &gt; 1">&nbsp;({{item.slotsTaken}} slots)</span></div><div ng-if="item" class="col-xs-3 item-actions"><div uib-dropdown class="btn-group dropup"><button uib-dropdown-toggle class="btn btn-link">Act<span class="caret"></span></button><ul class="uib-dropdown-menu dropdown-menu-right"><li><a ng-if="player.canEquip(item) &amp;&amp; !player.isEquipped(item)" ng-click="player.equip(item)" class="btn btn-link">Equip</a><a ng-if="player.isEquipped(item)" ng-click="player.unequip(item)" ng-disabled="item.isCursed()" class="btn btn-link">Unequip</a><a ng-if="item.canUse(player) &amp;&amp; !player.isEquipped(item)" ng-click="item.use(player)" class="btn btn-link">Use</a><a ng-click="player.dropItem(item)" class="btn btn-link">Drop</a></li></ul></div></div></script><script type="text/ng-template" id="player-skills"><div class="row text-center">Skills</div><div ng-repeat="(type, data) in player.skills | orderBy:'type'" class="row"><div class="col-xs-3 skill-name">{{_.capitalize(type)}}</div><div class="col-xs-6 skill-value">{{player.getSkillLevel(type).name}}</div><div class="col-xs-3 skill-current">({{data.cur}}/{{data.max}})</div></div></script><script type="text/ng-template" id="player-equipment"><div class="row text-center">Equipment</div><div ng-repeat="(slotName, count) in player.raceInst.slots" class="row"><div class="col-xs-12 slot-name">> {{_.capitalize(slotName)}} ({{ countSlotsTaken(player.equipment[slotName]) }}/{{count}} slots used)</div><div ng-repeat="item in player.equipment[slotName]" ng-include="'player-item'" class="col-xs-12"></div></div></script><script type="text/ng-template" id="player-inventory"><div class="row text-center">Inventory ({{player.inventory.length}} items)</div><div ng-if="player.inventory.length === 0" class="row item"><div class="col-xs-12 text-center">Empty</div></div><div ng-repeat="item in player.inventory | orderBy:'name'" ng-include="'player-item'" class="row item"></div></script><script type="text/ng-template" id="player-edit"><div class="modal-header"><h3 class="modal-title">Editing Player {{index+1}}</h3></div><div class="modal-body data-align"><div class="row"><div class="col-md-4 data-field">Name</div><div class="col-md-8"><input ng-model="templateDataManager.templates[index].name" placeholder="Random" ng-disabled="!upgradeDataManager._hasUpgrade('Rename Tag')" class="form-control"></div></div><div class="row"><div class="col-md-4 data-field">Gender</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].gender" ng-options="gender.val as gender.key for gender in genders" class="form-control"></select></div></div><div class="row"><div class="col-md-4 data-field">Alignment</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].align" ng-options="align.val as align.key for align in aligns" class="form-control"></select></div></div><div class="row"><div class="col-md-4 data-field">Race</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].race" ng-options="race.val as race.key for race in races" class="form-control"></select></div></div><div class="row"><div class="col-md-4 data-field">Class</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].profession" ng-options="class.val as class.key for class in professions" class="form-control"></select></div></div><div class="row"><div class="col-md-4 data-field">Color</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].color" ng-options="color.val as color.key for color in colors" ng-disabled="!upgradeDataManager._hasUpgrade('Color Tag')" class="form-control"></select></div></div><div class="row"><div class="col-md-4 data-field">Greater Trait</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].trait.greater" ng-options="trait.val as trait.key for trait in greater" class="form-control"></select></div></div><div class="row"><div class="col-md-4 data-field">Lesser Trait</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].trait.lesser" ng-options="trait.val as trait.key for trait in lesser" class="form-control"></select></div></div><div class="row"><div class="col-md-4 data-field">Utility Trait</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].trait.utility" ng-options="trait.val as trait.key for trait in utility" class="form-control"></select></div></div><div class="row"><div class="col-md-4 data-field">Buff</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].trait.buff" ng-options="trait.val as trait.key for trait in buff" class="form-control"></select></div></div><div class="row"><div class="col-md-4 data-field">AI</div><div class="col-md-8"><select ng-model="templateDataManager.templates[index].ai" ng-options="ai.val as ai.key for ai in ais" class="form-control"></select></div></div></div><div class="modal-footer"><div class="pull-left">*Changes reflected during future games only</div><button ng-click="close()" class="btn btn-default">Close</button></div></script><script type="text/ng-template" id="upgrades"><div class="col-md-12 margin-bottom-15"><div class="row padding-left-15"><div class="col-xs-4"><span uib-tooltip="SP is earned by taking steps and earning score. It is used to upgrade your adventurers." tooltip-placement="right" tooltip-append-to-body="true">SP</span><span class="pull-right">{{currencyDataManager.currency.sp | number:0}}</span></div><div class="col-xs-4"><span uib-tooltip="KP is earned by killing monsters. It is used to upgrade your monsters." tooltip-placement="right" tooltip-append-to-body="true">KP</span><span class="pull-right">{{currencyDataManager.currency.kp | number:0}}</span></div><div class="col-xs-4"><span uib-tooltip="VP is earned by winning the game. It is used to upgrade your dungeon." tooltip-placement="right" tooltip-append-to-body="true">VP</span><span class="pull-right">{{currencyDataManager.currency.vp | number:0}}</span></div></div></div><div fill-height offset="390" class="col-md-4"><div ng-if="spUpgrades.length === 0" class="row padding-left-15"><div class="col-xs-12">No upgrades available</div></div><div ng-repeat="upgrade in spUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'sp')" ng-include="'upgrade-block'" class="row padding-left-15 margin-bottom-15"></div></div><div fill-height offset="390" class="col-md-4"><div ng-if="kpUpgrades.length === 0" class="row padding-left-15"><div class="col-xs-12">No upgrades available</div></div><div ng-repeat="upgrade in kpUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'kp')" ng-include="'upgrade-block'" class="row padding-left-15 margin-bottom-15"></div></div><div fill-height offset="390" class="col-md-4"><div ng-if="vpUpgrades.length === 0" class="row padding-left-15"><div class="col-xs-12">No upgrades available</div></div><div ng-repeat="upgrade in vpUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'vp')" ng-include="'upgrade-block'" class="row padding-left-15 margin-bottom-15"></div></div></script><script type="text/ng-template" id="upgrade-block"><div uib-tooltip="{{upgrade.help}}" tooltip-placement="right" tooltip-append-to-body="true" class="col-xs-12">{{upgrade.name}}</div><div class="col-xs-6"><span>{{upgrade.cost | number:0}} {{upgrade.currency | uppercase}}</span></div><div class="col-xs-6"><button ng-disabled="currencyDataManager.currency[upgrade.currency] &lt; upgrade.cost" ng-click="buyUpgrade(upgrade)" class="btn btn-link margin-0">Buy</button></div></script>
+<!DOCTYPE html>
+<html ng-app="Roguathia" ng-controller="Root">
+  <head>
+    <title>Roguathia</title>
+    <link rel="stylesheet" href="css/lib.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+  </head>
+  <body>
+    <header class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand">Roguathia</a></div>
+      </div>
+    </header>
+    <div ng-cloak class="container-fluid">
+      <div class="row margin-left--30">
+        <div class="col-md-7">
+          <div class="row">
+            <div id="game-area" class="col-md-12 text-center"></div>
+          </div>
+          <div ng-controller="Upgrades" ng-include="'upgrades'" class="row"></div>
+        </div>
+        <div class="col-md-5">
+          <uib-tabset justified="true">
+            <uib-tab heading="Party">
+              <div ng-controller="Party" ng-include="'party-tab'"></div>
+            </uib-tab>
+            <uib-tab heading="Dungeon">
+              <div ng-controller="Dungeon" ng-include="'dungeon-tab'"></div>
+            </uib-tab>
+            <uib-tab heading="Achievements" ng-if="false">
+              <div>achievements</div>
+            </uib-tab>
+            <uib-tab heading="Log">
+              <log></log>
+            </uib-tab>
+            <uib-tab heading="Options" ng-if="false">
+              <div>options</div>
+            </uib-tab>
+          </uib-tabset>
+        </div>
+      </div>
+    </div>
+    <script src="js/lib.min.js"></script>
+    <script src="js/main.min.js"></script>
+  </body>
+</html>
+<script type="text/ng-template" id="dungeon-tab">
+  <div fill-height offset="40" class="dungeon-container">
+    <div class="row margin-bottom-20">
+      <div class="col-xs-4">[Objective]</div>
+      <div class="col-xs-8">{{victory.description}}</div>
+    </div>
+    <div class="row margin-bottom-20">
+      <div class="col-xs-12">{{world.depth}} floors, each {{world.width}}x{{world.height}} tiles</div>
+    </div>
+    <div ng-repeat="floor in world.tiles" ng-class="{'current-floor': currentFloor === $index}" class="row">
+      <div class="col-xs-4 floor-number">[Floor {{$index+1}}]</div>
+      <div class="col-xs-8">{{floor.mapName}}</div>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="log-tab">
+  <div fill-height offset="40" scroll-bottom="log" class="msg-container">
+    <div ng-if="log.length === 0" class="msg">
+      <div class="string">No Log Messages</div>
+    </div>
+    <div ng-repeat="msg in log" class="msg">
+      <div class="timestamp">Turn {{::msg.turn}}</div>
+      <div class="string">{{::msg.message}}</div>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="party-tab">
+  <div fill-height offset="40">
+    <div class="player-block">
+      <div class="text-center">Members</div>
+      <div ng-repeat="player in players" class="margin-bottom-20">
+        <div class="row">
+          <div class="col-xs-12">{{player.hp.atMin() ? '(DEAD)' : ''}} {{player.name}} the {{player.professionInst.title}}<a ng-click="openEditWindow(player, $index)" class="btn btn-link pull-right">Edit</a></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">Level {{player.level}} {{player.getAlign()}} {{player.gender}} {{player.race}} {{player.profession}}</div>
+        </div>
+        <div class="row">
+          <div class="stat-block col-xs-4">HP:{{player.hp.cur}}/{{player.hp.max}}</div>
+          <div class="stat-block col-xs-4">MP:{{player.mp.cur}}/{{player.mp.max}}</div>
+          <div class="stat-block col-xs-4">XP:{{player.xp.cur}}/{{player.xp.max}}</div>
+        </div>
+        <div class="row">
+          <div class="stat-block col-xs-2">STR:{{player.getStat('str')}}</div>
+          <div class="stat-block col-xs-2">DEX:{{player.getStat('dex')}}</div>
+          <div class="stat-block col-xs-2">CON:{{player.getStat('con')}}</div>
+          <div class="stat-block col-xs-2">INT:{{player.getStat('int')}}</div>
+          <div class="stat-block col-xs-2">WIS:{{player.getStat('wis')}}</div>
+          <div class="stat-block col-xs-2">CHA:{{player.getStat('cha')}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="inventory-block">
+      <uib-tabset justified="true">
+        <uib-tab ng-repeat="player in players" heading="{{player.name}}">
+          <div fill-height offset="{{inventoryOffset()}}">
+            <div ng-include="'player-skills'" class="margin-bottom-20"></div>
+            <div ng-include="'player-equipment'" class="margin-bottom-20"></div>
+            <div ng-include="'player-inventory'"></div>
+          </div>
+        </uib-tab>
+      </uib-tabset>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="player-item">
+  <div ng-style="{'color': item.glyph.fg}" class="col-xs-1 item-glyph">{{item.glyph.key}}</div>
+  <div class="col-xs-8 item-name">
+    {{item.charges}}
+    {{item.name || '(empty)'}}<span ng-if="item.slotsTaken &gt; 1">&nbsp;({{item.slotsTaken}} slots)</span>
+  </div>
+  <div ng-if="item" class="col-xs-3 item-actions">
+    <div uib-dropdown class="btn-group dropup">
+      <button uib-dropdown-toggle class="btn btn-link">Act<span class="caret"></span></button>
+      <ul class="uib-dropdown-menu dropdown-menu-right">
+        <li><a ng-if="player.canEquip(item) &amp;&amp; !player.isEquipped(item)" ng-click="player.equip(item)" class="btn btn-link">Equip</a><a ng-if="player.isEquipped(item)" ng-click="player.unequip(item)" ng-disabled="item.isCursed()" class="btn btn-link">Unequip</a><a ng-if="item.canUse(player) &amp;&amp; !player.isEquipped(item)" ng-click="item.use(player)" class="btn btn-link">Use</a><a ng-click="player.dropItem(item)" class="btn btn-link">Drop</a></li>
+      </ul>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="player-skills">
+  <div class="row text-center">Skills</div>
+  <div ng-repeat="(type, data) in player.skills | orderBy:'type'" class="row">
+    <div class="col-xs-3 skill-name">{{_.capitalize(type)}}</div>
+    <div class="col-xs-6 skill-value">{{player.getSkillLevel(type).name}}</div>
+    <div class="col-xs-3 skill-current">({{data.cur}}/{{data.max}})</div>
+  </div>
+</script>
+<script type="text/ng-template" id="player-equipment">
+  <div class="row text-center">Equipment</div>
+  <div ng-repeat="(slotName, count) in player.raceInst.slots" class="row">
+    <div class="col-xs-12 slot-name">> {{_.capitalize(slotName)}} ({{countSlotsTaken(player.equipment[slotName])}}/{{count}} slots used)</div>
+    <div ng-repeat="item in player.equipment[slotName]" ng-include="'player-item'" class="col-xs-12"></div>
+  </div>
+</script>
+<script type="text/ng-template" id="player-inventory">
+  <div class="row text-center">Inventory ({{player.inventory.length}} items)</div>
+  <div ng-if="player.inventory.length === 0" class="row item">
+    <div class="col-xs-12 text-center">Empty</div>
+  </div>
+  <div ng-repeat="item in player.inventory | orderBy:'name'" ng-include="'player-item'" class="row item"></div>
+</script>
+<script type="text/ng-template" id="player-edit">
+  <div class="modal-header">
+    <h3 class="modal-title">Editing Player {{index+1}}</h3>
+  </div>
+  <div class="modal-body data-align">
+    <div class="row">
+      <div class="col-md-4 data-field">Name</div>
+      <div class="col-md-8">
+        <input ng-model="templateDataManager.templates[index].name" placeholder="Random" ng-disabled="!upgradeDataManager._hasUpgrade('Rename Tag')" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">Gender</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].gender" ng-options="gender.val as gender.key for gender in genders" class="form-control"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">Alignment</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].align" ng-options="align.val as align.key for align in aligns" class="form-control"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">Race</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].race" ng-options="race.val as race.key for race in races" class="form-control"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">Class</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].profession" ng-options="class.val as class.key for class in professions" class="form-control"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">Color</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].color" ng-options="color.val as color.key for color in colors" ng-disabled="!upgradeDataManager._hasUpgrade('Color Tag')" class="form-control"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">Greater Trait</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].trait.greater" ng-options="trait.val as trait.key for trait in greater" class="form-control"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">Lesser Trait</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].trait.lesser" ng-options="trait.val as trait.key for trait in lesser" class="form-control"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">Utility Trait</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].trait.utility" ng-options="trait.val as trait.key for trait in utility" class="form-control"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">Buff</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].trait.buff" ng-options="trait.val as trait.key for trait in buff" class="form-control"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 data-field">AI</div>
+      <div class="col-md-8">
+        <select ng-model="templateDataManager.templates[index].ai" ng-options="ai.val as ai.key for ai in ais" class="form-control"></select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="pull-left">*Changes reflected during future games only</div>
+    <button ng-click="close()" class="btn btn-default">Close</button>
+  </div>
+</script>
+<script type="text/ng-template" id="upgrades">
+  <div class="col-md-12 margin-bottom-15">
+    <div class="row padding-left-15">
+      <div class="col-xs-4"><span uib-tooltip="SP is earned by taking steps and earning score. It is used to upgrade your adventurers." tooltip-placement="right" tooltip-append-to-body="true">SP</span><span class="pull-right">{{currencyDataManager.currency.sp | number:0}}</span></div>
+      <div class="col-xs-4"><span uib-tooltip="KP is earned by killing monsters. It is used to upgrade your monsters." tooltip-placement="right" tooltip-append-to-body="true">KP</span><span class="pull-right">{{currencyDataManager.currency.kp | number:0}}</span></div>
+      <div class="col-xs-4"><span uib-tooltip="VP is earned by winning the game. It is used to upgrade your dungeon." tooltip-placement="right" tooltip-append-to-body="true">VP</span><span class="pull-right">{{currencyDataManager.currency.vp | number:0}}</span></div>
+    </div>
+  </div>
+  <div fill-height offset="390" class="col-md-4">
+    <div ng-if="spUpgrades.length === 0" class="row padding-left-15">
+      <div class="col-xs-12">No upgrades available</div>
+    </div>
+    <div ng-repeat="upgrade in spUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'sp')" ng-include="'upgrade-block'" class="row padding-left-15 margin-bottom-15"></div>
+  </div>
+  <div fill-height offset="390" class="col-md-4">
+    <div ng-if="kpUpgrades.length === 0" class="row padding-left-15">
+      <div class="col-xs-12">No upgrades available</div>
+    </div>
+    <div ng-repeat="upgrade in kpUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'kp')" ng-include="'upgrade-block'" class="row padding-left-15 margin-bottom-15"></div>
+  </div>
+  <div fill-height offset="390" class="col-md-4">
+    <div ng-if="vpUpgrades.length === 0" class="row padding-left-15">
+      <div class="col-xs-12">No upgrades available</div>
+    </div>
+    <div ng-repeat="upgrade in vpUpgrades = (upgrades | orderBy:'name' | visibleUpgrades:'vp')" ng-include="'upgrade-block'" class="row padding-left-15 margin-bottom-15"></div>
+  </div>
+</script>
+<script type="text/ng-template" id="upgrade-block">
+  <div uib-tooltip="{{upgrade.help}}" tooltip-placement="right" tooltip-append-to-body="true" class="col-xs-12">{{upgrade.name}}</div>
+  <div class="col-xs-6"><span>{{upgrade.cost | number:0}} {{upgrade.currency | uppercase}}</span></div>
+  <div class="col-xs-6">
+    <button ng-disabled="currencyDataManager.currency[upgrade.currency] &lt; upgrade.cost" ng-click="buyUpgrade(upgrade)" class="btn btn-link margin-0">Buy</button>
+  </div>
+</script>
