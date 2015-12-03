@@ -1,6 +1,22 @@
-<a name="0.2.6"></a>
-## [0.2.6](https://github.com/seiyria/Roguathia/compare/0.2.6...v0.2.6) (2015-12-02)
+<a name="0.2.7"></a>
+## [0.2.7](https://github.com/seiyria/Roguathia/compare/0.2.7...v0.2.7) (2015-12-03)
 
+
+
+
+<a name="0.2.7"></a>
+## [0.2.7](https://github.com/seiyria/Roguathia/compare/0.2.6...0.2.7) (2015-12-03)
+
+
+### Bug Fixes
+
+* **ai:** clear all player target lists when one descends ([5ef7122](https://github.com/seiyria/Roguathia/commit/5ef7122))
+* **game:** comestibles are now autoremoved ([e3ec6da](https://github.com/seiyria/Roguathia/commit/e3ec6da)), closes [#43](https://github.com/seiyria/Roguathia/issues/43)
+* **game:** dungeon level is reset when a new game starts ([4fde598](https://github.com/seiyria/Roguathia/commit/4fde598)), closes [#44](https://github.com/seiyria/Roguathia/issues/44)
+
+### Features
+
+* **log:** the log now uses turns instead of time to be more granular. ([6a8d064](https://github.com/seiyria/Roguathia/commit/6a8d064)), closes [#38](https://github.com/seiyria/Roguathia/issues/38)
 
 
 
