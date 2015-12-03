@@ -58,6 +58,10 @@ gulp.task('bump:patch:tag', () => versionStream('patch'));
 gulp.task('bump:minor:tag', () => versionStream('minor'));
 gulp.task('bump:major:tag', () => versionStream('major'));
 
-gulp.task('bump:patch:commit', () => runSequence('bump:patch:tag', 'generate:changelog', () => commitStream('patch') && pushStream()));
-gulp.task('bump:minor:commit', () => runSequence('bump:minor:tag', 'generate:changelog', () => commitStream('minor') && pushStream()));
-gulp.task('bump:major:commit', () => runSequence('bump:major:tag', 'generate:changelog', () => commitStream('major') && pushStream()));
+gulp.task('bump:patch', () => runSequence('bump:patch:tag', 'generate:versionjson', 'generate:changelog', () => commitStream('patch') && pushStream()));
+gulp.task('bump:minor', () => runSequence('bump:minor:tag', 'generate:versionjson', 'generate:changelog', () => commitStream('minor') && pushStream()));
+gulp.task('bump:major', () => runSequence('bump:major:tag', 'generate:versionjson', 'generate:changelog', () => commitStream('major') && pushStream()));
+
+gulp.task('release:patch', () => runSequence('bump:patch', 'deploy'));
+gulp.task('release:minor', () => runSequence('bump:minor', 'deploy'));
+gulp.task('release:major', () => runSequence('bump:major', 'deploy'));
