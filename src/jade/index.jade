@@ -19,7 +19,7 @@ html(ng-app="Roguathia", ng-controller="Root")
             li
               a.btn.btn-link(target="_blank", href="https://github.com/seiyria/Roguathia/blob/master/CHANGELOG.md") Changelog
             li
-              a.btn.btn-link(href=".") Refresh
+              a.btn.btn-link(href, ng-click="reload()") Refresh
 
 
     .container-fluid(ng-cloak)

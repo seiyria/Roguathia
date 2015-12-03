@@ -1,7 +1,7 @@
 
 import module from '../module';
 
-module.controller('Root', ($scope, $http, $interval) => {
+module.controller('Root', ($scope, $http, $interval, $window) => {
 
   // get the current version
   $http.get('version.json').then(res => {
@@ -16,6 +16,8 @@ module.controller('Root', ($scope, $http, $interval) => {
 
     return 'Roguathia';
   };
+
+  $scope.reload = () => $window.location.reload();
 
   // check for an update every 10 minutes
   $interval(() => {
