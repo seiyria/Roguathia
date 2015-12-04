@@ -20,29 +20,13 @@ module.controller('Party', ($scope, $uibModal, $timeout) => {
     });
   };
 
+  $scope.isBelow = (player, stat, threshold) => (player[stat].cur/player[stat].max*100<threshold);
+  $scope.isAbove = (player, stat, threshold) => (player[stat].cur/player[stat].max*100>threshold);
+
   GameState.on('redraw', () => {
 
     $timeout(function() {
       $scope.players = GameState.players;
-      _.each($scope.players, p => {
-
-        if(p.hp.cur/p.hp.max <= 0.1) {
-          p.healthState = 'text-danger';
-        } else if(p.hp.cur/p.hp.max <= 0.5) {
-          p.healthState = 'text-warning';
-        } else {
-          p.healthState = 'text-muted';
-        }
-
-        if(p.mp.cur/p.mp.max <= 0.1) {
-          p.manaState = 'text-danger';
-        } else if(p.mp.cur/p.mp.max <= 0.5) {
-          p.manaState = 'text-warning';
-        } else {
-          p.manaState = 'text-muted';
-        }
-        
-      });
     });
 
   });
