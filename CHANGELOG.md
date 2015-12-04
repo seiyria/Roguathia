@@ -1,6 +1,22 @@
-<a name="0.2.10"></a>
-## [0.2.10](https://github.com/seiyria/Roguathia/compare/0.2.10...v0.2.10) (2015-12-03)
+<a name="0.2.11"></a>
+## [0.2.11](https://github.com/seiyria/Roguathia/compare/0.2.11...v0.2.11) (2015-12-04)
 
+
+
+
+<a name="0.2.11"></a>
+## [0.2.11](https://github.com/seiyria/Roguathia/compare/0.2.10...0.2.11) (2015-12-04)
+
+
+### Bug Fixes
+
+* **ui:** tooltips now have full names of points ([f9b4049](https://github.com/seiyria/Roguathia/commit/f9b4049)), closes [#48](https://github.com/seiyria/Roguathia/issues/48)
+
+### Features
+
+* **game:** added suicide button ([3265946](https://github.com/seiyria/Roguathia/commit/3265946)), closes [#20](https://github.com/seiyria/Roguathia/issues/20)
+* **ui:** gold and AC are now shown in the party window ([b7e45a8](https://github.com/seiyria/Roguathia/commit/b7e45a8)), closes [#31](https://github.com/seiyria/Roguathia/issues/31)
+* **ui:** there are now filters on the log and they persist to localstorage ([aeef08a](https://github.com/seiyria/Roguathia/commit/aeef08a)), closes [#3](https://github.com/seiyria/Roguathia/issues/3)
 
 
 
