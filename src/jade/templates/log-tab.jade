@@ -1,7 +1,21 @@
 script(type="text/ng-template", id="log-tab")
-  .msg-container(fill-height, offset="40", scroll-bottom="log")
+  .row
+    .col-md-3
+      input(type="checkbox", ng-model="filters.Combat")
+      span &nbsp;Combat
+    .col-md-3
+      input(type="checkbox", ng-model="filters.Dungeon")
+      span &nbsp;Dungeon
+    .col-md-3
+      input(type="checkbox", ng-model="filters.Item")
+      span &nbsp;Item
+    .col-md-3
+      input(type="checkbox", ng-model="filters.Meta")
+      span &nbsp;Meta
+
+  .msg-container(fill-height, offset="60", scroll-bottom="log")
     .msg(ng-if="log.length === 0")
       .string No Log Messages
-    .msg(ng-repeat="msg in log")
+    .msg(ng-repeat="msg in log", ng-if="filters[msg.type]")
       .timestamp Turn {{::msg.turn}}
       .string {{::msg.message}}

@@ -6,7 +6,16 @@ import GameState from '../../rogue/init/gamestate';
 
 import { MessageTypes } from '../../rogue/display/message-handler';
 
-module.controller('Log', ($scope) => {
+module.controller('Log', ($scope, $localStorage) => {
+
+  $localStorage.filters = $localStorage.filters || {
+    Meta: true,
+    Item: true,
+    Combat: true,
+    Dungeon: true
+  };
+
+  $scope.filters = $localStorage.filters;
 
   $scope.log = [];
 
