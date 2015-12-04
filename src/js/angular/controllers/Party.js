@@ -20,6 +20,9 @@ module.controller('Party', ($scope, $uibModal, $timeout) => {
     });
   };
 
+  $scope.isBelow = (player, stat, threshold) => (player[stat].cur/player[stat].max*100<threshold);
+  $scope.isAbove = (player, stat, threshold) => (player[stat].cur/player[stat].max*100>threshold);
+
   GameState.on('redraw', () => {
 
     $timeout(function() {
