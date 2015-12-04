@@ -4,7 +4,7 @@ import _ from 'lodash';
 import module from '../module';
 import GameState from '../../rogue/init/gamestate';
 
-module.controller('Party', ($scope, $uibModal) => {
+module.controller('Party', ($scope, $uibModal, $timeout) => {
 
   $scope.inventoryOffset = () => 60 + document.getElementsByClassName('player-block')[0].offsetHeight;
 
@@ -21,8 +21,11 @@ module.controller('Party', ($scope, $uibModal) => {
   };
 
   GameState.on('redraw', () => {
-    $scope.players = GameState.players;
-    $scope.$apply();
+
+    $timeout(function() {
+      $scope.players = GameState.players;
+    });
+
   });
 });
 

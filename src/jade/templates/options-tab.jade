@@ -1,0 +1,7 @@
+script(type="text/ng-template", id="options-tab")
+  .options-container(fill-height, offset="40")
+    .row.margin-bottom-20.margin-top-20
+      .col-xs-6
+        span Seppuku
+        a.btn.btn-link.pull-right(ng-mouseover='getCurrentSpKp()' ng-click='seppuku("lel")' uib-tooltip="You will gain: {{spEarned}} SP, {{kpEarned}} KP", tooltip-placement="right", tooltip-append-to-body="true") DO IT
+    
