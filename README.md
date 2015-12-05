@@ -19,7 +19,7 @@ If the game whitescreens for you (in Chrome), please disable hardware accelerati
     * Higher KP multiplier
   * VP (you get points for surviving the dungeon, your conduct is worth lots of points)
     * More floor types (caves, mines, towns, etc) (see [here](http://crawl.chaosforge.org/Dungeon_branches) for possible branch types)
-    * Better items generated on the floor
+    * Better items generated on the floor (more charges, enchanted, some items removed from the pool, etc)
     * Possibly unlock a dungeon editor (you can rearrange what floors are in what order, and how many of them spawn)
     * Guaranteed N artifact generations
     * Higher VP multiplier
