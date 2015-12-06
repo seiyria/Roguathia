@@ -9,7 +9,7 @@ export default {
     killXpDivisor: 5,
     minStatValue: 3,
     alignThreshold: 100,
-    baseAC: 10,
+    baseAC: -10,
     spawnSteps: 20,
     nameLength: 12,
 
