@@ -1,14 +1,14 @@
 script(type="text/ng-template", id="upgrades")
   .col-md-12.margin-bottom-15
     .row.padding-left-15
-      .col-xs-4
-        span(uib-tooltip="Score Points (SP) are earned by taking steps and earning score. They are used to upgrade your adventurers.", tooltip-placement="right", tooltip-append-to-body="true") SP
+      .col-xs-4(uib-tooltip="Score Points (SP) are earned by taking steps and earning score. They are used to upgrade your adventurers.", tooltip-placement="top", tooltip-append-to-body="true")
+        span SP
         span.pull-right {{currencyDataManager.currency.sp | number:0}}
-      .col-xs-4
-        span(uib-tooltip="Kill Points (KP) are earned by killing monsters. They are used to upgrade your monsters.", tooltip-placement="right", tooltip-append-to-body="true") KP
+      .col-xs-4(uib-tooltip="Kill Points (KP) are earned by killing monsters. They are used to upgrade your monsters.", tooltip-placement="top", tooltip-append-to-body="true")
+        span KP
         span.pull-right {{currencyDataManager.currency.kp | number:0}}
-      .col-xs-4
-        span(uib-tooltip="Victory Poitns (VP) are earned by winning the game. They are used to upgrade your dungeon.", tooltip-placement="right", tooltip-append-to-body="true") VP
+      .col-xs-4(uib-tooltip="Victory Poitns (VP) are earned by winning the game. They are used to upgrade your dungeon.", tooltip-placement="top", tooltip-append-to-body="true")
+        span VP
         span.pull-right {{currencyDataManager.currency.vp | number:0}}
 
   .col-md-4(fill-height, offset="390")
