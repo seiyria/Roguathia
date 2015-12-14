@@ -1,6 +1,22 @@
-<a name="0.2.11"></a>
-## [0.2.11](https://github.com/seiyria/Roguathia/compare/0.2.11...v0.2.11) (2015-12-04)
+<a name="0.2.12"></a>
+## [0.2.12](https://github.com/seiyria/Roguathia/compare/0.2.12...v0.2.12) (2015-12-14)
 
+
+
+
+<a name="0.2.12"></a>
+## [0.2.12](https://github.com/seiyria/Roguathia/compare/0.2.11...0.2.12) (2015-12-14)
+
+
+### Bug Fixes
+
+* **items:** relevant gauntlets are now two-handed ([81a955d](https://github.com/seiyria/Roguathia/commit/81a955d)), closes [#68](https://github.com/seiyria/Roguathia/issues/68)
+
+### Features
+
+* **ui:** hp and mp are now red < 10%, yellow < 50% ([23f882b](https://github.com/seiyria/Roguathia/commit/23f882b)), closes [#32](https://github.com/seiyria/Roguathia/issues/32)
+* **ui:** hp and mp are now red < 10%, yellow < 50% ([c74314e](https://github.com/seiyria/Roguathia/commit/c74314e)), closes [#32](https://github.com/seiyria/Roguathia/issues/32)
+* **ui:** Moved SP/KP/VP tooltips to activate when hovering over whole SP/KP/VP display in ([0411dc4](https://github.com/seiyria/Roguathia/commit/0411dc4))
 
 
 
