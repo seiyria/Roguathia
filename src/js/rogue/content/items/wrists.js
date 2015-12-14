@@ -2,11 +2,20 @@
 import { Wrist } from '../../definitions/equipment';
 import { AC } from '../../lib/default-calculations';
 import Materials from '../../constants/materials';
-import { material, rarity } from '../../constants/decorators';
+import { material, rarity, twoHanded } from '../../constants/decorators';
 
 @rarity(45)
 @material(Materials.Leather)
+@twoHanded
 export class LeatherGloves extends Wrist {
+  ac() {
+    return AC(this);
+  }
+}
+
+@rarity(45)
+@material(Materials.Leather)
+export class Bracer extends Wrist {
   ac() {
     return AC(this);
   }
@@ -14,6 +23,7 @@ export class LeatherGloves extends Wrist {
 
 @rarity(10)
 @material(Materials.Leather)
+@twoHanded
 export class GauntletsOfDexterity extends Wrist {
   ac() {
     return AC(this);
@@ -25,6 +35,7 @@ export class GauntletsOfDexterity extends Wrist {
 
 @rarity(10)
 @material(Materials.Leather)
+@twoHanded
 export class GauntletsOfStrength extends Wrist {
   ac() {
     return AC(this);
