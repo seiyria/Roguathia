@@ -13,27 +13,27 @@ export class Gold extends Special {
     };
     super(opts);
     this.goldValue = num;
-    this.name = `${this.goldValue} gold`;
+    this.realName = `${this.goldValue} gold`;
   }
 }
 
 export class Corpse extends Comestible {
   constructor(opts = { monsterName: 'unknown' }) {
     super(opts);
-    this.name = `corpse of ${opts.monsterName}`;
+    this.realName = `corpse of ${opts.monsterName}`;
   }
 }
 
 export class StoneOfSelyk extends Gem {
   constructor() {
     super({ glyph: { fg: SpecialGlyphColors.Selyk } });
-    this.name = `Stone of Selyk`;
+    this.realName = `Stone of Selyk`;
   }
 }
 
 export class SelykCellarKey extends Tool {
   constructor() {
     super({ glyph: { fg: SpecialGlyphColors.Selyk } });
-    this.name = `Selyk's Cellar Key`;
+    this.realName = `Selyk's Cellar Key`;
   }
 }

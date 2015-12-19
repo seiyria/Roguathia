@@ -6,7 +6,7 @@ import { rarity } from '../../constants/decorators';
 export class Ration extends Comestible {
   constructor(opts) {
     super(opts);
-    this.name = 'ration';
+    this.realName = 'ration';
   }
 }
 
@@ -14,7 +14,7 @@ export class Ration extends Comestible {
 export class Apple extends Comestible {
   constructor(opts) {
     super(opts);
-    this.name = 'apple';
+    this.realName = 'apple';
   }
 }
 
@@ -22,6 +22,6 @@ export class Apple extends Comestible {
 export class Carrot extends Comestible {
   constructor(opts) {
     super(opts);
-    this.name = 'carrot';
+    this.realName = 'carrot';
   }
 }

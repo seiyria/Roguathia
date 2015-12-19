@@ -10,6 +10,15 @@ import Log from '../lib/logger';
 import MessageQueue, { MessageTypes } from '../display/message-handler';
 
 export class Item extends Abstract {
+
+  get name() {
+    let name = !this.isIdentified() && this.fakeName ? this.fakeName : this.realName;
+    if(!name) name = this.getCanonName();
+    const enchant = this.enchantment ? `+${this.enchantment} ${name}` : name;
+    const buc = this.bucName !== 'uncursed' ? `${this.bucName} ${enchant}` : enchant;
+    return buc;
+  }
+
   constructor(opts) {
     super(opts);
     opts.glyph = _.extend({ fg: GetColor(), key: opts.symbol }, opts.glyph);

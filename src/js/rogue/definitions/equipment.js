@@ -7,13 +7,6 @@ import Materials from '../constants/materials';
 import { rarity, material } from '../constants/decorators';
 
 class Equipment extends Item {
-  get name() {
-    let name = !this.isIdentified() && this.fakeName ? this.fakeName : this.realName;
-    if(!name) name = this.getCanonName();
-    const enchant = this.enchantment ? `+${this.enchantment} ${name}` : name;
-    const buc = this.bucName !== 'uncursed' ? `${this.bucName} ${enchant}` : enchant;
-    return buc;
-  }
 }
 
 export class Special extends Item {}
@@ -24,6 +17,7 @@ export class Comestible extends Item {
     opts.autoRemove = true;
     opts.symbol = Glyphs.Comestible;
     super(opts);
+    this.canStack = true;
   }
 }
 
@@ -118,6 +112,7 @@ export class Gem extends Item {
     opts.symbol = Glyphs.Gem;
     super(opts);
     this.realName = this.fakeName = `${this.getCanonName()}`;
+    this.canStack = true;
   }
 }
 
@@ -128,6 +123,7 @@ export class Scroll extends Item {
     opts.symbol = Glyphs.Scroll;
     super(opts);
     this.realName = this.fakeName = `${this.getCanonName()}`;
+    this.canStack = true;
   }
 }
 
@@ -161,6 +157,7 @@ export class Potion extends Equipment {
     const fake = this.pickFakeName(Fakes.Potion);
     this.color = fake;
     this.fakeName = `${fake} potion`;
+    this.canStack = true;
   }
   use(entity, extra) {
     super.use(entity, extra);
