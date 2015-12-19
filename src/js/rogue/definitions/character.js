@@ -234,12 +234,18 @@ export default class Character extends Entity {
 
   // region Inventory functions (stacking, add, remove, etc)
   tryToStack(item) {
-    if(!item.charges) return;
+    if(!item.canStack) return;
     let didStack = false;
     _.each(this.inventory, (testItem) => {
-      if(testItem.getType() !== item.getType()) return;
-      if(testItem.buc !== item.buc || testItem.enchantment !== item.enchantment) return;
-      testItem.charges += item.charges;
+      if(didStack) return;
+
+      if(testItem.name !== item.name ||
+         testItem.buc !== item.buc ||
+         testItem.enchantment !== item.enchantment) return;
+
+      if(!testItem.charges) testItem.charges = 1;
+
+      testItem.charges += item.charges ? item.charges : 1;
       didStack = true;
     });
     return didStack;
