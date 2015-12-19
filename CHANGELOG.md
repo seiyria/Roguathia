@@ -2,15 +2,9 @@
 ## [0.2.13](https://github.com/seiyria/Roguathia/compare/0.2.13...v0.2.13) (2015-12-19)
 
 
-
-
-<a name="0.2.13"></a>
-## [0.2.13](https://github.com/seiyria/Roguathia/compare/0.2.12...0.2.13) (2015-12-19)
-
-
 ### Bug Fixes
 
-* **rogue:** item stacking now works properly ([a750efc](https://github.com/seiyria/Roguathia/commit/a750efc)), closes [#57](https://github.com/seiyria/Roguathia/issues/57)
+* **rogue:** item stacking now works properly ([1af0708](https://github.com/seiyria/Roguathia/commit/1af0708)), closes [#71](https://github.com/seiyria/Roguathia/issues/71)
 
 
 
