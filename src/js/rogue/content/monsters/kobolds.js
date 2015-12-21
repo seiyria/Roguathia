@@ -2,6 +2,7 @@
 import * as Behaviors from '../behaviors/_all';
 import * as Attacks from '../attacks/_all';
 import * as Weapons from '../items/_weapons';
+import * as Feets from '../items/feets';
 import * as Spellbooks from '../items/spellbooks';
 import * as Projectiles from '../items/projectiles';
 import { Entities as Glyphs } from '../../constants/glyphs';
@@ -15,7 +16,8 @@ const koboldStartingEquipment = [
       shortsword: () => new Weapons.OrcishShortSword()
     }
   },
-  { probability: 25, init: () => new Projectiles.Dart({ charges: '1d14 + 3' }) }
+  { probability: 25, init: () => new Projectiles.Dart({ charges: '1d14 + 3' }) },
+  { probability: 25, init: () => new Feets.SimpleBoots() }
 ];
 
 export const kobold = { difficulty: 1, spawnPattern: '1d1', frequency: 3, init: () =>

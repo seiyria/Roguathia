@@ -2,6 +2,7 @@
 import * as Behaviors from '../behaviors/_all';
 import * as Traits from '../traits/_all';
 import Attacks from '../attacks/_all';
+import * as Feets from '../items/feets';
 import * as Weapons from '../items/_weapons';
 import * as Projectiles from '../items/projectiles';
 import { Entities as Glyphs } from '../../constants/glyphs';
@@ -65,7 +66,8 @@ export const salamander = { difficulty: 17, spawnPattern: '1d1', frequency: 1, i
           trident: () => new Weapons.Trident(),
           stiletto: () => new Projectiles.Stiletto()
         }
-      }
+      },
+      { probability: 25, init: () => new Feets.SimpleBoots() }
     ],
     attributes: { ac: -11, speed: 100, level: 10, killXp: '20d10', spawnHp: '4d20' },
     stats: { name: 'salamander', race: 'Lizardman',
