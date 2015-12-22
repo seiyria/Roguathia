@@ -31,8 +31,13 @@ module.controller('Log', ($scope, $localStorage) => {
     }
   };
 
+  const addMetaMessage = (msg) => {
+    addMessage({ message: msg, type: MessageTypes.META, turn: $scope.log[$scope.log.length-1].turn+1 });
+  };
+
   GameState.on('gameover', () => {
-    addMessage({ message: 'Game over! Everyone died.', type: MessageTypes.META, turn: $scope.log[$scope.log.length-1].turn+1 });
+    addMetaMessage('Game over! Everyone died.');
+    addMetaMessage(`You earned ${GameState.spEarned} SP and ${GameState.kpEarned} KP.`);
   });
 
   GameState.on('log', (logObj) => {
