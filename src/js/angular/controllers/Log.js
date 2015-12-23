@@ -34,6 +34,11 @@ module.controller('Log', ($scope, $localStorage) => {
   const addMetaMessage = (msg) => {
     addMessage({ message: msg, type: MessageTypes.META, turn: $scope.log[$scope.log.length-1].turn+1 });
   };
+  
+  GameState.on('victory', () => {
+    addMetaMessage('You win!');
+    addMetaMessage(`You earned ${GameState.spEarned} SP, ${GameState.kpEarned} KP, and ${GameState.vpEarned} VP.`);
+  });
 
   GameState.on('gameover', () => {
     addMetaMessage('Game over! Everyone died.');

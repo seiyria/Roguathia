@@ -58,7 +58,7 @@ export default class Game {
   }
 
   win() {
-    GameState.emit('gameover');
+    GameState.emit('victory');
     this.switchScreen(WinScreen);
   }
   
