@@ -12,7 +12,8 @@ const baseState = {
     sinkSpawnChance: 0,
     monsterLimit: 10,
     maxDifficulty: 5,
-    depth: 10
+    depth: 10,
+    squarity: 70
 
    /* itemDropChance: 100,
     altarSpawnChance: 1000,

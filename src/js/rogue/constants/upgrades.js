@@ -170,6 +170,17 @@ for(let i = 0; i < 9; i++) {
   });
 }
 
+for(let i = 0; i < 9; i++) {
+  upgrades.push({
+    name: `Squarer Dungeon ${i+1}`,
+    help: `The dungeon will get wider and taller.`,
+    req: i > 0 ? `Squarer Dungeon ${i}` : null,
+    currency: 'vp',
+    cost: (i+1) * 5,
+    operate: (upgradeData) => upgradeData.dungeon.squarity += 10
+  });
+}
+
 for(let i = 0; i < 5; i++) {
   upgrades.push({
     name: `Lost and Found ${i+1}`,

@@ -105,7 +105,7 @@ export default class Game {
     GameState.winCondition = _(Victories).values().sample();
 
     GameState.world = new World();
-    GameState.world.generateWorld({ depth: GameState.upgrades.depth });
+    GameState.world.generateWorld({ depth: GameState.upgrades.depth, height: GameState.upgrades.squarity, width: GameState.upgrades.squarity });
     const zeroStartStairs = GameState.world.stairs[0].up;
     
     const playerLocations = GameState.world.getValidTilesInRange(
