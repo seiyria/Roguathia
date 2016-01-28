@@ -17,9 +17,8 @@ export default class Profession {
     if(this.titles[this.level-1]) {
       this.title = this.titles[this.level-1];
     }
-    _(this.config)
+    _(this.config.levelUp)
       .keys()
-      .reject(key => _.isObject(this.config[key]))
       .value()
       .forEach(key => {
         const val = loadValue(null, this.config[key]);

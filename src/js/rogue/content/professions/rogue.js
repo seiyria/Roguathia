@@ -16,6 +16,16 @@ const rogueConfig = {
   dex : '2d5',
   wis : '1d2',
   cha : '1d2',
+  levelUp: {
+    hp  : '1d4',
+    mp  : '0d0',
+    str : '1d3',
+    con : '1d2',
+    int : '1d2 - 1',
+    dex : '1d3',
+    wis : '1d2 - 1',
+    cha : '1d2 - 1'
+  },
   titles: ['Footpad',, 'Cutpurse',,, 'Rogue',,, 'Pilferer',,, 'Robber',,, 'Burglar',,, 'Filcher',,, 'Magsrex',,, 'Thief'],
   traits: [Traits.Stealth({ level: 4 })],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Basic, ranged: Thresholds.Basic, slash: Thresholds.Expert, unarmed: Thresholds.Expert, force: Thresholds.Basic },

@@ -15,6 +15,16 @@ const valkyrieConfig = {
   dex : '3d2',
   wis : '1d2',
   cha : '1d2',
+  levelUp: {
+    hp  : '1d4',
+    mp  : '0d0',
+    str : '1d2',
+    con : '1d2',
+    int : '1d2 - 1',
+    dex : '1d2',
+    wis : '1d1',
+    cha : '1d2 - 1'
+  },
   titles: ['Stripling',, 'Skirmisher',,, 'Fighter',,, 'Man-at-arms',,, 'Warrior',,, 'Swashbuckler',,, 'Hero',,, 'Champion',,, 'Lord'],
   traits: [Traits.IceResistance(), Traits.Stealth({ level: 2 }), Traits.Haste({ level: 3, req: 7 })],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Skilled, ranged: Thresholds.Expert, smash: Thresholds.Expert, thrust: Thresholds.Expert, slash: Thresholds.Expert, unarmed: Thresholds.Expert },

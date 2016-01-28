@@ -18,6 +18,17 @@ const touristCfg = {
   wis : '1d2',
   cha : '1d3 + 1',
   luk : '1d3',
+  levelUp: {
+    hp  : '1d5',
+    mp  : '1d2',
+    str : '1d2 - 1',
+    con : '1d2',
+    int : '1d2 - 1',
+    dex : '1d1',
+    wis : '1d2 - 1',
+    cha : '1d2',
+    luk : '1d2 - 1'
+  },
   titles: ['Rambler',, 'Sightseer',,, 'Excursionist',,, 'Perigrinator',,, 'Traveler',,, 'Journeyer',,, 'Voyager',,, 'Explorer',,, 'Adventurer'],
   skillCaps: { bash: Thresholds.Competent, slash: Thresholds.Competent, smash: Thresholds.Competent, stab: Thresholds.Competent, thrust: Thresholds.Competent, unarmed: Thresholds.Competent },
   startingItems: [

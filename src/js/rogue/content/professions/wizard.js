@@ -19,6 +19,16 @@ const wizardCfg = {
   dex : '1d2 - 1',
   wis : '1d2',
   cha : '1d3 - 1',
+  levelUp: {
+    hp  : '1d2 - 1',
+    mp  : '1d4 + 1',
+    str : '1d2 - 1',
+    con : '1d2 - 1',
+    int : '1d2',
+    dex : '1d2 - 1',
+    wis : '1d1',
+    cha : '1d2 - 1'
+  },
   regenHp: 20,
   regenMp: -3,
   titles: ['Evoker',, 'Conjurer',,, 'Thaumaturge',,, 'Magician',,, 'Enchantrex',,, 'Sorcerex',,, 'Necromancer',,, 'Wizard',,, 'Mage'],

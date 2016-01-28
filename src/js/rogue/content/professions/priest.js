@@ -16,6 +16,16 @@ const priestConfig = {
   dex : '1d2',
   wis : '3d2',
   cha : '1d2',
+  levelUp: {
+    hp  : '1d3',
+    mp  : '1d5',
+    str : '1d2 - 1',
+    con : '1d1',
+    int : '1d2',
+    dex : '1d2 - 1',
+    wis : '1d2',
+    cha : '1d2 - 1'
+  },
   titles: ['Aspirant',, 'Acolyte',,, 'Adept',,, 'Priest',,, 'Curate',,, 'Canon',,, 'Lama',,, 'Patriarch',,, 'High Priest'],
   traits: [
     Traits.Warning({ level: 3, req: 15 }), Traits.FireResistance({ req: 20 })

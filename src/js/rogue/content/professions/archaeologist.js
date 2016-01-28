@@ -17,6 +17,16 @@ const archaeologistConfig = {
   dex : '3d3',
   wis : '1d2',
   cha : '1d1',
+  levelUp: {
+    hp  : '1d3',
+    mp  : '0d0',
+    str : '1d2',
+    con : '1d2',
+    int : '1d1',
+    dex : '1d3',
+    wis : '1d2',
+    cha : '1d2 - 1'
+  },
   titles: ['Digger',, 'Field Worker',,, 'Investigator',,, 'Exhumer',,, 'Excavator',,, 'Spelunker',,, 'Speleologist',,, 'Collector',,, 'Curator'],
   traits: [Traits.Stealth({ level: 2 }), Traits.Haste({ level: 2 })],
   skillCaps: { bash: Thresholds.Skilled, stab: Thresholds.Basic, slash: Thresholds.Skilled, unarmed: Thresholds.Expert },

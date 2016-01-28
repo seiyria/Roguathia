@@ -18,6 +18,16 @@ const knightConfig = {
   dex : '3d2',
   wis : '3d2',
   cha : '3d2',
+  levelUp: {
+    hp  : '1d6',
+    mp  : '0d0',
+    str : '1d3',
+    con : '1d3',
+    int : '1d2',
+    dex : '1d3',
+    wis : '1d1',
+    cha : '1d2 - 1'
+  },
   titles: ['Gallant',, 'Esquire',,, 'Bachelor',,, 'Sergeant',,, 'Knight',,, 'Banneret',,, 'Chevalierex',,, 'Seignieur',,, 'Paladin'],
   traits: [Traits.Haste({ level: 2, req: 7 })],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Basic, ranged: Thresholds.Basic, slash: Thresholds.Expert, unarmed: Thresholds.Expert, force: Thresholds.Basic },

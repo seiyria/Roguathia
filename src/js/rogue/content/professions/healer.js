@@ -20,6 +20,16 @@ const healerConfig = {
   dex : '1d2',
   wis : '2d3',
   cha : '1d1',
+  levelUp: {
+    hp  : '1d5',
+    mp  : '2d2',
+    str : '1d1',
+    con : '1d2',
+    int : '1d2',
+    dex : '1d2',
+    wis : '1d3',
+    cha : '1d2 - 1'
+  },
   titles: ['Rhizotomist',, 'Empiric',,, 'Embalmer',,, 'Dresser',,, 'Medicus ossium',,, 'Herbalist',,, 'Magisterex',,, 'Physician',,, 'Chirurgeon'],
   traits: [Traits.Warning({ level: 3, req: 15 }), Traits.PoisonResistance()],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Skilled, ranged: Thresholds.Basic, slash: Thresholds.Basic, unarmed: Thresholds.Basic },

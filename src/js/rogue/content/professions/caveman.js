@@ -16,6 +16,16 @@ const cavemanConfig = {
   dex : '1d2',
   wis : '1d1',
   cha : '1d1',
+  levelUp: {
+    hp  : '1d4',
+    mp  : '0d0',
+    str : '2d2',
+    con : '1d2',
+    int : '1d1',
+    dex : '1d2',
+    wis : '1d1',
+    cha : '0d0'
+  },
   titles: ['Troglodyte',, 'Aborigine',,, 'Wanderer',,, 'Vagrant',,, 'Wayfarer',,, 'Roamer',,, 'Nomad',,, 'Rover',,, 'Pioneer'],
   traits: [Traits.Warning({ level: 3, req: 15 }), Traits.Haste({ level: 2, req: 7 })],
   skillCaps: { bash: Thresholds.Expert, stab: Thresholds.Basic, ranged: Thresholds.Basic, shot: Thresholds.Basic, unarmed: Thresholds.Master },

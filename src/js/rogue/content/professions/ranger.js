@@ -16,6 +16,16 @@ const rangerCfg = {
   dex : '2d5',
   wis : '0d0',
   cha : '1d1',
+  levelUp: {
+    hp  : '1d4',
+    mp  : '0d0',
+    str : '1d2',
+    con : '1d2',
+    int : '1d2',
+    dex : '1d4',
+    wis : '0d0',
+    cha : '1d2 - 1'
+  },
   titles: ['Tenderfoot',, 'Lookout',,, 'Trailblazer',,, 'Reconnoiterex',,, 'Scout',,, 'Arbalester',,, 'Archer',,, 'Sharpshooter',,, 'Marksrex'],
   skillCaps: { ranged: Thresholds.Expert, shot: Thresholds.Expert, stab: Thresholds.Skilled },
   startingItems: [

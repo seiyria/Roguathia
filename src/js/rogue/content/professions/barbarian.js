@@ -16,6 +16,16 @@ const barbarianConfig = {
   dex : '2d2',
   wis : '1d1',
   cha : '1d1',
+  levelUp: {
+    hp  : '1d2',
+    mp  : '0d0',
+    str : '1d3',
+    con : '1d2',
+    int : '1d1',
+    dex : '1d2',
+    wis : '1d1',
+    cha : '1d2 - 1'
+  },
   titles: ['Plunderex',, 'Pillager',,, 'Bandit',,, 'Brigand',,, 'Raider',,, 'Reaver',,, 'Slayer',,, 'Chiefterex',,, 'Conquerex'],
   traits: [Traits.Stealth({ level: 3, req: 15 }), Traits.Haste({ level: 2, req: 7 }), Traits.PoisonResistance()],
   skillCaps: { bash: Thresholds.Skilled, stab: Thresholds.Skilled, ranged: Thresholds.Basic, shot: Thresholds.Basic, slash: Thresholds.Skilled, unarmed: Thresholds.Master },

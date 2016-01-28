@@ -10,6 +10,15 @@ const monsterCfg = {
   dex : '1d1',
   wis : '1d1',
   cha : '1d1',
+  levelUp: {
+    hp  : '1d1',
+    str : '1d1',
+    con : '1d1',
+    int : '1d1',
+    dex : '1d1',
+    wis : '1d1',
+    cha : '1d1'
+  },
   titles: ['Monster'],
   traits: [Traits.Infravision({ level: 7 })]
 };
