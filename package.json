@@ -3,7 +3,7 @@
   "description": "A small roguelike.",
   "readme": "README.md",
   "repository": "https://github.com/seiyria/Roguathia",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "license": "MIT",
   "authors": [
     "Kyle Kemp <kyle@seiyria.com>"

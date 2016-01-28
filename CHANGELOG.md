@@ -1,10 +1,24 @@
-<a name="0.2.13"></a>
-## [0.2.13](https://github.com/seiyria/Roguathia/compare/0.2.13...v0.2.13) (2015-12-19)
+<a name="0.2.14"></a>
+## [0.2.14](https://github.com/seiyria/Roguathia/compare/0.2.14...v0.2.14) (2016-01-28)
+
+
+
+
+<a name="0.2.14"></a>
+## [0.2.14](https://github.com/seiyria/Roguathia/compare/0.2.13...0.2.14) (2016-01-28)
 
 
 ### Bug Fixes
 
+* **monsters:** humanoid monsters can spawn with boots now ([d8a214d](https://github.com/seiyria/Roguathia/commit/d8a214d)), closes [#69](https://github.com/seiyria/Roguathia/issues/69)
 * **rogue:** item stacking now works properly ([1af0708](https://github.com/seiyria/Roguathia/commit/1af0708)), closes [#71](https://github.com/seiyria/Roguathia/issues/71)
+
+### Features
+
+* **log:** the log now tells you how much SP/KP you gained on a game over ([6fb8988](https://github.com/seiyria/Roguathia/commit/6fb8988)), closes [#29](https://github.com/seiyria/Roguathia/issues/29)
+* **rogue:** players now have separate levelup bonuses from their original stat rolls ([8bea765](https://github.com/seiyria/Roguathia/commit/8bea765)), closes [#18](https://github.com/seiyria/Roguathia/issues/18)
+* **rogue:** the game now distinguishes between a win and a game over, with more log messages ([95bae85](https://github.com/seiyria/Roguathia/commit/95bae85)), closes [#49](https://github.com/seiyria/Roguathia/issues/49)
+* **upgrade:** there is now an upgrade that lets you increase the width and height of the dunge ([cc1c667](https://github.com/seiyria/Roguathia/commit/cc1c667))
 
 
 
