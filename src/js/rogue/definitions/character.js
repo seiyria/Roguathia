@@ -138,7 +138,7 @@ export default class Character extends Entity {
   }
 
   getSkillLevel(type) {
-    if(!this.skills[type]) return 0;
+    if(!this.skills[type]) return;
     const curNum = this.skills[type].cur;
     const level = _.reject(SkillThresholds, threshold => threshold.max < curNum)[0];
     return level;
@@ -146,7 +146,7 @@ export default class Character extends Entity {
 
   getSkillLevelValue(type) {
     const level = this.getSkillLevel(type);
-    return Thresholds[level.name];
+    return level ? Thresholds[level.name] : 0;
   }
   // endregion
 
