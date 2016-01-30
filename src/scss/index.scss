@@ -37,6 +37,16 @@
 
   display: table;
 
+  &.death-entry {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .deathstamp {
+    width: 130px;
+    display: table-cell;
+  }
+
   .timestamp {
     width: 130px;
     display: table-cell;

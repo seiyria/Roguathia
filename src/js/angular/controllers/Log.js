@@ -15,7 +15,10 @@ module.controller('Log', ($scope, $localStorage) => {
     Dungeon: true
   };
 
+  $localStorage.deathLog = $localStorage.deathLog || [];
+
   $scope.filters = $localStorage.filters;
+  $scope.deathLog = $localStorage.deathLog;
 
   $scope.log = [];
 
@@ -47,5 +50,24 @@ module.controller('Log', ($scope, $localStorage) => {
 
   GameState.on('log', (logObj) => {
     addMessage(logObj);
+  });
+
+  GameState.on('die', player => {
+    $scope.deathLog.unshift({
+      name: player.name,
+      level: player.level,
+      align: player.getAlign(),
+      gender: player.gender,
+      title: player.professionInst.title,
+      race: player.race,
+      profession: player.profession,
+      floor: GameState.currentFloor,
+      spEarned: player.getScore(),
+      deathTime: Date.now()
+    });
+
+    if($scope.deathLog.length > 25) {
+      $scope.deathLog.pop();
+    }
   });
 });

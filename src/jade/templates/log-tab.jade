@@ -1,21 +1,39 @@
 script(type="text/ng-template", id="log-tab")
-  .row
-    .col-md-3
-      input(type="checkbox", ng-model="filters.Combat")
-      span &nbsp;Combat
-    .col-md-3
-      input(type="checkbox", ng-model="filters.Dungeon")
-      span &nbsp;Dungeon
-    .col-md-3
-      input(type="checkbox", ng-model="filters.Item")
-      span &nbsp;Item
-    .col-md-3
-      input(type="checkbox", ng-model="filters.Meta")
-      span &nbsp;Meta
+  uib-tabset(justified="true")
+    uib-tab(heading="Game Log")
+      .row
+        .col-md-3
+          input(type="checkbox", ng-model="filters.Combat")
+          span &nbsp;Combat
+        .col-md-3
+          input(type="checkbox", ng-model="filters.Dungeon")
+          span &nbsp;Dungeon
+        .col-md-3
+          input(type="checkbox", ng-model="filters.Item")
+          span &nbsp;Item
+        .col-md-3
+          input(type="checkbox", ng-model="filters.Meta")
+          span &nbsp;Meta
 
-  .msg-container(fill-height, offset="60", scroll-bottom="log")
-    .msg(ng-if="log.length === 0")
-      .string No Log Messages
-    .msg(ng-repeat="msg in log", ng-if="filters[msg.type]")
-      .timestamp Turn {{::msg.turn}}
-      .string {{::msg.message}}
+      .msg-container(fill-height, offset="80", scroll-bottom="log")
+        .msg(ng-if="log.length === 0")
+          .string No Log Messages
+        .msg(ng-repeat="msg in log", ng-if="filters[msg.type]")
+          .timestamp Turn {{::msg.turn}}
+          .string {{::msg.message}}
+
+    uib-tab(heading="Hero History")
+      .msg-container(fill-height, offset="80")
+        .msg(ng-if="deathLog.length === 0")
+          .string No Recent Deaths
+        .msg.death-entry(ng-repeat="player in deathLog")
+          .deathstamp
+            div.text-center {{player.deathTime | date:'shortDate'}}
+            div.text-center {{player.deathTime | date:'mediumTime'}}
+          .string
+            div {{::player.name}}, the {{::player.title}}
+            div Level {{::player.level}} {{::player.align}} {{::player.gender}} {{::player.race}} {{::player.profession}}
+            div
+              span(ng-if="player.floor !== 0") Got to dungeon level {{::player.floor+1}}
+              span(ng-if="player.floor === 0") Never left the first level
+              span.pull-right.text-right SP:{{player.spEarned}}

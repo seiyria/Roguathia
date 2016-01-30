@@ -110,7 +110,7 @@ export default class Player extends Character {
     super.die(killer);
 
     GameState.emit('redraw');
-    GameState.emit('die');
+    GameState.emit('die', this);
     GameState.livingPlayers--;
 
     if(_.every(GameState.players, (player) => player.hp.atMin())) {
