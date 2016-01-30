@@ -1,6 +1,20 @@
-<a name="0.2.14"></a>
-## [0.2.14](https://github.com/seiyria/Roguathia/compare/0.2.14...v0.2.14) (2016-01-28)
+<a name="0.2.15"></a>
+## [0.2.15](https://github.com/seiyria/Roguathia/compare/0.2.15...v0.2.15) (2016-01-30)
 
+
+
+
+<a name="0.2.15"></a>
+## [0.2.15](https://github.com/seiyria/Roguathia/compare/0.2.14...0.2.15) (2016-01-30)
+
+
+### Bug Fixes
+
+* **rogue:** monsters now actually fight back and can deal damage when they aren't skilled wi ([e2debac](https://github.com/seiyria/Roguathia/commit/e2debac))
+
+### Features
+
+* **rogue:** there is now a leaderboard that shows the score of each previous player, up to 2 ([0b6ac4b](https://github.com/seiyria/Roguathia/commit/0b6ac4b)), closes [#51](https://github.com/seiyria/Roguathia/issues/51)
 
 
 
