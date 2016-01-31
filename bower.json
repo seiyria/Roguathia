@@ -9,7 +9,7 @@
     "angular-bootstrap": "angular-ui-bootstrap-bower#~0.14.0",
     "dice.js": "~0.7.0",
     "dos-strap": "seiyria/dos-strap",
-    "HackTimer": "https://github.com/turuslan/HackTimer.git",
+    "HackTimer": "turuslan/HackTimer#~1.1.0",
     "ngstorage": "~0.3.7"
   }
 }
