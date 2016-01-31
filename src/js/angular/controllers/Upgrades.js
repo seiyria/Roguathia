@@ -69,8 +69,8 @@ module.controller('Upgrades', ($scope, $localStorage,$timeout, CurrencyDataManag
     };
   });
 
-  GameState.on('gameover', () => {
-
+  const awardCurrency = () => {
+    
     $timeout(function() {
       getCurrencyFrom(GameState);
 
@@ -79,6 +79,9 @@ module.controller('Upgrades', ($scope, $localStorage,$timeout, CurrencyDataManag
       rebuildUpgrades();
     });
 
-  });
+  };
+
+  GameState.on('gameend.gameover', awardCurrency);
+  GameState.on('gameend.victory', awardCurrency);
 
 });

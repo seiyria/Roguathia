@@ -47,6 +47,10 @@ export default class MonsterSpawner {
       Log('MonsterSpawner', `Bad monster ${monsterName}: ${new Error().stack}`);
     }
 
+    if(!tile) {
+      Log('MonsterSpawner', `Bad tile ${JSON.stringify(tile)}`);
+    }
+
     try {
       const monsterOpts = monster.init();
       monsterOpts.difficulty = monster.difficulty;
