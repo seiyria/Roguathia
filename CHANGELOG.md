@@ -1,5 +1,11 @@
-<a name="0.2.16"></a>
-## [0.2.16](https://github.com/seiyria/Roguathia/compare/0.2.16...v0.2.16) (2016-01-31)
+<a name="0.2.17"></a>
+## [0.2.17](https://github.com/seiyria/Roguathia/compare/0.2.17...v0.2.17) (2016-02-01)
+
+
+
+
+<a name="0.2.17"></a>
+## [0.2.17](https://github.com/seiyria/Roguathia/compare/0.2.16...0.2.17) (2016-02-01)
 
 
 
@@ -11,6 +17,10 @@
 ### Bug Fixes
 
 * **rogue:** winning a game will properly give sp/kp/vp ([7e30e8b](https://github.com/seiyria/Roguathia/commit/7e30e8b)), closes [#76](https://github.com/seiyria/Roguathia/issues/76)
+
+### Features
+
+* **rogue:** the game now runs in the background ([2555be0](https://github.com/seiyria/Roguathia/commit/2555be0)), closes [#7](https://github.com/seiyria/Roguathia/issues/7)
 
 
 
