@@ -11,7 +11,7 @@ export default () => {
   debugInitialized = true;
 
   document.body.addEventListener('keydown', (e) => {
-    if(e.keyCode !== ROT.VK_SPACE) return;
+    if(e.keyCode !== ROT.VK_P) return;
     
     GameState.isPaused = !GameState.isPaused;
     
@@ -29,16 +29,18 @@ export default () => {
   });
 
   document.body.addEventListener('keydown', (e) => {
-    if(e.keyCode !== ROT.VK_S) return;
+    if(e.keyCode !== ROT.VK_L) return;
 
     GameState.game.changeSplitScreen();
   });
 
+  /*
   document.body.addEventListener('keydown', (e) => {
     if(e.keyCode !== ROT.VK_D) return;
 
     GameState.players[0].descend();
   });
+  */
 
   document.body.addEventListener('keydown', (e) => {
     if(e.keyCode !== ROT.VK_M) return;
@@ -52,10 +54,15 @@ export default () => {
   document.body.addEventListener('keydown', (e) => {
 
     const offsets = {
-      [ROT.VK_UP]: { x: 0, y: -1 },
-      [ROT.VK_DOWN]: { x: 0, y: 1 },
-      [ROT.VK_LEFT]: { x: -1, y: 0 },
-      [ROT.VK_RIGHT]: { x: 1, y: 0 }
+      [ROT.VK_NUMPAD8]: { x: 0, y: -1 },
+      [ROT.VK_NUMPAD2]: { x: 0, y: 1 },
+      [ROT.VK_NUMPAD4]: { x: -1, y: 0 },
+      [ROT.VK_NUMPAD6]: { x: 1, y: 0 },
+
+      [ROT.VK_NUMPAD1]: { x: -1, y: -1 },
+      [ROT.VK_NUMPAD9]: { x: 1, y: 1 },
+      [ROT.VK_NUMPAD7]: { x: -1, y: 1 },
+      [ROT.VK_NUMPAD3]: { x: 1, y: -1 }
     };
 
     if(!offsets[e.keyCode] || !GameState.manualMove) return;
