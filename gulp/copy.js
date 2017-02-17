@@ -10,12 +10,6 @@ gulp.task('copy:favicon', () => {
     .on('error', util.log);
 });
 
-gulp.task('copy:cname', () => {
-  return gulp.src('CNAME')
-    .pipe(gulp.dest(getPaths().dist))
-    .on('error', util.log);
-});
-
 gulp.task('copy:font', () => {
   return gulp.src(getPaths().font)
     .pipe(gulp.dest(`${getPaths().dist}/fonts`))
@@ -28,4 +22,4 @@ gulp.task('copy:nw', () => {
     .on('error', util.log);
 });
 
-gulp.task('copy:dist', ['copy:favicon', 'copy:font', 'copy:cname']);
+gulp.task('copy:dist', ['copy:favicon', 'copy:font']);
