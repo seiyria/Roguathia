@@ -54,8 +54,8 @@ export default () => {
   document.body.addEventListener('keydown', (e) => {
 
     const offsets = {
-      [ROT.VK_S]: { x: 0, y: -1 },
-      [ROT.VK_W]: { x: 0, y: 1 },
+      [ROT.VK_W]: { x: 0, y: -1 },
+      [ROT.VK_S]: { x: 0, y: 1 },
       [ROT.VK_A]: { x: -1, y: 0 },
       [ROT.VK_D]: { x: 1, y: 0 },
 
@@ -64,10 +64,10 @@ export default () => {
       [ROT.VK_NUMPAD4]: { x: -1, y: 0 },
       [ROT.VK_NUMPAD6]: { x: 1, y: 0 },
 
-      [ROT.VK_NUMPAD1]: { x: -1, y: -1 },
-      [ROT.VK_NUMPAD9]: { x: 1, y: 1 },
-      [ROT.VK_NUMPAD7]: { x: -1, y: 1 },
-      [ROT.VK_NUMPAD3]: { x: 1, y: -1 }
+      [ROT.VK_NUMPAD7]: { x: -1, y: -1 },
+      [ROT.VK_NUMPAD3]: { x: 1, y: 1 },
+      [ROT.VK_NUMPAD1]: { x: -1, y: 1 },
+      [ROT.VK_NUMPAD9]: { x: 1, y: -1 }
     };
 
     if(!offsets[e.keyCode] || !GameState.manualMove) return;
