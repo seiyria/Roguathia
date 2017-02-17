@@ -54,6 +54,11 @@ export default () => {
   document.body.addEventListener('keydown', (e) => {
 
     const offsets = {
+      [ROT.VK_S]: { x: 0, y: -1 },
+      [ROT.VK_W]: { x: 0, y: 1 },
+      [ROT.VK_A]: { x: -1, y: 0 },
+      [ROT.VK_D]: { x: 1, y: 0 },
+
       [ROT.VK_NUMPAD8]: { x: 0, y: -1 },
       [ROT.VK_NUMPAD2]: { x: 0, y: 1 },
       [ROT.VK_NUMPAD4]: { x: -1, y: 0 },
