@@ -8,7 +8,7 @@ class InfravisionTrait extends Trait {
 export const Infravision = (opts) => new InfravisionTrait(opts);
 
 class ProtectionTrait extends Trait {
-  Protection() { return this.level; }
+  Protection() { return -this.level; }
 }
 
 export const Protection = (opts) => new ProtectionTrait(opts);
